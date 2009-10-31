@@ -57,7 +57,7 @@ Edition" and follow the instructions.
 
 Continue with step number 2 in the section entitled: “Configuring Horde Groupware
 Webmail Edition”.  Run the script, home/exim4u/public_html/webmail/scripts/setup.php,
-and select options 2 and 3 in scripts/setup.php. The script may not run option 2
+and select options 1, 2 and 3 in scripts/setup.php. The script may not run option 2
 successfully in configuring mysql unless you remove the master mysql password (root). If
 the script fails to successfully configure mysql using option 2, then you must manually
 setup the mysql database. To do this, go to home/exim4u/public_html/webmail/scripts/sql
@@ -81,7 +81,7 @@ Next, use mysql or phpmyadmin to access the horde data based and change the
 mysql horde password to something secure.  Webmail (Horde) stores the mysql
 password in home/exim4u/public_html/webmail/config/conf.php so you need to
 set the mysql password here as well. Alternatively, you can setup the mysql
-database and login credentials by running option 1 in scripts/setup.php.  
+database and login credentials by running option 1 again in scripts/setup.php.  
 
 Now, you can run scripts/setup.php but only run option 3 to configure the admin 
 settings which is the email address for admin. Continue on Step 3 in the 
