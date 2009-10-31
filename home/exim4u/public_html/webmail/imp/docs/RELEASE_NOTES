@@ -1,0 +1,42 @@
+<?php
+/**
+ * Release focus. Possible values (multiple possible with arrays):
+ * Horde_Release::FOCUS_INITIAL - Initial announcement
+ * Horde_Release::FOCUS_MINORFEATURE - Minor feature enhancement
+ * Horde_Release::FOCUS_MAJORFEATURE - Major feature enhancement
+ * Horde_Release::FOCUS_MINORBUG - Minor bugfixes
+ * Horde_Release::FOCUS_MAJORBUG - Major bugfixes
+ * Horde_Release::FOCUS_MINORSECURITY - Minor security fixes
+ * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
+ * Horde_Release::FOCUS_DOCS - Documentation improvements
+ */
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
+
+/* Mailing list release notes. */
+$this->notes['ml']['changes'] = <<<ML
+The Horde Team is pleased to announce the final release of the Internet
+Messaging Program (IMP) version H3 (4.3.5).
+
+IMP, the Internet Messaging Program, is one of the most popular webmail
+applications available.  It allows universal, web-based access to IMAP and
+POP3 mail servers and provides a full range of features normally found only in
+desktop email clients.
+
+The major changes compared to IMP version H3 (4.3.4) are:
+    * Highlight signed messages depending on the signature verification.
+    * Added hook examples for address book preferences.
+    * Fixed some javascript if using IE 8.
+    * Use correct charset when rendering inline PGP data.
+    * Fixed renaming shared folders contained in empty namespaces.
+    * Fixed spellcheck in text-mode for certain words in non-English locales.
+    * Other minor bugfixes and improvements.
+ML;
+
+/* Freshmeat release notes, not more than 600 characters. */
+$this->notes['fm']['changes'] = <<<FM
+Signed messages are highlighted now depending on the signature verification. Hook examples for the address book preferences have been added. Some javascript if using IE 8 has been fixed. The correct charset is used now when rendering inline PGP data. Spellcheck in text-mode for certain words in non-English locales has been fixed. Other minor bugfixes and improvements have been made.
+FM;
+
+$this->notes['name'] = 'IMP';
+$this->notes['fm']['project'] = 'imp';
+$this->notes['fm']['branch'] = 'Horde 3';

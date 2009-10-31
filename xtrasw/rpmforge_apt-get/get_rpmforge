@@ -1,0 +1,17 @@
+Goto: 
+
+http://dag.wieers.com/rpm/packages/rpmforge-release/
+
+and download the latest version of rpmforge.  Also, goto:
+
+http://dag.wieers.com/rpm/packages/apt/
+
+and download the latest version of apt.
+
+FAQ is here:
+
+http://dag.wieers.com/rpm/FAQ.php#B3
+
+PGP Key for both packages are here:
+
+http://dag.wieers.com/rpm/packages/RPM-GPG-KEY.dag.txt

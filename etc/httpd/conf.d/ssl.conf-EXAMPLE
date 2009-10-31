@@ -1,0 +1,41 @@
+# Example ssl.conf
+LoadModule ssl_module modules/mod_ssl.so
+Listen 0.0.0.0:443
+AddType application/x-x509-ca-cert .crt
+AddType application/x-pkcs7-crl    .crl
+
+# exim4u mod for favicons
+AddType image/x-icon .ico
+
+SSLPassPhraseDialog  builtin
+SSLSessionCache         shmcb:/var/cache/mod_ssl/scache(512000)
+SSLSessionCacheTimeout  300
+SSLMutex default
+SSLRandomSeed startup file:/dev/urandom  256
+SSLRandomSeed connect builtin
+SSLCryptoDevice builtin
+
+<VirtualHost 174.36.1.26:443>
+	DocumentRoot "/home/exim4u/public_html"
+	ServerName DOMAINNAME.TLD:443
+	alias /zpanel /home/exim4u/public_html/admin_menu
+	alias /vexim /home/exim4u/public_html/exim4u
+	<Directory /home/exim4u/public_html/>
+		AllowOverride All
+	</Directory>
+	ServerAdmin SITEADMIN@DOMAINNAME.TLD
+	UseCanonicalName Off
+	ErrorLog logs/ssl_error_log
+	TransferLog logs/ssl_access_log
+	LogLevel warn
+	SSLEngine on
+	SSLProtocol all -SSLv2
+	#SSLCipherSuite ALL:!ADH:!EXPORT:!SSLv2:RC4+RSA:+HIGH:+MEDIUM:+LOW
+	SSLCertificateFile /etc/pki/tls/certs/CERTFILE.cert
+	SSLCertificateKeyFile /etc/pki/tls/private/KEYFILE.key
+	SetEnvIf User-Agent ".*MSIE.*" \
+         nokeepalive ssl-unclean-shutdown \
+         downgrade-1.0 force-response-1.0
+	CustomLog logs/ssl_request_log \
+          "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
+</VirtualHost>                                  
