@@ -1,0 +1,1 @@
+function stripeAllElements(){$$(".striped").each(stripeElement)}function stripeElement(A){var B=["rowEven","rowOdd"],C=[];if(A.tagName=="TABLE"){A.childElements().each(stripeElement);return }else{C=A.childElements()}C.each(function(D){D.removeClassName(B[1]);D.addClassName(B[0]);B.reverse(true)})}document.observe("dom:loaded",stripeAllElements);

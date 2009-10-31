@@ -1,0 +1,230 @@
+               Exim4U Webmail Installation Documentation
+
+
+The Webmail software provided with Exim4U is a modified version of the Horde
+Groupware Suite. Horde can be difficult to install, however, we will hopefully
+demonstrate how to get it done easily with Exim4U.
+
+First, copy home/exim4u/public_html/webmail from this Exim4U distribution to the
+webmail directory in your web root directory. The permissions should be correctly
+set as per horde so don't change them. You should, however, set the ownerships:
+
+From within this directory execute:
+        cp -r * <target document root directory>/webmail
+        chown -R <directory owner>.apache <target document root directory>/webmail
+Example:
+        cp -r * /home/exim4u/public_html/webmail
+        chown -R exim4u.apache /home/exim4u/public_html/webmail
+
+There are a number of files that require read/write apache permission.  There is a
+script to set these permissions automatically in this distribution at 
+xtrasw/webmail_admin/webmail_fix_ownerships.
+
+These are the files that must have read and write permission for the apache user:
+
+webmail/turba/config/conf.bak.php
+webmail/imp/config/conf.bak.php
+webmail/kronolith/config/conf.bak.php
+webmail/mnemo/config/conf.bak.php
+webmail/nag/config/conf.bak.php
+webmail/mimp/config/conf.bak.php
+webmail/config/conf.bak.php
+webmail/ingo/config/conf.bak.php
+webmail/turba/config/conf.php
+webmail/imp/config/conf.php
+webmail/kronolith/config/conf.php
+webmail/mnemo/config/conf.php
+webmail/nag/config/conf.php
+webmail/mimp/config/conf.php
+webmail/dimp/config/conf.php
+webmail/config/conf.php
+webmail/ingo/config/conf.php
+
+The siteadmin password is stored in /webmail/config/conf.php and is backed up to
+webmail/config/conf.bak.php.  So, these files should be set so that the owner
+has read/write access, the group (apache) has read/write access and all other users
+have no access:
+
+	chmod 660 <target document root directory>/webmail/config/conf*php
+Example:
+ 
+	chmod 660  /home/exim4u/public_html/webmail/config/conf*php
+
+You may now proceed to the Horde INSTALL file in the home/exim4u/public_html/webmail/docs
+directory but skip the “Quick Install” and start by reviewing the “Prerequisites”
+section. Then, proceed to the section entitled "Configuring Horde Groupware Webmail
+Edition" and follow the instructions.
+
+Continue with step number 2 in the section entitled: “Configuring Horde Groupware
+Webmail Edition”.  Run the script, home/exim4u/public_html/webmail/scripts/setup.php,
+and select options 2 and 3 in scripts/setup.php. The script may not run option 2
+successfully in configuring mysql unless you remove the master mysql password (root). If
+the script fails to successfully configure mysql using option 2, then you must manually
+setup the mysql database. To do this, go to home/exim4u/public_html/webmail/scripts/sql
+and execute the following command:
+
+	mysql -u root -p < groupware.mysql.sql  (Password is then prompted for input.)
+
+The mysql_create.sql script will create a database called 'horde', and a user
+called 'horde' (with password 'horde') that has full rights to the database. 
+Refer to the README file in the home/exim4u/public_html/webmail/scripts/sql/ 
+directory for more info. After running this script, restart the mysql server:
+
+ mysqladmin --user=root -p reload
+
+Then check if its working OK and that you can access mysql with the horde login 
+that was created by the script:
+
+	mysql --user=horde --password=horde horde
+
+Next, use mysql or phpmyadmin to access the horde data based and change the 
+mysql horde password to something secure.  Webmail (Horde) stores the mysql
+password in home/exim4u/public_html/webmail/config/conf.php so you need to
+set the mysql password here as well. Alternatively, you can setup the mysql
+database and login credentials by running option 1 in scripts/setup.php.  
+
+Now, you can run scripts/setup.php but only run option 3 to configure the admin 
+settings which is the email address for admin. Continue on Step 3 in the 
+docs/INSTALL file and setup the Horde alarms in Horde. Now you are done with 
+the /docs/INSTALL file.
+
+Then, as outlined in step 4 of the Configuring Horde Groupware Webmail Edition
+section, run:
+
+        https://<domainname.com>>/webmail/test.php  (if using SSL)
+or;
+        http://<domainname.com>>/webmail/test.php  (if not using SSL)
+
+Keep installing pear and pecl modules until all red colored prerequisites are
+gone in the test.php scripts display.  Also, several yellow colored prerequisites
+will remain including “PostgreSQL Support” and “memory_limit_value: 96M” which
+keeps on being displayed even if set it to values over 64M. This is OK.
+
+You must install DOM XML support. To install DOM XML support on RedHat/CentOS 5:
+
+                yum install php-dom
+                service httpd restart
+
+Finally, you can access webmail's web interface with:
+
+	https://<domainname.com>>/webmail
+	or;
+	http://<domainname.com>>/webmail
+
+Use the email address and password that you specified when you ran 
+home/exim4u/public_html/webmail/scripts/setup.php.
+
+After you log into the horde web interface, go to:
+
+	Administration > Setup > Horde > Mailer Tab 
+
+and change settings as follows (afterward, save changes by 
+“Generate Horde Configuration”):
+
+ 	Mailer: “Use a SMTP server”.
+ 	Host: “localhost”
+ 	Port: “25”
+ 	Local hostname/domain: “localhost”
+ 	SMTP Authentication: “No Authentication”
+
+Go to: Administration > Setup > Horde > Menu Tab and select the following 
+apps: ingo, imp kronolith, nimp, mnemo, nag and turba.  Now, go to each app 
+(Administration > Setup > App) and specify the menu tab accordingly. DO NOT 
+CONFIGURE THE IMP (MAIL) MENU.  Leave the imp menu empty since it includes 
+everything by default.  Otherwise, it will cause duplicate menus for imp 
+and the other apps.
+
+Go to Administration > Setup > Horde > Database and set the following:
+
+	Database: Mysql
+	Persistent connections: Yes (Check)
+	User Name: horde
+	Password: CHANGE
+	Database Connection: UNIX Sockets
+	Socket: /var/lib/mysql/mysql.sock
+	Database Name: horde
+	Charset: utf-8
+	Split Reads: Disabled
+
+Go to Administration > Setup > Horde > DataTree System
+
+	Backend: SQL Database
+	Driver Config: Horde Defaults
+
+The horde log is /tmp/horde.log.
+
+Here is an example Apache configuration for horde:
+
+#
+# webmail
+#
+<Directory /home/exim4u/public_html/webmail>
+    # Uncomment the following 3 lines to make webmail locally accessible only
+    #Order Deny,Allow
+    #Deny from all
+    #Allow from 127.0.0.1
+
+    Options +FollowSymLinks
+
+    # Webmail's recommended PHP settings:
+    php_admin_flag safe_mode off
+    php_admin_flag magic_quotes_runtime off
+    php_flag session.use_trans_sid off
+    php_flag session.auto_start off
+    php_admin_flag file_uploads on
+    # Optional - required for weather block in webmail to function
+    php_admin_flag allow_url_fopen on
+
+    # If webmail dies while trying to handle large email file attachments,
+    #  you are probably hitting PHP's memory limit.  Raise that limit here,
+    #  but use caution
+    # Set to your preference - memory_limit should be at least 32M
+    #  and be greater than the value set for post_max_size
+    #php_value memory_limit 32M
+    #php_value post_max_size 20M
+    #php_value upload_max_filesize 10M
+
+    # /usr/share/pear is needed for PEAR. /var/www/html/webmail is needed for webmail itself
+    # TODO: Set an appropriate include_path, too. Might even increase speed a bit.
+    php_admin_value open_basedir "/home/exim4u/public_html/webmail:/home/exim4u/public_html/webmail/config:/usr/share/pear:/tmp"
+    php_admin_flag register_globals off
+</Directory>
+
+<Directory /home/exim4u/public_html/webmail/config>
+    Order Deny,Allow
+    Deny from all
+</Directory>
+
+# Deny access to files that are not served directly by the webserver
+<DirectoryMatch "^/home/exim4u/public_html/webmail/(.*/)?(config|lib|locale|po|scripts|templates)/(.*)?">
+    Order Deny,Allow
+    Deny from all
+</DirectoryMatch>
+#
+
+NOTE ABOUT PERMISSIONS:
+
+If the webmail file permissions ever appear to have become mangled
+then, while this is a bit sloppy, you can try resetting them with:
+
+From within this directory execute:
+        chmod -R 755 <target document root directory>/webmail
+Example:
+        chmod -R 755 /home/exim4u/public_html/webmail
+
+Don't forget that the siteadmin password is stored in /webmail/config/conf.php
+and is backed up to webmail/config/conf.bak.php.  So, these files should be set
+so that the owner has read access, the group (apache) has read access and all
+other users have no access:
+
+        chmod 440 <target document root directory>/webmail/config/conf*php
+Example:
+
+        chmod 440  /home/exim4u/public_html/webmail/config/conf*php
+
+
+GENERIC HORDE DOCUMENTATION MAY BE FOUND AT:
+
+     http://www.horde.org/documentation.php
+
+

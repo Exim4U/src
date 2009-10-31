@@ -1,0 +1,77 @@
+<?php
+/**
+ * Release focus. Possible values:
+ * Horde_Release::FOCUS_INITIAL - Initial announcement
+ * Horde_Release::FOCUS_MINORFEATURE - Minor feature enhancement
+ * Horde_Release::FOCUS_MAJORFEATURE - Major feature enhancement
+ * Horde_Release::FOCUS_MINORBUG - Minor bugfixes
+ * Horde_Release::FOCUS_MAJORBUG - Major bugfixes
+ * Horde_Release::FOCUS_MINORSECURITY - Minor security fixes
+ * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
+ * Horde_Release::FOCUS_DOCS - Documentation improvements
+ */
+$this->notes['fm']['focus'] = 0;
+
+/* Mailing list release notes. */
+$this->notes['ml']['changes'] = <<<ML
+The Horde Team is pleased to announce the final release of the Horde Groupware
+Webmail Edition version 1.2.4.
+
+This is a major security release that fixes a vulnerability in the form
+library that allows overwriting of arbitrary local files with the permissions
+of the web server user. It also fixes two XSS vulnerabilities in the
+preference system and the MIME viewer library. The local file vulnerability
+can only be exploited by users who have write permissions to the address
+book. All users are encouraged to upgrade to this release.
+
+Thanks to Stefan Esser from SektionEins for finding the local file issue in a
+code audit, and Martin Geisler and David Wharton for finding the XSS issues.
+
+Horde Groupware Webmail Edition is a free, enterprise ready, browser based
+communication suite. Users can read, send and organize email messages with
+three different webmail interfaces and manage and share calendars, contacts,
+tasks and notes with the standards compliant components from the Horde
+Project.
+
+The major changes compared to the Horde Groupware Webmail Edition version 1.2.3
+are:
+    * Fixed vulnerability in image form fields that allows overwriting of
+      arbitrary local files.
+    * Fixed validation of "number" type preferences.
+    * Fixed displaying unknown text MIME parts inline.
+    * Many synchronization improvements.
+    * Bundled a complete, working PEAR installation.
+    * Improved signup support.
+    * Releasing memcache lock no longer takes 1 second.
+    * Fixes when resetting passwords.
+    * Export current locale to the environment.
+    * Highlight signed messages depending on the signature verification.
+    * Automatically set address book preferences.
+    * Fixed some javascript if using IE 8.
+    * Use correct charset when rendering inline PGP data.
+    * Fixed renaming shared folders contained in empty namespaces.
+    * Fixed spellcheck in text-mode for certain words in non-English locales.
+    * Fix deleting messages after undeleting in dynamic view.
+    * Fix renaming folders with non-7bit characters in dynamic view.
+    * Ignore 'compose_html' preference in IMP in mobile view.
+    * Fix showing Cc and Bcc fields in mobile view.
+    * Various fixes to the maildrop and procmail drivers.
+    * Better default settings for forwards, vacation and spam rules.
+    * Several VFS fixes in filters.
+    * Fixed determination of the spam folder in filters.
+    * Allow to add address lists as event attendees through the address book
+      popup.
+    * Fixed several issues with all-day events.
+    * Display application name as task list name when listing external tasks.
+    * Added passphrase confirmation field for encrypted notes.
+    * Many further bug fixes and feature enhancements.
+ML;
+
+/* Freshmeat release notes, not more than 600 characters. */
+$this->notes['fm']['changes'] = <<<FM
+This is a security release that fixes a vulnerability that allows overwriting of local files, and two XSS vulnerabilities. Synchronization and signup support have been improved. Signed messages are highlighted now depending on the signature verification. Address book preferences are automatically set now. Some javascript if using IE 8 has been fixed. Spellcheck in text-mode for certain words in non-English locales has been fixed. Several issues with all-day events have been fixed. A passphrase confirmation field has been added for encrypted notes.
+FM;
+
+$this->notes['name'] = 'Horde Groupware Webmail Edition';
+$this->notes['fm']['project'] = 'horde-webmail';
+$this->notes['fm']['branch'] = 'Default';

@@ -1,0 +1,5 @@
+# Add backup MX host names to be exempted from most spam checks one per line.
+# Ratelimit checks and spamassassin are not perfomed.
+# However, recipient verify is always performed.
+# Relay host should be exim4u installation for optimum spam protection.
+# backupmx.hostname.tld
