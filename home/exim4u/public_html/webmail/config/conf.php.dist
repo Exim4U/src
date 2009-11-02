@@ -71,3 +71,5 @@ $conf['portal']['fixed_blocks'] = array();
 $conf['imsp']['enabled'] = false;
 $conf['kolab']['enabled'] = false;
 $conf['log']['enabled'] = false;
+$conf['logo']['image'] = '/webmail2/grayExim45b.gif';
+$conf['logo']['link'] = 'http://exim4u.org';
