@@ -3,15 +3,19 @@ ADDITIONAL NOTES AND INSTRUCTIONS FOR EXIM4U
 1) Instruction Notes For Adding A Domain
 
 This procedure will provide Exim4U email and Apache web access 
-for a virtual domain.
+for a virtual domain on RedHat/CentOS 5. For other distros please
+refer to your distro's documentation.
 
 	a) Add the domain as a zone in named.conf.
-	  (Typically /var/named/chroot/etc/named.conf)
+	   (Typically /var/named/chroot/etc/named.conf)
 	b) Add a zone file for the domain.
-   	  (Typically /var/named/chroot/var/named/<zone file>)
+   	   (Typically /var/named/chroot/var/named/<zone file>)
 	c) chown named:named /var/named/chroot/var/named/<zonefile>.
-	d) Add unix user (adduser <user name>).
-	e) Add virtual host to /etc/httpd.conf and restart httpd.
+	d) Add unix user (adduser <user name>). Make the unix user's
+           directory executable for all users. eg.: chmod a+x /home/<user name>.
+           (Otherwise, apache will not work for DocumentRoot subdirectories.)
+	e) Add virtual host to /etc/httpd/conf/httpd.conf and restart httpd.
+           (Or create SSL cert and add virtual host to /etc/httpd/conf.d/ssl.conf)
 	f) Add domain and initial email users in Exim4U.
 
 2) Instruction Notes For Adding Mailman Users to Exim4u
