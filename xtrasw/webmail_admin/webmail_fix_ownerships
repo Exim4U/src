@@ -2,23 +2,43 @@
 #
 # Copyright, 2008, by Gordon Dickens and MailHub4u.com, LLC.
 #
-chgrp apache ./turba/config/conf.bak.php
-chgrp apache ./imp/config/conf.bak.php
-chgrp apache ./kronolith/config/conf.bak.php
-chgrp apache ./mnemo/config/conf.bak.php
-chgrp apache ./nag/config/conf.bak.php
-chgrp apache ./mimp/config/conf.bak.php
-chgrp apache ./config/conf.bak.php
-chgrp apache ./ingo/config/conf.bak.php
-chgrp apache ./turba/config/conf.php
-chgrp apache ./imp/config/conf.php
-chgrp apache ./kronolith/config/conf.php
-chgrp apache ./mnemo/config/conf.php
-chgrp apache ./nag/config/conf.php
-chgrp apache ./mimp/config/conf.php
-chgrp apache ./dimp/config/conf.php
-chgrp apache ./config/conf.php
-chgrp apache ./ingo/config/conf.php
+chown exim4u.apache ./turba/config
+chown exim4u.apache ./imp/config
+chown exim4u.apache ./kronolith/config
+chown exim4u.apache ./mnemo/config
+chown exim4u.apache ./nag/config
+chown exim4u.apache ./mimp/config
+chown exim4u.apache ./dimp/config
+chown exim4u.apache ./config
+chown exim4u.apache ./ingo/config
+#
+chmod 770 ./turba/config
+chmod 770 ./imp/config
+chmod 770 ./kronolith/config
+chmod 770 ./mnemo/config
+chmod 770 ./nag/config
+chmod 770 ./mimp/config
+chmod 770 ./dimp/config
+chmod 770 ./config
+chmod 770 ./ingo/config
+#
+chown exim4u.apache ./turba/config/conf.bak.php
+chown exim4u.apache ./imp/config/conf.bak.php
+chown exim4u.apache ./kronolith/config/conf.bak.php
+chown exim4u.apache ./mnemo/config/conf.bak.php
+chown exim4u.apache ./nag/config/conf.bak.php
+chown exim4u.apache ./mimp/config/conf.bak.php
+chown exim4u.apache ./config/conf.bak.php
+chown exim4u.apache ./ingo/config/conf.bak.php
+chown exim4u.apache ./turba/config/conf.php
+chown exim4u.apache ./imp/config/conf.php
+chown exim4u.apache ./kronolith/config/conf.php
+chown exim4u.apache ./mnemo/config/conf.php
+chown exim4u.apache ./nag/config/conf.php
+chown exim4u.apache ./mimp/config/conf.php
+chown exim4u.apache ./dimp/config/conf.php
+chown exim4u.apache ./config/conf.php
+chown exim4u.apache ./ingo/config/conf.php
 #
 chmod 660 ./turba/config/conf.bak.php
 chmod 660 ./imp/config/conf.bak.php
