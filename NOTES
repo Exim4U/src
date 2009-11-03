@@ -109,10 +109,10 @@ the Exim4U web interface can be used to specify the spam tag score and the spam
 discard score on a per user basis for the local host and on a per domain basis
 for relay domains. The spam discard score is the minimum score for which mail
 is discarded to /dev/null. The spam tag score is the minimum score for which
-mail is tagged as spam and is thereby ultimately placed in the user's spam folder
-instead of the user's inbox on the server. With Exim4U's web interface, spam
-tag and discard scores can be individually specified for all users on the local
-host and for all relay domains.
+mail is tagged as spam and may thereby be optionally placed in the user's spam
+folder instead of the user's inbox on the server. With Exim4U's web interface,
+spam tag and discard scores can be individually specified for each user on the
+local host and for each relay domains
 
 Another interesting feature is that Exim4U does not rely on DNS MX records for relaying
 mail from a relay host to its destination host.  Instead, the destination host is 
