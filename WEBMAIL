@@ -34,7 +34,8 @@ for the configuration files.
 
 There are a number of configuration files that require read/write apache permission.
 There is a script to set these permissions automatically in this distribution at 
-xtrasw/webmail_admin/webmail_fix_ownerships.
+xtrasw/webmail_admin/webmail_fix_ownerships.  This script should be run from the
+./webmail directory.
 
 These are the files that must have read and write permission for the apache user:
 
@@ -158,6 +159,8 @@ support on RedHat/CentOS 5:
                 yum install php-dom
                 service httpd restart
 
+Lastly, set your file permissions as described in section 4 of this WEBMAIL document. 
+
 Finally, you can access webmail's web interface with:
 
 	https://<domainname.com>>/webmail
@@ -209,6 +212,9 @@ following:
 	Backend: SQL Database
 	Driver Config: Horde Defaults
 
+After you have performed all of these configuration tasks then once again
+check your file permissions as described in section 4 of this WEBMAIL document. 
+
 The horde log is /tmp/horde.log.
 
 
@@ -246,11 +252,13 @@ within Webmail using:
 If the login quits working during this procedure then you need to erase your cookies
 in your browser.
 
+Lastly, set your file permissions as described in section 4 of this WEBMAIL document. 
+
 Also, refer to the home/exim4u/public_html/webmail/docs/UPGRADING file in this Exim4U
 distribution and to the Horde instructions for upgrading at:
 
 	http://www.horde.org/webmail/docs/?f=UPGRADING.html
- 
+
 
 3) Example Apache Configuration
 
@@ -306,6 +314,24 @@ Here is an example Apache configuration for horde:
 
 4) File Permissions
 
+When your installation or upgrade is complete the last thing that you should do
+is check the file permissions for the configuration files.
+
+There are a number of configuration files that require read/write apache permission.
+There is a script to set these permissions automatically in this distribution at
+xtrasw/webmail_admin/webmail_fix_ownerships. This script should be run from the
+./webmail directory.
+
+Don't forget that the siteadmin password is stored in /webmail/config/conf.php
+and is backed up to webmail/config/conf.bak.php.  So, these files should be set
+so that the owner has read/write access, the group (apache) has read/write access
+and all other users have no access:
+
+        chmod 660 <target document root directory>/webmail/config/conf*php
+Example:
+
+        chmod 660  /home/exim4u/public_html/webmail/config/conf*php
+
 If the webmail file permissions ever appear to have become mangled
 then, while this is a bit sloppy, you can try resetting them with:
 
@@ -314,15 +340,8 @@ From within this directory execute:
 Example:
         chmod -R 755 /home/exim4u/public_html/webmail
 
-Don't forget that the siteadmin password is stored in /webmail/config/conf.php
-and is backed up to webmail/config/conf.bak.php.  So, these files should be set
-so that the owner has read access, the group (apache) has read access and all
-other users have no access:
-
-        chmod 440 <target document root directory>/webmail/config/conf*php
-Example:
-
-        chmod 440  /home/exim4u/public_html/webmail/config/conf*php
+After which you should then reset the configuration file permissions as described
+above in the first three paragaphs of this section 4 entitled File Permissions.
 
 
 5) Generic Horde Documentation
