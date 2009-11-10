@@ -1,0 +1,17 @@
+			Planned Exim4U Feature Enhancements 
+
+
+1) Implement DKIM for Exim 4.70. This will be Exim4U version 1.2 within which DomainKeys
+will not be supported.  DomainKeys will continue to be supported on Exim4U version 1.1
+with Exim 4.69 for a time frame that has yet to be determined. Note that Exim 4.70's
+implementation of DKIM causes the obsolescence of DomainKeys with Exim.
+
+2) Implement Mail Archiving for both local and relay domains. Include an archived mail
+retrevial methodology and/or system.
+
+3) Admin system wide option for ClamAV to scan both incoming and outgoing mail or 
+alternatively only scan incoming mail. Exim4U currently scans both incoming and outgoing 
+mail. So, this is simply a user option to disable scanning of outgoing mail by ClamAV.
+
+4) User option for whitelisting sender email addresses so that mail from those users
+will not be tagged as spam when the Spamassassin score is greater than the SpamTagScore.
