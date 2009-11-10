@@ -12,10 +12,10 @@ retrevial methodology and/or system.
 
 3) Implement system wide admin option for ClamAV to scan both incoming and outgoing
 mail or alternatively only scan incoming mail. Exim4U currently scans both incoming
-and outgoing mail. So, this is simply a user option to disable scanning of outgoing
+and outgoing mail. So, this is simply an admin option to disable scanning of outgoing
 mail by ClamAV.
 
 4) Implement user option for whitelisting sender email addresses so that mail from
-those users will not be tagged as spam when the Spamassassin score is greater than
+those users will never be tagged as spam when the Spamassassin score is greater than
 the SpamTagScore. Currently, this is achieved with Spamassassin's configuration
 files on a system wide or domain basis.
