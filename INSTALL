@@ -314,14 +314,29 @@ For the report to work properly, six variables must be specified as follows;
 
 You should setup a crontab entry to run spamreport daily.
 
-12 Install the favicon and the placeholder pages for munin and phpadmin to your webserver's
+12. Install and configure the Spam Box Deletion Utility
+
+The Spam Box Deletion Utility removes old spam from the server's spam folders. This utility
+should be run daily and is configured to remove all mail that is over 10 days old from the
+Spam Boxes.
+
+To install the Spam Box Deletion Utility, copy xtrasw/spam_box_delete/spamdel to /usr/local/bin
+or any other directory of your choice:
+
+	cp xtrasw/spam_box_delete/spamdel /usr/local/bin
+
+You should review the script and modify the path to the spam folders according to your
+installation.  Also, you can change the number of days prior to deletion from 10 to whatever
+you prefer therein.
+
+13. Install the favicon and the placeholder pages for munin and phpadmin to your webserver's
    document root directory:
 
 	cp favicon.ico <target document root directory>
 	cp -r munin <target document root directory>
 	cp -r phpadmin <target document root directory>
 
-13. Now, the document root of your apache website installation should have all of the files
+14. Now, the document root of your apache website installation should have all of the files
     and directories that are contained in this distribution in home/exim4u/public_html as
     follows:
 
@@ -334,6 +349,6 @@ You should setup a crontab entry to run spamreport daily.
 	* phpadmin - Directory containing the phpmyadmin place holder or output files.
 	* webmail - Directory containing the webmail (horde) php scripts.
 
-14. Install Optional Software; Mailman, Munin, phpmyadmin and Webmin.
+15. Install Optional Software; Mailman, Munin, phpmyadmin and Webmin.
 
-15. Done!
+16. Done!
