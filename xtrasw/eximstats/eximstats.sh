@@ -1,7 +1,7 @@
 #!/bin/sh
 # Eximstats Report Generation Script
 #
-# Copyright, 2009, by Gordon Dickens and MailHub4u.com, LLC.
+# Copyright (c) 2009 MailHub4U.com, LLC
 #
 # Generate report from yesterdays log file.
 #

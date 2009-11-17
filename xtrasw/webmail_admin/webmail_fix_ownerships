@@ -1,6 +1,6 @@
 # exim4u: Script to properly setup file onwerships in webmail
 #
-# Copyright, 2008, by Gordon Dickens and MailHub4u.com, LLC.
+# Copyright (c) 2009 MailHub4U.com, LLC
 #
 chown exim4u.apache ./turba/config
 chown exim4u.apache ./imp/config

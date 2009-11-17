@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2009 Gordon Dickens and MailHub4U.com, LLC
+-- Copyright (c) 2009 MailHub4U.com, LLC
 --
 -- Script to upgrade mysql database from vexim to exim4u
 --

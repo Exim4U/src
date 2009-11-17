@@ -1,7 +1,7 @@
 #!/bin/sh
 # Script to tidy exim databases.
 #
-# Copyright, 2009, by Gordon Dickens and MailHub4u.com, LLC.
+# Copyright (c) 2009 MailHub4U.com, LLC
 #
 /usr/sbin/exim_tidydb -t 7d /var/spool/exim callout;
 /usr/sbin/exim_tidydb -t 10d /var/spool/exim ratelimit;
