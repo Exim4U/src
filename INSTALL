@@ -70,8 +70,8 @@ deletes entries from the greylist table that are older than 7 days:
 	cp xtrasw/exim-greylist/greylist-tidy.sh /etc/cron.daily
 
 Install spf perl module
-Install perl-Mail-SPF-Query. A tarball of this perl module is included with Exim4U
-in the xtrasw/perl-Mail-SPF-Query directory. (RedHat/CentOS 5 RPM is also included)
+Install perl-Mail-SPF-Query. This perl module may be downloaded from the CPAN site
+as described in xtrasw/get_Mail-SPF-Query. (RedHat/CentOS 5 RPM info also included.)
 To install the perl tarball:
 
 	gzip -dc Mail-SPF-Query-1.999.1.tar.gz | tar -xof -

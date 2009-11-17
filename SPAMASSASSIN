@@ -219,8 +219,8 @@ will be higher thus leading to better spam detection.
 
 	http://wiki.apache.org/spamassassin/UsingPyzor
 
-   For RedHat/CentOS users, the ATRPMS repository at http://atrpms.net/dist/el5/pyzor/ has an rpm which is included
-   in this distribution within the xtrasw directory:
+   For RedHat/CentOS users, the ATRPMS repository at http://atrpms.net/dist/el5/pyzor/ has a Pyzor rpm which
+   you may opt to use instead.
 
 	xtrasw/pyzor/pyzor-0.4.0-9.0.el5.noarch.rpm
 
@@ -237,7 +237,7 @@ will be higher thus leading to better spam detection.
 
    If you get a “gdbm found”, you’re all set. If not:
 
-	* For RedHat/CentOS run: yum install gdbm
+	* For RedHat/CentOS 5 run: yum install gdbm
 	* For Debian, Gentoo and FreeBSD, instructions for obtaining the gdbm module are found in Pyzor's INSTALL
 	  file in the root directory of the Pyzor download.
 
