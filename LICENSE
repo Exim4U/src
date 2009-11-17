@@ -6,7 +6,8 @@
 Exim4U
 ------
 
-This License and Terms of Use statement applies to all software 
+Except as outlined below under the heading "Other Software Licenses",
+this License and Terms of Use statement applies to all software 
 and documentation provided with the Exim4U product including, 
 but not limited to; all php files, all exim configuration files,
 all shell scripts, all other configuration files, all other
@@ -34,6 +35,14 @@ profits; or business interruption) however caused and on any theory
 of liability, whether in contract, strict liability, or tort
 (including negligence or otherwise) arising in any way out of the use
 of this software, even if advised of the possibility of such damage.
+
+
+Other Software Licenses
+-----------------------
+
+Several other software products are integrated with Exim4U and which
+have their own software licenses and terms of use.  These other products
+are Vexim, Horde and Exim which are licensed seperately as follows.
 
 Vexim
 -----
@@ -67,7 +76,6 @@ following describes Vexim's terms of use:
    (including negligence or otherwise) arising in any way out of the use
    of this software, even if advised of the possibility of such damage.
 
-
 Horde
 -----
 
@@ -78,4 +86,15 @@ The Horde applications are free software provided under the GNU Library
 General Public License, Version 2, dated June 1991 which is described here:
 
 http://www.horde.org/licenses/lgpl.php
+
+Exim
+----
+
+Exim is distributed under the terms of the GNU General Public Licence,
+a copy of which may be found in the file LICENCE in the Exim source
+distribution and the conditions for the use of Exim is described in the
+file NOTICE in the Exim source distribution. The Exim source distribution
+may be downloaded here:
+
+http://exim.org/mirrors.html
 
