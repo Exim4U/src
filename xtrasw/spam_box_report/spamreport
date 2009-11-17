@@ -2,7 +2,7 @@
 #
 # Spam Box Report
 #
-# Copyright, 2009, by Gordon Dickens and MailHub4u.com, LLC.
+# Copyright (c) 2009 MailHub4U.com, LLC
 #
 # This report should be run from cron.daily by simply copying this file into /etc/cron.daily.
 #
