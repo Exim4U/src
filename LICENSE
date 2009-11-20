@@ -90,11 +90,12 @@ http://www.horde.org/licenses/lgpl.php
 Exim
 ----
 
-Exim is distributed under the terms of the GNU General Public Licence,
-a copy of which may be found in the file LICENCE in the Exim source
-distribution and the conditions for the use of Exim is described in the
-file NOTICE in the Exim source distribution. The Exim source distribution
-may be downloaded here:
+Exim RPM files from atrpms.net are included with Exim4U which may be used
+with the RedHat/CentOS 5 versions of Linux. Exim is distributed under the
+terms of the GNU General Public Licence, a copy of which may be found in
+the file LICENCE in the Exim source distribution and the conditions for
+the use of Exim is described in the file NOTICE in the Exim source
+distribution. The Exim source distribution may be downloaded here:
 
 http://exim.org/mirrors.html
 
