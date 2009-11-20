@@ -14,7 +14,7 @@ function properly:
       Experimental Domain Keys support is also required if using
       Domain Keys. RPMs for RedHat/CentOS 5 are included with Exim4u.
       (These RPMs include support for mysql, embedded Perl and Domain Keys.)
-    * Mysql - Tested with Version 14.12 Distribution 5.0.77.
+    * MySQL - Tested with Version 14.12 Distribution 5.0.77.
     * Apache - Tested with Version 2.2.3.
     * PHP - Tested on v5.1.6.
     * php-pear-DB - Tested with Version 1.7.13.
