@@ -1,5 +1,6 @@
 ADDITIONAL NOTES AND INSTRUCTIONS FOR EXIM4U
 
+
 1) Instruction Notes For Adding A Domain
 
 This procedure will provide Exim4U email and Apache web access 
@@ -18,6 +19,7 @@ refer to your distro's documentation.
            (Or create SSL cert and add virtual host to /etc/httpd/conf.d/ssl.conf)
 	f) Add domain and initial email users in Exim4U.
 
+
 2) Instruction Notes For Adding Mailman Users to Exim4u
 
 	a) Specify mailman virtual domain in exim configuration file
@@ -27,7 +29,44 @@ refer to your distro's documentation.
 	c) All mailman administrative functions will then be available at:
 	   https://<domainname>/mailman.
 
-3) URIBL AND SURBL Spam Blocking
+
+3) General Discussion About Local Host And Relay Domain Spam Processing
+
+Exim4U has a unique way of handling localhost and relay domain spam processing.
+That is, Exim4U provides the flexibility to coordinate spam processing between
+the relay host and the local host.
+
+First of all, Exim4U provides an initial layer of spam filtering during the SMTP
+connections whereby all mail is filtered regardless if the mail is destined to be
+relayed to another host or delivered to a user on the local host. This initial
+layer of filtering will only reject mail which has a 100% probability of being
+spam.  As an example, all incoming mail will be rejected if its sending IP
+is in the spamhaus RBL, if the recipient does not exist or if the spamassassin
+score is greater than Exim4U's overall reject score (default = 10). Subsequently,
+the Exim4U web interface can be used to specify the spam tag score and the spam
+discard score on a per user basis for the local host and on a per domain basis
+for relay domains. The spam discard score is the minimum score for which mail
+is discarded to /dev/null. The spam tag score is the minimum score for which
+mail is tagged as spam and may thereby be optionally placed in the user's spam
+folder instead of the user's inbox on the server. With Exim4U's web interface,
+spam tag and discard scores can be individually specified for each user on the
+local host and for each relay domains
+
+Another interesting feature is that Exim4U does not rely on DNS MX records for relaying
+mail from a relay host to its destination host.  Instead, the destination host is
+specified in the Exim4U web interface in the Relay Server Address field in Domain
+Administration. Therefore, multiple relay hosts may be deployed along with the
+destination host and the MX records can all be set to the same value or any set of
+values for that matter but all mail will ultimately be delivered to the destination
+host. Exim4U may be used to specify whether spam tagging and/or spam header rewriting
+is done by the relay host(s) or the destination host. These features provide the
+capability for Exim4U installations to be used as spam filters for any other mail host.
+
+A further discussion on the recommended configurations for coordinating local hosts and
+relay hosts may be found in etc/exim/exim4u_global_spam_virus.
+
+
+4) General Discussion about URIBL AND SURBL Spam Blocking
 
 Exim4U automatically blocks spam mail that contain URLs which
 are on either the URIBL and SURBL blacklists. This is done within
@@ -92,40 +131,6 @@ the ACLs in /etc/exim/exim.conf's prior to calling spamassassin.
 
 	http://george.surbl.org/pricing.html
 
-4) Local Host And Relay Domain Spam Processing
-
-Exim4U has a unique way of handling localhost and relay domain spam processing.
-That is, Exim4U provides the flexibility to coordinate spam processing between
-the relay host and the local host.
-
-First of all, Exim4U provides an initial layer of spam filtering during the SMTP
-connections whereby all mail is filtered regardless if the mail is destined to be
-relayed to another host or delivered to a user on the local host. This initial
-layer of filtering will only reject mail which has a 100% probability of being
-spam.  As an example, all incoming mail will be rejected if its sending IP
-is in the spamhaus RBL, if the recipient does not exist or if the spamassassin
-score is greater than Exim4U's overall reject score (default = 10). Subsequently,
-the Exim4U web interface can be used to specify the spam tag score and the spam
-discard score on a per user basis for the local host and on a per domain basis
-for relay domains. The spam discard score is the minimum score for which mail
-is discarded to /dev/null. The spam tag score is the minimum score for which
-mail is tagged as spam and may thereby be optionally placed in the user's spam
-folder instead of the user's inbox on the server. With Exim4U's web interface,
-spam tag and discard scores can be individually specified for each user on the
-local host and for each relay domains
-
-Another interesting feature is that Exim4U does not rely on DNS MX records for relaying
-mail from a relay host to its destination host.  Instead, the destination host is 
-specified in the Exim4U web interface in the Relay Server Address field in Domain
-Administration. Therefore, multiple relay hosts may be deployed along with the
-destination host and the MX records can all be set to the same value or any set of
-values for that matter but all mail will ultimately be delivered to the destination
-host. Exim4U may be used to specify whether spam tagging and/or spam header rewriting
-is done by the relay host(s) or the destination host. These features provide the
-capability for Exim4U installations to be used as spam filters for any other mail host.
-
-A further discussion on the recommended configurations for coordinating local hosts and
-relay hosts may be found in etc/exim/exim4u_global_spam_virus. 
 
 5) Example iptables configuration for Exim4U
 
