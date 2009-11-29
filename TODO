@@ -5,7 +5,7 @@
 which DomainKeys will not be supported.  DomainKeys will continue to be supported on
 Exim4U version 1.1.x with Exim 4.69 for a time frame that has yet to be determined.
 Note that Exim 4.70's implementation of DKIM causes the obsolescence of DomainKeys
-with the Exim MTA.
+with the Exim MTA for all versions after Exim 4.69.
 
 2) Implement Mail Archiving for both local and relay domains. Include an archived mail
 retrevial methodology and/or system.
