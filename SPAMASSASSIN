@@ -1,13 +1,18 @@
 SpamAssassin Installation Instructions - Tested With Version 3.2.5
 
 These instructions cover Exim4U's recommended SpamAssassin implementation which includes
-the following default and add-on components:
+the following default components, add-on modules and modifications:
 
-* SA Rules Channel - The default SpamAssassin rules.
-* Open Protect Rules Channel - Additional rules from SARE (SpamAssassin Rules Emporium).
-* Razor - Collaborative spam detection add-on using statistical signatures.
-* DCC - Collaborative spam detection add-on using distributed checksums.
-* Pyzor - Collaborative spam detection add-on using statistical signatures.
+1) SA Rules Channel - The default SpamAssassin rules.
+2) Open Protect Rules Channel - Additional rules from SARE (SpamAssassin Rules Emporium).
+3) Razor - Collaborative spam detection add-on using statistical signatures.
+4) DCC - Collaborative spam detection add-on using distributed checksums.
+5) Pyzor - Collaborative spam detection add-on using statistical signatures.
+6) Modifying SpamAssassin's Global and PAM User Account Settings
+7) Whitelisting in SpamAssassin
+8) Adding Spamscore Points For Mail With Links To Sites Commonly Abused By Spammers
+9) Disabling URIBL and SURBL RBL Checks in SpamAssassin
+10) Testing SpamAssassin
 
 The SA Rules Channel and the Open Protect Rules Channel rely on the sa-update command
 to check for updates to their spam detection rules as described in Steps 1 and 2
@@ -22,19 +27,25 @@ words, a given spam email may exist in one of the databases but not the other tw
 Also, if a given spam exists in two or more data bases then the resulting spamscore
 will be higher thus leading to better spam detection.
 
-1) Install the default SA Rules Channel and all necessary perl modules that are not
-   installed as per the "sa-update -D" command's report. SpamAssassin's RuleUpdates and
-   sa-update are described here:
+1) SA Rules Channel
+
+   In this step, you will install the default SA Rules Channel and all necessary perl
+   modules that are not installed as per the "sa-update -D" command's report.
+   SpamAssassin's RuleUpdates and sa-update are described here:
 
 	http://wiki.apache.org/spamassassin/RuleUpdates
 
-   The sa-update command updates SpamAssassin's rules after which SpamAssassin must
-   be restarted to reflect changes.
+   Note that the sa-update command updates SpamAssassin's rules after which
+   SpamAssassin must be restarted to reflect changes.
 
-   Run "sa-update" once to download the default SA rules from the channel
-   "updates.spamassassin.org". This should enable SA find all its rules files
-   under the "/var/lib/spamassassin" directory from now onwards. Import the default SA
-   channel's GPG key and then run sa-update to import the key:
+   First, run "sa-update" once to download the default SpamAssassin rules from the
+   "updates.spamassassin.org" rules channel:
+
+	sa-update
+
+   This should enable SpamAssassin to find all its rules under the "/var/lib/spamassassin"
+   directory from now onwards. Then, import the default SpamAssassin channel's GPG key and
+   run sa-update to import the key:
 
 	wget http://spamassassin.apache.org/updates/GPG.KEY
 	sa-update --import GPG.KEY
@@ -257,8 +268,54 @@ will be higher thus leading to better spam detection.
 
 	/etc/init.d/spamassassin restart
 
-6) Exim4U checks the URIBL and SURBL lists within exim's ACLs. Therefore, you may disable the URIBL and SURBL
-   RBL checks in spamassassin by setting all the score values to zero in my local.cf:
+
+6) SpamAssassin Global and PAM User Account Settings
+
+   You may add new rules to your SpamAssassin configuration by modifying the following files:
+
+   Global settings file: /etc/mail/spamassassin/*.cf
+
+   Individual account (domain) settings file: /home/<accountname>/.spamassassin/user_prefs
+
+   Numerous customization options are available for implementation in these files both on a global basis
+   and on a domain basis. For example, senders can be whitelisted and/or blacklisted, URL spamscores can be
+   adjusted/blacklisted/whitelisted and RBLs added. 
+
+7) Whitelisting in SpamAssassin
+
+   It is recommended that the "whitelist_from_rcvd" parameter be used for whitelisting email addresses
+   since it is more secure than the "whitelist_from" parameter because it allows you to also specify the
+   sender's host name in addition to the email address to be whitelisted. That is, the command,
+   “whitelist_from_rcvd”, will whitelist an address but only if the mail comes from the specified sending
+   SMTP server. For example, add the following line to /etc/mail/spamassassin/local.cf to whitelist the
+   email address "user@domain.tld" whose sending server is "sendingserver.tld":
+
+        whitelist_from_rcvd user@domain.tld sendingserver.tld
+
+   Other whitelist_from_rcvd examples:
+
+        whitelist_from_rcvd joe@example.com example.com
+        whitelist_from_rcvd *@axkit.org     sergeant.org
+
+   See: http://spamassassin.apache.org/full/3.2.x/doc/Mail_SpamAssassin_Conf.html#whitelist_and_blacklist_options
+
+8) Adding Spamscore Points For Mail With Links To Sites Commonly Abused By Spammers
+
+   Many spammers have recently resorted to hijacking web pages on public share sites such as Live Journal,
+   Google Notebook, Google Reader, Google Groups and Yahoo Groups. The large ISPs are slow to shutdown these
+   spammer pages and none of the URIBL black listing services will blacklist links that contain the large ISP
+   domain names. So, if you want to detect spam with links to these sites then you must modify the SpamAssassin
+   settings files to add spamscore points for mail that contains these links. For example, to add 3 spamscore
+   points to any mail that includes a Google Notebook link then add the following lines to
+   /etc/mail/spamassassin/local.cf:
+
+        uri     GOOGLENOTEBOOK  /google.com\/notebook\/public/
+        score   GOOGLENOTEBOOK  3.0
+
+9) Disabling URIBL and SURBL RBL Checks in SpamAssassin
+
+   Exim4U checks the URIBL and SURBL lists within exim's ACLs. Therefore, you may disable the URIBL and SURBL
+   RBL checks in spamassassin by setting all the score values to zero in /etc/mail/spamassassin/local.cf:
 
 	# Disable URIBL and SURBL in SpamAssassin since I am now checking them in exim. 
 	score   URIBL_BLACK     0.0 
@@ -271,34 +328,17 @@ will be higher thus leading to better spam detection.
 	score   URIBL_AB_SURBL  0.0 
 	score   URIBL_JP_SURBL  0.0
 
-7) To test spamassassin:
+10) Testing SpamAssassin:
 
-	spamassassin -D --lint 2>&1 | less
+   To test SpamAssassin:
 
-	To test spamassassin with a test email use the GTUBE test which can be downloaded from here:
+        spamassassin -D --lint 2>&1 | less
 
-		http://spamassassin.apache.org/gtube/gtube.txt
+        To test spamassassin with a test email use the GTUBE test which can be downloaded from here:
 
-	Simply copy the contents to a file on the server and then execute spamassassin <test.eml>.
-	This will exercise everything except the URIBL link checks which can be tested with any email
-	that you create with a spam link.
+                http://spamassassin.apache.org/gtube/gtube.txt
 
-8) Whitelisting In SpamAssassin
+        Simply copy the contents to a file on the server and then execute spamassassin <test.eml>.
+        This will exercise everything except the URIBL link checks which can be tested with any email
+        that you create with a spam link.
 
-   See: http://spamassassin.apache.org/full/3.2.x/doc/Mail_SpamAssassin_Conf.html#whitelist_and_blacklist_options
-
-   Use the command, “whitelist_from_rcvd”, to whitelist addresses but only if they come from the specified
-   sending SMTP server's domain.  Example:
-
-	# White Lists
-	# localpart@domain.tld
-	whitelist_from_rcvd localpart@domain.tld mail.domain.tld
-	# Other examples
- 	whitelist_from_rcvd joe@example.com  example.com
- 	whitelist_from_rcvd *@axkit.org      sergeant.org
-
-9) SpamAssassin PAM User Account Settings
-
-   global settings file: /etc/mail/spamassassin/*.cf
-
-   Individual account settings file: /home/<accountname>/.spamassassin/user_prefs
