@@ -107,7 +107,7 @@ at the end of mysql.sql.
 
 Save the file, and run:
 
-mysql -u<user_name> -p<password> < mysql/mysql.sql
+mysql -u<user_name> -p<password> < mysql_setup/mysql.sql
 
         where: <username> = Your MYSQL root username
                <password> = Your MYSQL root username's password
@@ -121,7 +121,7 @@ For example, if <username> = root
 
 Then, the command would be:
 
-        mysql -uroot -psecret < mysql_migrate/mysql_migrate.sql
+        mysql -uroot -psecret < mysql_setup/mysql.sql
 
 This should create the database and add the right users.
 
