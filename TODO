@@ -19,3 +19,6 @@ mail by ClamAV.
 those users will never be tagged as spam when the Spamassassin score is greater than
 the SpamTagScore. Currently, this is achieved with Spamassassin's configuration
 files on a system wide or domain basis.
+
+5) Add support for the PostgreSQL data base. Write PostgreSQL database installation
+scripts, modify exim configuration files and update documentation for PostgreSQL.
