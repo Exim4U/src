@@ -1,0 +1,19 @@
+The included exim rpms are from the ATrpms.net repository. ATrpms' installation instuctions are here:
+
+http://atrpms.net/install.html
+
+A brief how-to is as follows:
+
+NOTE: The respective dependencies must be installed prior to installing the exim RPMs. These dependencies are included in the
+      'depencencies' directory for each respective RPM.
+
+From the directory that contains the RPM-GPG-KEY.atrpms file:
+
+        rpm --import RPM-GPG-KEY.atrpms
+
+From the appropriate exim rpm directory for your installation:
+
+	yum localinstall <exim_appropriate.rpm(s)>
+
+For Version_4.69-36.el5.i386 and Version_4.69-36.el5.x86_64 both the exim and the exim-mysql rpms must be installed.
+

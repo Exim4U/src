@@ -1,0 +1,4 @@
+# Put IP addresses of Hosts From Which To Omit Verification Of The Senders Email Address (local part).
+# One entry per line.
+#
+# 111.111.111.111

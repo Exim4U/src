@@ -1,0 +1,59 @@
+# exim4u: Script to properly setup file onwerships in webmail
+#
+# Copyright (c) 2009 MailHub4U.com, LLC
+#
+chown exim4u.apache ./turba/config
+chown exim4u.apache ./imp/config
+chown exim4u.apache ./kronolith/config
+chown exim4u.apache ./mnemo/config
+chown exim4u.apache ./nag/config
+chown exim4u.apache ./mimp/config
+chown exim4u.apache ./dimp/config
+chown exim4u.apache ./config
+chown exim4u.apache ./ingo/config
+#
+chmod 770 ./turba/config
+chmod 770 ./imp/config
+chmod 770 ./kronolith/config
+chmod 770 ./mnemo/config
+chmod 770 ./nag/config
+chmod 770 ./mimp/config
+chmod 770 ./dimp/config
+chmod 770 ./config
+chmod 770 ./ingo/config
+#
+chown exim4u.apache ./turba/config/conf.bak.php
+chown exim4u.apache ./imp/config/conf.bak.php
+chown exim4u.apache ./kronolith/config/conf.bak.php
+chown exim4u.apache ./mnemo/config/conf.bak.php
+chown exim4u.apache ./nag/config/conf.bak.php
+chown exim4u.apache ./mimp/config/conf.bak.php
+chown exim4u.apache ./config/conf.bak.php
+chown exim4u.apache ./ingo/config/conf.bak.php
+chown exim4u.apache ./turba/config/conf.php
+chown exim4u.apache ./imp/config/conf.php
+chown exim4u.apache ./kronolith/config/conf.php
+chown exim4u.apache ./mnemo/config/conf.php
+chown exim4u.apache ./nag/config/conf.php
+chown exim4u.apache ./mimp/config/conf.php
+chown exim4u.apache ./dimp/config/conf.php
+chown exim4u.apache ./config/conf.php
+chown exim4u.apache ./ingo/config/conf.php
+#
+chmod 660 ./turba/config/conf.bak.php
+chmod 660 ./imp/config/conf.bak.php
+chmod 660 ./kronolith/config/conf.bak.php
+chmod 660 ./mnemo/config/conf.bak.php
+chmod 660 ./nag/config/conf.bak.php
+chmod 660 ./mimp/config/conf.bak.php
+chmod 660 ./config/conf.bak.php
+chmod 660 ./ingo/config/conf.bak.php
+chmod 660 ./turba/config/conf.php
+chmod 660 ./imp/config/conf.php
+chmod 660 ./kronolith/config/conf.php
+chmod 660 ./mnemo/config/conf.php
+chmod 660 ./nag/config/conf.php
+chmod 660 ./mimp/config/conf.php
+chmod 660 ./dimp/config/conf.php
+chmod 660 ./config/conf.php
+chmod 660 ./ingo/config/conf.php

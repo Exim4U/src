@@ -1,0 +1,1 @@
+if(Prototype.Browser.IE){document.observe("dom:loaded",function(){[$$("TEXTAREA"),$$('INPUT[type="text"]')].flatten().each(function(A){A.observe("keydown",function(B){return B.keyCode!=27})})})};

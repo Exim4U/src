@@ -1,0 +1,3 @@
+# Add backup MX host names to be exempted from ratelimit checks only one per line.
+# All other spam checks are always performed including spamassassin.
+# backupmx_no_rl.hostname.tld
