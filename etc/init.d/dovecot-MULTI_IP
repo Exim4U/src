@@ -1,0 +1,85 @@
+#!/bin/bash
+#
+#	/etc/rc.d/init.d/dovecot
+#
+# Starts the dovecot daemon
+#
+# chkconfig: - 65 35
+# description: Dovecot Imap Server
+# processname: dovecot
+# Source function library.
+#
+# exim4u: This is the multi-IP version of the dovecot service script.
+# You must invoke multiple sessions of Dovecot when using multiple
+# IPs if you want dovecot to masquarade for each domain. You must have
+# a separate config file for each IP address for which dovecot will run concurrently.
+# Create a differently named copy of the dovecot.conf configuration file for each IP with these changes:
+# 1. Change base_dir to the new run directory such as /var/run/dovecot/<MY_IP>
+# 2. Make sure that login_dir is either commented out (default is relative to base_dir), or change it under the new directory as well
+# 3. Change the listen and ssl_listen port numbers to new, unused IP values
+# 4. Change the ssl_cert_file and ssl_key_file to the correct certificate info for the new unused IP values 
+# 5. If you're using authentication sockets (for SMTP AUTH or deliver), you'll need to change them as well. auth_socket_path specifies the socket path for deliver.
+# 6. Modify this service script by adding additional daemon commands for additional IP addresses as outlined below under the start() subroutine. 
+# 7. Replace the old dovecot service script with this one but first make a backup of the old one.
+#    eg.: cp /etc/init.d/dovecot /etc/init.d/dovecot.ORIGINAL
+#         cp dovecot.new /etc/init.d/dovecot
+#
+#
+#
+. /etc/init.d/functions
+
+test -x /usr/sbin/dovecot || exit 0
+
+RETVAL=0
+prog="Dovecot Imap"
+
+start() {
+        echo -n $"Starting $prog: "
+# Invoke dovecot for all IP addresses with the -c flag and the modified configuration file, e.g.:
+# 	daemon /usr/sbin/dovecot -c /etc/dovecot/dovecot.MY_IP.conf
+	daemon /usr/sbin/dovecot -c /etc/dovecot/dovecot.127.0.0.1.conf
+	daemon /usr/sbin/dovecot -c /etc/dovecot/dovecot.111.222.333.444.conf
+	RETVAL=$?
+	[ $RETVAL -eq 0 ] && touch /var/lock/subsys/dovecot
+	echo
+}
+
+stop() {
+	echo -n $"Stopping $prog: "
+	killproc /usr/sbin/dovecot
+	RETVAL=$?
+	[ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/dovecot
+	echo
+}
+
+#
+#	See how we were called.
+#
+case "$1" in
+  start)
+	start
+	;;
+  stop)
+	stop
+	;;
+  reload|restart)
+	stop
+	start
+	RETVAL=$?
+	;;
+  condrestart)
+	if [ -f /var/lock/subsys/dovecot ]; then
+	    stop
+	    start
+	fi
+	;;
+  status)
+	status /usr/sbin/dovecot
+	RETVAL=$?
+	;;
+  *)
+	echo $"Usage: $0 {condrestart|start|stop|restart|reload|status}"
+	exit 1
+esac
+
+exit $RETVAL

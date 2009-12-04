@@ -1,0 +1,1 @@
+var contactTabs=null;function ShowTab(A){if(contactTabs==null){contactTabs=$("page").select(".tabset")[0].down()}contactTabs.select("li").each(function(B){if(B.id=="tab"+A){B.addClassName("activeTab");$(B.id.substring(3)).show()}else{B.removeClassName("activeTab");$(B.id.substring(3)).hide()}});return false};

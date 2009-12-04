@@ -1,0 +1,1 @@
+function showImage(E,D,C){var A=document.getElementById(D);if(typeof C=="undefined"){C=false}if(C){var B=new Date();E=E+"&"+B.getTime()}A.src=E;return false}function getResizeSrc(E,D,C){var B=document.getElementById("_w_"+D).value;var A=document.getElementById("_h_"+D).value;if(typeof C=="undefined"){C=0}E=E+"&v="+B+"."+A+"."+C;return E};

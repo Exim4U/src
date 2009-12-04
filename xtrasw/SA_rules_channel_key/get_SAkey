@@ -1,0 +1,5 @@
+To download and import the SA key:
+
+wget http://spamassassin.apache.org/updates/GPG.KEY
+sa-update --import GPG.KEY
+
