@@ -408,7 +408,7 @@ $_prefs['show_sidebar'] = array(
 );
 
 $_prefs['sidebar_width'] = array(
-    'value' => 150,
+    'value' => 180,
     'locked' => false,
     'shared' => false,
     'type' => 'number',
