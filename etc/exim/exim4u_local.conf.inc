@@ -31,13 +31,13 @@ rfc1413_query_timeout = 5s
 #
 allow_mx_to_ip = true
 #
-# exim4u: If using Domain Keys for outgoing mail then set DOMAINKEYS = YES here.
-# You must also generate and save SSL keys and place the Domain Key TXT record
-# entries in the DNS zone files for Bind/named. Complete instructions for 
-# configuring Exim4U's Domain Keys implementation are included at the bottom of
+# exim4u: If using DKIM for outgoing mail then set DKIM_ON = YES here.
+# You must also generate and save SSL keys and place the DKIM TXT record
+# entries in the DNS zone files for Bind/named. Complete instructions for
+# configuring Exim4U's DKIM implementation are included at the bottom of
 # this file.
 #
-DOMAINKEYS = YES
+DKIM_ON = NO
 #
 # exim4u: Exim4u's multiple IP option is set here. This option allows the mail server
 # to masquarade as multiple domains each with their own tls certificate as specified.
@@ -52,7 +52,7 @@ DOMAINKEYS = YES
 # MULTI_IP = NO. Complete instructions for configuring Exim4U's multi IP option
 # are included at the bottom of this file.
 #
-MULTI_IP = YES
+MULTI_IP = NO
 #
 # If using tls then you must store your certificates as described at the bottom
 # of this file according to whether MULTI_IP is set to YES or NO. Include the
@@ -77,7 +77,6 @@ hide mysql_servers = localhost::(/var/lib/mysql/mysql.sock)/exim4u/exim4u/CHANGE
 #
 # extra_local_interfaces = 111.222.333.444
 #
-#
 # exim4u: Add SMTP ports to listen for here. Port 25 is required. RFC 2476, requires port 587 
 # for email user clients and 2525 is simply an extra port.
 daemon_smtp_ports = 25 : 2525 : 587
@@ -99,18 +98,20 @@ MAILMAN_GROUP=mail
 #
 #
 #
-# DOMAIN KEYS CONFIGURATION INSTRUCTIONS
-# --------------------------------------
+# DKIM CONFIGURATION INSTRUCTIONS
+# -------------------------------
+#
+# SIGNING OUTGOING MAIL WITH DKIM
 #
 # 1) Generate private and public SSL keys and save the keys in /etc/pki/tls/dk as follows.
-#	cd /etc/pki/tls
-#	mkdir dk
-#	cd dk
-#	openssl genrsa -out rsa.private 1024
-#	openssl rsa -in rsa.private -out rsa.public -pubout -outform PEM
-#	chown -R exim.exim /etc/pki/tls/dk
-#	chmod go-r -R /etc/pki/tls/dk
-#    
+#       cd /etc/pki/tls
+#       mkdir dk
+#       cd dk
+#       openssl genrsa -out rsa.private 1024
+#       openssl rsa -in rsa.private -out rsa.public -pubout -outform PEM
+#       chown -R exim.exim /etc/pki/tls/dk
+#       chmod go-r -R /etc/pki/tls/dk
+#
 #    The private key is named rsa.private and the public key is named rsa.public. Both are
 #    stored in the /etc/pki/tls directory.
 #
@@ -121,19 +122,29 @@ MAILMAN_GROUP=mail
 #
 #    Edit the zone files for all hosted mail domains, and add the following TXT records:
 #
-#	_domainkey.domain.tld.       IN      TXT     "t=y; o=-"
-#	exim4u._domainkey.domain.tld.  IN      TXT     "k=rsa; t=y; p= <public key>"
-#	
+#       _domainkey.domain.tld.       IN      TXT     "t=y; o=-"
+#       exim4u._domainkey.domain.tld.  IN      TXT     "k=rsa; t=y; p= <public key>"
+#
 #    In the above two lines, domain.tld is the FQDN for the hosted domain. Also, In the second
 #    TXT record above, <public key> is the public key saved as one line without line
-#    feeds as described above in step 1.
+#    feeds as described above in step 1. Also, note that "exim4u" is the dkim_selector in the
+#    transports sections of /etc/exim/exim.conf.
 #
 # 3) Modify /etc/named.conf (or var/named/chroot/etc/named.conf if running chrooted Bind/named).
 #
 #    In both your primary and secondary name servers add the following to the options section
 #    of named.conf which allows the use of _(underscore):
 #
-#	check-names master ignore; 
+#       check-names master ignore;
+#
+# 4) Set "DKIM_ON = YES" in this file (exim4u_local.conf.inc).
+#
+# FILTERING INCOMING MAIL WITH DKIM
+#
+# The ACL that filters incoming mail with DKIM is contained in exim4u_acl_check_dkim.conf.inc
+# within the /etc/exim directory. Instructions on enabling various greylisting options as well
+# as the option to reject mail with DKIM failures is contained in the ACL. Modify this ACL as
+# deemed appropriate for your installation.
 #
 #
 #
