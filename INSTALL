@@ -31,17 +31,14 @@ Linux distributions as well.
 Refer to the SPAMASSASSIN help file in the root directory of this Exim4U
 distribution.
 
-4. Install: Exim - Tested With Version 4.69
+4. Install: Exim - Tested With Version 4.71
 
-Install exim 4.69 or later. Other versions may work, however, versions
-prior to exim 4.68 may not support all of the functionality in Exim4U.
-Specifically, some of the ratelimiting features of Exim4U will not
-be supported in exim versions prior to 4.68. If you are installing
-from scratch, exim must be compiled with mysql support and the embedded
-Perl engine enabled. Domain Keys support is also required if using
-Domain Keys. Exim 4.69 RPMs for RedHat/CentOS 5 are included
-with Exim4u in the xtrasw/exim_rpms-for-redhat directory.
-These RPMs include support for mysql, embedded Perl and Domain Keys.
+Install exim 4.71 or later. If you are installing from scratch, exim must
+be compiled with mysql, spf, DKIM and the embedded Perl engine enabled.
+Exim 4.71 RPMs for RedHat/CentOS 5 may be obtained from the atrpms.net
+repository. Information on the atrpms.net repository is included with
+Exim4u in the xtrasw/exim_rpms-for-redhat directory. The atrpms.net RPMs
+include support for mysql, spf, srs, DKIM and embedded Perl.
 
 Copy Exim4U's exim configuration files from etc/exim/* to the target machine.
 All files in this directory should be copied to /etc/exim. Then, change
