@@ -9,11 +9,12 @@ to the 'INSTALL' file for more detailed installation instructions.
 REQUIREMENTS:
 The following packages must be installed on your system, for Exim4U to
 function properly:
-    * Exim - Tested with version 4.69. Must be compiled with mysql
-      support and the embedded Perl engine enabled. Exim's
-      Experimental Domain Keys support is also required if using
-      Domain Keys. RPMs for RedHat/CentOS 5 are included with Exim4u.
-      (These RPMs include support for mysql, embedded Perl and Domain Keys.)
+    * Exim - Tested with version 4.71. Must be compiled with mysql,
+      spf, DKIM and the embedded Perl engine enabled. RPMs for
+      RedHat/CentOS 5 are available from the atrpms.net repository.
+      Instructions for using the atrpms.net repository are included
+      with Exim4u. (These RPMs include support for mysql, spf, srs,
+      DKIM and the embedded Perl engine.)
     * MySQL - Tested with Version 14.12 Distribution 5.0.77.
     * Apache - Tested with Version 2.2.3.
     * PHP - Tested on v5.1.6.
