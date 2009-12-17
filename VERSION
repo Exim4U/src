@@ -5,7 +5,7 @@
 Exim4U Version 1.2.0 was released on December 15, 2009.
  - Exim4U Version 1.2.0 requires Exim version 4.71 or higher for complete functionality.
  - DKIM was implemented. DKIM signing of outgoing mail and DKIM verification of
-   imcoming mail was implemented with greylisting and failure rejection during the
+   imcoming mail was implemented with greylisting and/or failure rejection during the
    SMTP session.
  - Note that Exim 4.7x's implementation of DKIM causes the obsolescence of DomainKeys
    with the Exim MTA for all versions after Exim 4.69. Therefore, DomainKeys is

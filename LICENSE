@@ -41,8 +41,7 @@ Other Software Licenses
 
 Other software products are integrated with Exim4U which have their
 own software licenses and terms of use.  These other products are
-Vexim, Horde and Exim each of which are licensed seperately as
-follows.
+Vexim and Horde both of which are licensed seperately as follows.
 
 Vexim
 -----
@@ -86,16 +85,3 @@ The Horde applications are free software provided under the GNU Library
 General Public License, Version 2, dated June 1991 which is described here:
 
 http://www.horde.org/licenses/lgpl.php
-
-Exim
-----
-
-Exim RPM files from atrpms.net are included with Exim4U which may be used
-with the RedHat/CentOS 5 versions of Linux. Exim is distributed under the
-terms of the GNU General Public Licence, a copy of which may be found in
-the file LICENCE in the Exim source distribution and the conditions for
-the use of Exim is described in the file NOTICE in the Exim source
-distribution. The Exim source distribution may be downloaded here:
-
-http://exim.org/mirrors.html
-
