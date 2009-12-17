@@ -3,4 +3,5 @@
 # Relay host should not be an exim4u installation. Otherwise, if
 # relay host is an exim4u installation, for coordinated optimum
 # spam protection put relay host in exim4u_backup_mx_host_names.
-# host2.mailhub4u.com
+#
+# backupmx_no_rl.hostname.tld
