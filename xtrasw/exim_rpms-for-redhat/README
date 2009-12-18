@@ -2,7 +2,7 @@ Exim RPMs are available for RedHat 5.0 and CentOS 5.0 from the ATrpms.net reposi
 
 http://atrpms.net/dist/el5
 
-Install the following RPMs; exim, exim-mysql, libspf2, libsrs_alt as follows:
+Install the following RPMs; exim, exim-mysql, libspf2, libsrs_alt from the associated links:
 
 exim - http://atrpms.net/dist/el5/exim/
 exim-mysql - http://atrpms.net/dist/el5/exim/
