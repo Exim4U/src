@@ -20,10 +20,10 @@ M       README
 
 To manually upgrade from Exim4U version 1.1.0 to 1.2.0:
 
-1) Download the "lite" 1.2.0 tarball (exim4u_ver1.2.0_lite.tar.gz) and
-   extract the tarball.
-2) Install Exim 4.71 either from scratch or from a repo as per the INSTALL
+1) Install Exim 4.71 either from scratch or from a repo as per the INSTALL
    file instructions in the Exim4U 1.2.0 distributions root directory.
+2) Download the "lite" 1.2.0 tarball (exim4u_ver1.2.0_lite.tar.gz) and
+   extract the tarball.
 3) Make a backup copy of your live version of /etc/exim/exim4u_local.conf.inc.
 4) Copy the following files to your live installation from the Exim4U 1.2.0
    distribution's root directory:
