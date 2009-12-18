@@ -1,23 +1,22 @@
 Exim4U Version 1.2.0 Changelog Summary
 
-
-M       etc/exim/exim4u_backup_mx_rl_host_names
-M       etc/exim/exim4u_local.conf.inc
-M       etc/exim/exim4u_backup_mx_host_names
-M       etc/exim/exim.conf
-A       etc/exim/exim4u_acl_check_dkim.conf.inc
-A       home/exim4u/public_html/webmail/VERSION
-A	CHANGELOG
-M       INSTALL
-M       README
+M       LICENSE
 M       TODO
 M       VERSION
+M       INSTALL
+A       CHANGELOG
+A       home/exim4u/public_html/webmail/VERSION
 D       xtrasw/exim_rpms-for-redhat/Version_4.69-33.el5.i386
 D       xtrasw/exim_rpms-for-redhat/dependencies
 D       xtrasw/exim_rpms-for-redhat/Version_4.69-36.el5.i386
 D       xtrasw/exim_rpms-for-redhat/Version_4.69-36.el5.x86_64
 M       xtrasw/exim_rpms-for-redhat/README
-
+M       etc/exim/exim4u_backup_mx_rl_host_names
+M       etc/exim/exim4u_local.conf.inc
+M       etc/exim/exim4u_backup_mx_host_names
+M       etc/exim/exim.conf
+A       etc/exim/exim4u_acl_check_dkim.conf.inc
+M       README
 
 To manually upgrade from Exim4U version 1.1.0 to 1.2.0:
 
