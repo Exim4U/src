@@ -7,6 +7,7 @@ M       etc/exim/exim4u_backup_mx_host_names
 M       etc/exim/exim.conf
 A       etc/exim/exim4u_acl_check_dkim.conf.inc
 A       home/exim4u/public_html/webmail/VERSION
+A	CHANGELOG
 M       INSTALL
 M       README
 M       TODO
