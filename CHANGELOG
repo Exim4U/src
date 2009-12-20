@@ -1,0 +1,34 @@
+Exim4U Version 1.2.0 Changelog Summary
+
+M       LICENSE
+M       TODO
+M       VERSION
+M       INSTALL
+A       CHANGELOG
+A       home/exim4u/public_html/webmail/VERSION
+D       xtrasw/exim_rpms-for-redhat/Version_4.69-33.el5.i386
+D       xtrasw/exim_rpms-for-redhat/dependencies
+D       xtrasw/exim_rpms-for-redhat/Version_4.69-36.el5.i386
+D       xtrasw/exim_rpms-for-redhat/Version_4.69-36.el5.x86_64
+M       xtrasw/exim_rpms-for-redhat/README
+M       etc/exim/exim4u_backup_mx_rl_host_names
+M       etc/exim/exim4u_local.conf.inc
+M       etc/exim/exim4u_backup_mx_host_names
+M       etc/exim/exim.conf
+A       etc/exim/exim4u_acl_check_dkim.conf.inc
+M       README
+
+To manually upgrade from Exim4U version 1.1.0 to 1.2.0:
+
+1) Install Exim 4.71 either from scratch or from a repo as per the INSTALL
+   file instructions in the Exim4U 1.2.0 distributions root directory.
+2) Download the "lite" 1.2.0 tarball (exim4u_ver1.2.0_lite.tar.gz) and
+   extract the tarball.
+3) Make a backup copy of your live version of /etc/exim/exim4u_local.conf.inc.
+4) Copy the following files to your live installation from the Exim4U 1.2.0
+   distribution's root directory:
+	etc/exim/exim4u_local.conf.inc (Modify as per your requirements)
+	etc/exim/exim.conf
+	etc/exim/exim4u_acl_check_dkim.conf.inc (Modify as per your requirements)
+	home/exim4u/public_html/webmail/VERSION (If webmail is installed)
+5) Restart Exim

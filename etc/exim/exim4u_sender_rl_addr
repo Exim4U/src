@@ -1,0 +1,9 @@
+# Add sender email addresses to be exempted from sender ratelimit checks.
+# One entry per line.
+#
+# FYI, Sender ratelimit checks stop runaway internal accounts from sending
+# out large amount of spam.
+# goodguy@hostname.tld
+#
+# Exempt all mailman lists
+*-bounces@*
