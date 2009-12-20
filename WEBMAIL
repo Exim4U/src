@@ -19,7 +19,7 @@ demonstrate how to get it done easily with Exim4U.
 First, copy home/exim4u/public_html/webmail from this Exim4U distribution to the
 webmail directory in your web root directory. Copy the files and set the ownerships:
 
-From within this directory execute:
+From within this distribution's home/exim4u/public_html/webmail directory execute:
         cp -r * <target document root directory>/webmail
         chown -R <directory owner>.apache <target document root directory>/webmail
 Example:
