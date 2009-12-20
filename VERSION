@@ -2,7 +2,7 @@
 
                        Current Exim4U Version Is 1.2.0
 
-Exim4U Version 1.2.0 was released on December 15, 2009.
+Exim4U Version 1.2.0 was released on December 21, 2009.
  - Exim4U Version 1.2.0 requires Exim version 4.71 or higher for complete functionality.
  - DKIM was implemented. DKIM signing of outgoing mail and DKIM verification of
    imcoming mail was implemented with or without greylisting and/or failure rejection
