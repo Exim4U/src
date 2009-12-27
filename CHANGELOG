@@ -1,4 +1,21 @@
-Exim4U Version 1.2.0 Changelog Summary
+                        Exim4U Changelog Summaries
+
+
+1.2.1 Changelog Summary (Versus Version 1.2.0)
+
+M       mysql_migrate/mysql_migrate.sql
+M       mysql_setup/mysql.sql
+M	CHANGELOG
+
+1.2.1 Manual Upgrade From Version 1.2.0:
+
+1) Copy the following files from the Exim4U 1.2.1 distribution's root directory:
+	mysql_migrate/mysql_migrate.sql
+        mysql_setup/mysql.sql
+        CHANGELOG
+
+
+1.2.0 Changelog Summary (Versus Version 1.1.0)
 
 M       LICENSE
 M       TODO
@@ -18,7 +35,7 @@ M       etc/exim/exim.conf
 A       etc/exim/exim4u_acl_check_dkim.conf.inc
 M       README
 
-To manually upgrade from Exim4U version 1.1.0 to 1.2.0:
+1.2.0 Manual Upgrade From Version 1.1.0:
 
 1) Install Exim 4.71 either from scratch or from a repo as per the INSTALL
    file instructions in the Exim4U 1.2.0 distributions root directory.
