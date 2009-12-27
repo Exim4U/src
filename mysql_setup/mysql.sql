@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `exim4u`.`users`
 	tagline          varchar(255)                      default NULL,
 	vacation         varchar(255)                      default NULL,
 	on_spambox       tinyint(1)              NOT NULL  default '0',
-	on_spambox_report tinyint(1)	         NOT NULL  default '0',
+	on_spamboxreport tinyint(1)	         NOT NULL  default '0',
 	PRIMARY KEY (user_id),
 	UNIQUE KEY username (localpart, domain_id),
 	KEY local (localpart)
