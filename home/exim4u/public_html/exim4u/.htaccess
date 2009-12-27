@@ -1,0 +1,7 @@
+<IfModule mod_ssl.c>
+SSLRequireSSL
+</IfModule>
+<IfModule !mod_ssl.c>
+# no non-ssl access
+order allow,deny
+</IfModule>

@@ -1,0 +1,18 @@
+			Planned Exim4U Feature Enhancements 
+
+
+1) Implement Mail Archiving for both local and relay domains. Include an archived mail
+retrevial methodology and/or system.
+
+2) Implement system wide admin option for ClamAV to scan both incoming and outgoing
+mail or alternatively only scan incoming mail. Exim4U currently scans both incoming
+and outgoing mail. So, this is simply an admin option to disable scanning of outgoing
+mail by ClamAV.
+
+3) Implement user option for whitelisting sender email addresses so that mail from
+those users will never be tagged as spam when the Spamassassin score is greater than
+the SpamTagScore. Currently, this is achieved with Spamassassin's configuration
+files on a system wide or domain basis.
+
+4) Add support for the PostgreSQL data base. Write PostgreSQL database installation
+scripts, modify exim configuration files and update documentation for PostgreSQL.

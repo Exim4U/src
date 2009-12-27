@@ -1,0 +1,29 @@
+Exim RPMs are available for RedHat 5.0 and CentOS 5.0 from the ATrpms.net repository at:
+
+http://atrpms.net/dist/el5
+
+Install the following RPMs; exim, exim-mysql, libspf2, libsrs_alt from the associated links:
+
+exim - http://atrpms.net/dist/el5/exim/
+exim-mysql - http://atrpms.net/dist/el5/exim/
+libspf2 - http://atrpms.net/dist/el5/libspf2/
+libsrs_alt - http://atrpms.net/dist/el5/libsrs_alt/
+
+ATrpms' installation instuctions are here:
+
+http://atrpms.net/install.html
+
+A brief how-to is as follows:
+
+NOTE: The dependencies (libspf2 and libsrs_alt) must be installed prior to installing the exim RPMs.
+
+Install the ATrpms signing key:
+
+	rpm --import http://atrpms.net/RPM-GPG-KEY.atrpms
+
+Download the exim, exim-mysql, libspf2 and libsrs_alt RPMs for your installation using
+the links referenced above at the top of this file.  Then, install each of the RPMs:
+	
+	yum localinstall <appropriate.RPM>
+
+

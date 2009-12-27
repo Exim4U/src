@@ -1,0 +1,351 @@
+                           Exim4U Version 1.2
+                           Installation Guide
+
+This installation Guide is designed to take you through the steps necessary
+for installing Exim4U and all of its dependent software. These days, most
+of the dependent software that is to be installed is included in the repositories
+of the major Linux vendors such as RedHat, CentOS, Debian, Ubuntu, etc.
+Therefore, detailed instructions for compiling, configuring and installing the
+various dependent packages from source is not included.  Please note that Exim4U
+was developed on a CentOS 5 system and we have included some references to
+RedHat/CentOS 5 where applicable. However, Exim4U and all of its dependent
+software packages should install and run just fine on any of the other major
+Linux distributions as well.
+
+
+1. Install and configure the following packages:
+
+* Apache - Tested with Version 2.2.3
+* MySQL - Tested with Version 14.12 Distribution 5.0.77
+* PHP - Tested with Version 5.1.6
+* Perl - Tested With Version 5.8.8
+* php-pear-DB
+
+2. Install: ClamAV (Clamd and Freshclam) - Tested with Version 0.95.2
+
+* Configure /etc/freshclam and /etc/clamd
+* Add to /etc/rc.local: /usr/bin/freshclam --daemon &
+
+3. Install: SpamAssassin - Tested With Version 3.2.5
+
+Refer to the SPAMASSASSIN help file in the root directory of this Exim4U
+distribution.
+
+4. Install: Exim - Tested With Version 4.71
+
+Install exim 4.71 or later. If you are installing from scratch, exim must
+be compiled with mysql, spf, DKIM and the embedded Perl engine enabled.
+Exim 4.71 RPMs for RedHat/CentOS 5 may be obtained from the atrpms.net
+repository. Information on the atrpms.net repository is included with
+Exim4u in the xtrasw/exim_rpms-for-redhat directory. The atrpms.net RPMs
+include support for mysql, spf, srs, DKIM and embedded Perl.
+
+Copy Exim4U's exim configuration files from etc/exim/* to the target machine.
+All files in this directory should be copied to /etc/exim. Then, change
+user and group ownerships to root for all files copied to /etc/exim.
+From within the etc/exim directory in this distribution (as user = root) execute:
+
+  		cp -r * /etc/exim
+
+After copying files to /etc/exim then (as user = root) execute:
+
+		chown -R root.root /etc/exim/*
+
+Create the SQLite database for greylisting. You can do this
+with the sqlite3 command. The sqlite3 script for setting up the greylisting
+database is named mk-greylist-db.sql and it is in the xtrasw/exim-greylist
+directory of this distribution.  You must also ensure that it's owned by the
+Exim user/group. To create the database and set the correct ownership execute:
+
+ 	sqlite3 /var/spool/exim/db/greylist.db < xtrasw/exim-greylist/mk-greylist-db.sql
+	chown exim.exim /var/spool/exim/db/greylist.db
+
+Install the script xtrasw/exim-greylist/greylist-tidy.sh in cron.daily to
+prevent the database from growing forever without bound. This script simply
+deletes entries from the greylist table that are older than 7 days:  
+
+	cp xtrasw/exim-greylist/greylist-tidy.sh /etc/cron.daily
+
+Install spf perl module
+Install perl-Mail-SPF-Query. This perl module may be downloaded from the CPAN site
+as described in xtrasw/get_Mail-SPF-Query. (RedHat/CentOS 5 RPM info also included.)
+To install the perl tarball:
+
+	gzip -dc Mail-SPF-Query-1.999.1.tar.gz | tar -xof -
+	cd perl-Mail-SPF-Query-1.999.1
+	perl Makefile.PL
+	make
+	make test
+	make install
+
+Put the following command in rc.local:
+
+	/usr/bin/spfd.perl-msq -path=/tmp/spfd --socket-user exim --socket-group exim --set-user exim &
+
+Install the script xtrasw/exim_tidydb/exim_tidydb in cron.daily to
+prevent the exim databases from growing forever without bound.
+This script simply deletes older entries from the database:
+
+        cp xtrasw/exim_tidydb/exim_tidydb /etc/cron.daily
+
+5. Configure mysql
+
+You must create a new MySQL database for Exim4U. Edit the mysql_setup/mysql.sql
+file and change the first two instances of the word 'CHANGE', to the
+default system UID and GID you want new domains to have if one is
+not specified. (Most installations opt to create a user and a group both named
+exim4u and then use the UID and GID for exim4u.) Change the third instance
+of the word 'CHANGE' to the password you want the exim4u database user to have.
+This is the same password you chose when editing /etc/exim/Exim4u_local.conf.inc
+above. You also need to know if your system uses MD5 or DES passwords.
+BSD and Linux normally use MD5, whereas Solaris systems commonly use
+the older style DES. Uncomment the appropriate line, as noted by the comments,
+at the end of mysql.sql.
+
+Save the file, and run:
+
+mysql -u<user_name> -p<password> < mysql_setup/mysql.sql
+
+        where: <username> = Your MYSQL root username
+               <password> = Your MYSQL root username's password
+
+This should create the database and add the right users.
+The password you are prompted for when doing this should be your
+MySQL database's root user password.
+
+For example, if <username> = root
+                <password> = secret
+
+Then, the command would be:
+
+        mysql -uroot -psecret < mysql_setup/mysql.sql
+
+This should create the database and add the right users.
+
+6. Install Exim4U's web interface and login to the Exim4U web interface.
+
+Exim4U's web interface is comprised of a set of php scripts located in:
+
+	home/exim4u/public_html/exim4u
+
+First, edit home/exim4u/public_html/exim4u/config/variables.php. You need to
+change the following settings. Change the '$sqlpass' on line 10 to the
+exim4u database user's password which you chose which editing 'mysql.sql'
+in the last step. Change the '$cryptscheme' line to either "md5", or "des"
+depending on what your operating system uses. The last change to make
+in that file is the '$uid' and '$gid'. Make these the same default
+UID and GID you chose in mysql.sql.
+
+Copy home/exim4u/public_html/exim4u/* to a directory named exim4u within
+your webserver's document root directory. The files should be readable by apache
+but not writable by apache. For example;
+
+	cp -r home/exim4u/public_html/exim4u/* <target document root directory>/exim4u/
+	chown -R <directory owner>.apache <target document root directory>/exim4u
+	find  <target document root directory>/exim4u -type d -exec chmod 755 {} \;
+	find  <target document root directory>/exim4u -type f -exec chmod 644 {} \;
+
+More specifically, with a DocumentRoot = /home/exim4u/public_html, then;
+
+	cp -r home/exim4u/public_html/exim4u/* /home/exim4u/public_html/exim4u/
+	chown -R exim4u.apache /home/exim4u/public_html/exim4u
+	find  /home/exim4u/public_html/exim4u -type d -exec chmod 755 {} \;
+        find  /home/exim4u/public_html/exim4u -type f -exec chmod 644 {} \;
+
+Since the siteadmin password is stored in /exim4u/sysconfig/variables.php
+the permissions on this file should be set so that the owner has read/write
+access, the group (apache) has read access and all other users have no access.
+For example:
+
+	chmod 640 <target document root directory>/exim4u/config/variables.php
+
+or, with a DocumentRoot = /home/exim4u/public_html, then; 
+
+	chmod 640  /home/exim4u/public_html/exim4u/config/variables.php
+
+You should now be able to browse to Exim4U's web interface on the VirtualHost 
+you set up in Apache. Refer to the README file step 1 for an example VirtualHost
+setup. With the example VirtualHost, you would access the Exim4U web interface
+with the following syntax:
+
+	https://domain.tld/exim4u
+
+	or (non-secure);
+
+	http://domain.tld/exim4u
+
+Once connected, you should log in as:
+
+	Username: siteadmin
+	Domain: <none>
+	Password: CHANGE
+
+Once logged in, please click on the 'Site Password' link on the left,
+and change this password.
+
+7. Install Dovecot (or Courier) from your Linux distributions repository or from source.
+
+Sample Dovecot configuration files are provided in this Exim4U distribution
+at etc and etc/dovecot.  Note that you must replace CHANGE with your mysql password in 
+etc/dovecot-sql.conf.  The default dovecot configuration file is etc/dovecot.conf.
+Whereas, the Dovecot configuration files for multiple IPs and SSL certificates are in 
+the directory etc/dovecot. Each configuration file for each IP is named
+dovecot.IP.conf. For example, dovecot.127.0.0.1.conf is for the local machine
+whereas dovecot.111.222.333.444.conf is for IP address 111.222.333.444. 
+
+The service script for dovecot must be modified for multi IPs/SSL certificates.
+Example service scripts are included in etc/init.d.  An example Dovecot service
+script for multi IPs is located at etc/init.d/dovecot-MULTI_IP and the
+corresponding default Dovecot service script is located at etc/init.d/dovecot.
+
+8. Install Webmail
+
+Refer to the WEBMAIL help file in this distribution's root directory for installing
+Exim4U's Webmail Groupware which is a customized version of Horde Groupware Webmail
+Edition. Alternatively, install your favorite webmail product, such as Squirrel Mail
+or Round Cube, in <DocumentRoot>/webmail (eg.: /home/exim4u/public_html/webmail). 
+
+9. Install Exim4U's User Menu and Admin Menu interfaces from the user_menu and
+admin_menu directories.
+
+The user_menu directory contains the User Menu interface html scripts while the
+admin_menu directory contains the Admin Menu interface html scripts.
+
+Copy the home/exim4u/public_html/user_menu directory and its contents to your apache
+document root directory:
+
+	cp -r home/exim4u/public_html/user_menu <target document root directory>
+
+Edit user_menu/index.html and substitute your host name for 'hostname.tld'.
+
+Copy the home/exim4u/public_html/admin_menu directory and its contents to your
+apache document root directory:
+
+	cp -r home/exim4u/public_html/admin_menu <target document root directory>
+
+Edit admin_menu/index.html and substitute your host name for
+'hostname.tld' which occurs twice in this file.
+
+You should now be able to browse directly to Exim4U's User Menu and Admin Menu
+on the VirtualHost you set up in Apache. Refer to the README file step 1 for an
+example VirtualHost setup. With the example VirtualHost, you would access the
+Exim4U User Menu and Admin Menu interfaces with the following syntax:
+
+        https://domain.tld/user_menu
+	https://domain.tld/admin_menu
+
+        or (non-secure);
+
+	http://domain.tld/user_menu
+        http://domain.tld/admin_menu
+
+
+10. Install and configure eximstats and eximstats.sh.
+
+First, copy the home/exim4u/public_html/eximstats directory and its contents to your
+apache document root directory:
+
+	cp -r home/exim4u/public_html/eximstats <target document root directory>
+
+Then, copy the contents of this distributions xtrasw/eximstats directory
+(eximstats-1.58a.src and eximstats.sh) to /usr/local/bin or any other directory
+of your choice:
+
+	cp -r xtrasw/eximstats/* /usr/local/bin
+
+Edit eximstats.sh in its destination directory and change the following variables in
+the script to the appropriate values for your installation:
+
+	* eximstats_cmd=/usr/local/bin/eximstats-1.58a.src 
+	* logfile=/var/log/exim/main.log.1
+	* destdir=/home/exim4u/public_html/eximstats
+	* htmlfile=/home/exim4u/public_html/eximstats/eximstats.html
+	* txtfile=/home/exim4u/public_html/eximstats/eximstats.txt
+
+where;
+
+	* eximstats_cmd - Location of the eximstats command.
+        * logfile - Location of the exim log file to be parsed.
+        * destdir - Destination directory for charts.
+        * htmlfile - Destination directory for html output.
+        * txtfile - Destination directory for text output.
+
+You should setup a crontab entry to run eximstats.sh daily after your log
+rotation has occurred.
+
+11. Install and configure the Spam Box Report
+
+The Spam Box Report is designed primarily for POP users that do not otherwise have 
+access to the server's spam folders from their POP email clients. Spam Box is a term
+that describes the POP user's spam folder that resides on the server. Mail that has
+been tagged as spam by Exim4u is placed in each user's spam folder. Refer to the
+file etc/exim/exim4u_global_spam_virus for a detailed description of how Exim4U processes
+spam.  The Spam Box Report will send a list of all mail in each user's spam folder to
+each user.  The Spam Box Report can be turned off/on in the Exim4U web interface. The
+Spam Box Report also includes a link to webmail for easy access to the spam folder.
+
+To install the Spam Box Report, copy xtrasw/spam_box_report/spamreport to /usr/local/bin
+or any other directory of your choice:
+
+	cp xtrasw/spam_box_report/spamreport /usr/local/bin
+
+For the report to work properly, six variables must be specified as follows;
+
+	Specify webmail url:
+
+		webmailurl="https://hostname.tld/webmail";
+
+	Specify the email address that the spam report is to be sent from:
+
+		fromadd="postmaster@hostname.tld";
+
+	Put the IMAP file name of your server's spambox folders here:
+
+		spamfolder=".INBOX.spam"
+
+	Specify the mysql user name, msql password and mysql database name:
+
+		mysql_uname="exim4u";
+		mysql_pword="CHANGE";
+		mysql_dbase="exim4u";
+
+You should setup a crontab entry to run spamreport daily.
+
+12. Install and configure the Spam Box Deletion Utility
+
+The Spam Box Deletion Utility removes old spam from the server's spam folders. This utility
+should be run daily and is configured to remove all mail that is over 10 days old from the
+Spam Boxes.
+
+To install the Spam Box Deletion Utility, copy xtrasw/spam_box_delete/spamdel to /usr/local/bin
+or any other directory of your choice:
+
+	cp xtrasw/spam_box_delete/spamdel /usr/local/bin
+
+You should review the script and modify the path to the spam folders according to your
+installation.  Also, you can change the number of days prior to deletion from 10 to whatever
+you prefer therein.
+
+13. Install the favicon and the placeholder pages for munin and phpadmin to your webserver's
+   document root directory:
+
+	cp favicon.ico <target document root directory>
+	cp -r munin <target document root directory>
+	cp -r phpadmin <target document root directory>
+
+14. Now, the document root of your apache website installation should have all of the files
+    and directories that are contained in this distribution in home/exim4u/public_html as
+    follows:
+
+	* exim4u - Directory containing the Exim4U php scripts.
+	* eximstats - Directory containing the eximstats place holder or output files.
+	* favicon.ico - Favicon file.
+	* user_menu - Directory containing the Exim4U user interface.
+	* admin_menu - Directory containing the Exim4U admin interface.
+	* munin - Directory containing the munin place holder or output files.
+	* phpadmin - Directory containing the phpmyadmin place holder or output files.
+	* webmail - Directory containing the webmail (horde) php scripts.
+
+15. Install Optional Software; Mailman, Munin, phpmyadmin and Webmin.
+
+16. Done!

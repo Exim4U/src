@@ -1,0 +1,14 @@
+# Add all host names and IP addressess for the local machine here one per line.
+# Any SMTP host that connects to us using these values in the helo
+# arguement will be dropped immediately.
+#111.222.333.444
+#hostname.tld
+#222.333.444.555
+#host1.hostname.tld
+#333.444.555.666
+#host2.hostname.tld
+#444.555.666.777
+#host2.hostname.tld
+127.0.0.1
+localhost
+localhost.localdomain

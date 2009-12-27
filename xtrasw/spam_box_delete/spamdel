@@ -1,0 +1,29 @@
+# Spambox Deletion Utility
+# This shell script deletes all mail in each user's spambox (server spam folder)
+# that is over 10 days old.  A log is produced named /var/log/spamcron_today.log
+# This utility assumes that the spam folders are located at:
+# /home/*/mail/*/*/Maildir/.INBOX.spam
+# If your mail folders are located elsewhere then you will need to modify this
+# script accordingly.
+# Also, if you want to change the time to delete from 10 days to another value,
+# then change the value of mtime in the lines below.
+#
+echo > /var/log/spamcron_today.log 2>&1;
+date >> /var/log/spamcron_today.log 2>&1;
+echo >>  /var/log/spamcron_today.log 2>&1;
+echo "10 day old spam deletions in new folders" >>  /var/log/spamcron_today.log 2>&1;
+/usr/bin/find /home/*/mail/*/*/Maildir/.INBOX.spam/new/* -type f -mtime +10 -print -exec rm {} \; >> /var/log/spamcron_today.log 2>&1
+echo >>  /var/log/spamcron_today.log 2>&1;
+echo "10 day old spam deletions in cur folders" >>  /var/log/spamcron_today.log 2>&1;
+/usr/bin/find /home/*/mail/*/*/Maildir/.INBOX.spam/cur/* -type f -mtime +10 -print -exec rm {} \; >> /var/log/spamcron_today.log 2>&1
+echo >>  /var/log/spamcron_today.log 2>&1;
+echo "Total spam left in new folders" >>  /var/log/spamcron_today.log 2>&1;
+#/usr/bin/find /home/*/mail/*/*/Maildir/.INBOX.spam/new/* -type f -print >> /var/log/spamcron_today.log 2>&1
+/usr/bin/find /home/*/mail/*/*/Maildir/.INBOX.spam/new/* -type f -exec ls -ltr {} \; | sort -k 6M -k 7 -k 9 >> /var/log/spamcron_today.log 2>&1
+echo >>  /var/log/spamcron_today.log 2>&1;
+echo "Total spam left in cur folders" >>  /var/log/spamcron_today.log 2>&1;
+#/usr/bin/find /home/*/mail/*/*/Maildir/.INBOX.spam/cur/* -type f -print >> /var/log/spamcron_today.log 2>&1
+/usr/bin/find /home/*/mail/*/*/Maildir/.INBOX.spam/cur/* -type f -exec ls -ltr {} \; | sort -k 6M -k 7 -k 9 >> /var/log/spamcron_today.log 2>&1
+#
+# Optionally mail the report to the system adminstrator
+# /bin/mail sysadmin@domain.tld -s "Spambox Deletion Report" < /var/log/spamcron_today.log 2>&1;

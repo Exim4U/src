@@ -1,0 +1,8 @@
+# Add sender IP addresses to be exempted from sender IP ratelimit checks.
+# One entry per line.
+#
+# FYI, Sender IP ratelimit checks stop runaway internal accounts from sending
+# out large amount of spam.
+#
+# localhost
+# 192.168.0.0/16
