@@ -64,6 +64,6 @@ delimiter ';'
 call exim4u.AddColumnUnlessExists('exim4u', 'domains', 'relay_address', 'varchar(64) NOT NULL'); 
 call exim4u.AddColumnUnlessExists('exim4u', 'domains', 'outgoing_IP', 'varchar(15) NOT NULL'); 
 call exim4u.AddColumnUnlessExists('exim4u', 'users', 'on_spambox', 'tinyint(1) unsigned NOT NULL default 0'); 
-call exim4u.AddColumnUnlessExists('exim4u', 'users', 'on_spambox_report', 'tinyint(1) unsigned NOT NULL default 0'); 
+call exim4u.AddColumnUnlessExists('exim4u', 'users', 'on_spamboxreport', 'tinyint(1) unsigned NOT NULL default 0'); 
 
 drop procedure exim4u.AddColumnUnlessExists;
