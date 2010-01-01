@@ -27,7 +27,7 @@ SpamRejectScore: 10
 # the discard value (or rejection value). Enter the text that should be included between
 # the brackets in the Subject header for mail tagged as spam:
 #SpamTagText: SPAM
-SpamTagText: zBULK
+SpamTagText: BULK
 #
 # Exim4u only calls Spamassassin if the message is less than or equal to the MaxScanSize.
 # Specify the maximum size message that Spamassassin will scan:

@@ -12,7 +12,8 @@ the following default components, add-on modules and modifications:
 7) Whitelisting in SpamAssassin
 8) Adding Spamscore Points For Mail With Links To Sites Commonly Abused By Spammers
 9) Disabling URIBL and SURBL RBL Checks in SpamAssassin
-10) Testing SpamAssassin
+10) Setting The required_score And report_safe Values
+11) Testing SpamAssassin
 
 The SA Rules Channel and the Open Protect Rules Channel rely on the sa-update command
 to check for updates to their spam detection rules as described in Steps 1 and 2
@@ -328,7 +329,23 @@ will be higher thus leading to better spam detection.
 	score   URIBL_AB_SURBL  0.0 
 	score   URIBL_JP_SURBL  0.0
 
-10) Testing SpamAssassin:
+10) Setting The required_score And report_safe Values
+
+   The required_score and report_safe values are set globally in the file: /etc/mail/spamassassin/local.cf.
+
+   The required_score value in your global local.cf file should be set such that it is equal to or less
+   than the lowest Spam Tag Value used for all users in the Exim4U web interface.  A safe value to use
+   is 0.  So, change the following to your /etc/mail/spamassassin/local.cf:
+
+	required_score 0
+
+   The required_score value was previously named required_hits which can still be used but is now deprecated.
+
+   We also recommend that you set the report_safe to 0 with:
+
+	report_safe 0
+
+11) Testing SpamAssassin:
 
    To test SpamAssassin:
 

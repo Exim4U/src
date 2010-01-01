@@ -43,14 +43,13 @@
      Also reverse dns (PTR) records must be advertised for all IP addresses for
      all domains used in the multi IP config.  Each IP's "PTR" record should be
      setup exactly the same (in reverse) as the coinciding domain's "A" record.
-     Outgoing_IP designates the default IP address for sending mail for all
-     domains. This value can be changed for each domain in the web interface.
+     The outgoing_IP value designates the default IP address for sending mail for
+     all domains. This value can be changed for each domain in the web interface.
      The MX host's domain name must be defined in DNS for reverse lookups to 
      work properly.
-     $multi_ip = "no";
-     $outgoing_IP = "68.153.129.119"; */
-  $multi_ip = "yes";
-  $outgoing_IP = "72.35.85.62";
+     $multi_ip = "yes";
+     $outgoing_IP = "111.222.333.444"; */
+  $multi_ip = "no";
 
   /* The UID's and GID's control the default UID and GID for new domains
      and if postmasters can define their own.
@@ -83,7 +82,7 @@
 
      Set to "yes" if mailman is installed or "no" if mailman is not installed.
      */
-  $mailmaninstalled = "yes";
+  $mailmaninstalled = "no";
 
   /* exim4u: Specify secure or insecure protocol for mailman acccess as follows:
      "https" or "http" for mailman.   */
