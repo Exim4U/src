@@ -1,0 +1,62 @@
+                        Notes For Debian Users
+
+The following are a few tips for getting Exim4U up and running on Debian and
+Ubuntu systems. As stated elsewhere in these instructions, Exim4U was originally
+developed under the CentOS version of Linux, however, it has been installed and
+found to work well on several other Unix or Linux systems including Debian,
+Ubuntu and FreeBSD.
+
+First, install Exim from the Debian/Ubuntu repository:
+
+sudo apt-get install exim4-base
+sudo apt-get install exim4-daemon-heavy
+
+These commands should setup and install the following packages:
+
+	exim4-config
+	exim4-base
+	exim4-daemon-heavy
+	exim4
+
+The version of Exim in the Debian/Ubuntu repositories as of this writing was 4.69
+whereas Exim4U version 1.2.x requires Exim version 4.71 for complete functionality.
+However, the only functionality that is lost with Exim 4.69 is DKIM signing and
+verification. See the file, EXIM_4.69, which includes instructions for modifying
+Exim4U version 1.2.x to run with Exim version 4.69. (Alternatively, you may compile
+Exim 4.71 from scratch on your Debian/Ubuntu system if you want DKIM signing and
+verification features.)
+
+The Debian distribution has its own exim configuration system, however, you can
+implement a custom configuration in /etc/exim4/exim4.conf.  Therefore, follow the
+following procedure for enabling the Exim4U exim configuration under Debian/Ubuntu:
+
+	Copy the etc/exim directory and all of its contents from the Exim4U
+	distribution to /etc/exim on the target Debian machine.  Then symbolically
+	link /etc/exim/exim.conf to /etc/exim4/exim4.conf:
+
+		ln -s /etc/exim/exim.conf /etc/exim4/exim4.conf
+
+	Additionally, you may want to set dc_eximconfig_configtype=none in
+        /etc/exim4/update-exim4.conf.conf to stop debconf from asking you questions
+	about Debian's exim4 configuration.  Use "man update-exim4.conf" for more
+	information.
+	
+	Debian will now execute the Exim4U exim configuration automatically.
+
+Exim should be run under Debian/Ubuntu as the following ownership/group:
+
+	user = Debian-exim
+	group = Debian-exim
+
+The mysql socket location under Debian/Ubuntu is:
+
+	/var/run/mysqld/mysqld.sock
+
+The mysql statement in exim4u_local.conf.inc should then be as follows:
+
+	hide mysql_servers = <hostname>::(/var/run/mysqld/mysqld.sock)/exim4u/Debian-exim/<password>
+
+Exim on Debian/Ubuntu runs as "exim4". Therefore the service for starting/stopping/restarting
+exim is:
+
+	/etc/init.d/exim4

@@ -8,6 +8,10 @@
 #
 primary_hostname = hostname.tld
 #
+# Specify the user (UID) and group (GID) that exim will run as.
+exim_user = exim
+exim_group = exim
+#
 # exim4u: The following lines are concerned with ident callbacks, as defined by
 # RFC 1413 (hence their names). These settings cause Exim to make ident callbacks
 # for all incoming SMTP calls. You can limit the hosts to which these calls are
@@ -81,10 +85,19 @@ hide mysql_servers = localhost::(/var/lib/mysql/mysql.sock)/exim4u/exim4u/CHANGE
 # for email user clients and 2525 is simply an extra port.
 daemon_smtp_ports = 25 : 2525 : 587
 #
+#
+# exim4u: MailMan Configuration
+#
+# exim4u: If mailman is installed then several mailman specific parameters must be specified in the web 
+# interface's config file: home/exim4u/public_html/exim4u/config/variables.php. Setting $mailmaninstalled
+# to "yes" in the web interface's config file will cause mailman's web interface to be accessable from
+# within Exim4U's web interface for each domain. Refer to the documentation in
+# home/exim4u/public_html/exim4u/config/variables.php for further guidance for setting up mailman in
+# the Exim4U web interface.
+
 # exim4u: Put your mailman domains here (separated by : )
 #
 # domainlist mm_domains = mailman_domain_name_1.tld :  mailman_domain_name_2.tld : mailman_domain_name_3.tld
-#
 #
 # exim4u: Mailman Configuration Location
 #
@@ -97,6 +110,7 @@ MAILMAN_GROUP=mail
 # END Of Host Specific Configuration Settings
 #
 #
+# 
 #
 # DKIM CONFIGURATION INSTRUCTIONS
 # -------------------------------
@@ -155,6 +169,11 @@ MAILMAN_GROUP=mail
 # mail server and each of these domains may have their own IP address and SSL certificate/key. With
 # MULTI_IP= NO, exim4u uses only one server host name, IP address and SSL certificate/key for all
 # hosted domains.
+#
+# The variable, $multi_ip, must also be set likewise to either "yes" or "no" in the web interface's
+# config file: home/exim4u/public_html/exim4u/config/variables.php.  Refer to the documentation in
+# home/exim4u/public_html/exim4u/config/variables.php for further guidance for setting the Multi IP
+# option in the web interface.
 #
 # For MULTI_IP = NO, the tls certificate and key for your primary_hostname is stored here:
 # /etc/pki/tls/exim_tls/exim.cert
