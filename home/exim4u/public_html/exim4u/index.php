@@ -76,7 +76,7 @@
       </tr>
       <tr valign="top" align="left">
        <td height="52"></td>
-       <td width="88"><img id="Exim4U" height="52" width="88" src="./images/exim4u_52_EX.gif" border="0" alt="Exim4U" title="Exim4U"></td>
+       <td width="88"><img id="Exim4U" height="52" width="88" src="./images/logo.gif" border="0" alt="Exim4U" title="Exim4U"></td>
       </tr>
      </table>
     </td>

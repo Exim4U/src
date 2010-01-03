@@ -1,5 +1,5 @@
 <IfModule mod_ssl.c>
-SSLRequireSSL
+# SSLRequireSSL
 </IfModule>
 <IfModule !mod_ssl.c>
 # no non-ssl access

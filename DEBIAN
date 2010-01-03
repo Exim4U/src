@@ -6,7 +6,17 @@ developed under the CentOS version of Linux, however, it has been installed and
 found to work well on several other Unix or Linux systems including Debian,
 Ubuntu and FreeBSD.
 
-First, install Exim from the Debian/Ubuntu repository:
+Follow the instructions in the INSTALL file, however, be aware that there are
+subtle differences in the Debian/Ubuntu file system as opposed to the RedHat/CentOS
+file system for which the INSTALL file instructions were written.  The following
+notes will cover the most significant differences and hopefully allow a smooth
+installation of Exim4u on your Debian/Ubuntu system.
+
+1) EXIM (exim4)
+
+The Exim package in the Debian/Ubuntu repository is named "exim4".
+
+To install Exim from the Debian/Ubuntu repository:
 
 sudo apt-get install exim4-base
 sudo apt-get install exim4-daemon-heavy
@@ -60,3 +70,20 @@ Exim on Debian/Ubuntu runs as "exim4". Therefore the service for starting/stoppi
 exim is:
 
 	/etc/init.d/exim4
+
+2) EXIM4U WEB INTERFACE
+
+Apache runs under Debian/Ubuntu as apache2.  Install apache2, php, perl and mysql with apt or aptitude.
+You also need to install the db.php pear module which is referred to as php-pear-db in the INSTALL
+file:
+
+	pear install db
+
+To list pear installs:
+
+	pear list
+
+The standard DocumentRoot for Debian/Ubuntu is typically /var/www or /home/www. Exim4U's INSTALL file
+instructions locate the web interface's DocumentRoot at /home/exim4u/public_html which is standard
+for RedHat/CentOS. Nevertheless, you may relocate the DocumentRoot to any other directory that you
+prefer.
