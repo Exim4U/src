@@ -19,11 +19,11 @@ spamfolder=".INBOX.spam"
 #
 # Specify the mysql user name, msql password and mysql database name:
 mysql_uname="exim4u";
-mysql_pword="CHANGE;
+mysql_pword="CHANGE";
 mysql_dbase="exim4u";
 #
 # Read The Database values - username is email address, smtp is file path to mail directory and on_spamboxreport turns the report on.
-echo "select username, smtp,on_spamboxreport from users where type = 'local';" | mysql -N -u $mysql_uname --password=$mysql_pword $mysql_dbase > /tmp/userspam.mysql;
+echo "select username, smtp, on_spamboxreport from users where type = 'local';" | mysql -N -u $mysql_uname --password=$mysql_pword $mysql_dbase > /tmp/userspam.mysql;
 #
 #
 # Do not modify anything else below here.
@@ -53,12 +53,15 @@ do
 		if [[ `ls $spamdir_cur 2>/dev/null | wc -l` -gt 0 ]]; then
 			for file in $spamdir_cur
 			{
+			   # Do not print spam that has been marked for deletion.
+			   if [[ `ls $file | grep ".*:2,.*T.*" 2>/dev/null | wc -l` -eq 0 ]]; then
 				echo >> /tmp/spamfile1;
 				grep -s -m 1 "^Date:" $file >> /tmp/spamfile1;
 				grep -s -m 1 "^From:" $file >> /tmp/spamfile1;
                 		grep -s -m 1 "^Subject: " $file >> /tmp/spamfile1;
+				box_empty="N";
+			   fi
 			}
-			box_empty="N";
 		fi
 
 		# Processing "new" (unread) mail next.
