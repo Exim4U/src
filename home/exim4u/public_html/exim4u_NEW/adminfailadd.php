@@ -19,19 +19,19 @@
     <div id="Forms">
       <form name="adminadd" method="post" action="adminfailaddsubmit.php">
         <table align="center">
-	  <tr>
-	    <td><?php echo _('Address to fail'); ?>:</td>
+        <tr>
+          <td><?php echo _('Address to fail'); ?>:</td>
             <td>
               <input name="localpart" type="text" class="textfield">@
               <?php print $_SESSION['domain']; ?>
             </td>
-	  </tr>
-	  <tr>
-	    <td colspan="2" class="button">
+        </tr>
+        <tr>
+          <td colspan="2" class="button">
               <input name="submit" type="submit"
               value="<?php echo _('Submit'); ?>">
             </td>
-	  </tr>
+        </tr>
         </table>
       </form>
     </div>

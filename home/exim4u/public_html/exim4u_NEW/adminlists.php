@@ -22,25 +22,25 @@
     </div>
     <div id="Forms">
       <form name="adminlists" method="post" action="adminlists.php">
-	<table align="center">
-	  <tr>
+      <table align="center">
+        <tr>
             <td>
-      	      <?php echo _('Mailman List Administration') .'<br><br>'; ?>
+                  <?php echo _('Mailman List Administration') .'<br><br>'; ?>
               <?php echo _('Please Enter A List Name'); ?>:
             </td>
           </tr>
-	  <tr>
+        <tr>
             <td>
               <input name="listname" type="text" class="textfield">
             </td>
           </tr>
-	  <tr>
+        <tr>
             <td class="button">
               <input name="submit" type="submit"
                 value="<?php echo _('Submit'); ?>">
             </td>
           </tr>
-	</table>
+      </table>
       </form>
     </div>
   </body>

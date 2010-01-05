@@ -125,10 +125,10 @@
                 </a>
               </td>
               <td>
-		<a href="sitechange_relay.php?domain_id=<?php
-		  echo $row['domain_id']; ?>&domain=<?php
+            <a href="sitechange_relay.php?domain_id=<?php
+              echo $row['domain_id']; ?>&domain=<?php
                   echo $row['domain']; ?>"><?php echo $row['domain']; ?></a>
-	     </td>
+           </td>
             </tr>
       <?php
           }

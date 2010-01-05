@@ -23,27 +23,27 @@
     </div>
     <div="Forms">
       <form name="failchange" method="post" action="adminfailchangesubmit.php">
-	<table align="center">
-	  <tr>
+      <table align="center">
+        <tr>
             <td><?php echo _('Fail address'); ?>:</td>
-	    <td>
+          <td>
               <input name="localpart" type="text"
                 value="<?php print $row['localpart']; ?>" class="textfield">@
               <?php print $_SESSION['domain']; ?>
             </td>
-	    <td>
+          <td>
               <input name="user_id" type="hidden"
                 value="<?php print $_GET['user_id']; ?>" class="textfield">
             </td>
           </tr>
-	  <tr>
+        <tr>
             <td></td>
             <td>
               <input name="submit" type="submit"
                 value="<?php echo _('Submit'); ?>">
             </td>
           </tr>
-	</table>
+      </table>
       </form>
     </div>
   </body>

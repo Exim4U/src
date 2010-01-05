@@ -115,11 +115,11 @@
             <td><input name="on_spamassassin" type="checkbox" checked></td>
           </tr>
           <tr>
-	  <tr>
+        <tr>
             <td><?php echo _('Enable Spam Box'); ?>:</td>
             <td><input name="on_spambox" type="checkbox" checked></td>
           </tr>
-	   <tr>
+         <tr>
             <td><?php echo _('Enable Spam Box Report'); ?>:</td>
             <td><input name="on_spamboxreport" type="checkbox" ></td>
           </tr>

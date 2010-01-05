@@ -82,7 +82,7 @@ if ($multi_ip == "yes") {
             "$uid," .
             "$gid," .
             "'{$_POST['type']}',".
-	    "'{$_POST['relaydest']}',".
+          "'{$_POST['relaydest']}',".
             "'{$_POST['outgoingip']}',".
             ((isset($_POST['maxmsgsize'])) ? $_POST['maxmsgsize'] : 0) . ")";
 } else {
@@ -120,12 +120,12 @@ if ($multi_ip == "yes") {
             $uid . "," .
             $gid . ", " .
             "'{$smtphomepath}', '{$pophomepath}'," .
-	    "{$_POST['spamassassin']},".
-	    ((isset($_POST['sa_tag'])) ? $_POST['sa_tag']  : 0) . "," .
+          "{$_POST['spamassassin']},".
+          ((isset($_POST['sa_tag'])) ? $_POST['sa_tag']  : 0) . "," .
             ((isset($_POST['sa_refuse'])) ? $_POST['sa_refuse']  : 0) . "," .
-	    ((isset($_POST['maxmsgsize'])) ? $_POST['maxmsgsize'] : 0) . "," .
-	    ((isset($_POST['quotas'])) ? $_POST['quotas'] : 0) . "," .
-	    
+          ((isset($_POST['maxmsgsize'])) ? $_POST['maxmsgsize'] : 0) . "," .
+          ((isset($_POST['quotas'])) ? $_POST['quotas'] : 0) . "," .
+          
             "'Domain Admin', 'local', 1 FROM domains
             WHERE domains.domain = '{$_POST['domain']}'";
 // Is using indexes worth setting the domain_id by hand? -- GCBirzan
