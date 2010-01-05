@@ -21,7 +21,7 @@
         <table align="center">
           <tr>
     <td><?php echo _('New Domain'); ?>:</td>
-	    <td><input name="domain" type="text" class="textfield"></td>
+          <td><input name="domain" type="text" class="textfield"></td>
     <td>
       <?php echo _('Domain that you are adding.'); ?>
             </td>
@@ -53,15 +53,15 @@
               <input name="vclear" type="password" class="textfield">
             </td>
           </tr>
-	<?php if ($multi_ip == "yes") {	?>
-	  <tr>
+      <?php if ($multi_ip == "yes") {      ?>
+        <tr>
             <td><?php echo _('Outgoing IP'); ?>:</td>
             <td>
               <input name="outgoingip" size="12" type="text" class="textfield"
                 value="<?php echo $outgoing_IP; ?>">
             </td>
           </tr>
-	<?php } ?>
+      <?php } ?>
           <tr>
             <td><?php echo _('System UID'); ?>:</td>
             <td>
@@ -170,8 +170,8 @@
             <td>
               <input name="relaydest" type="text" size="22" class="textfield">
             </td>
-		<td>
-		<?php echo _('Destination mail server name.'); ?>
+            <td>
+            <?php echo _('Destination mail server name.'); ?>
                 </td>
           </tr>
           <tr>
@@ -186,7 +186,7 @@
             <td>
               <input name="sa_refuse" size="5" type="text" class="textfield"
               value="<?php echo $sa_refuse; ?>">
-	  </tr>
+        </tr>
             <tr><td><?php echo _('Spamassassin enabled?'); ?></td>
             <td>
               <input name="spamassassin" type="checkbox" checked class="textfield">

@@ -166,22 +166,22 @@
             </tr>
             <tr>
           <tr>
-		<td><?php echo _('Enable Spam Box'); ?>:</td>
+            <td><?php echo _('Enable Spam Box'); ?>:</td>
               <td><input name="on_spambox" type="checkbox"
                 <? if ($row['on_spambox'] == "1") {
                   print " checked";
                 }?>>
               </td>
-	</tr><tr>
-	 <td><?php echo _('Enable Spam Box Report'); ?>:</td>
+      </tr><tr>
+       <td><?php echo _('Enable Spam Box Report'); ?>:</td>
               <td><input name="on_spamboxreport" type="checkbox"
                 <? if ($row['on_spamboxreport'] == "1") {
                   print " checked";
                 }?>>
-              </td>	
+              </td>      
           </tr>
           <tr>
-		<td><?php echo _(' '); ?></td>
+            <td><?php echo _(' '); ?></td>
           </tr>
               <td><?php echo _('Spamassassin tag score'); ?>:</td>
               <td>

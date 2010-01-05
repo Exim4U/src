@@ -6,7 +6,7 @@
   // and confirm the user is a the siteadmin
   if ($_SESSION['localpart'] != "siteadmin") { header ("Location: index.php?login=failed"); };
   $query = "SELECT crypt,domain FROM users,domains WHERE localpart='siteadmin' AND domain='admin' AND
-  		users.domain_id=domains.domain_id;";
+              users.domain_id=domains.domain_id;";
   $results = $db->query($query);
   $row = $results->fetchRow();
 

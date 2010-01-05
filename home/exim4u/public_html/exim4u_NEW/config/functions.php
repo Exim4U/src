@@ -94,7 +94,7 @@
      */
     function alpha_menu($flag) 
     {
-        global $letter;	// needs to be available to the parent
+        global $letter;      // needs to be available to the parent
         if ($letter == 'all') 
         {
             $letter = '';
@@ -108,7 +108,7 @@
             foreach (preg_split('//', _("ABCDEFGHIJKLMNOPQRSTUVWXYZ"), -1, 
                                 PREG_SPLIT_NO_EMPTY) as $i) 
             {
-      	        print "<a href='" . $_SERVER['PHP_SELF'] . 
+                    print "<a href='" . $_SERVER['PHP_SELF'] . 
                       "?LETTER=$i' class='alpha'>$i</a>&nbsp; ";
             }
             print "</p>\n";
