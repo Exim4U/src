@@ -1,0 +1,204 @@
+			Instructions For Customizing Exim4U's Appearance
+
+Exim4U's web interface may be customized to include your own images and appearance preferences.
+
+The following items may be customized:
+
+1) Admin Menu Host Name And Logo
+2) User Menu Host Name And Logo
+3) Exim4U Email Admin Header Text
+4) Exim4U Email Admin Logo
+5) Exim4U Email Admin Check Mark Image
+6) Webmail Images And Logos
+
+Each item is described as follows:
+
+1) Admin Menu Host Name And Logo
+
+The Admin Menu web page is located here:
+
+	home/exim4u/public_html/admin_menu.
+
+The host name in the web page header is specified in the following file within the admin_menu
+directory:
+
+	index.html
+
+Search and substitute your host name for hostname.tld within the index.html file. There are two
+instances of hostname.tld that must be replaced, one for the header and another for the WebMin
+menu link. 
+
+The logo at the top of the Admin Menu is located in the file:
+
+	home/exim4u/public_html/admin_menu/assets/images/logo.gif
+
+You may substitute your own logo or image as per your preferences by replacing the logo.gif file.
+You should re-size your image to the same dimensions as the logo.gif file which is 88px X 52px in
+order To ensure the proper placement of the image on the web page. The Exim4U logo is also provided
+in the file exim4u.gif.
+
+You may remove the logo altogether from the web page by replacing the logo.gif file with
+the following clearpixel.gif file:
+
+	home/exim4u/public_html/admin_menu/assets/images/autogen/clearpixel.gif
+
+Therefore, to remove the logo altogether, from this distribution's root directory copy the
+clearpixel.gif file to logo.gif as follows:
+
+	cd home/exim4u/public_html/admin_menu/assets/images/
+	cp autogen/clearpixel.gif logo.gif
+
+2) User Menu Host Name And Logo
+
+The User Menu web page is located in: 
+
+        home/exim4u/public_html/user_menu.
+
+The host name in the web page header is specified in the following file within the user_menu
+directory: 
+
+        index.html.
+
+Search and substitute your host name for hostname.tld within the index.html file.
+
+The logo at the top of the User Menu is located in the file:
+ 
+        home/exim4u/public_html/user_menu/assets/images/logo.gif
+
+You may substitute your own logo or image as per your preferences by replacing the logo.gif file.
+You should re-size your image to the same dimensions as the logo.gif file which is 88px X 52px in
+order To ensure the proper placement of the image on the web page. The Exim4U logo is also provided
+in the file exim4u.gif.
+
+You may remove the logo altogether from the web page by replacing the logo.gif file with
+the following clearpixel.gif file:
+
+        home/exim4u/public_html/user_menu/assets/images/autogen/clearpixel.gif
+
+Therefore, to remove the logo altogether, from this distribution's root directory copy the
+clearpixel.gif file to logo.gif as follows:
+
+	cd home/exim4u/public_html/user_menu/assets/images
+        cp autogen/clearpixel.gif logo.gif
+
+3) Exim4U Email Admin Header Text
+
+The Exim4U Email Admin web pages are located here:
+
+	home/exim4u/public_html/exim4u
+
+The header text, "Exim4U Email Admin", in the upper left hand portion of the web page may be displayed
+in three ways:
+
+	a) As a link (bold blue) to the Exim4U home page, http://exim4u.org,
+	   which is the default setting.
+	b) As a link (bold blue) to the current page (_self).
+	c) As plain bold dark grey text without any link.
+
+The files that determine the way that the "Exim4U Email Admin" header text is displayed are contained
+in this directory:
+
+	home/exim4u/public_html/exim4u/config
+
+The files that contain the php code for displaying the header text are:
+ 
+	header_domain.php
+	header.php
+
+The following files may be copied to header_domain.php and header.php to produce the desired header text
+appearance:
+
+	header_domain.php-BOLD
+	header_domain.php-LINK_EXIM4U
+	header_domain.php-LINK_SELF
+	header.php-BOLD
+	header.php-LINK_EXIM4U
+	header.php-LINK_SELF
+
+Therefore;
+
+	a) To have the header text appear as a link to the current page (_self) then perform the
+	   following from this distribution's root directory:
+
+		cd home/exim4u/public_html/exim4u/config
+		cp header_domain.php-LINK_SELF header_domain.php
+		cp header.php-LINK_SELF header.php
+
+	b) To have the header text appear as plain bold dark grey text (_self) then perform the 
+	   following from this distribution's root directory:
+
+	        cd home/exim4u/public_html/exim4u/config
+        	cp header_domain.php-BOLD header_domain.php
+        	cp header.php-BOLD header.php
+
+	c) To have the header text appear as a link to the Exim4U home page, http://exim4u.org,
+	   (default configuration) then perform the following from this distribution's root
+	   directory:
+
+        	cd home/exim4u/public_html/exim4u/config
+        	cp header_domain.php-LINK_EXIM4U header_domain.php
+        	cp header.php-LINK_EXIM4U header.php
+
+4) Exim4U Email Admin Logo
+
+All of the logos and images used by the Exim4u Email Admin web pages are stored in the 
+following directory:
+
+	home/exim4u/public_html/exim4u/images
+
+The logo that appears below the login credentials in the web page is named:
+
+	logo.gif
+
+You may substitute your own logo or image as per your preferences by replacing the logo.gif file.
+You should resize your image to the same dimensions as the logo.gif file which is 88px X 52px in
+order To ensure the proper placement of the image on the web page. The Exim4U logo is also provided
+in the file exim4u.gif.
+
+You may remove the logo altogether from the web page by replacing the logo.gif file with
+the following clearpixel.gif file:
+
+        home/exim4u/public_html/exim4u/images/clearpixel.gif
+
+Therefore, to remove the logo altogether, from this distribution's root directory copy the
+clearpixel.gif file to logo.gif as follows:
+
+        cd home/exim4u/public_html/exim4u/images
+        cp clearpixel.gif logo.gif
+
+5) Exim4U Email Admin Check Mark Image
+
+The Exim4U Email Admin web interface utilizes a check mark image on several pages.  The most prominent
+use of this image is in the "Add, delete and manage POP/IMAP accounts" page. The image that is used
+for the check mark is stored in the following directory:
+
+ home/exim4u/public_html/exim4u/images
+
+The check mark is named:
+
+       check.gif
+
+You may select which image is to be used as the check mark image from the following image files:
+
+	check-exim4u.gif - Default Exim4U image
+	check-vexim.gif  - Default Vexim image
+	human-exim4u.gif - Human image
+
+Therefore, to change the image, simply copy the selected file to check.gif.
+
+To use human-exim4u.gif as the check mark:
+
+	cd home/exim4u/public_html/exim4u/images
+        cp human-exim4u.gif check.gif
+
+To use check-vexim.gif as the check mark:
+
+	cd home/exim4u/public_html/exim4u/images
+        cp check-vexim.gif check.gif
+
+To use check-exim4u.gif as the check mark:
+
+	cd home/exim4u/public_html/exim4u/images
+        cp check-exim4u.gif check.gif
+
+6) Webmail Images And Logos
