@@ -2,18 +2,18 @@
 
 Exim4U's web interface may be customized to include your own images and appearance preferences.
 
-The following items may be customized:
+The following web pages may be customized:
 
-1) Admin Menu Host Name And Logo
-2) User Menu Host Name And Logo
-3) Exim4U Email Admin Header Text
-4) Exim4U Email Admin Logo
-5) Exim4U Email Admin Check Mark Image
-6) Webmail Images And Logos
+1) Admin Interface (admin menu) - Customize Host Name And Logo
+2) User Interface (user menu) - Customize Host Name And Logo
+3) Email Admin (php web interface login) - Customize Header Text
+4) Email Admin (php web interface login) - Customize Logo
+5) Email Admin (php web interface internal pages) - Customize Check Mark Image
+6) Webmail (Horde) - Customize Theme, Images And Logos
 
 Each item is described as follows:
 
-1) Admin Menu Host Name And Logo
+1) Admin Interface (admin menu) - Customize Host Name And Logo
 
 The Admin Menu web page is located here:
 
@@ -32,10 +32,10 @@ The logo at the top of the Admin Menu is located in the file:
 
 	home/exim4u/public_html/admin_menu/assets/images/logo.gif
 
-You may substitute your own logo or image as per your preferences by replacing the logo.gif file.
-You should re-size your image to the same dimensions as the logo.gif file which is 88px X 52px in
-order To ensure the proper placement of the image on the web page. The Exim4U logo is also provided
-in the file exim4u.gif.
+You may substitute your own logo or image as per your preferences by replacing the logo.gif file
+with a .gif version of your logo.  You should re-size your image to the same dimensions as the
+logo.gif file which is 88px X 52px in order to ensure the proper placement of the image on the
+web page. The Exim4U logo is also provided in the file exim4u.gif.
 
 You may remove the logo altogether from the web page by replacing the logo.gif file with
 the following clearpixel.gif file:
@@ -48,7 +48,8 @@ clearpixel.gif file to logo.gif as follows:
 	cd home/exim4u/public_html/admin_menu/assets/images/
 	cp autogen/clearpixel.gif logo.gif
 
-2) User Menu Host Name And Logo
+
+2) User Interface (user menu) - Customize Host Name And Logo
 
 The User Menu web page is located in: 
 
@@ -65,10 +66,10 @@ The logo at the top of the User Menu is located in the file:
  
         home/exim4u/public_html/user_menu/assets/images/logo.gif
 
-You may substitute your own logo or image as per your preferences by replacing the logo.gif file.
-You should re-size your image to the same dimensions as the logo.gif file which is 88px X 52px in
-order To ensure the proper placement of the image on the web page. The Exim4U logo is also provided
-in the file exim4u.gif.
+You may substitute your own logo or image as per your preferences by replacing the logo.gif file
+with a .gif version of your logo.  You should re-size your image to the same dimensions as the
+logo.gif file which is 88px X 52px in order to ensure the proper placement of the image on the 
+web page. The Exim4U logo is also provided in the file exim4u.gif.
 
 You may remove the logo altogether from the web page by replacing the logo.gif file with
 the following clearpixel.gif file:
@@ -81,7 +82,8 @@ clearpixel.gif file to logo.gif as follows:
 	cd home/exim4u/public_html/user_menu/assets/images
         cp autogen/clearpixel.gif logo.gif
 
-3) Exim4U Email Admin Header Text
+
+3) Email Admin (php web interface login) - Customize Header Text
 
 The Exim4U Email Admin web pages are located here:
 
@@ -139,7 +141,8 @@ Therefore;
         	cp header_domain.php-LINK_EXIM4U header_domain.php
         	cp header.php-LINK_EXIM4U header.php
 
-4) Exim4U Email Admin Logo
+
+4) Email Admin (php web interface login) - Customize Logo
 
 All of the logos and images used by the Exim4u Email Admin web pages are stored in the 
 following directory:
@@ -150,10 +153,10 @@ The logo that appears below the login credentials in the web page is named:
 
 	logo.gif
 
-You may substitute your own logo or image as per your preferences by replacing the logo.gif file.
-You should resize your image to the same dimensions as the logo.gif file which is 88px X 52px in
-order To ensure the proper placement of the image on the web page. The Exim4U logo is also provided
-in the file exim4u.gif.
+You may substitute your own logo or image as per your preferences by replacing the logo.gif file
+with a .gif version of your logo.  You should re-size your image to the same dimensions as the
+logo.gif file which is 88px X 52px in order to ensure the proper placement of the image on the
+web page. The Exim4U logo is also provided in the file exim4u.gif.
 
 You may remove the logo altogether from the web page by replacing the logo.gif file with
 the following clearpixel.gif file:
@@ -166,7 +169,8 @@ clearpixel.gif file to logo.gif as follows:
         cd home/exim4u/public_html/exim4u/images
         cp clearpixel.gif logo.gif
 
-5) Exim4U Email Admin Check Mark Image
+
+5) Email Admin (php web interface internal pages) - Customize Check Mark Image
 
 The Exim4U Email Admin web interface utilizes a check mark image on several pages.  The most prominent
 use of this image is in the "Add, delete and manage POP/IMAP accounts" page. The image that is used
@@ -180,9 +184,9 @@ The check mark is named:
 
 You may select which image is to be used as the check mark image from the following image files:
 
-	check-exim4u.gif - Default Exim4U image
-	check-vexim.gif  - Default Vexim image
-	human-exim4u.gif - Human image
+	check-exim4u.gif - Default Exim4U Image
+	check-vexim.gif  - Default Vexim Image
+	human-exim4u.gif - Human Image
 
 Therefore, to change the image, simply copy the selected file to check.gif.
 
@@ -201,4 +205,70 @@ To use check-exim4u.gif as the check mark:
 	cd home/exim4u/public_html/exim4u/images
         cp check-exim4u.gif check.gif
 
-6) Webmail Images And Logos
+
+6) Webmail (Horde) - Customize Theme, Images And Logos
+
+Exim4U's webmail uses the Horde Silver Surfer theme. You may substitute your preferred Horde theme
+in the file:
+
+	home/exim4u/public_html/webmail/config/prefs.php
+
+The theme section appears in the prefs.php file as follows:
+
+	// UI theme 
+	$_prefs['theme'] = array( 
+	    'value' => 'silver',  
+	    'locked' => false, 
+	    'shared' => true, 
+	    'type' => 'select', 
+	    'desc' => _("Select your color scheme.")
+
+Search the prefs.php file for "UI theme" and modify the 'value' parameter to specify your preferred
+theme.
+
+You may replace or remove the logo below the login credentials on the Webmail Groupware login page.
+The login page logo is located here:
+
+	home/exim4u/public_html/webmail/themes/silver/graphics/horde-power1.png
+
+To change this logo, simply replace horde-power1.png with your preferred logo file by copying your
+preferred logo file to horde-power1.png. Please note that your logo should be converted to a .png file.
+Alternatively, to remove this logo altogether, replace the horde-power1.png file with:
+
+	home/exim4u/public_html/exim4u/images/clearpixel.png
+
+To replace the logo on the top of the sidebar with your logo (Traditional Mode only), login to Webmail's
+Traditional Mode as Administrator and go to:
+
+	Administration > Setup > Webmail Groupware (horde) > Menu
+
+Then, place the url for your preferred logo in the next to last field which is $conf[logo]. You can
+also specify a link for the logo in the last field which is $conf[logo][link]. 
+
+The small favicon size icon that is found in various places in both the Traditional and Dynamic mode is
+located here: 
+
+	/home/exim4u/public_html/webmail/themes/silver/graphics/horde.png
+
+To change this icon simply replace horde.png with your preferred logo file by copying your
+preferred logo file to horde.png. Please note that your logo should be converted to a .png file.
+Alternatively, to remove this icon altogether, replace the horde.png file with:
+
+        home/exim4u/public_html/exim4u/images/clearpixel.png
+
+Webmail's favicon files are located here:
+
+	home/exim4u/public_html/webmail/favicon.ico
+	home/exim4u/public_html/webmail/ingo/themes/silver/graphics/favicon.ico
+	home/exim4u/public_html/webmail/kronolith/themes/silver/graphics/favicon.ico
+	home/exim4u/public_html/webmail/dimp/themes/silver/graphics/favicon.ico
+	home/exim4u/public_html/webmail/imp/themes/silver/graphics/favicon.ico 
+	home/exim4u/public_html/webmail/turba/themes/silver/graphics/favicon.ico
+	home/exim4u/public_html/webmail/mnemo/themes/silver/graphics/favicon.ico
+	home/exim4u/public_html/webmail/nag/themes/silver/graphics/favicon.ico
+	home/exim4u/public_html/webmail/themes/silver/graphics/favicon.ico
+	home/exim4u/public_html/webmail/mimp/themes/graphics/favicon.ico
+
+You may replace these favicons with your preferred favicon by coping your preferred favicon to the
+above file locations. You may remove the favicons altogether by simply deleting (rm) all of these
+favicon files.
