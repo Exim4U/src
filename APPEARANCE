@@ -270,5 +270,4 @@ Webmail's favicon files are located here:
 	home/exim4u/public_html/webmail/mimp/themes/graphics/favicon.ico
 
 You may replace these favicons with your preferred favicon by coping your preferred favicon to the
-above file locations. You may remove the favicons altogether by simply deleting (rm) all of these
-favicon files.
+above file locations.
