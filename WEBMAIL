@@ -21,10 +21,10 @@ webmail directory in your web root directory. Copy the files and set the ownersh
 
 From within this distribution's home/exim4u/public_html/webmail directory execute:
         cp -r * <target document root directory>/webmail
-        chown -R <directory owner>.apache <target document root directory>/webmail
+        chown -R <directory owner>:apache <target document root directory>/webmail
 Example:
         cp -r * /home/exim4u/public_html/webmail
-        chown -R exim4u.apache /home/exim4u/public_html/webmail
+        chown -R exim4u:apache /home/exim4u/public_html/webmail
 
 Make sure that all files and directories are read-writable by the owner (exim4u)
 and are readable by the group (apache).  The permissions should be already set that
@@ -129,7 +129,7 @@ and proceed as follows:
 	Then check if its working OK and that you can access mysql with the horde
 	login that was created by the script:
 
-	mysql -uhorde -p horde
+	mysql -uhorde -p<horde>
 
 In the future, you can use mysql or phpmyadmin to access the horde data base
 and change the mysql horde password as desired.  Webmail (Horde) stores the mysql

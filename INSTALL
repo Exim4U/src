@@ -34,10 +34,10 @@ distribution.
 4. Install: Exim - Tested With Version 4.71
 
 Install exim 4.71 or later. If you are installing from scratch, exim must
-be compiled with mysql, spf, DKIM and the embedded Perl engine enabled.
-Exim 4.71 RPMs for RedHat/CentOS 5 may be obtained from the atrpms.net
-repository. Information on the atrpms.net repository is included with
-Exim4u in the xtrasw/exim_rpms-for-redhat directory. The atrpms.net RPMs
+be compiled with MySQL, SQLite, spf, DKIM and the embedded Perl engine
+enabled. Exim 4.71 RPMs for RedHat/CentOS 5 may be obtained from the
+atrpms.net repository. Information on the atrpms.net repository is include
+with Exim4u in the xtrasw/exim_rpms-for-redhat directory. The atrpms.net RPMs
 include support for mysql, spf, srs, DKIM and embedded Perl.
 
 Copy Exim4U's exim configuration files from etc/exim/* to the target machine.
@@ -49,16 +49,16 @@ From within the etc/exim directory in this distribution (as user = root) execute
 
 After copying files to /etc/exim then (as user = root) execute:
 
-		chown -R root.root /etc/exim/*
+		chown -R root:root /etc/exim/*
 
-Create the SQLite database for greylisting. You can do this
+Create the SQLite database (SQLite3) for greylisting. You can do this
 with the sqlite3 command. The sqlite3 script for setting up the greylisting
 database is named mk-greylist-db.sql and it is in the xtrasw/exim-greylist
 directory of this distribution.  You must also ensure that it's owned by the
 Exim user/group. To create the database and set the correct ownership execute:
 
  	sqlite3 /var/spool/exim/db/greylist.db < xtrasw/exim-greylist/mk-greylist-db.sql
-	chown exim.exim /var/spool/exim/db/greylist.db
+	chown exim:exim /var/spool/exim/db/greylist.db
 
 Install the script xtrasw/exim-greylist/greylist-tidy.sh in cron.daily to
 prevent the database from growing forever without bound. This script simply
@@ -141,14 +141,14 @@ your webserver's document root directory. The files should be readable by apache
 but not writable by apache. For example;
 
 	cp -r home/exim4u/public_html/exim4u/* <target document root directory>/exim4u/
-	chown -R <directory owner>.apache <target document root directory>/exim4u
+	chown -R <directory owner>:apache <target document root directory>/exim4u
 	find  <target document root directory>/exim4u -type d -exec chmod 755 {} \;
 	find  <target document root directory>/exim4u -type f -exec chmod 644 {} \;
 
 More specifically, with a DocumentRoot = /home/exim4u/public_html, then;
 
 	cp -r home/exim4u/public_html/exim4u/* /home/exim4u/public_html/exim4u/
-	chown -R exim4u.apache /home/exim4u/public_html/exim4u
+	chown -R exim4u:apache /home/exim4u/public_html/exim4u
 	find  /home/exim4u/public_html/exim4u -type d -exec chmod 755 {} \;
         find  /home/exim4u/public_html/exim4u -type f -exec chmod 644 {} \;
 
