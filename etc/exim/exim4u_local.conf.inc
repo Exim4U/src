@@ -86,6 +86,21 @@ hide mysql_servers = localhost::(/var/lib/mysql/mysql.sock)/exim4u/exim4u/CHANGE
 daemon_smtp_ports = 25 : 2525 : 587
 #
 #
+# The following setting is only needed if you use the 'spam' ACL condition
+# of the exiscan-acl patch. It specifies on which host and port the SpamAssassin
+# "spamd" daemon is listening. If you do not use this condition, or you use
+# the default of "127.0.0.1 783", you can omit this option.
+#
+spamd_address = 127.0.0.1 783
+#
+# This configuration variable defines the virus scanner that is used with
+# the 'malware' ACL condition of the exiscan acl-patch. If you do not use
+# virus scanning, leave it commented. Please read doc/exiscan-acl-readme.txt
+# for a list of supported scanners.
+#
+av_scanner = clamd:/var/run/clamav/clamd
+#
+#
 # exim4u: MailMan Configuration
 #
 # exim4u: If mailman is installed then several mailman specific parameters must be specified in the web 
@@ -95,9 +110,12 @@ daemon_smtp_ports = 25 : 2525 : 587
 # home/exim4u/public_html/exim4u/config/variables.php for further guidance for setting up mailman in
 # the Exim4U web interface.
 
-# exim4u: Put your mailman domains here (separated by : )
-#
+# exim4u: Put your mailman domains here (separated by ":")
+# If you don't have any mailman domains then set the domainlist to null as follows.
+# domainlist mm_domains = :
+# This is how the domainlist should look for multiple domains.
 # domainlist mm_domains = mailman_domain_name_1.tld :  mailman_domain_name_2.tld : mailman_domain_name_3.tld
+domainlist mm_domains = :
 #
 # exim4u: Mailman Configuration Location
 #

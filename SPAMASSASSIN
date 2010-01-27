@@ -253,21 +253,26 @@ will be higher thus leading to better spam detection.
 	* For Debian, Gentoo and FreeBSD, instructions for obtaining the gdbm module are found in Pyzor's INSTALL
 	  file in the root directory of the Pyzor download.
 
-   Tell Pyzor to find the Pyzor server(s):
+   Tell Pyzor to find the Pyzor server(s) for the root user at /root/.pyzor (spamd runs as root):
 
 	pyzor discover
 
-   Add the following to your /etc/mail/spamassassin/local.cf:
+   Optionally, to put the Pyzor servers in the /etc/mail/spamassassin directory, add the following to your
+   /etc/mail/spamassassin/local.cf:
 
-	pyzor_options --homedir /etc/mail/spamassassin
+	pyzor_options --homedir /etc/mail/spamassassin/.pyzor
 
-   Execute the following command:
+   	And execute the following command:
 
-	pyzor --homedir /etc/mail/spamassassin discover
+	pyzor --homedir /etc/mail/spamassassin/.pyzor discover
 
    And finally, restart spamd:
 
 	/etc/init.d/spamassassin restart
+
+   To test pyzor:
+
+	spamassassin -D pyzor < sample-spam.txt  (sample-spam.txt is the GTUBE spam test file)
 
 
 6) SpamAssassin Global and PAM User Account Settings
@@ -351,11 +356,22 @@ will be higher thus leading to better spam detection.
 
         spamassassin -D --lint 2>&1 | less
 
-        To test spamassassin with a test email use the GTUBE test which can be downloaded from here:
+   To test a specific spamassassin plugin or feature:
 
-                http://spamassassin.apache.org/gtube/gtube.txt
+	spamassassin -D <feature>  <  sample-spam.txt
 
-        Simply copy the contents to a file on the server and then execute spamassassin <test.eml>.
-        This will exercise everything except the URIBL link checks which can be tested with any email
-        that you create with a spam link.
+   where sample-spam.txt is a sample spam email file.
+
+   Examples:
+
+	To test spf:  spamassassin -D spf <sample-spf_test.txt
+	To test pyzor: spamassassin -D pyzor <sample-spam.txt
+
+   To test spamassassin with a test email use the GTUBE test which can be downloaded from here:
+
+	http://spamassassin.apache.org/gtube/gtube.txt
+
+   Simply copy the contents to a file on the server and then execute spamassassin <test.eml>.
+   This will exercise everything except the URIBL link checks which can be tested with any email
+   that you create with a spam link.
 

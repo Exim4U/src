@@ -27,3 +27,4 @@ echo "Total spam left in cur folders" >>  /var/log/spamcron_today.log 2>&1;
 #
 # Optionally mail the report to the system adminstrator
 # /bin/mail sysadmin@domain.tld -s "Spambox Deletion Report" < /var/log/spamcron_today.log 2>&1;
+# /usr/bin/mutt -s "Spambox Deletion Report" sysadmin@domain.tld < /var/log/spamcron_today.log 2>&1;

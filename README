@@ -9,13 +9,14 @@ to the 'INSTALL' file for more detailed installation instructions.
 REQUIREMENTS:
 The following packages must be installed on your system, for Exim4U to
 function properly:
-    * Exim - Tested with version 4.71. Must be compiled with mysql,
-      spf, DKIM and the embedded Perl engine enabled. RPMs for
-      RedHat/CentOS 5 are available from the atrpms.net repository.
+    * Exim - Tested with version 4.71. Must be compiled with MySQL,
+      SQLite, spf, DKIM and the embedded Perl engine enabled. RPMs
+      for RedHat/CentOS 5 are available from the atrpms.net repository.
       Instructions for using the atrpms.net repository are included
       with Exim4u. (These RPMs include support for mysql, spf, srs,
       DKIM and the embedded Perl engine.)
     * MySQL - Tested with Version 14.12 Distribution 5.0.77.
+    * SQLite - Tested with Version 3.3.6 (SQLite3).
     * Apache - Tested with Version 2.2.3.
     * PHP - Tested on v5.1.6.
     * php-pear-DB - Tested with Version 1.7.13.
@@ -168,7 +169,13 @@ INSTALL file in this distribution's root directory if you are doing a
 fresh install.  Whereas, follow the instructions in the MIGRATE file if 
 are migrating from Virtual Exim.
 
-4) Exim4U Web Interface's Site Administrator:
+4) SQLite:
+
+You must create a new SQLite database which Exim4U uses for greylisting.
+Instructions for creating this database are included in the INSTALL file
+in this distributions root directory.
+
+5) Exim4U Web Interface's Site Administrator:
 
 The "site administrator" is able to add and delete domains from the Exim4U
 web interface and create the initial postmaster users for the individual domains.
@@ -183,7 +190,7 @@ You should log in and change the siteadmin password immediately after
 the initial installation.
 
 
-5) Setting Up Virtual Domains:
+6) Setting Up Virtual Domains:
 
 Once the Exim4U web interface is configured properly, the siteadmin may specify
 the local domains for which Exim accepts mail and the external domains for
@@ -192,7 +199,7 @@ pages. Local domains can also be enabled/disabled on the fly, while relay
 domains are always enabled.
 
 
-6) Mail storage and Delivery:
+7) Mail storage and Delivery:
 
 The default configuration assumes that mail will be stored in /home/exim4u/mail/.
 If you want to change the path from '/home/exim4u/mail/', you need to edit
@@ -200,7 +207,7 @@ exim4u/config/variables.php and change 'mailroot' to the correct path.
 Don't forget the / at the end.
 
 
-7) IMAP Servers for POP3 and IMAP access:
+8) IMAP Servers for POP3 and IMAP access:
 
 There are two recommended IMAP servers to use with Exim4U; Dovecot and
 Courier.  Dovecot is faster and uses less memory while Courier has been
@@ -214,7 +221,7 @@ discussion will focus on Dovecot since Dovecot has predominantly been
 used with Exim4u during its development.
 
 
-8) Webmail
+9) Webmail
 
 Detailed documentation for Exim4U's Webmail is located in the WEBMAIL help file
 in this distribution's root directory.
@@ -227,7 +234,7 @@ Generic Horde documentation may be found at:
 Alternatively, install your favorite webmail product, such as Squirrel Mail or
 Round Cube, in <DocumentRoot>/webmail (eg.: /home/exim4u/public_html/webmail). 
 
-9) Optional Software Packages:
+10) Optional Software Packages:
 
 a) Mailman
 
