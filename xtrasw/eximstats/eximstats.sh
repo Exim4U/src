@@ -1,17 +1,28 @@
 #!/bin/sh
-# Eximstats Report Generation Script
+# Exim4U Eximstats Report Generation Script
 #
-# Copyright (c) 2009 MailHub4U.com, LLC
+# Copyright (c) 2010 MailHub4U.com, LLC
 #
 # Generate report from yesterdays log file.
 #
 # Copy eximstats-1.58a.src to /usr/local/bin or any other directory and put path to file here:
 eximstats_cmd=/usr/local/bin/eximstats-1.58a.src
 #
+mailcommand=/usr/bin/nail          # Should be mailx or nail from Heirloom project.
+# mailcommand=/usr/local/bin/mailx   # Should be mailx or nail from Heirloom project.
+#
+# Define path to logfile
 logfile=/var/log/exim/main.log.1
+# logfile=/var/log/exim/mainlog.0.gz
+#
+# Define destination directory and file names for eximstats output.
 destdir=/home/exim4u/public_html/eximstats
-htmlfile=/home/exim4u/public_html/eximstats/eximstats.html
-txtfile=/home/exim4u/public_html/eximstats/eximstats.txt
+# destdir=/usr/local/www/apache22/data_ssl/eximstats
+htmlfile=$destdir/eximstats.html
+txtfile=$destdir/eximstats.txt
+# Define email address where the report will be sent
+emailaddr="postmaster@hostname.tld"
+# The pattern variables should all be left unchanged.
 pattern1="Ratelimited /ratelimited/"
 pattern2="'HELO Errors' '/HELO error/'"
 pattern3="'Local Addr Content' '/Local content not permitted/'"
@@ -55,5 +66,5 @@ $eximstats_cmd -pattern $pattern1 \
 -nr -ne -charts -chartdir $destdir -html=$htmlfile -txt=$txtfile $logfile
 #
 # Optionally, email report links to recipients.
-# /usr/bin/mutt -s "eximstats report" -a /home/exim4u/public_html/eximstats/eximstats.txt username@domain.tld < /dev/null;
+$mailcommand -s "Exim4U Eximstats Report" -a $txtfile $emailaddr < /dev/null > /dev/null 2>&1;
 #

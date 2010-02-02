@@ -1,30 +1,131 @@
+#!/bin/sh
+#
+# Copyright, 2008, by MailHub4u.com, LLC.
+#
 # Spambox Deletion Utility
 # This shell script deletes all mail in each user's spambox (server spam folder)
-# that is over 10 days old.  A log is produced named /var/log/spamcron_today.log
-# This utility assumes that the spam folders are located at:
-# /home/*/mail/*/*/Maildir/.INBOX.spam
-# If your mail folders are located elsewhere then you will need to modify this
-# script accordingly.
-# Also, if you want to change the time to delete from 10 days to another value,
-# then change the value of mtime in the lines below.
+# that is over a certain number of days old (default is 10 days).  A log is produced named /var/log/spamcron_today.log.
 #
-echo > /var/log/spamcron_today.log 2>&1;
-date >> /var/log/spamcron_today.log 2>&1;
-echo >>  /var/log/spamcron_today.log 2>&1;
-echo "10 day old spam deletions in new folders" >>  /var/log/spamcron_today.log 2>&1;
-/usr/bin/find /home/*/mail/*/*/Maildir/.INBOX.spam/new/* -type f -mtime +10 -print -exec rm {} \; >> /var/log/spamcron_today.log 2>&1
-echo >>  /var/log/spamcron_today.log 2>&1;
-echo "10 day old spam deletions in cur folders" >>  /var/log/spamcron_today.log 2>&1;
-/usr/bin/find /home/*/mail/*/*/Maildir/.INBOX.spam/cur/* -type f -mtime +10 -print -exec rm {} \; >> /var/log/spamcron_today.log 2>&1
-echo >>  /var/log/spamcron_today.log 2>&1;
-echo "Total spam left in new folders" >>  /var/log/spamcron_today.log 2>&1;
-#/usr/bin/find /home/*/mail/*/*/Maildir/.INBOX.spam/new/* -type f -print >> /var/log/spamcron_today.log 2>&1
-/usr/bin/find /home/*/mail/*/*/Maildir/.INBOX.spam/new/* -type f -exec ls -ltr {} \; | sort -k 6M -k 7 -k 9 >> /var/log/spamcron_today.log 2>&1
-echo >>  /var/log/spamcron_today.log 2>&1;
-echo "Total spam left in cur folders" >>  /var/log/spamcron_today.log 2>&1;
-#/usr/bin/find /home/*/mail/*/*/Maildir/.INBOX.spam/cur/* -type f -print >> /var/log/spamcron_today.log 2>&1
-/usr/bin/find /home/*/mail/*/*/Maildir/.INBOX.spam/cur/* -type f -exec ls -ltr {} \; | sort -k 6M -k 7 -k 9 >> /var/log/spamcron_today.log 2>&1
+# This utility should be run from cron.daily by simply copying this file into /etc/cron.daily.
 #
-# Optionally mail the report to the system adminstrator
-# /bin/mail sysadmin@domain.tld -s "Spambox Deletion Report" < /var/log/spamcron_today.log 2>&1;
-# /usr/bin/mutt -s "Spambox Deletion Report" sysadmin@domain.tld < /var/log/spamcron_today.log 2>&1;
+# For report to work properly, six variables must be specified as follows; "mailcommand", "spamfolder", "deletedays", "mysql_uname", mysql_pword", "mysql_dbase".
+#
+mailcommand=/usr/bin/nail          # Should be mailx or nail from Heirloom project.
+# mailcommand=/usr/local/bin/mailx   # Should be mailx or nail from Heirloom project.
+#
+# Define email address where report will be sent.
+emailaddr="postmaster@hostname.tld"
+#
+# Put the IMAP file name of your spambox folder here:
+spamfolder=".INBOX.spam"
+# Specify the age of the spam in days to be deleted.  All spam older than this will be deleted during each run. (Default is 10 days).
+deletedays="10"
+#
+# Specify the mysql user name, msql password and mysql database name:
+mysql_uname="exim4u";
+mysql_pword="CHANGE";
+mysql_dbase="exim4u";
+#
+# Read The Database values - username is email address, smtp is file path to mail directory and on_spamboxreport turns the report on.
+echo "select username, smtp, on_spamboxreport from users where type = 'local';" | mysql -N -u $mysql_uname --password=$mysql_pword $mysql_dbase > /tmp/userspamdel.mysql;
+#
+#
+# Do not modify anything else below here.
+#
+#
+# For each email user in the mysql database do the following:
+
+echo > /var/log/spamcron_today.log;
+echo >> /var/log/spamcron_today.log;
+echo "Exim4U Spambox Deletion Utility Report" >> /var/log/spamcron_today.log;
+echo >> /var/log/spamcron_today.log;
+echo >> /var/log/spamcron_today.log;
+#
+# First, do the deletions.
+#
+echo "Spam Deletions Listed By User" >> /var/log/spamcron_today.log;
+while read inputline
+do
+	email=`echo "$inputline" | cut -f1`
+	path=`echo "$inputline" | cut -f2`
+	reporton=`echo "$inputline" | cut -f3`
+	spamdir_cur=$path/$spamfolder/cur/*
+	spamdir_new=$path/$spamfolder/new/*
+
+		# Processing "cur" (read) mail first.
+		# Extract the Subject header, From header and Date Header preceded by the file name for each email in the spambox
+                # using the standard output line from the grep command.
+		if [ `/usr/bin/find $spamdir_cur -type f -mtime +$deletedays -print -exec ls -ltr {} \; 2>/dev/null | wc -l` -gt 0 ]; then
+			{
+				echo >> /var/log/spamcron_today.log;
+				echo "$email: $deletedays day old spam deleted from cur folders" >>  /var/log/spamcron_today.log 2>&1;
+			# Print for testing otherwise delete. Do both if you want.
+			#	/usr/bin/find $spamdir_cur -type f -mtime +$deletedays -print >> /var/log/spamcron_today.log 2>&1;
+			 	/usr/bin/find $spamdir_cur -type f -mtime +$deletedays -print -exec rm {} \; >> /var/log/spamcron_today.log 2>&1;
+			}
+		fi
+
+		# Processing "new" (unread) mail next.
+		# Extract the Subject header, From header and Date Header preceded by the file name for each email in the spambox
+                # using the standard output line from the grep command.
+
+		 if [ `/usr/bin/find $spamdir_new -type f -mtime +$deletedays -print -exec ls -ltr {} \; 2>/dev/null | wc -l` -gt 0 ]; then
+			{
+				echo >> /var/log/spamcron_today.log;
+				echo "$email: $deletedays day old spam deleted from new folders" >>  /var/log/spamcron_today.log 2>&1;
+			# Print for testing otherwise delete.  Do both if you want.
+			#	/usr/bin/find $spamdir_new -type f -mtime +$deletedays -print >> /var/log/spamcron_today.log 2>&1;
+				/usr/bin/find $spamdir_new -type f -mtime +$deletedays -print -exec rm {} \; >> /var/log/spamcron_today.log 2>&1;
+			}
+		fi
+done < /tmp/userspamdel.mysql
+#
+# Lastly, list total spam left.
+#
+echo >> /var/log/spamcron_today.log;
+echo >> /var/log/spamcron_today.log;
+echo "Spam Remaining In Spamboxes Listed By User" >> /var/log/spamcron_today.log;
+while read inputline
+do
+        email=`echo "$inputline" | cut -f1`
+        path=`echo "$inputline" | cut -f2`
+        reporton=`echo "$inputline" | cut -f3`
+        spamdir_cur=$path/$spamfolder/cur/*
+        spamdir_new=$path/$spamfolder/new/*
+
+                # Processing "cur" (read) mail first.
+                # Extract the Subject header, From header and Date Header preceded by the file name for each email in the spambox
+                # using the standard output line from the grep command.
+                if [ `ls $spamdir_cur 2>/dev/null | wc -l` -gt 0 ]; then
+                        {
+                                echo >> /var/log/spamcron_today.log;
+                                echo "$email: Total spam remaining in cur folders" >>  /var/log/spamcron_today.log 2>&1;
+                                /usr/bin/find $spamdir_cur -type f -exec ls -ltr {} \; | sort -k 6M -k 7 -k 9 >> /var/log/spamcron_today.log 2>&1;
+                        }
+                fi
+
+                # Processing "new" (unread) mail next.
+                # Extract the Subject header, From header and Date Header preceded by the file name for each email in the spambox
+                # using the standard output line from the grep command.
+
+                 if [ `ls $spamdir_new 2>/dev/null | wc -l` -gt 0 ]; then
+                        {
+                                echo >>  /var/log/spamcron_today.log 2>&1;
+                                echo "$email: Total spam remaining in new folders" >>  /var/log/spamcron_today.log 2>&1;
+                                /usr/bin/find $spamdir_new -type f -exec ls -ltr {} \; >> /var/log/spamcron_today.log 2>&1;
+                        }
+                fi
+done < /tmp/userspamdel.mysql
+#
+# Finish writing the report with a trailer
+echo >> /var/log/spamcron_today.log;
+echo "End Of Spambox Deletion Utility Report" >> /var/log/spamcron_today.log;
+#
+# Just cat the report while testing. Then, when live, email the report to each user:
+# cat /var/log/spamcron_today.log;
+$mailcommand -s "Exim4U Spambox Deletion Utility Execution" -a /var/log/spamcron_today.log $emailaddr < /dev/null > /dev/null 2>&1;
+
+# Clean up temporary file
+rm /tmp/userspamdel.mysql > /dev/null 2>&1;
+
+exit 0;
