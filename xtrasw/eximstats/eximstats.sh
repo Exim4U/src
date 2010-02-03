@@ -22,6 +22,8 @@ htmlfile=$destdir/eximstats.html
 txtfile=$destdir/eximstats.txt
 # Define email address where the report will be sent
 emailaddr="postmaster@hostname.tld"
+#
+#
 # The pattern variables should all be left unchanged.
 pattern1="Ratelimited /ratelimited/"
 pattern2="'HELO Errors' '/HELO error/'"
