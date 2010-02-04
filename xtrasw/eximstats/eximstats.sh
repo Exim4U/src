@@ -23,6 +23,7 @@ txtfile=$destdir/eximstats.txt
 # Define email address where the report will be sent
 emailaddr="postmaster@hostname.tld"
 #
+# Do not modify anything below here. 
 #
 # The pattern variables should all be left unchanged.
 pattern1="Ratelimited /ratelimited/"
