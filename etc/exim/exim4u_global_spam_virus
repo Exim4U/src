@@ -5,6 +5,8 @@
 # the SMTP connection. ClamAV is enabled (on) or disabled (off):
 #ClamAV: off
 ClamAV: on
+# Note about disabling ClamAV: You must also comment out the av_scanner socket
+# definition in exim.conf: # av_scanner = clamd:/var/run/clamav/clamd
 #
 # Spamassassin Global Setting
 # When enabled, Exim4U uses spamassassin to scan for spam during the final phase
