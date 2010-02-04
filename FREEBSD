@@ -1,16 +1,19 @@
-                        Notes For Debian Users
+                        Notes For FreeBSD Users
 
-The following are a few tips for getting Exim4U up and running on Debian and
-Ubuntu systems. As stated elsewhere in these instructions, Exim4U was originally
-developed under the RedHat/CentOS version of Linux, however, it has been installed
-and found to work well on other Linux and Unix systems including Debian, Ubuntu and
-FreeBSD.
+The following are a few tips for getting Exim4U up and running on FreeBSD
+systems. As stated elsewhere in these instructions, Exim4U was originally
+developed under the RedHat/CentOS version of Linux, however, it has been
+installed and found to work well on several other Unix and Linux systems
+including FreeBSD, Ubuntu and Debian.
 
 Follow the instructions in the INSTALL file, however, be aware that there are
-subtle differences in the Debian/Ubuntu file system as opposed to the RedHat/CentOS
+subtle differences in the FreeBSD file system as opposed to the RedHat/CentOS
 file system for which the INSTALL file instructions were written.  The following
 notes will cover the most significant differences and hopefully allow a smooth
-installation of Exim4u on your Debian/Ubuntu system.
+installation of Exim4u on your FreeBSD system.
+
+
+From DEBIAN file: Need to modify the following:
 
 1) EXIM (exim4)
 
@@ -87,3 +90,24 @@ The standard DocumentRoot for Debian/Ubuntu is typically /var/www or /home/www. 
 instructions locate the web interface's DocumentRoot at /home/exim4u/public_html which is standard
 for RedHat/CentOS. Nevertheless, you may relocate the DocumentRoot to any other directory that you
 prefer.
+
+
+
+PYZOR:
+
+Pyzor error in FreeBSD 8.0 when running "pyzor discover":
+
+[root@host3 /usr/ports/databases/py-gdbm]# pyzor discover
+/usr/local/lib/python2.6/site-packages/pyzor/__init__.py:11: DeprecationWarning: the sha module is deprecated; use the hashlib module instead
+  import sha
+/usr/local/lib/python2.6/site-packages/pyzor/client.py:12: DeprecationWarning: the multifile module has been deprecated since Python 2.5
+  import multifile
+
+Pyzor will not run like this.`
+
+Solved by changing the first line of /usr/local/bin/pyzor to:
+
+	#!/usr/local/bin/python -Wignore::DeprecationWarning
+
+See: http://www.gossamer-threads.com/lists/spamassassin/users/143921
+
