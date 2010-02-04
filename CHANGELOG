@@ -1,5 +1,79 @@
                         Exim4U Changelog Summaries
 
+1.2.2 Changelog Summary (Versus Version 1.2.1)
+
+M      trunk/WEBMAIL
+A      trunk/DEBIAN
+A      trunk/EXIM_4.69
+A      trunk/FREEBSD
+M      trunk/README
+A      trunk/APPEARANCE
+A      trunk/REDHAT-CENTOS
+M      trunk/SPAMASSASSIN
+M      trunk/INSTALL
+M      trunk/etc/exim/exim4u_local.conf.inc
+M      trunk/etc/exim/exim.conf
+M      trunk/etc/exim/exim4u_global_spam_virus
+MM     trunk/xtrasw/eximstats/eximstats.sh
+M      trunk/xtrasw/exim-greylist/greylist-tidy.sh
+MM     trunk/xtrasw/spam_box_report/spamreport
+M      trunk/xtrasw/spam_box_delete/spamdel
+D      trunk/home/exim4u/public_html/user_menu/assets/images/104_EX.gif
+A      trunk/home/exim4u/public_html/user_menu/assets/images/exim4u.gif
+M      trunk/home/exim4u/public_html/user_menu/assets/images/autogen/clearpixel.gif
+A      trunk/home/exim4u/public_html/user_menu/assets/images/logo.gif
+M      trunk/home/exim4u/public_html/user_menu/html/style.css
+M      trunk/home/exim4u/public_html/user_menu/index.html
+M      trunk/home/exim4u/public_html/user_menu/favicon.ico
+M      trunk/home/exim4u/public_html/user_menu
+M      trunk/home/exim4u/public_html/exim4u/adminuseradd.php
+M      trunk/home/exim4u/public_html/exim4u/style.css
+M      trunk/home/exim4u/public_html/exim4u/site.php
+M      trunk/home/exim4u/public_html/exim4u/adminlists.php
+M      trunk/home/exim4u/public_html/exim4u/userchangesubmit.php
+M      trunk/home/exim4u/public_html/exim4u/sitechange.php
+M      trunk/home/exim4u/public_html/exim4u/sitepasswordsubmit.php
+M      trunk/home/exim4u/public_html/exim4u/userblocksubmit.php
+M      trunk/home/exim4u/public_html/exim4u/siteadd.php
+D      trunk/home/exim4u/public_html/exim4u/images/exim4u_52_EX.gif
+A      trunk/home/exim4u/public_html/exim4u/images/exim4u.gif
+M      trunk/home/exim4u/public_html/exim4u/images/check.gif
+A      trunk/home/exim4u/public_html/exim4u/images/logo.gif
+A      trunk/home/exim4u/public_html/exim4u/images/human-exim4u.gif
+A      trunk/home/exim4u/public_html/exim4u/images/check-vexim.gif
+A      trunk/home/exim4u/public_html/exim4u/images/check-exim4u.gif
+A      trunk/home/exim4u/public_html/exim4u/images/clearpixel.png
+M      trunk/home/exim4u/public_html/exim4u/adminuseraddsubmit.php
+M      trunk/home/exim4u/public_html/exim4u/.htaccess
+M      trunk/home/exim4u/public_html/exim4u/adminfailchange.php
+M      trunk/home/exim4u/public_html/exim4u/adminuserchange.php
+M      trunk/home/exim4u/public_html/exim4u/adminfailadd.php
+M      trunk/home/exim4u/public_html/exim4u/sitechangesubmit.php
+M      trunk/home/exim4u/public_html/exim4u/siteaddsubmit.php
+M      trunk/home/exim4u/public_html/exim4u/relay_changesubmit.php
+M      trunk/home/exim4u/public_html/exim4u/sitechange_relay.php
+M      trunk/home/exim4u/public_html/exim4u/README
+M      trunk/home/exim4u/public_html/exim4u/index.php
+A      trunk/home/exim4u/public_html/exim4u/config/header.php-LINK_SELF
+A      trunk/home/exim4u/public_html/exim4u/config/header_domain.php-BOLD
+M      trunk/home/exim4u/public_html/exim4u/config/authuser.php
+A      trunk/home/exim4u/public_html/exim4u/config/header_domain.php-LINK_EXIM4U
+A      trunk/home/exim4u/public_html/exim4u/config/header.php-BOLD
+M      trunk/home/exim4u/public_html/exim4u/config/variables.php
+M      trunk/home/exim4u/public_html/exim4u/config/functions.php
+A      trunk/home/exim4u/public_html/exim4u/config/header.php-LINK_EXIM4U
+A      trunk/home/exim4u/public_html/exim4u/config/header_domain.php-LINK_SELF
+M      trunk/home/exim4u/public_html/exim4u/config/authsite.php
+M      trunk/home/exim4u/public_html/exim4u/userchange.php
+M      trunk/home/exim4u/public_html/exim4u/sitedelete.php
+M      trunk/home/exim4u/public_html/exim4u/sitepassword.php
+D      trunk/home/exim4u/public_html/admin_menu/assets/images/104_EX.gif
+A      trunk/home/exim4u/public_html/admin_menu/assets/images/exim4u.gif
+M      trunk/home/exim4u/public_html/admin_menu/assets/images/autogen/clearpixel.gif
+A      trunk/home/exim4u/public_html/admin_menu/assets/images/logo.gif
+M      trunk/home/exim4u/public_html/admin_menu/index.html
+M      trunk/home/exim4u/public_html/admin_menu/favicon.ico
+M      trunk/home/exim4u/public_html/admin_menu
 
 1.2.1 Changelog Summary (Versus Version 1.2.0)
 
