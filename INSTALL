@@ -82,11 +82,11 @@ Put the following command in rc.local:
 
 	/usr/bin/spfd.perl-msq -path=/tmp/spfd --socket-user exim --socket-group exim --set-user exim &
 
-Install the script xtrasw/exim_tidydb/exim_tidydb in cron.daily to
+Install the script xtrasw/exim-tidydb/exim-tidydb in cron.daily to
 prevent the exim databases from growing forever without bound.
 This script simply deletes older entries from the database:
 
-        cp xtrasw/exim_tidydb/exim_tidydb /etc/cron.daily
+        cp xtrasw/exim-tidydb/exim-tidydb /etc/cron.daily
 
 5. Configure mysql
 

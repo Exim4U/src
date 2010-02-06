@@ -2,13 +2,13 @@
 
 The following are a few tips for getting Exim4U up and running on FreeBSD
 systems. As stated elsewhere in these instructions, Exim4U was originally
-developed under the RedHat/CentOS version of Linux, however, it has been
+developed on the RedHat/CentOS version of Linux, however, it has been
 installed and found to work well on several other Unix and Linux systems
 including FreeBSD, Ubuntu and Debian.
 
 Follow the instructions in the INSTALL file, however, be aware that there are
-subtle differences in the FreeBSD file system as opposed to the RedHat/CentOS
-file system for which the INSTALL file instructions were written.  The following
+differences in the FreeBSD file system as opposed to the RedHat/CentOS file
+system for which the INSTALL file instructions were written.  The following
 notes will cover the most significant differences and hopefully allow a smooth
 installation of Exim4u on your FreeBSD system.
 
