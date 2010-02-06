@@ -23,8 +23,23 @@ Linux distributions as well.
 
 2. Install: ClamAV (Clamd and Freshclam) - Tested with Version 0.95.2
 
-* Configure /etc/freshclam and /etc/clamd
-* Add to /etc/rc.local: /usr/bin/freshclam --daemon &
+Configure /etc/freshclam.conf and /etc/clamd.conf. Make sure and specify
+the TCP socket as 3310 for clamd in /etc/clamd.conf:
+
+	 TCPSocket 3310
+
+Otherwise, without the TCPSocket specified, Exim4U's exim configuration will
+not specify the ClamAV version in the mail headers. Normally a header will be
+added that starts with this:
+
+	X-Scanned-By: ClamAV 0.95.3 . . . . .
+
+If the mail headers don't include a line that starts as above then the
+TCPSocket variable has probably not been set in /etc/clamd.conf.
+
+Add to /etc/rc.local:
+
+	/usr/bin/freshclam --daemon &
 
 3. Install: SpamAssassin - Tested With Version 3.2.5
 
