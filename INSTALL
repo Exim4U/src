@@ -17,6 +17,7 @@ Linux distributions as well.
 
 * Apache - Tested with Version 2.2.3
 * MySQL - Tested with Version 14.12 Distribution 5.0.77
+* SQLite - Tested with Version 3.3.6
 * PHP - Tested with Version 5.1.6
 * Perl - Tested With Version 5.8.8
 * php-pear-DB
