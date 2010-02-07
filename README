@@ -49,12 +49,13 @@ TABLE OF CONTENTS:
 1) Apache Configuration
 2) Exim Configuration
 3) MySQL
-4) Site Admin
-5) Setting Up Virtual Domains
-6) Mail storage and Delivery
-7) IMAP Servers For POP3 and IMAP Access
-8) Webmail
-9) Optional Software Packages
+4) SQLite
+5) Exim4U Web Interface's Site Administrator
+6) Setting Up Virtual Domains
+7) Mail storage and Delivery
+8) IMAP Servers For POP3 and IMAP Access
+9) Webmail
+10) Optional Software Packages
 
 1) Apache Configuration
 
