@@ -1,16 +1,17 @@
                         Notes For Debian Users
 
-The following are a few tips for getting Exim4U up and running on Debian and
+These notes provide guidance for installing and running Exim4U on Debian and
 Ubuntu systems. As stated elsewhere in these instructions, Exim4U was originally
 developed under the RedHat/CentOS version of Linux, however, it has been installed
 and found to work well on other Linux and Unix systems including Debian, Ubuntu and
 FreeBSD.
 
-Follow the instructions in the INSTALL file, however, be aware that there are
-subtle differences in the Debian/Ubuntu file system as opposed to the RedHat/CentOS
-file system for which the INSTALL file instructions were written.  The following
-notes will cover the most significant differences and hopefully allow a smooth
-installation of Exim4u on your Debian/Ubuntu system.
+Proceed by following the instructions in the README, INSTALL, SPAMASSASSIN, WEBMAIL,
+APPEARANCE, and NOTES files, however, be aware that there are subtle differences in
+the Debian/Ubuntu file system as opposed to the RedHat/CentOS file system for which
+those instructions were written.  These notes will cover the most significant
+differences and hopefully allow a smooth installation of Exim4u on your
+Debian/Ubuntu system.
 
 1) EXIM (exim4)
 
