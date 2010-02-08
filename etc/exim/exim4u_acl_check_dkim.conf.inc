@@ -1,5 +1,12 @@
 acl_check_dkim:
 
+# accept authenticated hosts
+  accept authenticated = *
+# exim4u: IP Whitelist
+  accept hosts = +IPwhitelist : +backup_mx_hosts : +relay_from_hosts
+# Accept From Local SMTP.
+  accept hosts = :
+
 # Modify this file according to your needs.  You have three options:
 #
 # 1) Greylist if DKIM fails and the sender is in testing mode.
