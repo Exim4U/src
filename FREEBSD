@@ -26,7 +26,7 @@ located by searching the ports collection using any of the following commands:
 Then, when each package is found, change directory to the appropriate ports
 directory and compile and install using "make install clean".
 
-2) EXIM
+2) Exim MTA
 
 The Exim package that should be compiled and installed from the FreeBSD Ports
 Collection is named "exim-mysql" and is located at /usr/ports/mail/exim-mysql.
@@ -97,13 +97,24 @@ exim is:
 The mail store directory, such as /home/exim4u/mail (/usr/home/exim4u/mail), must be setup
 manually.  Set the ownership and permissions to be writable by the user (exim4u).
 
-2) EXIM4U WEB INTERFACE, APACHE AND PHP
+Exim's TLS certificates must be stored in /etc/pki/tls/exim_tls as described in
+etc/exim/exim4u_local.conf.inc according to whether MULTI_IP=YES or NO. You will
+need to create the directory structure for /etc/pki/tls/exim_tls since these are
+non-standard directories for FreeBSD.
+
+3) Exim4U Web Interface, Apache and PHP
 
 Apache runs under FreeBSD as apachea22.  Install apache22, php, perl, pear and mysql from
 the ports collection.  You should also install all of the php extensions, perl modules and
 pear modules that are called for in the INSTALL, SPAMASSASSIN and WEBMAIL files. Use the
 ADDENDUM at the end of this file as a tool for locating the correct port name for the
-applications, php extensions, perl modules and pear modules that you need to install.
+applications, php extensions, perl modules and pear modules that you need to install. For
+example, these php extensions are required for the Exim4U web interface:
+
+	php5-gettext  (installed from /usr/ports/devel/php5-gettext)
+	php5-session  (installed from /usr/ports/www/php5-session)
+	php5-dom      (installed from /usr/ports/textproc/php5-dom)
+	php5-posix    (installed from /usr/ports/sysutils/php5-posix)
 
 The standard DocumentRoot for FreeBSD is typically /usr/local/www/apache22/data or
 /usr/local/www/apache22/data_ssl.  Exim4U's INSTALL file instructions locate the
@@ -111,8 +122,73 @@ web interface's DocumentRoot at /home/exim4u/public_html which is standard for
 RedHat/CentOS. Nevertheless, you may relocate the DocumentRoot to any other
 directory that you prefer.
 
+4) php.ini Configuration File
 
-PYZOR
+Set: short_open_tag=on
+
+short_open_tag=on must be set for the Exim4U PHP code to work properly.  However, Munin
+will not run with short_open_tag=on. Therefore, create an .htaccess files in the munin
+directory and the munin/<host_name> subdirectories as follows:
+
+	php_flag short_open_tag off
+
+Munin will then run properly with this .htaccess file installed.
+
+Set: output_buffering = 4096
+
+With output_buffering = Off, the following error will occur on some pages in exim4u's
+web interface such as the “Add Alias” page:
+
+	session_start() [function.session-start]: Cannot send session cache limiter - headers already sent
+
+To fix this, set output_buffering = 4096 in php.ini.
+
+
+Spamassassin
+
+The FreeBSD SpamAssassin port also installs Razor, however, DCC and Pyzor must be
+installed separately from ports.
+
+When installing the necessary perl modules for sa-update to run without any "module
+not installed" error messages you should only install Mail:SPF and not Mail:SPF:Query
+even though sa-update will continue issuing "module not installed" for Mail:SPF:Query.
+Mail:SPF:Query is actually depricated to Mail:SPF and FreeBSD will not allow them both
+to be installed simultaneously since they use the same installation directory.  Whereas
+RedHat/CentOS allows them both to be installed simultaneously. However, it doesn't
+matter as long as one or the other is installed since they provide the same
+functionality.
+
+Mail:SPF is named p5-Mail-SPF in FreeBSD and it is installed from ports here:
+
+	/usr/ports/mail/p5-Mail-SPF	
+
+Then, a crontab entry should be made to root's crontab (with crontab -e) to start
+p5-Mail-SPF at startup:
+
+	@reboot /usr/local/sbin/spfd -socket=/tmp/spfd --socket-user mailnull --socket-group mail
+
+The Exim4U INSTALL instructions call for the SPF startup script to be put in
+RedHat/CentOS's /etc/rc.local directory, however, there is no /etc/rc.local in
+FreeBSD. Therefore, a crontab entry should be made to root's crontab (with
+crontab -e) to start p5-Mail-SPF at startup as described above at reboot (@reboot).
+
+DCC
+
+The DCC port installs the following four services but you only need to implement
+the dccifd service:
+
+dccifd – Interface to Spamassassin (General MTA interface). USE THIS SERVICE.
+dccd –  Internal DCC server but not used if you are using a public DCC server.
+dccgrey – Grey listing. Not used in Exim4U.
+dccm – Milter to sendmail. Not used in Exim4U.
+
+DCC is disabled by default in SpamAssassin because it is not considered completely
+open source. Enable the DCC plugin by entering the following line in
+/usr/local/etc/mail/spamassassin/v310.pre:
+
+	loadplugin Mail::SpamAssassin::Plugin::DCC
+
+Pyzor
 
 Following installation, Pyzor generated the following error in FreeBSD 8.0 when
 running "pyzor discover":
@@ -128,23 +204,55 @@ the first line of /usr/local/bin/pyzor to:
 
 	#!/usr/local/bin/python -Wignore::DeprecationWarning
 
-GENERAL
+ClamAV
+
+Make sure and specify the TCP socket as 3310 for clamd in clamd.conf:
+
+	 TCPSocket 3310
+
+Otherwise, without the TCPSocket specified, the Clamd header writing
+will not specify the ClamAV version. 
+
+
+Webmin
+
+Configure Webmin with:
+
+	/usr/local/lib/webmin/setup.sh
+
+The Webmin service is:
+
+	/usr/local/etc/rc.d/webmin start
+
+
+General
 
 There are numerous differences in the file systems between RedHat/CentOS and FreeBSD.
-The following symbolic links will resolve several compatibility issues with the shell
+The following notes will resolve several compatibility issues with the shell
 scripts that are included with Exim4U which were originally written for RedHat/CentOS.
 
-For the bash shell scripts to work under FreeBSD:
+For the bash shell scripts to work under FreeBSD use the following symbolic link:
 
 ln -s /usr/local/bin/bash /bin/bash
 
-Commands that are in a different directory in FreeBSD than CentOS:
+Several commands are located in different directories in FreeBSD than CentOS. This
+can also be resolved with symbolic links:
 
 ln -s /usr/bin/mail /bin/mail
 ln -s /usr/local/bin/sa-update /usr/bin/sa-update
 ln -s /usr/local/bin/php /usr/bin/php    (horde cli scripts such as setup.php)
 ln -s /usr/local/bin/sqlite3 /usr/bin/sqlite3 (exim greylisting cron script greylist_tidy.sh)
 ln -s /usr/local/sbin/exim_tidydb /usr/sbin/exim_tidydb   (exim_tidydb script)
+
+Exim And The mail Command
+
+On FreeBSD, following the installation of exim, the mail command invokes exim whereas
+on RedHat/CentOS the mail command continues to invoke sendmail.  Sendmail supports
+the -s flag for subjects whereas exim does not. To resolve this, the Exim4U scripts
+were modified to use mailx/nail from the Heirloom project.  Linux uses “nail” whereas
+FreeBSD uses “mailx”.  However, in FreeBSD, there is a /usr/bin/mailx that invokes
+sendmail and which also conflcts. So, in FreeBSD, always invoke Heirloom mail with
+/usr/local/bin/mailx.
 
 
 ADDENDUM - List Of All Packages Installed From The Ports Collection For Exim4U
