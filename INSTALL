@@ -261,8 +261,19 @@ Exim4U User Menu and Admin Menu interfaces with the following syntax:
 	http://domain.tld/user_menu
         http://domain.tld/admin_menu
 
+10. Install the Heirloom mail package.  In RedHat/CentOS, the Heirloom package is
+available from the RPMForge repository and can be installed with yum as follows:
 
-10. Install and configure eximstats and eximstats.sh.
+        yum install nail
+
+The Heirloom mailx (or nail) command is used in the eximstats, spamreport and
+spamdel scripts. The nail command has been deprecated in favor of the mailx
+command, however, some distributions continue to use the older nail version
+instead. Either will work fine.  See:
+
+	http://heirloom.sourceforge.net/mailx.html
+
+11. Install and configure eximstats and eximstats.sh.
 
 First, copy the home/exim4u/public_html/eximstats directory and its contents to your
 apache document root directory:
@@ -279,6 +290,7 @@ Edit eximstats.sh in its destination directory and change the following variable
 the script to the appropriate values for your installation:
 
 	* eximstats_cmd=/usr/local/bin/eximstats-1.58a.src 
+	* mailcommand=/usr/bin/nail  (Should be mailx or nail from Heirloom project)
 	* logfile=/var/log/exim/main.log.1
 	* destdir=/home/exim4u/public_html/eximstats
 	* htmlfile=/home/exim4u/public_html/eximstats/eximstats.html
@@ -287,6 +299,7 @@ the script to the appropriate values for your installation:
 where;
 
 	* eximstats_cmd - Location of the eximstats command.
+	* mailcommand - Heirloom mail command (nail or mailx).
         * logfile - Location of the exim log file to be parsed.
         * destdir - Destination directory for charts.
         * htmlfile - Destination directory for html output.
@@ -295,7 +308,7 @@ where;
 You should setup a crontab entry to run eximstats.sh daily after your log
 rotation has occurred.
 
-11. Install and configure the Spam Box Report
+12. Install and configure the Spam Box Report
 
 The Spam Box Report is designed primarily for POP users that do not otherwise have 
 access to the server's spam folders from their POP email clients. Spam Box is a term
@@ -311,7 +324,11 @@ or any other directory of your choice:
 
 	cp xtrasw/spam_box_report/spamreport /usr/local/bin
 
-For the report to work properly, six variables must be specified as follows;
+For the report to work properly, seven variables must be specified as follows;
+
+	Specify the mail command:
+
+		mailcommand=/usr/bin/nail   # Should be mailx or nail from Heirloom project.
 
 	Specify webmail url:
 
@@ -333,29 +350,52 @@ For the report to work properly, six variables must be specified as follows;
 
 You should setup a crontab entry to run spamreport daily.
 
-12. Install and configure the Spam Box Deletion Utility
+13. Install and configure the Spam Box Deletion Utility
 
 The Spam Box Deletion Utility removes old spam from the server's spam folders. This utility
-should be run daily and is configured to remove all mail that is over 10 days old from the
-Spam Boxes.
+should be run daily and is configured by default to remove all mail that is over 10 days old
+from the Spam Boxes.
 
 To install the Spam Box Deletion Utility, copy xtrasw/spam_box_delete/spamdel to /usr/local/bin
 or any other directory of your choice:
 
 	cp xtrasw/spam_box_delete/spamdel /usr/local/bin
 
-You should review the script and modify the path to the spam folders according to your
-installation.  Also, you can change the number of days prior to deletion from 10 to whatever
-you prefer therein.
+For the report to work properly, seven variables must be specified as follows; 
 
-13. Install the favicon and the placeholder pages for munin and phpadmin to your webserver's
+        Specify the mail command:
+
+                mailcommand=/usr/bin/nail   # Should be mailx or nail from Heirloom project.
+
+        Specify the email address where the spam report will be sent:
+
+		emailaddr="postmaster@hostname.tld"
+
+        Put the IMAP file name of your server's spambox folders here:
+
+                spamfolder=".INBOX.spam"
+
+	Specify the age of the spam in days to be deleted.  All spam older than this will be
+	deleted during each run. (Default is 10 days).
+
+		deletedays="10"
+
+        Specify the mysql user name, msql password and mysql database name:
+
+                mysql_uname="exim4u";
+                mysql_pword="CHANGE";
+                mysql_dbase="exim4u";
+
+You should setup a crontab entry to run spamdel daily.
+
+14. Install the favicon and the placeholder pages for Munin and phpMyAdmin to your webserver's
    document root directory:
 
 	cp favicon.ico <target document root directory>
 	cp -r munin <target document root directory>
 	cp -r phpadmin <target document root directory>
 
-14. Now, the document root of your apache website installation should have all of the files
+15. Now, the document root of your apache website installation should have all of the files
     and directories that are contained in this distribution in home/exim4u/public_html as
     follows:
 
@@ -364,10 +404,10 @@ you prefer therein.
 	* favicon.ico - Favicon file.
 	* user_menu - Directory containing the Exim4U user interface.
 	* admin_menu - Directory containing the Exim4U admin interface.
-	* munin - Directory containing the munin place holder or output files.
-	* phpadmin - Directory containing the phpmyadmin place holder or output files.
+	* munin - Directory containing the Munin place holder or output files.
+	* phpadmin - Directory containing the phpMyAdmin place holder or output files.
 	* webmail - Directory containing the webmail (horde) php scripts.
 
-15. Install Optional Software; Mailman, Munin, phpmyadmin and Webmin.
+16. Install Optional Software; Mailman, Munin, phpMyAdmin and Webmin.
 
-16. Done!
+17. Done!
