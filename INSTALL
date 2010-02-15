@@ -148,9 +148,15 @@ First, edit home/exim4u/public_html/exim4u/config/variables.php. You need to
 change the following settings. Change the '$sqlpass' on line 10 to the
 exim4u database user's password which you chose which editing 'mysql.sql'
 in the last step. Change the '$cryptscheme' line to either "md5", or "des"
-depending on what your operating system uses. The last change to make
+depending on what your operating system uses. Another change to make
 in that file is the '$uid' and '$gid'. Make these the same default
-UID and GID you chose in mysql.sql.
+UID and GID you chose in mysql.sql. Then, specify $mailroot.  The default
+value is:
+
+	$mailroot = "/home/exim4u/mail/";
+
+You must manually create the $mailroot directory and make sure that this
+directory belongs to the configured $uid and $gid. 
 
 Copy home/exim4u/public_html/exim4u/* to a directory named exim4u within
 your webserver's document root directory. The files should be readable by apache
