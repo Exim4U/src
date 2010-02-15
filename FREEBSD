@@ -57,14 +57,14 @@ If this is a new installation, then compile and install as follows:
 
 	make install clean
 
-If this is a reinstallation, then deinstall, compile and install as follows:
+If this is a re-installation, then deinstall, compile and install as follows:
 
 	make deinstall clean
 	make install clean
 
-FreeBSD's installation of exim includes the default exim configuration, however, you
-can implement a custom configuration by editing /usr/local/etc/exim/configure as
-follows:
+FreeBSD's installation of exim includes the default exim configuration in
+/usr/local/etc/exim/configure, however, you should implement the Exim4U configuration
+as follows:
 
 	Create a directory in /etc named exim (/etc/exim).  Then, copy the
 	etc/exim directory and all of its contents from the Exim4U distribution
@@ -85,17 +85,16 @@ The mysql socket location under FreeBSD is:
 
 	/tmp/mysqld.sock
 
-The mysql statement in exim4u_local.conf.inc should then be as follows:
+The mysql statement in exim4u_local.conf.inc should read as follows:
 
 	hide mysql_servers = <hostname>::(/tmp/mysqld.sock)/exim4u/exim4u/<password>
 
-Exim on FreeBSD runs as "exim". Therefore the service for starting/stopping/restarting
-exim is:
+The service for starting/stopping/restarting exim on FREEBSD is:
 
 	/usr/local/etc/rc.d/exim
 
-The mail store directory, such as /home/exim4u/mail (/usr/home/exim4u/mail), must be setup
-manually.  Set the ownership and permissions to be writable by the user (exim4u).
+The mail store directory, such as /home/exim4u/mail (/usr/home/exim4u/mail), must be
+created manually. Set the ownership and permissions to be writable by the user (exim4u).
 
 Exim's TLS certificates must be stored in /etc/pki/tls/exim_tls as described in
 etc/exim/exim4u_local.conf.inc according to whether MULTI_IP=YES or NO. You will
@@ -104,10 +103,10 @@ non-standard directories for FreeBSD.
 
 3) Exim4U Web Interface, Apache and PHP
 
-Apache runs under FreeBSD as apachea22.  Install apache22, php, perl, pear and mysql from
+Apache runs under FreeBSD as apache22.  Install apache22, php, perl, pear and mysql from
 the ports collection.  You should also install all of the php extensions, perl modules and
 pear modules that are called for in the INSTALL, SPAMASSASSIN and WEBMAIL files. Use the
-ADDENDUM at the end of this file as a tool for locating the correct port name for the
+Addendum at the end of this file as a tool for locating the correct port name for the
 applications, php extensions, perl modules and pear modules that you need to install. For
 example, these php extensions are required for the Exim4U web interface:
 
@@ -136,7 +135,7 @@ Munin will then run properly with this .htaccess file installed.
 
 Set: output_buffering = 4096
 
-With output_buffering = Off, the following error will occur on some pages in exim4u's
+With output_buffering = Off, the following error will occur on some pages in Exim4U's
 web interface such as the “Add Alias” page:
 
 	session_start() [function.session-start]: Cannot send session cache limiter - headers already sent
@@ -144,17 +143,17 @@ web interface such as the “Add Alias” page:
 To fix this, set output_buffering = 4096 in php.ini.
 
 
-Spamassassin
+SpamAssassin
 
 The FreeBSD SpamAssassin port also installs Razor, however, DCC and Pyzor must be
 installed separately from ports.
 
 When installing the necessary perl modules for sa-update to run without any "module
-not installed" error messages you should only install Mail:SPF and not Mail:SPF:Query
-even though sa-update will continue issuing "module not installed" for Mail:SPF:Query.
-Mail:SPF:Query is actually depricated to Mail:SPF and FreeBSD will not allow them both
+not installed" error messages you should install Mail:SPF and not Mail:SPF:Query even
+though sa-update will continue issuing "module not installed" for Mail:SPF:Query.
+Mail:SPF:Query is actually deprecated to Mail:SPF and FreeBSD will not allow them both
 to be installed simultaneously since they use the same installation directory.  Whereas
-RedHat/CentOS allows them both to be installed simultaneously. However, it doesn't
+RedHat/CentOS allows them both to be installed simultaneously. It really doesn't
 matter as long as one or the other is installed since they provide the same
 functionality.
 
@@ -177,7 +176,7 @@ DCC
 The DCC port installs the following four services but you only need to implement
 the dccifd service:
 
-dccifd – Interface to Spamassassin (General MTA interface). USE THIS SERVICE.
+dccifd – Interface to SpamAssassin (General MTA interface). USE THIS SERVICE.
 dccd –  Internal DCC server but not used if you are using a public DCC server.
 dccgrey – Grey listing. Not used in Exim4U.
 dccm – Milter to sendmail. Not used in Exim4U.
@@ -256,11 +255,11 @@ on RedHat/CentOS the mail command continues to invoke sendmail.  Sendmail suppor
 the -s flag for subjects whereas exim does not. To resolve this, the Exim4U scripts
 were modified to use mailx/nail from the Heirloom project.  Linux uses “nail” whereas
 FreeBSD uses “mailx”.  However, in FreeBSD, there is a /usr/bin/mailx that invokes
-sendmail and which also conflcts. So, in FreeBSD, always invoke Heirloom mail with
+sendmail and which also conflicts. So, in FreeBSD, always invoke Heirloom mail with
 /usr/local/bin/mailx.
 
 
-ADDENDUM - List Of All Packages Installed From The Ports Collection For Exim4U
+Addendum - List Of All Packages Installed From The Ports Collection For Exim4U
 
 The following is the output from the "pkg_info" command:
 
