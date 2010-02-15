@@ -244,6 +244,11 @@ ln -s /usr/local/bin/php /usr/bin/php    (horde cli scripts such as setup.php)
 ln -s /usr/local/bin/sqlite3 /usr/bin/sqlite3 (exim greylisting cron script greylist_tidy.sh)
 ln -s /usr/local/sbin/exim_tidydb /usr/sbin/exim_tidydb   (exim_tidydb script)
 
+The INSTALL file calls for certain scripts to be installed in /etc/cron.daily in
+the RedHat/CentOS file system.  However, FreeBSD does not have /etc/cron.daily.
+Therefore, install those scrips in either /root/crontab or in root's crontab with
+the "crontab -e" command.
+
 Exim And The mail Command
 
 On FreeBSD, following the installation of exim, the mail command invokes exim whereas
