@@ -143,7 +143,7 @@ web interface such as the “Add Alias” page:
 To fix this, set output_buffering = 4096 in php.ini.
 
 
-SpamAssassin
+5) SpamAssassin
 
 The FreeBSD SpamAssassin port also installs Razor, however, DCC and Pyzor must be
 installed separately from ports.
@@ -171,7 +171,7 @@ RedHat/CentOS's /etc/rc.local directory, however, there is no /etc/rc.local in
 FreeBSD. Therefore, a crontab entry should be made to root's crontab (with
 crontab -e) to start p5-Mail-SPF at startup as described above at reboot (@reboot).
 
-DCC
+6) DCC
 
 The DCC port installs the following four services but you only need to implement
 the dccifd service:
@@ -187,7 +187,7 @@ open source. Enable the DCC plugin by entering the following line in
 
 	loadplugin Mail::SpamAssassin::Plugin::DCC
 
-Pyzor
+7) Pyzor
 
 Following installation, Pyzor generated the following error in FreeBSD 8.0 when
 running "pyzor discover":
@@ -203,7 +203,7 @@ the first line of /usr/local/bin/pyzor to:
 
 	#!/usr/local/bin/python -Wignore::DeprecationWarning
 
-ClamAV
+8) ClamAV
 
 Make sure and specify the TCP socket as 3310 for clamd in clamd.conf:
 
@@ -213,7 +213,7 @@ Otherwise, without the TCPSocket specified, the Clamd header writing
 will not specify the ClamAV version. 
 
 
-Webmin
+9) Webmin
 
 Configure Webmin with:
 
@@ -224,7 +224,7 @@ The Webmin service is:
 	/usr/local/etc/rc.d/webmin start
 
 
-General
+10) General
 
 There are numerous differences in the file systems between RedHat/CentOS and FreeBSD.
 The following notes will resolve several compatibility issues with the shell
@@ -248,7 +248,7 @@ the RedHat/CentOS file system.  However, FreeBSD does not have /etc/cron.daily.
 Therefore, install those scrips in either /root/crontab or in root's crontab with
 the "crontab -e" command.
 
-Exim And The mail Command
+11) Exim And The mail Command
 
 On FreeBSD, following the installation of exim, the mail command invokes exim whereas
 on RedHat/CentOS the mail command continues to invoke sendmail.  Sendmail supports
@@ -259,7 +259,7 @@ sendmail and which also conflicts. So, in FreeBSD, always invoke Heirloom mail w
 /usr/local/bin/mailx.
 
 
-Addendum - List Of All Packages Installed From The Ports Collection For Exim4U
+12) Addendum - List Of All Packages Installed From The Ports Collection For Exim4U
 
 The following is the output from the "pkg_info" command:
 
@@ -526,7 +526,7 @@ xproto-7.0.15       X11 protocol headers
 xtrans-1.2.3        Abstract network code for X
 
 
-PEAR Modules
+13) PEAR Modules
 
 The following is the output from the "pear list" command:
 
