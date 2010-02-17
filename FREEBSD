@@ -125,7 +125,6 @@ web interface such as the “Add Alias” page:
 
 To fix this, set output_buffering = 4096 in php.ini.
 
-
 5) SpamAssassin
 
 The FreeBSD SpamAssassin port also installs Razor, however, DCC and Pyzor must be
@@ -194,7 +193,6 @@ Make sure and specify the TCP socket as 3310 for clamd in clamd.conf:
 
 Otherwise, without the TCPSocket specified, the Clamd header writing
 will not specify the ClamAV version. 
-
 
 9) Webmin
 
