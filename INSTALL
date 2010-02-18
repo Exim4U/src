@@ -67,6 +67,35 @@ After copying files to /etc/exim then (as user = root) execute:
 
 		chown -R root:root /etc/exim/*
 
+The primary file that needs to be edited for specifying site specific information
+is exim4u_local.conf.inc. This file is self documented so just read through the
+file and specify the appropriate information as detailed therein. The main exim
+configuration file for exim4u is /etc/exim/exim.conf and which typically is not
+ever modified. The configuration files required in the /etc/exim directory for
+exim4u to work properly are described as follows:
+
+exim4u_acl_check_dkim.conf.inc - DKIM ACL include file.
+exim4u_backup_mx_host_names - Backup MX host names to be excluded from all spam checks.
+exim4u_backup_mx_rl_host_names - Backup MX host names to be excluded from rate limiting only.
+exim4u_global_spam_virus - SpamAssassin and ClamAV settings.
+exim4u_hostnames+hostIPs - Local host names and IP addresses.
+exim4u_IPblacklist - Blacklisted IPs here.
+exim4u_IPskip_sender_verify - IPs for which to omit verification of senders email address.
+exim4u_IPwhitelist - Whitelisted IPs here.
+exim4u_local.conf.inc - Site specific information.
+exim4u_local_rl.conf.inc - Sender ratelimit include file.
+exim4u_relay_from_hosts - IP addresses of hosts which can use our host as an outgoing relay.
+exim4u_sender_rl_addr - Sender email addresses to be exempted from sender ratelimit checks.
+exim4u_sender_rl_dom - Sender IP addresses to be exempted from sender IP ratelimit checks.
+exim-acl-check-spf.conf.inc - SPF include file. (Usually not modified)
+exim.conf - Main exim configuration file. (Usually not modified)
+exim-greylist.conf.inc - Greylisting include file. (Usually not modified)
+exim-group-router.conf.inc - Group router include file. (Usually not modified)
+exim.pl directory - Perl script and files for URIBL/SURBL checks. (Usually not modified)
+
+All of the above files whose name begin with "exim4u_" should be modified to include
+appropriate site specific configuration options.
+
 Create the SQLite database (SQLite3) for greylisting. You can do this
 with the sqlite3 command. The sqlite3 script for setting up the greylisting
 database is named mk-greylist-db.sql and it is in the xtrasw/exim-greylist
@@ -112,7 +141,7 @@ default system UID and GID you want new domains to have if one is
 not specified. (Most installations opt to create a user and a group both named
 exim4u and then use the UID and GID for exim4u.) Change the third instance
 of the word 'CHANGE' to the password you want the exim4u database user to have.
-This is the same password you chose when editing /etc/exim/Exim4u_local.conf.inc
+This is the same mysql password you chose when editing /etc/exim/exim4u_local.conf.inc
 above. You also need to know if your system uses MD5 or DES passwords.
 BSD and Linux normally use MD5, whereas Solaris systems commonly use
 the older style DES. Uncomment the appropriate line, as noted by the comments,
