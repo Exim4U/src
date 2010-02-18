@@ -3,30 +3,30 @@
 # is directed at authenticated users and users on the local machine using webmail.
 #
 #
-# Ratelimit local senders sent receipts (rcpt to:) to 250 per 6 hour (1,000 per day) per sender address.
+# Ratelimit local senders sent receipts (rcpt to:) to 250 per 3 hour (2,000 per day) per sender address.
 # Only apply to local host via "hosts = :" since we are targeting webmail users here.
-# defer ratelimit = 250 / 6h / leaky / per_rcpt / $sender_address
+# defer ratelimit = 250 / 3h / leaky / per_rcpt / $sender_address
 
         defer
 		hosts		=  : localhost
                 senders         = ! /etc/exim/exim4u_sender_rl_addr
 		hosts           = ! /etc/exim/exim4u_sender_rl_dom
-		ratelimit       = 125 / 3h / leaky / per_rcpt / $sender_address
+		ratelimit       = 250 / 3h / leaky / per_rcpt / $sender_address
                 log_message     = Local senders sent mail ratelimit ( $sender_address ) exceeds $sender_rate per $sender_rate_period
                 message         = Number of sent emails has exceeded our sender limit. Come back later.
 
-# Ratelimit authenticated senders sent receipts (rcpt to:) to 250 per 6 hour (1,000 per day) per authenticated sender address.
+# Ratelimit authenticated senders sent receipts (rcpt to:) to 250 per 3 hour (2,000 per day) per authenticated sender address.
 # Only apply to authenticated sessions via "authenticated = *"
-# defer ratelimit = 250 / 6h / leaky / per_rcpt / $authenticated_id
+# defer ratelimit = 250 / 3h / leaky / per_rcpt / $authenticated_id
         defer
 		authenticated	= *
                 senders         = ! /etc/exim/exim4u_sender_rl_addr
 		hosts           = ! /etc/exim/exim4u_sender_rl_dom
-                ratelimit       = 125 / 3h / leaky / per_rcpt / $authenticated_id
+                ratelimit       = 250 / 3h / leaky / per_rcpt / $authenticated_id
                 log_message     = Authenticated senders sent mail ratelimit ( $authenticated_id ) exceeds $sender_rate per $sender_rate_period
                 message         = Number of sent emails has exceeded our sender limit. Come back later.
 
-# Remote IP ratelimit set to 10 per min (60 per hour)
+# Remote IP ratelimit set to 10 per min (600 per hour)
 # defer ratelimit = 10 / 1m / strict / per_mail / $sender_host_address
         defer
 		hosts		=  : localhost
@@ -36,7 +36,7 @@
                 log_message     = Local host ratelimit ( $sender_host_address ) exceeds $sender_rate per $sender_rate_period
                 message		= Number of sent emails has exceeded our IP limit. Come back later.
 
-# Remote IP ratelimit set to 10 per min (60 per hour) for authenticated users.
+# Remote IP ratelimit set to 10 per min (600 per hour) for authenticated users.
 # defer ratelimit = 10 / 1m / strict / per_mail / $sender_host_address
         defer
                 authenticated	= *
