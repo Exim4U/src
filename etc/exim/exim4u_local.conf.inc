@@ -58,6 +58,14 @@ DKIM_ON = NO
 #
 MULTI_IP = NO
 #
+# exim4u: Sender ratelimiting may be enabled or disabled with the variable, SENDER_RL.
+# SENDER_RL should be set to YES to enable sender rate limiting or set to NO to disable.
+# With SENDER_RL = YES, exim4u will impose ratelimits on outgoing mail as specified in 
+# /etc/exim/exim4u_local_rl_conf.inc. You may edit /etc/exim/exim4u_local_rl_conf.inc
+# to customize the sender ratelimit values
+#
+SENDER_RL = YES
+#
 # If using tls then you must store your certificates as described at the bottom
 # of this file according to whether MULTI_IP is set to YES or NO. Include the
 # following line if using tls certificates (If not, then comment the following line out):
