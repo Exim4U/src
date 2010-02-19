@@ -8,6 +8,7 @@
 # defer ratelimit = 250 / 3h / leaky / per_rcpt / $sender_address
 
         defer
+		condition       = ${if eq{SENDER_RL}{YES}}
 		hosts		=  : localhost
                 senders         = ! /etc/exim/exim4u_sender_rl_addr
 		hosts           = ! /etc/exim/exim4u_sender_rl_dom
@@ -19,6 +20,7 @@
 # Only apply to authenticated sessions via "authenticated = *"
 # defer ratelimit = 250 / 3h / leaky / per_rcpt / $authenticated_id
         defer
+		condition       = ${if eq{SENDER_RL}{YES}}
 		authenticated	= *
                 senders         = ! /etc/exim/exim4u_sender_rl_addr
 		hosts           = ! /etc/exim/exim4u_sender_rl_dom
@@ -29,6 +31,7 @@
 # Remote IP ratelimit set to 10 per min (600 per hour)
 # defer ratelimit = 10 / 1m / strict / per_mail / $sender_host_address
         defer
+		condition       = ${if eq{SENDER_RL}{YES}}
 		hosts		=  : localhost
 		senders         = ! /etc/exim/exim4u_sender_rl_addr
                 hosts		= ! /etc/exim/exim4u_sender_rl_dom
@@ -39,12 +42,14 @@
 # Remote IP ratelimit set to 10 per min (600 per hour) for authenticated users.
 # defer ratelimit = 10 / 1m / strict / per_mail / $sender_host_address
         defer
+		condition       = ${if eq{SENDER_RL}{YES}}
                 authenticated	= *
 		senders         = ! /etc/exim/exim4u_sender_rl_addr
                 hosts           = ! /etc/exim/exim4u_sender_rl_dom
                 ratelimit       = 10 / 1m / strict / per_mail / $sender_host_address
                 log_message     = Authenticated remote IP ratelimit ( $sender_host_address ) exceeds $sender_rate per $sender_rate_period
                 message         = Number of sent emails has exceeded our IP limit. Come back later.
+
 # For some reason, the ratelimit statement for the $sender_host_address will only work properly when $sender_host_address has a valid
 # reverse DNS lookup value.  So, if your exim machine is on a local network behind a router then you must setup reverse dns for the
 # local network in order for this ratelimit statement to work for other sender machine IPs on the local network. That is, if the exim 
