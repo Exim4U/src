@@ -1,0 +1,26 @@
+                           Exim4U Version History
+
+                       Current Exim4U Version Is 1.2.1
+
+Exim4U Version 1.2.1 was released on December 27, 2009.
+- Bug fix for mysql setup scripts where on_spamboxreport field in the users table was
+  improperly named on-spambox_report. mysql_migrate/mysql_migrate.sql and 
+  mysql_setup/mysql.sql scripts were revised where the field named on-spambox_report
+  was replaced with the name on_spamboxreport in the users table.
+
+Exim4U Version 1.2.0 was released on December 21, 2009.
+- Exim4U Version 1.2.0 requires Exim version 4.71 or higher for complete functionality.
+- DKIM was implemented. DKIM signing of outgoing mail and DKIM verification of
+  imcoming mail was implemented with or without greylisting and/or failure rejection
+  during the SMTP session.
+- Note that Exim 4.7x's implementation of DKIM causes the obsolescence of DomainKeys
+  with the Exim MTA for all versions after Exim 4.69. Therefore, DomainKeys is
+  obsoleted for all Exim4U versions after Exim4U 1.1.0.
+- Exim RPMs are no longer included. Download links are provided instead and the license 
+  is modified accordingly.
+- Minor bug fixes and house cleaning.
+- Changelog available here: http://exim4u.org/svn/exim4u_src/tags/1.2.0/CHANGELOG
+
+Exim4U Version 1.1.0 released on November 30, 2009.
+- Exim4U Version 1.1.0 requires Exim version 4.68 or 4.69 for complete functionality.
+- DomainKeys is implemented for Exim4U Version 1.1.0.

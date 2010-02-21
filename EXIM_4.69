@@ -1,0 +1,26 @@
+			Instructions For Exim 4.69 Users
+
+Follow these instructions to enable Exim4U version 1.2.x to run under Exim 4.69.
+
+Please note that Exim4U's DKIM signing and verification functions will not be
+operational with these changes.
+
+1) Set DKIM_ON = NO in Exim4U's local settings configuration file:
+
+	etc/exim4u_local.conf.inc
+
+2) Comment out each line that contains "dkim" in Exim4U's exim configuration file:
+
+	etc/exim.conf
+
+   Use "#" to comment out the lines as follows:
+
+	# dkim_verify_signers = $dkim_signers
+	# acl_smtp_dkim = acl_check_dkim
+	# .include /etc/exim/exim4u_acl_check_dkim.conf.inc
+	# dkim_domain = ${sender_address_domain}
+	# dkim_selector = exim4u
+	# dkim_private_key = "/etc/pki/tls/dk/rsa.private"
+	# dkim_domain = ${sender_address_domain}
+	# dkim_selector = exim4u
+	# dkim_private_key = "/etc/pki/tls/dk/rsa.private"
