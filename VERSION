@@ -36,7 +36,7 @@
 	eximstats.sh
 	spamdel
 	spamreport
-    The mailx/nail commands from the Heirloom project was also added to these
+    The mailx/nail commands from the Heirloom project were also added to these
     scripts for mailing the reports.
 
     The spam deletion utility, spamdel, was completely rewritten to produce an
