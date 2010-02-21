@@ -1,26 +1,103 @@
                            Exim4U Version History
 
-                       Current Exim4U Version Is 1.2.1
+                       Current Exim4U Version Is 1.2.2
 
-Exim4U Version 1.2.1 was released on December 27, 2009.
-- Bug fix for mysql setup scripts where on_spamboxreport field in the users table was
+1.2.2 Release Date: February 21, 2010
+
+  New Documentation:
+
+    APPEARANCE - Instructions for customizing Exim4U's icons, images and appearance.
+    EXIM_4.69 - Instructions for running Exim Version 4.69 instead of 4.71.
+    FREEBSD, DEBIAN and REDHAT-CENTOS - OS specific installation notes.
+
+  Exim Configuration Changes:
+
+    Bug fixed in the acl_smtp_data ACL in exim.conf related to running exim
+    with clamd disabled.
+
+    Minor enhancement to SpamAssassin header rewriting in exim.conf.
+
+    Moved several parameter settings from exim.conf to exim4u_local.conf.inc:
+        exim_user
+        exim_group
+        av_scanner
+        spamd_address
+
+    Added default setting for mailman domain list in exim4u_local.conf.inc:
+        domainlist mm_domains = :
+
+    The variable, SENDER_RL, was added to exim4u_local.conf.inc which toggles
+    sender ratelimiting ON/OFF in etc/exim/exim4u_acl_check_dkim.conf.inc.
+    SENDER_RL = YES (on) /NO (off).
+
+  Shell Scripts:
+
+    Minor modifications were made to the following scripts:
+	eximstats.sh
+	spamdel
+	spamreport
+    The mailx/nail commands from the Heirloom project were also added to these
+    scripts for mailing the reports.
+
+    The spam deletion utility, spamdel, was completely rewritten to produce an
+    improved report appearance and to be more easily configured for any mailstore
+    locations (mailroot directories).
+
+  Other:
+
+    The HTML menu scripts in the following directories were modified to support site
+    specific appearance modifications (logos, images, etc.):
+        home/exim4u/public_html/admin_menu
+        home/exim4u/public_html/user_menu
+
+    The Exim4U Email Admin PHP scripts were modified in the following directories to
+    support site specific appearance modifications (header text, logos, images, etc.):
+        home/exim4u/public_html/exim4u/config
+        home/exim4u/public_html/exim4u/images
+
+    All Exim4U logos were modified for improved appearance. The Exim4U admin icon was
+    replaced with a new check mark icon along with another icon which is a "human"
+    image and which may be alternatively used as the Exim4U admin icon.
+
+    All tab characters were removed from the Exim4U Email Admin PHP code since some
+    custom installations of Apache appeared not to handle tabs well.
+
+    Other minor bug fixes, modifications and documentation improvements.
+
+
+
+1.2.1 Release Date: February 21, 2010
+
+  Bug fix for mysql setup scripts where on_spamboxreport field in the users table was
   improperly named on-spambox_report. mysql_migrate/mysql_migrate.sql and 
   mysql_setup/mysql.sql scripts were revised where the field named on-spambox_report
   was replaced with the name on_spamboxreport in the users table.
 
-Exim4U Version 1.2.0 was released on December 21, 2009.
-- Exim4U Version 1.2.0 requires Exim version 4.71 or higher for complete functionality.
-- DKIM was implemented. DKIM signing of outgoing mail and DKIM verification of
+
+
+1.2.0 Release Date: February 21, 2010
+
+  Exim4U Version 1.2.0 requires Exim version 4.71 or higher for complete functionality.
+
+  DKIM was implemented. DKIM signing of outgoing mail and DKIM verification of
   imcoming mail was implemented with or without greylisting and/or failure rejection
   during the SMTP session.
-- Note that Exim 4.7x's implementation of DKIM causes the obsolescence of DomainKeys
+
+  Note that Exim 4.7x's implementation of DKIM causes the obsolescence of DomainKeys
   with the Exim MTA for all versions after Exim 4.69. Therefore, DomainKeys is
   obsoleted for all Exim4U versions after Exim4U 1.1.0.
-- Exim RPMs are no longer included. Download links are provided instead and the license 
-  is modified accordingly.
-- Minor bug fixes and house cleaning.
-- Changelog available here: http://exim4u.org/svn/exim4u_src/tags/1.2.0/CHANGELOG
 
-Exim4U Version 1.1.0 released on November 30, 2009.
-- Exim4U Version 1.1.0 requires Exim version 4.68 or 4.69 for complete functionality.
-- DomainKeys is implemented for Exim4U Version 1.1.0.
+  Exim RPMs are no longer included. Download links are provided instead and the license 
+  is modified accordingly.
+
+  Minor bug fixes and house cleaning.
+
+  Changelog available here: http://exim4u.org/svn/exim4u_src/tags/1.2.0/CHANGELOG
+
+
+
+1.1.0 Release Date: February 21, 2010
+
+  Exim4U Version 1.1.0 requires Exim version 4.68 or 4.69 for complete functionality.
+
+  DomainKeys is implemented for Exim4U Version 1.1.0.
