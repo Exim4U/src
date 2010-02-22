@@ -33,9 +33,9 @@ The version of Exim in the Debian/Ubuntu repositories as of this writing was 4.6
 whereas Exim4U version 1.2.x requires Exim version 4.71 for complete functionality.
 However, the only functionality that is lost with Exim 4.69 is DKIM signing and
 verification. See the file, EXIM_4.69, which includes instructions for modifying
-Exim4U version 1.2.x to run with Exim version 4.69. (Alternatively, you may compile
-Exim 4.71 from scratch on your Debian/Ubuntu system if you want DKIM signing and
-verification features.)
+Exim4U version 1.2.x to run with Exim version 4.69. Alternatively, you may use
+Exim 4.71 from debian backports if you want DKIM signing and verification features
+(read exim backport below)
 
 The Debian distribution has its own exim configuration system, however, you can
 implement a custom configuration in /etc/exim4/exim4.conf.  Therefore, follow the
@@ -74,7 +74,7 @@ exim is:
 
 2) EXIM4U WEB INTERFACE
 
-Apache runs under Debian/Ubuntu as apache2.  Install apache2, php, perl and mysql with apt or aptitude.
+Apache runs under Debian/Ubuntu as apache2.  Install apache2, php5, php-pear, perl and mysql with apt.
 You also need to install the db.php pear module which is referred to as php-pear-db in the INSTALL
 file:
 
@@ -88,3 +88,63 @@ The standard DocumentRoot for Debian/Ubuntu is typically /var/www or /home/www. 
 instructions locate the web interface's DocumentRoot at /home/exim4u/public_html which is standard
 for RedHat/CentOS. Nevertheless, you may relocate the DocumentRoot to any other directory that you
 prefer.
+
+3) SPAMASSASSIN
+
+The file SPAMASSASSIN recommends to setup a set of channels to maximize SPAM protection, here are
+working instructions to pull perl packages required by these channels, note that some have no Debian
+package and must be fetched from CPAN:
+
+	apt-get install spamassassin razor libmail-dkim-perl libio-socket-ssl-perl g++
+	perl -MCPAN -e'CPAN::Shell->install("Mail::DomainKeys")'
+        perl -MCPAN -e'CPAN::Shell->install("IP::Country::Fast")'
+        perl -MCPAN -e'CPAN::Shell->install("Net::Ident")'
+        perl -MCPAN -e'CPAN::Shell->install("Encode::Detect")'
+        perl -MCPAN -e "CPAN::Shell->force(qw(install Mail::SPF::Query));"
+
+Thanks to the Debian razor package, you may start the razor setup procedure at the step where you
+create the config file (read file SPAMASSASSIN for razor setup).
+
+Force install is required for package Mail::SPF::Query to ignore unrelevant test failure on error
+message comparison.
+
+g++ is required to compile Encode::Detect.
+
+Check that spamassassin daemon is enabled
+
+        $ grep ENABLE /etc/default/spamassassin
+        ENABLED=1
+
+4) EXIM FROM DEBIAN BACKPORT
+
+If you want to use Exim4U's DKIM feature and the Debian stable exim version is 4.69 then you need
+the backported exim version 4.71 or higher. Ensure you have a reference to the backport repository:
+
+        $ grep backport /etc/apt/sources.list
+        # http://www.backports.org/dokuwiki/doku.php?id=instructions
+        deb http://www.backports.org/debian lenny-backports main contrib non-free
+
+Specify the packages you want to be pulled from backport
+
+        $ cat  /etc/apt/preferences
+        Package: exim4-daemon-heavy
+        Pin: release a=lenny-backports
+        Pin-Priority: 999
+
+        Package: exim4-config
+        Pin: release a=lenny-backports
+        Pin-Priority: 999
+
+        Package: exim4-base
+        Pin: release a=lenny-backports
+        Pin-Priority: 999
+
+        Package: exim4
+        Pin: release a=lenny-backports
+        Pin-Priority: 999
+
+Install these packages again
+
+        $ aptitude install exim4-daemon-heavy exim4-config exim4
+        $ dpkg -l | grep exim
+
