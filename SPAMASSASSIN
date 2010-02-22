@@ -70,6 +70,9 @@ will be higher thus leading to better spam detection.
 
 	http://cpan.org
 
+   Debian users should read the DEBIAN file for additional instructions for installing the
+   neccessary Perl modules.
+
    The absence of the Razor module may generate a similar error as follows:
 
 	[28216] dbg: diag: module not installed: Razor2::Client::Agent ('require' failed)
@@ -110,6 +113,8 @@ will be higher thus leading to better spam detection.
 
    Also, for RedHat/CentOS 5 systems, razor can be alternative installed
    from the RPMForge repostory with yum or apt.
+
+   Debian users should refer to the DEBIAN file for instructions related to Razor on Debian.
 
    Follow these instructions to implement razor site wide with one configuration file
    and one log file:
