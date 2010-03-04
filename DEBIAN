@@ -34,8 +34,8 @@ whereas Exim4U version 1.2.x requires Exim version 4.71 for complete functionali
 However, the only functionality that is lost with Exim 4.69 is DKIM signing and
 verification. See the file, EXIM_4.69, which includes instructions for modifying
 Exim4U version 1.2.x to run with Exim version 4.69. Alternatively, you may use
-Exim 4.71 from debian backports if you want DKIM signing and verification features
-(read exim backport below)
+Exim 4.71 from Debian Backports if you want DKIM signing and verification features
+(read Exim From Debian Backport below)
 
 The Debian distribution has its own exim configuration system, however, you can
 implement a custom configuration in /etc/exim4/exim4.conf.  Therefore, follow the
@@ -59,22 +59,73 @@ Exim should be run under Debian/Ubuntu as the following ownership/group:
 	user = Debian-exim
 	group = Debian-exim
 
+The following two commands will change the user and group values to Debian-exim:
+
+	sed -i -e 's/user = exim/user = Debian-exim/' /etc/exim/exim4u_local.conf.inc
+	sed -i -e 's/group = exim/group = Debian-exim/' /etc/exim/exim4u_local.conf.inc
+
+	(The default installation of Exim4u uses "exim" as the default username and group name)
+
 The mysql socket location under Debian/Ubuntu is:
 
 	/var/run/mysqld/mysqld.sock
 
+	(The default in exim4u is: /var/lib/mysql/mysql.sock)
+
 The mysql statement in exim4u_local.conf.inc should then be as follows:
 
 	hide mysql_servers = <hostname>::(/var/run/mysqld/mysqld.sock)/exim4u/Debian-exim/<password>
+
+	(Exim4U default is: hide mysql_servers = localhost::(/var/lib/mysql/mysql.sock)/exim4u/exim4u/CHANGE)
+
+The following command can be used to set the mysql socket path correctly:
+
+	sed -i -e 's/^\(hide mysql_servers =.*::(\).*\().*\)\/.*\/.*\/.*/\1\/var\/run\/mysqld\/mysqld.sock\2\/exim4u\/Debian-exim\/NEWPASSWORD/' /etc/exim/exim4u_local.conf.inc 
+
+where: 	exim4u = Database Name
+        Debian-exim = User Name
+        NEWPASSWORD = Password
+
+Alternatively edit /etc/exim/exim4u_local.conf.inc and customize as required in the following format:
+
+	hide mysql_servers = localhost::(/var/lib/mysql/mysql.sock)/exim4u/exim4u/CHANGE
+
 
 Exim on Debian/Ubuntu runs as "exim4". Therefore the service for starting/stopping/restarting
 exim is:
 
 	/etc/init.d/exim4
 
+
+### Exim Versions prior to 4.71 - Disabling DKIM ###
+
+If the following error is reported when starting exim4, then you probably are running an Exim version
+prior to 4.71:
+
+	servername:/etc/exim# /etc/init.d/exim4 start
+	Starting MTA:2010-03-01 15:19:54 Exim configuration error in line 129 of /etc/exim4/exim4.conf:
+	main option "dkim_verify_signers" unknown
+	Warning! Invalid configuration file for exim4. Exiting....failed.
+	servername:/etc/exim#
+
+Use "exim4 -bV" to report your version of Exim. All Exim versions prior to 4.71 do not support DKIM and
+therefore you must remove the DKIM related items in exim4.conf from those earlier versions.
+
+The following can be used to comment out the DKIM functionality:
+
+	sed -i -e 's/^\(dkim_verify_signers =.*\)$/#\1/' /etc/exim4/exim4.conf
+	sed -i -e 's/^\(acl_smtp_dkim =.*\)$/#\1/' /etc/exim4/exim4.conf
+
+	In addition, edit /etc/exim4/exim4.conf and comment out the following sections:
+
+		remote_smtp_multi_IP_DK:
+		remote_smtp_DK:
+
+
 2) EXIM4U WEB INTERFACE
 
-Apache runs under Debian/Ubuntu as apache2.  Install apache2, php5, php-pear, perl and mysql with apt.
+Apache runs under Debian/Ubuntu as apache2.  Install apache2, php5, perl, mysql and php-pear with apt.
+
 You also need to install the db.php pear module which is referred to as php-pear-db in the INSTALL
 file:
 
