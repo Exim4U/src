@@ -1,6 +1,7 @@
 <?php
   include_once dirname(__FILE__) . '/config/variables.php';
   include_once dirname(__FILE__) . '/config/authpostmaster.php';
+  include_once dirname(__FILE__) . "/config/functions.php";
 ?>
 <?php
   $query = "SELECT * FROM groups WHERE id={$_GET['group_id']}";
