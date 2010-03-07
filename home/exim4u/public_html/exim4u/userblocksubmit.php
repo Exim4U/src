@@ -5,7 +5,7 @@
   include_once dirname(__FILE__) . "/config/httpheaders.php";
 
   if ($_GET['action'] == "delete") {
-    $query = "DELETE FROM blocklists WHERE block_id={$_GET['block_id']}";
+    $query = "DELETE FROM blocklists WHERE block_id='{$_GET['block_id']}'";
     $result = $db->query($query);
     if (!DB::isError($result)) {
       header ("Location: userchange.php?updated");

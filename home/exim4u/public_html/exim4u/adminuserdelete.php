@@ -7,29 +7,29 @@
 if ($_GET['confirm'] == '1') {
 
   $query = "DELETE FROM users
-    WHERE user_id={$_GET['user_id']}
+    WHERE user_id='{$_GET['user_id']}'
     AND domain_id={$_SESSION['domain_id']}";
   $result = $db->query($query);
   if (!DB::isError($result)) {
-    $query = "DELETE FROM group_contents WHERE member_id={$_GET['user_id']}";
+    $query = "DELETE FROM group_contents WHERE member_id='{$_GET['user_id']}'";
     $result = $db->query($query);
-    header ("Location: adminuser.php?deleted={$_GET['localpart']}");
+    header ("Location: adminuser.php?deleted='{$_GET['localpart']}'");
   } else {
-    header ("Location: adminuser.php?faildeleted={$_GET['localpart']}");
+    header ("Location: adminuser.php?faildeleted='{$_GET['localpart']}'");
   }
 } else if ($_GET['confirm'] == "cancel") {                 
-    header ("Location: adminuser.php?faildeleted={$_GET['localpart']}");
+    header ("Location: adminuser.php?faildeleted='{$_GET['localpart']}'");
     die;                                                      
 } else {
   $query = "SELECT user_id AS count FROM users 
     WHERE admin=1 AND domain_id={$_SESSION['domain_id']}
-    AND user_id!={$_GET['user_id']}";
+    AND user_id!='{$_GET['user_id']}'";
   $result = $db->query($query);
   if ($result->numRows() == 0) {
-    header ("Location: adminuser.php?lastadmin={$_GET['localpart']}");
+    header ("Location: adminuser.php?lastadmin='{$_GET['localpart']}'");
     die;
   }
-  $query = "SELECT localpart FROM users WHERE user_id={$_GET['user_id']}";
+  $query = "SELECT localpart FROM users WHERE user_id='{$_GET['user_id']}'";
   $result = $db->query($query);
   if ($result->numRows()) { $row = $result->fetchRow(); }
 }
