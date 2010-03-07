@@ -33,7 +33,7 @@
             }
           ?>
           </select>@<?php 
-          $query = "SELECT * FROM domains WHERE domain_id={$_GET['domain_id']}";
+          $query = "SELECT * FROM domains WHERE domain_id='{$_GET['domain_id']}'";
           $result = $db->query($query);
           if ($result->numRows()) { $row = $result->fetchRow(); }
           print $row['domain']; ?></td>

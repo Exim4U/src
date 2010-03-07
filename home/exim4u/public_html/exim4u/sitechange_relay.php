@@ -22,7 +22,7 @@
           <tr><td colspan="2"><h4><?php echo _("Modify Relay Domain Properties"); ?>:</h4>
 
           <?php 
-          $query = "SELECT * FROM domains WHERE domain_id={$_GET['domain_id']}";
+          $query = "SELECT * FROM domains WHERE domain_id='{$_GET['domain_id']}'";
           $result = $db->query($query);
           if ($result->numRows()) { $row = $result->fetchRow(); }
                 echo _("Relay Domain: "); echo $row['domain'];      

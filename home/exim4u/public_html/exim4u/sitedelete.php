@@ -43,7 +43,7 @@
 
   if ($_GET['type'] != "alias") {
     $query = "SELECT COUNT(*) AS count, domain, domains.type FROM users,domains
-              WHERE (domains.domain_id={$_GET['domain_id']}
+              WHERE (domains.domain_id='{$_GET['domain_id']}'
             AND users.domain_id=domains.domain_id)
             GROUP BY domain,domains.type";
     $result = $db->query($query);

@@ -4,7 +4,7 @@
   include_once dirname(__FILE__) . "/config/functions.php";
 ?>
 <?php
-  $query = "SELECT * FROM groups WHERE id={$_GET['group_id']}";
+  $query = "SELECT * FROM groups WHERE id='{$_GET['group_id']}'";
   $result = $db->query($query);
   $row = $result->fetchRow();
   $grouplocalpart = $row['name'];
@@ -66,7 +66,7 @@
             <?php
               $query = "select u.realname, u.username, u.enabled, c.member_id
                 from users u, group_contents c
-                where u.user_id = c.member_id and c.group_id = {$_GET['group_id']}
+                where u.user_id = c.member_id and c.group_id = '{$_GET['group_id']}'
                 order by u.enabled desc, u.realname asc";
               $result = $db->query($query);
               if ($result->numRows()) {

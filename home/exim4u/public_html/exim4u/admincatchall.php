@@ -3,7 +3,7 @@
   include_once dirname(__FILE__) . '/config/authpostmaster.php';
   include_once dirname(__FILE__) . '/config/functions.php';
   include_once dirname(__FILE__) . '/config/httpheaders.php';
-  $query = "SELECT smtp FROM users WHERE user_id={$_GET['user_id']}";
+  $query = "SELECT smtp FROM users WHERE user_id='{$_GET['user_id']}'";
   $result = $db->query($query);
   if ($result->numRows()) { $row = $result->fetchRow(); }
 ?>

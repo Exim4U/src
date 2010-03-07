@@ -126,10 +126,11 @@ av_scanner = clamd:/var/run/clamav/clamd
 domainlist mm_domains = :
 #
 # exim4u: Mailman Configuration Location
+# Modify as per your installation.
 #
 MAILMAN_HOME=/var/lib/mailman
 MAILMAN_WRAP=/usr/lib/mailman/mail/mailman
-MAILMAN_USER=mailnull
+MAILMAN_USER=mailman
 MAILMAN_GROUP=mail
 #
 #
