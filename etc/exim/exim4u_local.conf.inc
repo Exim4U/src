@@ -125,14 +125,18 @@ av_scanner = clamd:/var/run/clamav/clamd
 # domainlist mm_domains = mailman_domain_name_1.tld :  mailman_domain_name_2.tld : mailman_domain_name_3.tld
 domainlist mm_domains = :
 #
-# exim4u: Mailman Configuration Location
+# exim4u: Mailman Configuration Information
 # Modify as per your installation.
 #
-MAILMAN_HOME=/var/lib/mailman
-MAILMAN_WRAP=/usr/lib/mailman/mail/mailman
-MAILMAN_USER=mailman
-MAILMAN_GROUP=mail
+MAILMAN_HOME = /var/lib/mailman
+MAILMAN_WRAP = /usr/lib/mailman/mail/mailman
+MAILMAN_USER = mailman
+MAILMAN_GROUP = mail
 #
+#
+# exim4u: Specify user and group for local domain deliveries.
+LOCAL_USER = mail
+LOCAL_GROUP = mail
 #
 # END Of Host Specific Configuration Settings
 #
