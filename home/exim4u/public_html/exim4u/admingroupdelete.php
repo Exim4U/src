@@ -14,20 +14,20 @@
         AND domain_id={$_SESSION['domain_id']}";
       $result = $db->query($query);
       if (!DB::isError($result)) {
-        header ("Location: admingroup.php?group_deleted='{$_GET['localpart']}'");
+        header ("Location: admingroup.php?group_deleted={$_GET['localpart']}");
         die;
       } else {
         header ("Location: admingroup.php?
-          group_faildeleted='{$_GET['localpart']}'");
+          group_faildeleted={$_GET['localpart']}");
         die;
       }
     } else {
       header ("Location: admingroup.php?
-        group_faildeleted='{$_GET['localpart']}'");
+        group_faildeleted={$_GET['localpart']}");
       die;
     }
   } else if ($_GET['confirm'] == 'cancel') {
-    header ("Location: admingroup.php?group_faildeleted='{$_GET['localpart']}'");
+    header ("Location: admingroup.php?group_faildeleted={$_GET['localpart']}");
     die;
   }
 ?>

@@ -10,14 +10,14 @@
       AND domain_id={$_SESSION['domain_id']}";
     $result = $db->query($query);
     if (!DB::isError($result)) {
-      header ("Location: adminalias.php?deleted='{$_GET['localpart']}'");
+      header ("Location: adminalias.php?deleted={$_GET['localpart']}");
       die;
     } else {
-      header ("Location: adminalias.php?faildeleted='{$_GET['localpart']}'");
+      header ("Location: adminalias.php?faildeleted={$_GET['localpart']}");
       die;
     }
   } else if ($_GET['confirm'] == 'cancel') {
-    header ("Location: adminalias.php?faildeleted='{$_GET['localpart']}'");
+    header ("Location: adminalias.php?faildeleted={$_GET['localpart']}");
     die;
   }
 ?>
