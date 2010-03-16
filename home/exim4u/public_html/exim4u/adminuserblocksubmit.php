@@ -8,10 +8,10 @@
     $query = "DELETE FROM blocklists WHERE block_id='{$_GET['block_id']}'";
     $result = $db->query($query);
     if (!DB::isError($result)) {
-      header ("Location: adminuser.php?updated='{$_GET['localpart']}'");
+      header ("Location: adminuser.php?updated={$_GET['localpart']}");
       die;
     } else {
-      header ("Location: adminuser.php?failed='{$_GET['localpart']}'");
+      header ("Location: adminuser.php?failed={$_GET['localpart']}");
       die;
     }
   }
