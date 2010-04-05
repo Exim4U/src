@@ -114,6 +114,11 @@ host would be placed within /etc/httpd/conf.d/ssl.conf for SSL access:
       "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
   </VirtualHost>
 
+Several recommended security precautions related to apache website files are included
+in the SECURITY file in this distributions root directory.  These precautions will
+help protect your Exim4U installation from hostile intruders and other potential
+security issues.
+
 2) Exim Configuration:
 
 The exim configuration is contained in this Exim4U distribution in a directory

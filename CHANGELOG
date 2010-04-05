@@ -1,6 +1,65 @@
                          Exim4U Changelog Summaries
 
 
+1.2.3 Release Date: April 1, 2010
+
+1.2.3 Changelog Summary (Versus Version 1.2.2)
+
+  M      DEBIAN
+  M      EXIM_4.69
+  D      home/exim4u/public_html/exim4u/test.php
+  M      home/exim4u/public_html/exim4u/adminlists.php
+  M      home/exim4u/public_html/exim4u/adminfaildelete.php
+  M      home/exim4u/public_html/exim4u/logout.php
+  M      home/exim4u/public_html/exim4u/sitechange.php
+  M      home/exim4u/public_html/exim4u/adminuserdelete.php
+  M      home/exim4u/public_html/exim4u/admingroupchange.php
+  M      home/exim4u/public_html/exim4u/userblocksubmit.php
+  M      home/exim4u/public_html/exim4u/adminfail.php
+  M      home/exim4u/public_html/exim4u/adminaliasdelete.php
+  M      home/exim4u/public_html/exim4u/adminuserblocksubmit.php
+  M      home/exim4u/public_html/exim4u/adminfailchange.php
+  M      home/exim4u/public_html/exim4u/adminuserchange.php
+  M      home/exim4u/public_html/exim4u/sitechange_relay.php
+  M      home/exim4u/public_html/exim4u/adminaliaschange.php
+  M      home/exim4u/public_html/exim4u/admingroupadd.php
+  M      home/exim4u/public_html/exim4u/config/authuser.php
+  M      home/exim4u/public_html/exim4u/config/authpostmaster.php
+  M      home/exim4u/public_html/exim4u/config/authsite.php
+  M      home/exim4u/public_html/exim4u/admincatchall.php
+  M      home/exim4u/public_html/exim4u/sitedelete.php
+  M      home/exim4u/public_html/exim4u/admingroupdelete.php
+  M      README
+  A      SECURITY
+  M      SPAMASSASSIN
+  M      etc/exim/exim4u_local.conf.inc
+  M      etc/exim/exim.conf
+
+1.2.3 Instructions for Upgrading From Version 1.2.2
+
+  1) Documentation - Refer to the revised documentation from the Exim4U 1.2.3
+     distribution's root directory:
+	DEBIAN
+	EXIM_4.69
+	SECURITY
+	SPAMASSASSIN
+  2) Exim Configuration Files - Copy the following files to your live
+     installation from the Exim4U 1.2.3 distribution's root directory.
+     Be sure to make a backup copy of your 1.2.2 version files prior
+     to overwriting them.
+	etc/exim/exim4u_local.conf.inc (Modify as per your requirements)
+        etc/exim/exim.conf
+  3) Exim4U Email Admin (PHP) - Copy the contents of the following directory
+     (including subdirectories and files) to your live installation from the
+     Exim4U 1.2.3 distribution's root directory. Be sure to make a backup copy
+     of your 1.2.2 version directories and files prior to overwriting them.
+        home/exim4u/public_html/exim4u
+     Modify the following file as per the INSTALL instructions:
+        home/exim4u/public_html/exim4u/config/variables.php
+     Remove the following file:
+	home/exim4u/public_html/exim4u/test.php
+
+
 1.2.2 Release Date: February 21, 2010
 
 1.2.2 Changelog Summary (Versus Version 1.2.1)

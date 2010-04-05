@@ -1,0 +1,19 @@
+                               Security Precautions
+
+The following precautions will help protect your Exim4U installation from hostile
+intruders and other potential security issues.
+
+1) Use https instead of http for web access to all files. https encrypts all data
+using SSL or TLS which protects against eavesdropping and man-in-the-middle attacks.
+
+2) If possible, password protect the entire Exim4U installation with Apache
+.htaccess files. However, this may not be viable if you are allowing individuals to
+change their own password, etc.
+
+3) Install Exim4U into an unpredictable path (i.e. don't call it exim4u). The Exim4U
+INSTALL file prescribes the install path as exim4u and so you may want to consider
+changing the path to something else.
+
+4) Use complex passwords that would be difficult to defeat with dictionary attacks,
+etc. Passwords should contain upper and lower case letters, numbers, symbols and
+other characters.
