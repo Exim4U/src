@@ -6,7 +6,7 @@
   if ((isset($_SESSION['localpart'])) &&  (isset($_SESSION['crypt'])))
        {
        // Match the crypted password to the database entry
-       // and confirm the user is a the siteadmin
+       // and confirm the user is the siteadmin
        // print_r($_SESSION);
        if ($_SESSION['localpart'] != "siteadmin")
             { header ("Location: index.php?login=failed"); exit(); };
