@@ -7,7 +7,8 @@
   if ($_GET['confirm'] == '1') {
     $query = "DELETE FROM users 
       WHERE user_id='{$_GET['user_id']}'
-      AND domain_id={$_SESSION['domain_id']}";
+      AND domain_id='{$_SESSION['domain_id']}'
+	  AND (type='alias' OR type='catch')";
     $result = $db->query($query);
     if (!DB::isError($result)) {
       header ("Location: adminalias.php?deleted={$_GET['localpart']}");

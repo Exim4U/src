@@ -7,15 +7,16 @@
   if (isset($_POST['on_forward'])) {$_POST['on_forward'] = 1;} else {$_POST['on_forward'] = 0;}
   if (isset($_POST['unseen'])) {$_POST['unseen'] = 1;} else {$_POST['unseen'] = 0;}
   # Do some checking, to make sure the user is ALLOWED to make these changes
-  $query = "SELECT spamassassin,maxmsgsize from domains WHERE domain_id = {$_SESSION['domain_id']}";
+  $query = "SELECT spamassassin,maxmsgsize from domains WHERE domain_id = '{$_SESSION['domain_id']}'";
   $result = $db->query($query);
   $row = $result->fetchRow();
   if ((isset($_POST['on_spambox'])) && (isset($_POST['on_spamassassin']))) {$_POST['on_spambox'] = 1;} else {$_POST['on_spambox'] = 0;}
   if ((isset($_POST['on_spamassassin'])) && ($row['spamassassin'] = 1)) {$_POST['on_spamassassin'] = 1;} else {$_POST['on_spamassassin'] = 0;}
   if ((isset($_POST['maxmsgsize'])) && ($_POST['maxmsgsize'] > $row['maxmsgsize'])) {$_POST['maxmsgsize'] = $row['maxmsgsize'];}
+
   if ($_POST['realname'] != "") {
     $query = "UPDATE users SET realname='{$_POST['realname']}'
-            WHERE user_id={$_SESSION['user_id']}";
+            WHERE user_id='{$_SESSION['user_id']}'";
     $result = $db->query($query);
   }
   if (isset($_POST['on_spamboxreport'])) {
@@ -29,7 +30,7 @@
     $cryptedpassword = crypt_password($_POST['clear']);
     $query = "UPDATE users SET crypt='$cryptedpassword',
             clear='{$_POST['clear']}'
-            WHERE user_id={$_SESSION['user_id']}";
+            WHERE user_id='{$_SESSION['user_id']}'";
     $result = $db->query($query);
     if (!DB::isError($result)) {
       $_SESSION['crypt'] = $cryptedpassword;
@@ -45,9 +46,9 @@
 
 
     # Finally 'the rest' which is handled by the profile form
-    $query = "UPDATE users SET on_spamassassin={$_POST['on_spamassassin']},
-            on_spambox={$_POST['on_spambox']},
-            on_spamboxreport={$_POST['on_spamboxreport']},
+    $query = "UPDATE users SET on_spamassassin='{$_POST['on_spamassassin']}',
+            on_spambox='{$_POST['on_spambox']}',
+            on_spamboxreport='{$_POST['on_spamboxreport']}',
             sa_tag='{$_POST['sa_tag']}',
             sa_refuse='{$_POST['sa_refuse']}',
             on_vacation='{$_POST['on_vacation']}',
@@ -56,7 +57,7 @@
             forward='{$_POST['forward']}',
             maxmsgsize='{$_POST['maxmsgsize']}',
             unseen='{$_POST['unseen']}'
-            WHERE user_id={$_SESSION['user_id']}";
+            WHERE user_id='{$_SESSION['user_id']}'";
     $result = $db->query($query);
     if (!DB::isError($result)) {
       if (strlen($_POST['vacation']) > $max_vacation_length)

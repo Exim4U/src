@@ -33,7 +33,7 @@
         <td><input name="domain_id" type="hidden" value="<?php print $_GET['domain_id']; ?>">
             <input name="domain" type="hidden" value="<?php print $_GET['domain']; ?>"></td></tr>
       
-      <form name="domainchange" method="post" action="relay_changesubmit.php">
+      <form name="domainchange" method="post" action="sitechangerelaysubmit.php">
 
       <tr>
             <td><?php echo _('Relay Server Address'); ?>:</td>
