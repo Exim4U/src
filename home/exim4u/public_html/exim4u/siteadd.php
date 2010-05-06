@@ -206,7 +206,7 @@
               <input name="submit" type="submit"
                 value="<?php echo _('Submit'); ?>">
             </td>
-          <tr>
+          </tr>
         </table>
       </form>
     </div>

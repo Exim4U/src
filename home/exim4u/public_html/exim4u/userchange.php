@@ -4,14 +4,14 @@
   include_once dirname(__FILE__) . "/config/functions.php";
   include_once dirname(__FILE__) . "/config/httpheaders.php";
 
-  $domquery = "SELECT spamassassin FROM domains WHERE domain_id={$_SESSION['domain_id']}";
+  $domquery = "SELECT spamassassin FROM domains WHERE domain_id='{$_SESSION['domain_id']}'";
   $domresult = $db->query($domquery);
   if (!DB::isError($domresult)) { $domrow = $domresult->fetchRow(); }
-  $query = "SELECT * FROM users WHERE user_id={$_SESSION['user_id']}";
+  $query = "SELECT * FROM users WHERE user_id='{$_SESSION['user_id']}'";
   $result = $db->query($query);
   if (!DB::isError($result)) { $row = $result->fetchRow(); }
   $blockquery = "SELECT block_id,blockhdr,blockval FROM blocklists,users
-              WHERE blocklists.user_id={$_SESSION['user_id']}
+              WHERE blocklists.user_id='{$_SESSION['user_id']}'
             AND users.user_id=blocklists.user_id";
   $blockresult = $db->query($blockquery);
 ?>
@@ -45,7 +45,6 @@
             print _("Your mailbox quota is currently: Unlimited");
           }
         ?></td></tr><?php 
-          print "<tr><td>" . _("Anti-Virus: On") . "</td></tr>\n";
       if ($domrow['spamassassin'] == "1") {
       print "<tr><td>" . _("Spamassassin") . ":</td><td><input name=\"on_spamassassin\" type=\"checkbox\"";
       if ($row['on_spamassassin'] == "1") { 
