@@ -3,16 +3,17 @@
                        Current Exim4U Version Is 1.2.3
 
 
-1.2.3 Release Date: April 6, 2010
+1.2.3 Release Date: May 13, 2010
 
   Critical Security Release:
 
     Version 1.2.3 is a critical security release. As such, all Exim4U installations
-    should immediately be upgraded to version 1.2.3.  This release fixes several php
-    vulnerabilities which compromised the overall security of all prior versions of
-    Exim4U and its predecessor package, Vexim (Versions 2.2 and earlier). This
-    release provides enhanced protection to your Exim4U installation against
-    injection attacks and other potential security issues.
+    should immediately be upgraded to version 1.2.3.  This release addresses 
+    several security vulnerabilities in Exim4u v1.2.2 that were inherited from 
+    the base Vexim 2.2.1 php code.  In addition to resolving the security issues 
+    identified, it tightens other areas of the php code effectively reducing the 
+    potential for additional undiscovered vulnerabilities being present in the 
+    tightened areas.
 
   New Documentation:
 
@@ -27,8 +28,9 @@
 
   Credits:
 
-    The security vulnerabilities were identified by Mike Garrett who also provided
-    guidance in fixing the identified issues.  Thanks Mike!
+    The security vulnerabilities were identified by Mike Garratt who also provided
+    guidance in fixing the identified issues as well as personally correcting many
+    of the vulnerabilities himself. Thanks Mike!
 
 
 
