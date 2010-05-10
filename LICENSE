@@ -1,0 +1,87 @@
+		Exim4U User License and Terms of Use
+		Copyright (c) 2009 MailHub4U.com, LLC
+
+
+Exim4U
+------
+
+Except as outlined below under the heading "Other Software Licenses",
+this License and Terms of Use statement applies to all software 
+and documentation provided with the Exim4U product including, 
+but not limited to; all php files, all exim configuration files,
+all shell scripts, all other configuration files, all other
+programming scripts and all accompanying documentation.
+
+Redistribution and use of Exim4U in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+1. Redistributions of Exim4U source code must retain the above copyright
+   notices, this list of conditions and the following disclaimer.
+2. Redistributions in Exim4U in binary form must reproduce the above copyright
+   notices, this list of conditions and the following disclaimer in
+   the documentation and/or other materials provided with the
+   distribution.
+
+The Exim4U software is provided by MailHub4U.com, LLC "AS IS" and any
+express or implied warranties, including, but not limited to, the
+implied warranties of merchantability and fitness for a particular
+purpose are disclaimed. In no event shall MailHub4U.com, LLC or any other
+contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to,
+procurement of substitute goods or services; loss of use, data, or
+profits; or business interruption) however caused and on any theory
+of liability, whether in contract, strict liability, or tort
+(including negligence or otherwise) arising in any way out of the use
+of this software, even if advised of the possibility of such damage.
+
+
+Other Software Licenses
+-----------------------
+
+Other software products are integrated with Exim4U which have their
+own software licenses and terms of use.  These other products are
+Vexim and Horde both of which are licensed seperately as follows.
+
+Vexim
+-----
+
+Exim4u is a derivative work of Virtual Exim (also known as Vexim). The
+following describes Vexim's terms of use:
+
+   Vexim was Copyrighted in 2003 by Avleen Vig and the Virtual Exim
+   Development Team.
+
+   Redistribution and use of Vexim in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+
+   1. Redistributions of Vexim source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in Vexim in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in
+      the documentation and/or other materials provided with the
+      distribution.
+
+   The Vexim software is provided by the Vexim Project "AS IS" and any
+   express or implied warranties, including, but not limited to, the
+   implied warranties of merchantability and fitness for a particular
+   purpose are disclaimed. In no event shall the Vexim project or
+   contributors be liable for any direct, indirect, incidental, special,
+   exemplary, or consequential damages (including, but not limited to,
+   procurement of substitute goods or services; loss of use, data, or
+   profits; or business interruption) however caused and on any theory
+   of liability, whether in contract, strict liability, or tort
+   (including negligence or otherwise) arising in any way out of the use
+   of this software, even if advised of the possibility of such damage.
+
+Horde
+-----
+
+The Webmail Groupware product that is included with Exim4U is a modified
+version of the Horde Groupware Webmail Edition product which has been
+pre-configured to work seamlessly with your Exim4U installation. The 
+The Horde applications are free software provided under the GNU Library
+General Public License, Version 2, dated June 1991 which is described here:
+
+http://www.horde.org/licenses/lgpl.php

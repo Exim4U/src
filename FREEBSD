@@ -1,0 +1,559 @@
+                        Notes For FreeBSD Users
+
+These notes provide guidance for installing and running Exim4U on FreeBSD systems.
+As stated elsewhere in these instructions, Exim4U was originally developed under
+the RedHat/CentOS version of Linux, however, it has been installed and found to
+work well on other Linux and Unix systems including Debian, Ubuntu and FreeBSD.
+
+Proceed by following the instructions in the README, INSTALL, SPAMASSASSIN,
+WEBMAIL, APPEARANCE and NOTES files, however, be aware that there are differences
+in the FreeBSD file system as opposed to the RedHat/CentOS file system for which
+those instructions were written. These notes will cover the most significant
+differences and hopefully allow a smooth installation of Exim4u on your FreeBSD
+system.
+
+1) Installing application software from the ports collection.
+
+All of the application software that is referenced in the README and INSTALL
+file instructions is available from the FreeBSD ports collection and should
+therefore be compiled and installed from there. Each software title may be
+located by searching the ports collection using any of the following commands:
+
+	make search name=<package name>    (from the /usr/ports directory)
+	whereis <package name>
+	locate <package-name> | grep ports
+
+Then, when each package is found, change directory to the appropriate ports
+directory and compile and install using "make install clean".
+
+2) Exim MTA
+
+The Exim package should be compiled with MySQL and SQLite enabled. Compile Exim
+from the FreeBSD ports collection in the /usr/local/ports/mail/exim directory.
+Use the "make config" command and include MySQL and SQLite by checking the MySQL
+and SQLite boxes in the config menu. If this is a new installation, then compile
+and install as follows:
+
+	make install clean
+
+If this is a re-installation, then deinstall, compile and install as follows:
+
+	make deinstall clean
+	make install clean
+
+FreeBSD's installation of exim includes the default exim configuration in
+/usr/local/etc/exim/configure, however, you should implement the Exim4U configuration
+as follows:
+
+	Create a directory in /etc named exim (/etc/exim).  Then, copy the
+	etc/exim directory and all of its contents from the Exim4U distribution
+	to /etc/exim on the target FreeBSD machine.  Then edit 
+	/usr/local/etc/exim/configure so that it only contains the following
+	line:
+
+		.include /etc/exim/exim.conf
+
+	FreeBSD will now execute the Exim4U exim configuration automatically.
+
+Exim should be run under FreeBSD as the following owner and group:
+
+	user = mailnull
+	group = mail
+
+The mysql socket location under FreeBSD is:
+
+	/tmp/mysqld.sock
+
+The mysql statement in exim4u_local.conf.inc should read as follows:
+
+	hide mysql_servers = <hostname>::(/tmp/mysqld.sock)/exim4u/exim4u/<password>
+
+The service for starting/stopping/restarting exim on FREEBSD is:
+
+	/usr/local/etc/rc.d/exim
+
+The mail store directory, such as /home/exim4u/mail (/usr/home/exim4u/mail), must be
+created manually. Set the ownership and permissions to be writable by the user (exim4u).
+
+Exim's TLS certificates must be stored in /etc/pki/tls/exim_tls as described in
+etc/exim/exim4u_local.conf.inc according to whether MULTI_IP=YES or NO. You will
+need to create the directory structure for /etc/pki/tls/exim_tls since these are
+non-standard directories for FreeBSD.
+
+3) Exim4U Web Interface, Apache and PHP
+
+Apache runs under FreeBSD as apache22.  Install apache22, php, perl, pear and mysql from
+the ports collection.  You should also install all of the php extensions, perl modules and
+pear modules that are called for in the INSTALL, SPAMASSASSIN and WEBMAIL files. Use the
+Addendum at the end of this file as a tool for locating the correct port name for the
+applications, php extensions, perl modules and pear modules that you need to install. For
+example, these php extensions are required for the Exim4U web interface:
+
+	php5-gettext  (installed from /usr/ports/devel/php5-gettext)
+	php5-session  (installed from /usr/ports/www/php5-session)
+	php5-dom      (installed from /usr/ports/textproc/php5-dom)
+	php5-posix    (installed from /usr/ports/sysutils/php5-posix)
+
+The standard DocumentRoot for FreeBSD is typically /usr/local/www/apache22/data or
+/usr/local/www/apache22/data_ssl.  Exim4U's INSTALL file instructions locate the
+web interface's DocumentRoot at /home/exim4u/public_html which is standard for
+RedHat/CentOS. Nevertheless, you may relocate the DocumentRoot to any other
+directory that you prefer.
+
+4) php.ini Configuration File
+
+The php configuration file, php.ini, is located in /usr/local/etc/php.ini in FreeBSD
+(or /usr/local/Zend/etc/php.ini if the Zend Optimizer is installed). Two parameters
+need to be set in php.ini: short_open_tag=on and output_buffering = 4096.
+
+Set: short_open_tag=on
+
+short_open_tag=on must be set for the Exim4U PHP code to work properly.  However, Munin
+will not run with short_open_tag=on. Therefore, create an .htaccess files in the munin
+directory and the munin/<host_name> subdirectories as follows:
+
+	php_flag short_open_tag off
+
+Munin will then run properly with this .htaccess file installed.
+
+Set: output_buffering = 4096
+
+With output_buffering = Off, the following error will occur on some pages in Exim4U's
+web interface such as the “Add Alias” page:
+
+	session_start() [function.session-start]: Cannot send session cache limiter - headers already sent
+
+To fix this, set output_buffering = 4096 in php.ini.
+
+5) SpamAssassin
+
+The FreeBSD SpamAssassin port also installs Razor, however, DCC and Pyzor must be
+installed separately from ports.
+
+When installing the necessary perl modules for sa-update to run without any "module
+not installed" error messages you should install Mail:SPF and not Mail:SPF:Query even
+though sa-update will continue issuing "module not installed" for Mail:SPF:Query.
+Mail:SPF:Query is actually deprecated to Mail:SPF and FreeBSD will not allow them both
+to be installed simultaneously since they use the same installation directory.  Whereas
+RedHat/CentOS allows them both to be installed simultaneously. It really doesn't
+matter as long as one or the other is installed since they provide the same
+functionality.
+
+Mail:SPF is named p5-Mail-SPF in FreeBSD and it is installed from ports here:
+
+	/usr/ports/mail/p5-Mail-SPF	
+
+Then, a crontab entry should be made to root's crontab (with crontab -e) to start
+p5-Mail-SPF at startup:
+
+	@reboot /usr/local/sbin/spfd -socket=/tmp/spfd --socket-user mailnull --socket-group mail
+
+The Exim4U INSTALL instructions call for the SPF startup script to be put in
+RedHat/CentOS's /etc/rc.local directory, however, there is no /etc/rc.local in
+FreeBSD. Therefore, a crontab entry should be made to root's crontab (with
+crontab -e) to start p5-Mail-SPF at startup as described above at reboot (@reboot).
+
+6) DCC
+
+The DCC port installs the following four services but you only need to implement
+the dccifd service:
+
+dccifd – Interface to SpamAssassin (General MTA interface). USE THIS SERVICE.
+dccd –  Internal DCC server but not used if you are using a public DCC server.
+dccgrey – Grey listing. Not used in Exim4U.
+dccm – Milter to sendmail. Not used in Exim4U.
+
+DCC is disabled by default in SpamAssassin because it is not considered completely
+open source. Enable the DCC plugin by entering the following line in
+/usr/local/etc/mail/spamassassin/v310.pre:
+
+	loadplugin Mail::SpamAssassin::Plugin::DCC
+
+7) Pyzor
+
+Following installation, Pyzor generated the following error in FreeBSD 8.0 when
+running "pyzor discover":
+
+# pyzor discover
+/usr/local/lib/python2.6/site-packages/pyzor/__init__.py:11: DeprecationWarning: the sha module is deprecated; use the hashlib module instead
+  import sha
+/usr/local/lib/python2.6/site-packages/pyzor/client.py:12: DeprecationWarning: the multifile module has been deprecated since Python 2.5
+  import multifile
+
+Pyzor will not run like this, however, you may solve this problem by changing
+the first line of /usr/local/bin/pyzor to:
+
+	#!/usr/local/bin/python -Wignore::DeprecationWarning
+
+8) ClamAV
+
+Make sure and specify the TCP socket as 3310 for clamd in clamd.conf:
+
+	 TCPSocket 3310
+
+Otherwise, without the TCPSocket specified, the Clamd header writing
+will not specify the ClamAV version. 
+
+9) Webmin
+
+Configure Webmin with:
+
+	/usr/local/lib/webmin/setup.sh
+
+The Webmin service is:
+
+	/usr/local/etc/rc.d/webmin start
+
+10) Resolving File System Incompatibilities Between FreeBSD and RedHat/CentOS Linux
+
+There are numerous differences in the file systems between FreeBSD and RedHat/CentOS.
+The following notes will resolve several compatibility issues with the shell
+scripts that are included with Exim4U which were originally written for RedHat/CentOS.
+
+For the bash shell scripts to work under FreeBSD use the following symbolic link:
+
+ln -s /usr/local/bin/bash /bin/bash
+
+Several commands are located in different directories in FreeBSD than CentOS. This
+can also be resolved with symbolic links:
+
+ln -s /usr/bin/mail /bin/mail
+ln -s /usr/local/bin/sa-update /usr/bin/sa-update
+ln -s /usr/local/bin/php /usr/bin/php    (horde cli scripts such as setup.php)
+ln -s /usr/local/bin/sqlite3 /usr/bin/sqlite3 (exim greylisting cron script greylist_tidy.sh)
+ln -s /usr/local/sbin/exim_tidydb /usr/sbin/exim_tidydb   (exim_tidydb script)
+
+The INSTALL file calls for certain scripts to be installed in /etc/cron.daily in
+the RedHat/CentOS file system.  However, FreeBSD does not have /etc/cron.daily.
+Therefore, install those scrips in either /root/crontab or in root's crontab with
+the "crontab -e" command.
+
+11) Exim And The mail Command
+
+On FreeBSD, following the installation of exim, the mail command invokes exim whereas
+on RedHat/CentOS the mail command continues to invoke sendmail.  Sendmail supports
+the -s flag for subjects whereas exim does not. To resolve this, the Exim4U scripts
+were modified to use mailx/nail from the Heirloom project.  Linux uses “nail” whereas
+FreeBSD uses “mailx”.  However, in FreeBSD, there is a /usr/bin/mailx that invokes
+sendmail and which also conflicts. So, in FreeBSD, always invoke Heirloom mail with
+/usr/local/bin/mailx.
+
+12) Enable Services To Start At System Boot in /etc/rc.conf
+
+Add the necessary entries to /etc/rc.conf to enable all of your services to start
+automatically when the system boots up. The following are the appropriate entries
+in /etc/rc.conf to start the various Exim4U related services at system boot:
+
+apache22_enable="YES"
+mysql_enable="YES"
+exim_enable="YES"
+sendmail_enable="NO"
+sendmail_submit_enable="NO"
+sendmail_outbound_enable="NO"
+sendmail_msp_queue_enable="NO"
+spamd_enable="YES"
+dccifd_enable="YES"
+clamav_clamd_enable="YES"
+clamav_freshclam_enable="YES"
+dovecot_enable="YES"
+munin_node_enable="YES"
+webmin_enable="YES"
+
+13) Open The Appropriate Firewall Ports
+
+Make sure that you have opened all of the appropriate ports on your firewall. The
+following ports generally need to be opened for Exim4U to function properly:
+
+22/tcp       ssh
+25/tcp       smtp
+80/tcp       http
+110/tcp      pop3
+113/tcp      auth
+143/tcp      imap
+443/tcp      https
+587/tcp      smtp (clients)
+10000/tcp    Webmin port
+
+14) Addendum - List Of All Packages Installed From The Ports Collection For Exim4U
+
+The following is the output from the "pkg_info" command:
+
+# pkg_info
+
+GeoIP-1.4.6         Find the country that any IP address or hostname originates
+ImageMagick-6.5.8.10 Image processing tools
+apache-2.2.14_5     Version 2.2.x of Apache web server with prefork MPM.
+arc-5.21o_1         Create & extract files from DOS .ARC files
+arj-3.10.22_2       Open-source ARJ
+autoconf-2.62       Automatically configure source code on many Un*x platforms 
+autoconf-wrapper-20071109 Wrapper script for GNU autoconf
+automake-1.10.1     GNU Standards-compliant Makefile generator (1.10)
+automake-1.9.6_3    GNU Standards-compliant Makefile generator (1.9)
+automake-wrapper-20071109 Wrapper script for GNU automake
+bash-4.0.35         The GNU Project's Bourne Again SHell
+bdftopcf-1.0.1      Convert X font from BDF to PCF
+bigreqsproto-1.0.2  BigReqs extension headers
+bison-2.4.1,1       A parser generator from FSF, (mostly) compatible with Yacc
+bitstream-vera-1.10_4 Bitstream Vera TrueType font collection
+bsdpan-Net-CIDR-Lite-0.20 Net::CIDR::Lite - Perl extension for merging IPv4 or IPv6 C
+bsdpan-Sys-Hostname-Long-1.4 Sys::Hostname::Long - Try every conceivable way to get full
+ca_root_nss-3.12.4  The root certificate bundle from the Mozilla Project
+cairo-1.8.8,1       Vector graphics library with cross-device output support
+cclient-2007e,1     Mark Crispin's C-client mail access routines
+clamav-0.95.3       Command line virus scanner written entirely in C
+cups-client-1.4.2_3 Common UNIX Printing System: Library cups
+cups-image-1.4.2_3  Common UNIX Printing System: Library cupsimage
+curl-7.19.7_1       Non-interactive tool to get files from FTP, GOPHER, HTTP(S)
+db41-4.1.25_4       The Berkeley DB package, revision 4.1
+dcc-dccd-1.3.116    Distributed Checksum Clearinghouse bulk email detector
+docbook-1.4         Meta-port for the different versions of the DocBook DTD
+docbook-4.1_4       V4.1 of the DocBook DTD, designed for technical documentati
+docbook-4.2         V4.2 of the DocBook DTD, designed for technical documentati
+docbook-4.3         DocBook/SGML DTD V4.3, designed for technical documentation
+docbook-4.4_2       DocBook/SGML DTD V4.4, designed for technical documentation
+docbook-4.5_2       DocBook/SGML DTD V4.5, designed for technical documentation
+docbook-5.0_1       DocBook 5.0, designed for technical documentation
+docbook-sk-4.1.2_4  XML version of the DocBook DTD version controlled for Scrol
+docbook-xml-4.2_1   XML version of the DocBook DTD
+docbook-xml-4.3     DocBook/XML DTD V4.3, designed for technical documentation
+docbook-xml-4.4_1   DocBook/XML DTD V4.4, designed for technical documentation
+docbook-xml-4.5     DocBook/XML DTD V4.5, designed for technical documentation
+docbook-xsl-1.75.2  XSL DocBook stylesheets
+dovecot-1.2.10      Secure and compact IMAP and POP3 servers
+encodings-1.0.2,1   X.Org Encoding fonts
+exim-4.71           High performance MTA for Unix systems on the Internet
+expat-2.0.1_1       XML 1.0 parser written in C
+font-bh-ttf-1.0.0   X.Org Bigelow & Holmes TTF font
+font-misc-ethiopic-1.0.0 X.Org miscellaneous Ethiopic font
+font-misc-meltho-1.0.0_1 X.Org miscellaneous Meltho font
+font-util-1.0.1     Create an index of X font files in a directory
+fontconfig-2.8.0,1  An XML-based font configuration API for X Windows
+fontsproto-2.0.2    Fonts extension headers
+freetype2-2.3.11    A free and portable TrueType font rendering engine
+gamin-0.1.10_3      A file and directory monitoring system
+gd-2.0.35_2,1       A graphics library for fast creation of images
+gdbm-1.8.3_3        The GNU database manager
+gettext-0.17_1      GNU gettext package
+ghostscript8-8.70   Ghostscript 8.x PostScript interpreter
+gio-fam-backend-2.22.4 FAM backend for GLib's GIO library
+glib-2.22.4         Some useful routines of C programming (current stable versi
+gmake-3.81_3        GNU version of 'make' utility
+gnupg-2.0.14        The GNU Privacy Guard
+gnutls-2.8.3        GNU Transport Layer Security library
+gperf-3.0.3         Generates perfect hash functions for sets of keywords
+gsfonts-8.11_5      Standard Fonts for Ghostscript
+heirloom-mailx-12.4_2 BSD mail utility with MIME, IMAP, POP3, SMTP and S/MIME ext
+help2man-1.36.4_3   Automatically generating simple manual pages from program o
+icu-3.8.1_2         International Components for Unicode (from IBM)
+inputproto-1.5.0    Input extension headers
+intltool-0.40.6     Tools to internationalize various kinds of data files
+iso8879-1986_2      Character entity sets from ISO 8879:1986 (SGML)
+jade-1.2.1_9        An object-oriented SGML/XML parser toolkit and DSSSL engine
+jasper-1.900.1_8    An implementation of the codec specified in the JPEG-2000 s
+jbigkit-1.6         Lossless compression for bi-level images such as scanned pa
+jpeg-7              IJG's jpeg compression utilities
+kbproto-1.0.3       KB extension headers
+lcms-1.19,1         Light Color Management System -- a color management library
+lha-1.14i_6         Archive files using LZSS and Huffman compression (.lzh file
+libICE-1.0.4_1,1    Inter Client Exchange library for X11
+libSM-1.1.0_1,1     Session Management library for X11
+libX11-1.2.1_1,1    X11 library
+libXau-1.0.4        Authentication Protocol library for X11
+libXaw-1.0.5_1,1    X Athena Widgets library
+libXdmcp-1.0.2_1    X Display Manager Control Protocol library
+libXext-1.0.5,1     X11 Extension library
+libXfont-1.3.4,1    X font libary
+libXft-2.1.14       A client-sided font API for X applications
+libXmu-1.0.4,1      X Miscellaneous Utilities libraries
+libXp-1.0.0,1       X print library
+libXpm-3.5.7        X Pixmap library
+libXrender-0.9.4_1  X Render extension library
+libXt-1.0.5_1       X Toolkit library
+libassuan-1.0.5     IPC library used by GnuPG and gpgme
+libcheck-0.9.8      A unit test framework for C
+libfontenc-1.0.4    The fontenc Library
+libfpx-1.2.0.12_1   Library routines for working with Flashpix images
+libgcrypt-1.4.4     General purpose crypto library based on code used in GnuPG
+libgpg-error-1.7    Common error values for all GnuPG components
+libiconv-1.13.1     A character set conversion library
+libksba-1.0.7       KSBA is an X.509 Library
+liblqr-1-0.4.1      An easy to use C/C++ seam carving library
+libltdl-2.2.6b      System independent dlopen wrapper
+libmcrypt-2.5.8     Multi-cipher cryptographic library (used in PHP)
+libpthread-stubs-0.3_3 This library provides weak aliases for pthread functions
+libsigsegv-2.5      Handling page faults in user mode
+libtool-2.2.6b      Generic shared library support script
+libxcb-1.5          The X protocol C-language Binding (XCB) library
+libxml2-2.7.6_1     XML parser library for GNOME
+libxslt-1.1.26      The XSLT C library for GNOME
+linuxdoc-1.1_1      The Linuxdoc SGML DTD
+lynx-2.8.7.1,1      A non-graphical, text-based World-Wide Web client
+m4-1.4.13,1         GNU m4
+mime-support-3.48.1 MIME Media Types list
+mkfontdir-1.0.4     Create an index of X font files in a directory
+mkfontscale-1.0.6   Creates an index of scalable font files for X
+munin-main-1.2.6_1  Collector part of Munin
+munin-node-1.2.6_1  Node-specific part of Munin
+mutt-1.4.2.3_3      The Mongrel of Mail User Agents (part Elm, Pine, Mush, mh, 
+mysql-client-5.0.89 Multithreaded SQL database (client)
+mysql-server-5.0.89 Multithreaded SQL database (server)
+openldap-client-2.4.21 Open source LDAP client implementation
+p5-Archive-Tar-1.54 Perl module for creation and manipulation of tar files
+p5-Authen-PAM-0.16_1 A Perl interface to the PAM library
+p5-Authen-SASL-2.13 Perl5 module for SASL authentication
+p5-Compress-Raw-Bzip2-2.024 Low-Level Interface to bzip2 compression library
+p5-Compress-Raw-Zlib-2.024 Low-Level Interface to zlib compression library
+p5-Compress-Zlib-2.015 Perl5 interface to zlib compression library
+p5-Crypt-OpenSSL-Bignum-0.04 OpenSSL's multiprecision integer arithmetic
+p5-Crypt-OpenSSL-RSA-0.26 Perl5 module to RSA encode and decode strings using OpenSSL
+p5-Crypt-OpenSSL-Random-0.04 Perl5 interface to the OpenSSL pseudo-random number generat
+p5-DBI-1.60.9       The perl5 Database Interface.  Required for DBD::* modules
+p5-Date-Manip-5.54  Perl5 module containing date manipulation routines
+p5-Digest-HMAC-1.02 Perl5 interface to HMAC Message-Digest Algorithms
+p5-Digest-SHA-5.48  Perl extension for SHA-1/224/256/384/512
+p5-Digest-SHA1-2.12 Perl interface to the SHA-1 Algorithm
+p5-Email-Address-1.88.9 RFC 2822 Address Parsing and Creation
+p5-Encode-Detect-1.01 An Encode::Encoding subclass that detects the encoding of d
+p5-Error-0.17016    Perl module to provide Error/exception support for perl: Er
+p5-ExtUtils-CBuilder-0.27,1 Compile and link C code for Perl modules
+p5-ExtUtils-ParseXS-2.22.01 Converts Perl XS code into C code
+p5-GD-2.44          A perl5 interface to Gd Graphics Library version2
+p5-GD-Graph-1.44.01_2 Graph plotting module for perl5
+p5-GD-TextUtil-0.86_1 Text utilities for use with GD drawing package
+p5-GSSAPI-0.26      Perl extension providing access to the GSSAPIv2 library
+p5-Geography-Countries-2009041301 Handle ISO-3166 country codes
+p5-HTML-Parser-3.64 Perl5 module for parsing HTML documents
+p5-HTML-Tagset-3.20 Some useful data table in parsing HTML
+p5-HTML-Template-2.9_1 Perl module to use HTML Templates from CGI scripts
+p5-IO-Compress-Base-2.015 Base Class for IO::Uncompress modules
+p5-IO-Compress-Bzip2-2.015 An interface to allow writing bzip2 compressed data to file
+p5-IO-Compress-Zlib-2.015 Perl5 interface for reading and writing of (g)zip files
+p5-IO-Multiplex-1.10 IO::Multiplex - Manage IO on many file handles
+p5-IO-Socket-INET6-2.56 Perl module with object interface to AF_INET6 domain socket
+p5-IO-Socket-SSL-1.31 Perl5 interface to SSL sockets
+p5-IO-String-1.08   Simplified Perl5 module to handle I/O on in-core strings
+p5-IO-Zlib-1.10     IO:: style interface to Compress::Zlib
+p5-IP-Country-2.27  Fast lookup of country codes from IP addresses
+p5-Mail-DKIM-0.37   Perl5 module to process and/or create DKIM email
+p5-Mail-DomainKeys-1.0 Perl implementation of DomainKeys
+p5-Mail-SPF-2.007   Reference implementation of the RFC 4408 SPF protocol
+p5-Mail-SpamAssassin-3.2.5_4 A highly efficient mail filter for identifying spam
+p5-Mail-Tools-2.05  Perl5 modules for dealing with Internet e-mail messages
+p5-Math-BigInt-1.89 Math::BigInt - Arbitrary size integer math package
+p5-Module-Build-0.35 Build and install Perl modules
+p5-Net-1.22_1,1     Perl5 modules to access and use network protocols
+p5-Net-DNS-0.66     Perl5 interface to the DNS resolver, and dynamic updates
+p5-Net-DNS-Resolver-Programmable-0.003 Programmable DNS resolver for off-line testing
+p5-Net-IP-1.25_1    Perl extension for manipulating IPv4/IPv6 addresses
+p5-Net-Ident-1.20   Lookup the username on the remote end of a TCP/IP connectio
+p5-Net-SSLeay-1.35_2 Perl5 interface to SSL
+p5-Net-Server-0.97  A configurable base class for writing internet servers in P
+p5-NetAddr-IP-4.02.7 Perl module for working with IP addresses and blocks thereo
+p5-Package-Constants-0.02 List all constants declared in a package
+p5-Socket6-0.23     IPv6 related part of the C socket.h defines and structure m
+p5-Storable-2.21    Persistency for perl data structures
+p5-TimeDate-1.20,1  Perl5 module containing a better/faster date parser for abs
+p5-URI-1.52         Perl5 interface to Uniform Resource Identifier (URI) refere
+p5-XML-Parser-2.36_1 Perl extension interface to James Clark's XML parser, expat
+p5-XML-RegExp-0.03  Regular expressions for XML tokens
+p5-YAML-0.71        YAML implementation in Perl
+p5-gettext-1.05_2   Message handling functions
+p5-libwww-5.834     Perl5 library for WWW access
+p5-libxml-0.08      Collection of Perl5 modules for working with XML
+p5-version-0.78     Perl extension for Version Objects
+pango-1.26.2        An open-source framework for the layout and rendering of i1
+pcre-8.00           Perl Compatible Regular Expressions library
+pdflib-7.0.4        A C library for dynamically generating PDF
+pear-1.9.0          PEAR framework for PHP
+pear-HTTP-1.4.1     PEAR miscellaneous HTTP utilities
+pecl-fileinfo-1.0.4 A PECL extension to retrieve info about files
+pecl-geoip-1.0.7    Map IP address to geographic places
+pecl-imagick-2.3.0  Provides a wrapper to the ImageMagick/GraphicsMagick librar
+pecl-lzf-1.5.2      Handles LZF de/compression
+pecl-memcache-3.0.4 Memcached extension
+pecl-pdflib-2.1.6_1 A PECL extension to create PDF on the fly
+perl-5.8.9_3        Practical Extraction and Report Language
+php5-5.2.12         PHP Scripting Language
+php5-bz2-5.2.12     The bz2 shared extension for php
+php5-ctype-5.2.12   The ctype shared extension for php
+php5-dom-5.2.12     The dom shared extension for php
+php5-ftp-5.2.12     The ftp shared extension for php
+php5-gd-5.2.12      The gd shared extension for php
+php5-gettext-5.2.12 The gettext shared extension for php
+php5-iconv-5.2.12   The iconv shared extension for php
+php5-imap-5.2.12    The imap shared extension for php
+php5-json-5.2.12    The json shared extension for php
+php5-ldap-5.2.12    The ldap shared extension for php
+php5-mbstring-5.2.12 The mbstring shared extension for php
+php5-mcrypt-5.2.12  The mcrypt shared extension for php
+php5-mysql-5.2.12   The mysql shared extension for php
+php5-mysqli-5.2.12  The mysqli shared extension for php
+php5-openssl-5.2.12 The openssl shared extension for php
+php5-pcre-5.2.12    The pcre shared extension for php
+php5-posix-5.2.12   The posix shared extension for php
+php5-session-5.2.12 The session shared extension for php
+php5-simplexml-5.2.12 The simplexml shared extension for php
+php5-spl-5.2.12     The spl shared extension for php
+php5-xml-5.2.12     The xml shared extension for php
+php5-zlib-5.2.12    The zlib shared extension for php
+phpMyAdmin211-suphp-2.11.9.6 A set of PHP-scripts to manage MySQL over the web
+phpwebftp-3.3_1     A set of PHP-scripts to manage FTP over the web
+pixman-0.16.0       Low-level pixel manipulation library
+pkg-config-0.23_1   A utility to retrieve information about installed libraries
+png-1.2.42          Library for manipulating PNG images
+popt-1.14           A getopt(3) like library with a number of enhancements, fro
+portmanager-0.4.1_9 FreeBSD installed ports status and safe update utility
+portupgrade-2.4.6_3,2 FreeBSD ports/packages administration and management tool s
+printproto-1.0.4    Print extension headers
+pth-2.0.7           GNU Portable Threads
+py26-gdbm-2.6.4     Python bindings to the GNU dbm library
+python26-2.6.4      An interpreted object-oriented programming language
+pyzor-0.5.0_1       A collaborative, networked system to detect and block spam
+razor-agents-2.84   A distributed, collaborative, spam detection and filtering 
+renderproto-0.9.3   RenderProto protocol headers
+rrdtool-1.3.9       Round Robin Database Tools
+rsync-3.0.7         A network file distribution/synchronization utility
+ruby-1.8.7.248,1    An object-oriented interpreted scripting language
+ruby18-bdb-0.6.5_1  Ruby interface to Sleepycat's Berkeley DB revision 2 or lat
+screen-4.0.3_6      A multi-screen window manager
+sgmlformat-1.7_2    Generates groff and HTML from linuxdoc and docbook SGML doc
+sqlite3-3.6.19      An SQL database engine in a C library
+suphp-0.7.1         Securely execute PHP scripts under Apache
+t1lib-5.1.2_1,1     A Type 1 Rasterizer Library for UNIX/X11
+tcl-8.5.8           Tool Command Language
+tcl-modules-8.5.8   Tcl common modules
+tiff-3.9.2          Tools and library routines for working with TIFF images
+unzip-6.0           List, test and extract compressed files in a ZIP archive
+unzoo-4.4_2         A zoo archive extractor
+vim-lite-7.2.344    Vi "workalike", with many additional features (Lite package
+webmin-1.500_1      Web-based interface for system administration for Unix
+wget-1.11.4_1       Retrieve files from the Net via HTTP(S) and FTP
+xcb-proto-1.6       The X protocol C-language Binding (XCB) protocol
+xcb-util-0.3.6_1    A module with libxcb/libX11 extension/replacement libraries
+xcmiscproto-1.1.2   XCMisc extension headers
+xextproto-7.0.5     XExt extension headers
+xf86bigfontproto-1.1.2 XFree86-Bigfont extension headers
+xmlcatmgr-2.2       SGML and XML catalog manager
+xmlcharent-0.3_2    XML character entities
+xorg-fonts-truetype-7.4 X.Org TrueType fonts
+xorg-macros-1.2.1   X.Org development aclocal macros
+xproto-7.0.15       X11 protocol headers
+xtrans-1.2.3        Abstract network code for X
+
+
+13) PEAR Modules
+
+The following is the output from the "pear list" command:
+
+# pear list
+
+Installed packages, channel pear.php.net:
+=========================================
+Package          Version State
+Archive_Tar      1.3.3   stable
+Console_Getopt   1.2.3   stable
+DB               1.7.13  stable
+HTTP             1.4.1   stable
+MDB2             2.4.1   stable
+PEAR             1.9.0   stable
+Structures_Graph 1.0.2   stable
