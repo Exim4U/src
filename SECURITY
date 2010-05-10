@@ -4,7 +4,7 @@ The following precautions will help protect your Exim4U installation from hostil
 intruders and other potential security issues.
 
 1) Use https instead of http for web access to all files. https encrypts all data
-using SSL or TLS which protects against eavesdropping and man-in-the-middle attacks.
+using SSL/TLS which protects against eavesdropping and man-in-the-middle attacks.
 
 2) Install Exim4U into an unpredictable path (i.e. don't call it exim4u). The Exim4U
 INSTALL file prescribes the install path as exim4u and so you may want to consider
