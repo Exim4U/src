@@ -21,53 +21,49 @@ file accesses the Exim4U user names and passwords from the MySQL database whereb
 valid Exim4U user can authenticate via the .htaccess file. The following are two examples
 of using .htaccess to protect your installation.
 
-EXAMPLE 1
+Example 1 - Basic .htaccess file requiring user authentication:
 
-   Here is an example of a very basic .htaccess file which would require user authentication:
+		AuthUserFile /etc/httpd/htpasswd
+		AuthName "Exim4U Email Admin"
+		AuthType Basic
+		require valid-user
 
-	AuthUserFile /etc/httpd/htpasswd
-	AuthName "Exim4U Email Admin"
-	AuthType Basic
-	require valid-user
+	In the above example, the user name(s) and password(s) are stored in a text file
+	named /etc/httpd/htpasswd which would appear similar to this:
 
-   In the above example, the user name and password are stored in /etc/httpd/htpasswd
-   which would appear similar to this:
+		UserName:EncryptedPassword
+		exim4u:a4rfybtFoxxsR
 
-	UserName:EncryptedPassword
-	exim4u:a4rfybtFoxxsR
+	The file with the user name and password may be generated with the following command:
 
-   The file with the user name and password may be generated with the following command:
+		htpasswd -c /etc/httpd/.htpasswd <user name>
 
-	htpasswd -c /etc/httpd/.htpasswd <user name>
+	This command will then initiate a dialog for specifying the password.
 
-   This command will then initiate a dialog whereby the password is specified.
+Example 2 - Advanced .htaccess file using mod_auth_mysql on RedHat/CentOS to access the
+            Exim4U user names and passwords from the MySQL database:
 
-EXAMPLE 2
+		Options -Indexes
+		AuthName "Exim4U Email Admin"
+		AuthType Basic
+		require valid-user
+		AuthMySQLEnable On
+		AuthMySQLSocket /var/lib/mysql/mysql.sock
+		AuthMySQLDB exim4u
+		AuthMySQLUser exim4u
+		AuthMySQLPassword "DatabasePassword"
+		AuthMySQLPwEncryption Crypt
+		AuthMySQLUserTable users
+		AuthMySQLNameField username
+		AuthMySQLPasswordField crypt
+		AuthMySQLNoPasswd off
 
-   Here is an example .htaccess file using mod_auth_mysql on RedHat/CentOS to access the
-   Exim4U user names and passwords from the MySQL database:
+    	When using this feature you must install mod_auth_mysql from the RedHat/CentOS repos
+    	as follows:
 
-	Options -Indexes
-	AuthName "Exim4U Email Admin"
-	AuthType Basic
-	require valid-user
-	AuthMySQLEnable On
-	AuthMySQLSocket /var/lib/mysql/mysql.sock
-	AuthMySQLDB exim4u
-	AuthMySQLUser exim4u
-	AuthMySQLPassword "DatabasePassword"
-	AuthMySQLPwEncryption Crypt
-	AuthMySQLUserTable users
-	AuthMySQLNameField username
-	AuthMySQLPasswordField crypt
-	AuthMySQLNoPasswd off
+		yum install mod_auth_mysql
 
-    When using this feature you must install mod_auth_mysql from the RedHat/CentOS repos
-    as follows:
+    	For more information on mod_auth_mysql refer to: http://modauthmysql.sourceforge.net/
 
-	yum install mod_auth_mysql
-
-    For more information on mod_auth_mysql refer to: http://modauthmysql.sourceforge.net/
-
-    Consult your documentation for how to implement mod_auth_mysql with other versions of
-    Unix/Linux.
+    	Consult your documentation for how to implement mod_auth_mysql with other versions of
+    	Unix/Linux.
