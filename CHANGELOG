@@ -5,35 +5,63 @@
 
 1.2.3 Changelog Summary (Versus Version 1.2.2)
 
-  M      DEBIAN
-  M      EXIM_4.69
-  D      home/exim4u/public_html/exim4u/test.php
-  M      home/exim4u/public_html/exim4u/adminlists.php
-  M      home/exim4u/public_html/exim4u/adminfaildelete.php
-  M      home/exim4u/public_html/exim4u/logout.php
-  M      home/exim4u/public_html/exim4u/sitechange.php
-  M      home/exim4u/public_html/exim4u/adminuserdelete.php
-  M      home/exim4u/public_html/exim4u/admingroupchange.php
-  M      home/exim4u/public_html/exim4u/userblocksubmit.php
-  M      home/exim4u/public_html/exim4u/adminfail.php
-  M      home/exim4u/public_html/exim4u/adminaliasdelete.php
-  M      home/exim4u/public_html/exim4u/adminuserblocksubmit.php
-  M      home/exim4u/public_html/exim4u/adminfailchange.php
-  M      home/exim4u/public_html/exim4u/adminuserchange.php
-  M      home/exim4u/public_html/exim4u/sitechange_relay.php
-  M      home/exim4u/public_html/exim4u/adminaliaschange.php
-  M      home/exim4u/public_html/exim4u/admingroupadd.php
-  M      home/exim4u/public_html/exim4u/config/authuser.php
-  M      home/exim4u/public_html/exim4u/config/authpostmaster.php
-  M      home/exim4u/public_html/exim4u/config/authsite.php
-  M      home/exim4u/public_html/exim4u/admincatchall.php
-  M      home/exim4u/public_html/exim4u/sitedelete.php
-  M      home/exim4u/public_html/exim4u/admingroupdelete.php
-  M      README
-  A      SECURITY
-  M      SPAMASSASSIN
-  M      etc/exim/exim4u_local.conf.inc
-  M      etc/exim/exim.conf
+  M       DEBIAN
+  M       EXIM_4.69
+  M       VERSION
+  M       CHANGELOG
+  D       home/exim4u/public_html/exim4u/test.php
+  D       home/exim4u/public_html/exim4u/relay_changesubmit.php
+  D       home/exim4u/public_html/exim4u/sitechange_relay.php
+  M       home/exim4u/public_html/exim4u/adminaliaschangesubmit.php
+  M       home/exim4u/public_html/exim4u/admingroupcontentaddsubmit.php
+  M       home/exim4u/public_html/exim4u/adminaliasaddsubmit.php
+  M       home/exim4u/public_html/exim4u/adminuseradd.php
+  M       home/exim4u/public_html/exim4u/admingroupaddsubmit.php
+  M       home/exim4u/public_html/exim4u/site.php
+  M       home/exim4u/public_html/exim4u/admingroup.php
+  M       home/exim4u/public_html/exim4u/adminlists.php
+  M       home/exim4u/public_html/exim4u/adminfaildelete.php
+  A       home/exim4u/public_html/exim4u/sitechangerelay.php
+  M       home/exim4u/public_html/exim4u/admincatchallsubmit.php
+  M       home/exim4u/public_html/exim4u/login.php
+  M       home/exim4u/public_html/exim4u/userchangesubmit.php
+  M       home/exim4u/public_html/exim4u/logout.php
+  M       home/exim4u/public_html/exim4u/sitechange.php
+  M       home/exim4u/public_html/exim4u/adminuserdelete.php
+  M       home/exim4u/public_html/exim4u/admingroupchange.php
+  M       home/exim4u/public_html/exim4u/userblocksubmit.php
+  M       home/exim4u/public_html/exim4u/siteadd.php
+  M       home/exim4u/public_html/exim4u/adminfail.php
+  M       home/exim4u/public_html/exim4u/adminuseraddsubmit.php
+  M       home/exim4u/public_html/exim4u/adminaliasdelete.php
+  M       home/exim4u/public_html/exim4u/adminuserblocksubmit.php
+  M       home/exim4u/public_html/exim4u/adminuser.php
+  M       home/exim4u/public_html/exim4u/adminfailchange.php
+  A       home/exim4u/public_html/exim4u/sitechangerelaysubmit.php
+  M       home/exim4u/public_html/exim4u/adminuserchange.php
+  M       home/exim4u/public_html/exim4u/sitechangesubmit.php
+  M       home/exim4u/public_html/exim4u/admingroupchangesubmit.php
+  M       home/exim4u/public_html/exim4u/siteaddsubmit.php
+  M       home/exim4u/public_html/exim4u/adminalias.php
+  M       home/exim4u/public_html/exim4u/admingroupcontentdeletesubmit.php
+  M       home/exim4u/public_html/exim4u/adminaliaschange.php
+  M       home/exim4u/public_html/exim4u/adminaliasadd.php
+  M       home/exim4u/public_html/exim4u/admingroupadd.php
+  M       home/exim4u/public_html/exim4u/adminfailchangesubmit.php
+  M       home/exim4u/public_html/exim4u/config/authuser.php
+  M       home/exim4u/public_html/exim4u/config/authpostmaster.php
+  M       home/exim4u/public_html/exim4u/config/authsite.php
+  M       home/exim4u/public_html/exim4u/adminfailaddsubmit.php
+  M       home/exim4u/public_html/exim4u/adminuserchangesubmit.php
+  M       home/exim4u/public_html/exim4u/admincatchall.php
+  M       home/exim4u/public_html/exim4u/userchange.php
+  M       home/exim4u/public_html/exim4u/sitedelete.php
+  M       home/exim4u/public_html/exim4u/admingroupdelete.php
+  M       README
+  M       SPAMASSASSIN
+  A       SECURITY
+  M       etc/exim/exim4u_local.conf.inc
+  M       etc/exim/exim.conf
 
 1.2.3 Instructions for Upgrading From Version 1.2.2
 
@@ -41,6 +69,9 @@
      distribution's root directory:
 	DEBIAN
 	EXIM_4.69
+	VERSION
+	CHANGELOG
+	README
 	SECURITY
 	SPAMASSASSIN
   2) Exim Configuration Files - Copy the following files to your live
