@@ -18,9 +18,34 @@ other characters.
 files. However, this may not be viable if you are allowing individuals to change their
 own passwords, etc. Alternatively, you may use mod_auth_mysql so that the .htaccess
 file accesses the Exim4U user names and passwords from the MySQL database whereby any
-valid Exim4U user can authenticate via the .htaccess file.
+valid Exim4U user can authenticate via the .htaccess file. The following are two examples
+of using .htaccess to protect your installation.
 
-   Here is an example .htaccess file using mod_auth_mysql on RedHat/CentOS:
+EXAMPLE 1
+
+   Here is an example of a very basic .htaccess file which would require user authentication:
+
+	AuthUserFile /etc/httpd/htpasswd
+	AuthName "Exim4U Email Admin"
+	AuthType Basic
+	require valid-user
+
+   In the above example, the user name and password are stored in /etc/httpd/htpasswd
+   which would appear similar to this:
+
+	UserName:EncryptedPassword
+	exim4u:a4rfybtFoxxsR
+
+   The file with the user name and password may be generated with the following command:
+
+	htpasswd -c /etc/httpd/.htpasswd <user name>
+
+   This command will then initiate a dialog whereby the password is specified.
+
+EXAMPLE 2
+
+   Here is an example .htaccess file using mod_auth_mysql on RedHat/CentOS to access the
+   Exim4U user names and passwords from the MySQL database:
 
 	Options -Indexes
 	AuthName "Exim4U Email Admin"
