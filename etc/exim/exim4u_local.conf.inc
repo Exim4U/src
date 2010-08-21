@@ -158,7 +158,7 @@ LOCAL_GROUP = mail
 #       chmod go-r -R /etc/pki/tls/dk
 #
 #    The private key is named rsa.private and the public key is named rsa.public. Both are
-#    stored in the /etc/pki/tls directory.
+#    stored in the /etc/pki/tls/dk directory.
 #
 #    Save whats between ---BEGIN PUBLIC KEY--- and ---END PUBLIC KEY--- from the public key
 #    for use in step 2 below, however, get rid of the line feeds so that the key is one long line.
