@@ -67,6 +67,12 @@ Example:
  
 	chmod 660  /home/exim4u/public_html/webmail/config/conf*php
 
+You must install DOM XML support for your Linux distro. To install DOM XML
+support on RedHat/CentOS 5:
+
+                yum install php-dom
+                service httpd restart
+
 You may now proceed to the Horde INSTALL file in the home/exim4u/public_html/webmail/docs
 directory but skip the “Quick Install” and start by reviewing the “Prerequisites”
 section. Then, proceed to the section entitled "Configuring Horde Groupware Webmail
@@ -152,12 +158,6 @@ Keep installing pear and pecl modules until all red colored prerequisites are
 gone in the test.php scripts display.  Also, several yellow colored prerequisites
 will remain including “PostgreSQL Support” and “memory_limit_value: 96M” which
 keeps on being displayed even if set it to values over 64M. This is OK.
-
-You must install DOM XML support for your Linux distro. To install DOM XML
-support on RedHat/CentOS 5:
-
-                yum install php-dom
-                service httpd restart
 
 Lastly, set your file permissions as described in section 4 of this WEBMAIL document. 
 
