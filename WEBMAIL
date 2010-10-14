@@ -27,45 +27,7 @@ Example:
         chown -R exim4u:apache /home/exim4u/public_html/webmail
 
 Make sure that all files and directories are read-writable by the owner (exim4u)
-and are readable by the group (apache).  The permissions should be already set that
-way from the Exim4u distribution. You may optionally want to remove the write
-permission for the group (apache) for all files and directories except as follows
-for the configuration files.
-
-There are a number of configuration files that require read/write apache permission.
-There is a script to set these permissions automatically in this distribution at 
-xtrasw/webmail_admin/webmail_fix_ownerships.  This script should be run from the
-./webmail directory.
-
-These are the files that must have read and write permission for the apache user:
-
-webmail/turba/config/conf.bak.php
-webmail/imp/config/conf.bak.php
-webmail/kronolith/config/conf.bak.php
-webmail/mnemo/config/conf.bak.php
-webmail/nag/config/conf.bak.php
-webmail/mimp/config/conf.bak.php
-webmail/config/conf.bak.php
-webmail/ingo/config/conf.bak.php
-webmail/turba/config/conf.php
-webmail/imp/config/conf.php
-webmail/kronolith/config/conf.php
-webmail/mnemo/config/conf.php
-webmail/nag/config/conf.php
-webmail/mimp/config/conf.php
-webmail/dimp/config/conf.php
-webmail/config/conf.php
-webmail/ingo/config/conf.php
-
-The siteadmin password is stored in /webmail/config/conf.php and is backed up to
-webmail/config/conf.bak.php.  So, these files should be set so that the owner
-has read/write access, the group (apache) has read/write access and all other users
-have no access:
-
-	chmod 660 <target document root directory>/webmail/config/conf*php
-Example:
- 
-	chmod 660  /home/exim4u/public_html/webmail/config/conf*php
+and are readable by the group (apache).
 
 You must install DOM XML support for your Linux distro. To install DOM XML
 support on RedHat/CentOS 5:
@@ -147,6 +109,52 @@ settings which is the email address for admin. Continue on Step 3 in the
 docs/INSTALL file and setup the Horde alarms in Horde. Now you are done with 
 the /docs/INSTALL file.
 
+There are a number of configuration files that require read/write apache permission.
+There is a script to set these permissions automatically in this distribution at
+xtrasw/webmail_admin/webmail_fix_ownerships.  This script should be run from the
+./webmail directory. If this is the first time that the webmail_fix_ownerships script
+has been run prior to running webmail with a browser then you may get the following
+error message which should be ignored:
+
+	chown: cannot access `./config/conf.bak.php': No such file or directory
+	chmod: cannot access `./config/conf.bak.php': No such file or directory
+
+conf.bak.php is re-created every time that conf.php is written by the Webmail Groupware
+application using Administration > Setup > Generate Webmail Groupware Configuration. On
+a new installation, conf.bak.php has not yet been created which results in the above 
+error message. The file permissions of conf.bak.php should be verified whenever the   
+Webmail Groupware Configuration Configuration is regenerated.
+
+These are the files that must have read and write permission for the apache user:
+
+webmail/turba/config/conf.bak.php
+webmail/imp/config/conf.bak.php
+webmail/kronolith/config/conf.bak.php
+webmail/mnemo/config/conf.bak.php
+webmail/nag/config/conf.bak.php
+webmail/mimp/config/conf.bak.php
+webmail/config/conf.bak.php
+webmail/ingo/config/conf.bak.php
+webmail/turba/config/conf.php
+webmail/imp/config/conf.php
+webmail/kronolith/config/conf.php
+webmail/mnemo/config/conf.php
+webmail/nag/config/conf.php
+webmail/mimp/config/conf.php
+webmail/dimp/config/conf.php
+webmail/config/conf.php
+webmail/ingo/config/conf.php
+
+The siteadmin password is stored in /webmail/config/conf.php and is backed up to
+webmail/config/conf.bak.php.  So, these files should be set so that the owner
+has read/write access, the group (apache) has read/write access and all other users
+have no access:
+
+        chmod 660 <target document root directory>/webmail/config/conf*php
+Example:
+
+        chmod 660  /home/exim4u/public_html/webmail/config/conf*php
+
 Then, as outlined in step 4 of the Configuring Horde Groupware Webmail Edition
 section, run:
 
@@ -159,7 +167,7 @@ gone in the test.php scripts display.  Also, several yellow colored prerequisite
 will remain including “PostgreSQL Support” and “memory_limit_value: 96M” which
 keeps on being displayed even if set it to values over 64M. This is OK.
 
-Lastly, set your file permissions as described in section 4 of this WEBMAIL document. 
+Lastly, check your file permissions again as described in section 4 of this WEBMAIL document. 
 
 Finally, you can access webmail's web interface with:
 
