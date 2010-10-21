@@ -1,6 +1,25 @@
                            Exim4U Version History
 
-                       Current Exim4U Version Is 1.2.3
+                       Current Exim4U Version Is 1.2.4
+
+
+1.2.4 Release Date: October 21, 2010
+
+  Webmail Groupware Upgraded
+
+    Webmail Groupware (home/exim4u/public_html/webmail) was upgraded to incorporate Horde
+    Webmail Groupware Version 1.2.7.
+
+  Revised Exim Configuration Files (/etc/exim):
+
+    exim.conf was revised so that sender address callout verifications are only
+    performed for spammy mail (spam score > 0). Also, minor modifications were made to
+    the in-line documentation in exim.conf and exim4u_local.conf.inc to improve clarity.
+
+  Revised Documentation:
+
+    WEBMAIL - Minor modifications were made to the Webmail instructions to improve clarity.
+    TODO - Revised to include an addional item 5 - Mailbox size quota notification script.
 
 
 1.2.3 Release Date: May 13, 2010
