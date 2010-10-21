@@ -1,0 +1,7 @@
+All files in this directory should be copied to /etc/exim. Then, change
+user and group ownerships to root for all files copied to /etc/exim:
+
+From within this directory (as user = root) execute:
+	cp -r * /etc/exim
+After copying files to /etc/exim then (as user = root) execute:
+	chown -R root.root /etc/exim/*

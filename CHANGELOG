@@ -1,0 +1,309 @@
+                         Exim4U Changelog Summaries
+
+
+1.2.4 Release Date: October 21, 2010
+
+1.2.4 Changelog Summary (Versus Version 1.2.3)
+
+  M       WEBMAIL
+  M       TODO
+  M       home/exim4u/public_html/webmail/*
+  M       etc/exim/exim4u_local.conf.inc
+  M       etc/exim/exim.conf
+
+1.2.4 Instructions For Upgrading From Version 1.2.3
+
+  1) Documentation - Refer to the revised documentation in the Exim4U 1.2.4
+     distribution's root directory:
+        WEBMAIL
+	TODO
+  2) Webmail Groupware - Follow the upgrade instructions in section 2 of
+     the WEBMAIL documentation file in the Exim4u 1.2.4 distribution's root
+     directory (Upgrading An Existing Installation).
+  3) Exim Configuration Files - Copy the following files to your live
+     installation from the Exim4U 1.2.4 distribution's root directory:
+        etc/exim/exim.conf
+        etc/exim/exim4u_local.conf.inc (Modify as per your requirements)
+     Be sure to make a backup copy of your 1.2.3 version files prior
+     to overwriting them. Also, as an FYI, the only changes made to
+     exim4u_local.conf.inc were modifications to the in-line documentation
+     which may or may not justify the hassle of upgrading that file.
+
+
+1.2.3 Release Date: May 13, 2010
+
+1.2.3 Changelog Summary (Versus Version 1.2.2)
+
+  M       DEBIAN
+  M       EXIM_4.69
+  M       VERSION
+  M       CHANGELOG
+  D       home/exim4u/public_html/exim4u/test.php
+  D       home/exim4u/public_html/exim4u/relay_changesubmit.php
+  D       home/exim4u/public_html/exim4u/sitechange_relay.php
+  M       home/exim4u/public_html/exim4u/adminaliaschangesubmit.php
+  M       home/exim4u/public_html/exim4u/admingroupcontentaddsubmit.php
+  M       home/exim4u/public_html/exim4u/adminaliasaddsubmit.php
+  M       home/exim4u/public_html/exim4u/adminuseradd.php
+  M       home/exim4u/public_html/exim4u/admingroupaddsubmit.php
+  M       home/exim4u/public_html/exim4u/site.php
+  M       home/exim4u/public_html/exim4u/admingroup.php
+  M       home/exim4u/public_html/exim4u/adminlists.php
+  M       home/exim4u/public_html/exim4u/adminfaildelete.php
+  A       home/exim4u/public_html/exim4u/sitechangerelay.php
+  M       home/exim4u/public_html/exim4u/admincatchallsubmit.php
+  M       home/exim4u/public_html/exim4u/login.php
+  M       home/exim4u/public_html/exim4u/userchangesubmit.php
+  M       home/exim4u/public_html/exim4u/logout.php
+  M       home/exim4u/public_html/exim4u/sitechange.php
+  M       home/exim4u/public_html/exim4u/adminuserdelete.php
+  M       home/exim4u/public_html/exim4u/admingroupchange.php
+  M       home/exim4u/public_html/exim4u/userblocksubmit.php
+  M       home/exim4u/public_html/exim4u/siteadd.php
+  M       home/exim4u/public_html/exim4u/adminfail.php
+  M       home/exim4u/public_html/exim4u/adminuseraddsubmit.php
+  M       home/exim4u/public_html/exim4u/adminaliasdelete.php
+  M       home/exim4u/public_html/exim4u/adminuserblocksubmit.php
+  M       home/exim4u/public_html/exim4u/adminuser.php
+  M       home/exim4u/public_html/exim4u/adminfailchange.php
+  A       home/exim4u/public_html/exim4u/sitechangerelaysubmit.php
+  M       home/exim4u/public_html/exim4u/adminuserchange.php
+  M       home/exim4u/public_html/exim4u/sitechangesubmit.php
+  M       home/exim4u/public_html/exim4u/admingroupchangesubmit.php
+  M       home/exim4u/public_html/exim4u/siteaddsubmit.php
+  M       home/exim4u/public_html/exim4u/adminalias.php
+  M       home/exim4u/public_html/exim4u/admingroupcontentdeletesubmit.php
+  M       home/exim4u/public_html/exim4u/adminaliaschange.php
+  M       home/exim4u/public_html/exim4u/adminaliasadd.php
+  M       home/exim4u/public_html/exim4u/admingroupadd.php
+  M       home/exim4u/public_html/exim4u/adminfailchangesubmit.php
+  M       home/exim4u/public_html/exim4u/config/authuser.php
+  M       home/exim4u/public_html/exim4u/config/authpostmaster.php
+  M       home/exim4u/public_html/exim4u/config/authsite.php
+  M       home/exim4u/public_html/exim4u/adminfailaddsubmit.php
+  M       home/exim4u/public_html/exim4u/adminuserchangesubmit.php
+  M       home/exim4u/public_html/exim4u/admincatchall.php
+  M       home/exim4u/public_html/exim4u/userchange.php
+  M       home/exim4u/public_html/exim4u/sitedelete.php
+  M       home/exim4u/public_html/exim4u/admingroupdelete.php
+  M       README
+  M       SPAMASSASSIN
+  A       SECURITY
+  M       etc/exim/exim4u_local.conf.inc
+  M       etc/exim/exim.conf
+
+1.2.3 Instructions For Upgrading From Version 1.2.2
+
+  1) Documentation - Refer to the revised documentation from the Exim4U 1.2.3
+     distribution's root directory:
+	DEBIAN
+	EXIM_4.69
+	VERSION
+	CHANGELOG
+	README
+	SECURITY
+	SPAMASSASSIN
+  2) Exim Configuration Files - Copy the following files to your live
+     installation from the Exim4U 1.2.3 distribution's root directory.
+     Be sure to make a backup copy of your 1.2.2 version files prior
+     to overwriting them.
+	etc/exim/exim4u_local.conf.inc (Modify as per your requirements)
+        etc/exim/exim.conf
+  3) Exim4U Email Admin (PHP) - Copy the contents of the following directory
+     (including subdirectories and files) to your live installation from the
+     Exim4U 1.2.3 distribution's root directory. Be sure to make a backup copy
+     of your 1.2.2 version directories and files prior to overwriting them.
+        home/exim4u/public_html/exim4u
+     Modify the following file as per the INSTALL instructions:
+        home/exim4u/public_html/exim4u/config/variables.php
+     Remove the following file:
+	home/exim4u/public_html/exim4u/test.php
+
+
+1.2.2 Release Date: February 21, 2010
+
+1.2.2 Changelog Summary (Versus Version 1.2.1)
+
+  M       WEBMAIL
+  A       DEBIAN
+  A       EXIM_4.69
+  M       CHANGELOG
+  A       FREEBSD
+  M       README
+  A       APPEARANCE
+  A       REDHAT-CENTOS
+  M       SPAMASSASSIN
+  M       INSTALL
+  M       VERSION
+  M       etc/exim/exim4u_local.conf.inc
+  M       etc/exim/exim.conf
+  M       etc/exim/exim4u_acl_check_dkim.conf.inc
+  M       etc/exim/exim4u_global_spam_virus
+  M       etc/exim/exim4u_local_rl.conf.inc
+  M       xtrasw/eximstats/eximstats.sh
+  M       xtrasw/exim-greylist/greylist-tidy.sh
+  M       xtrasw/spam_box_report/spamreport
+  M       xtrasw/spam_box_delete/spamdel
+  D       home/exim4u/public_html/user_menu/assets/images/104_EX.gif
+  A       home/exim4u/public_html/user_menu/assets/images/exim4u.gif
+  M       home/exim4u/public_html/user_menu/assets/images/autogen/clearpixel.gif
+  A       home/exim4u/public_html/user_menu/assets/images/logo.gif
+  M       home/exim4u/public_html/user_menu/html/style.css
+  M       home/exim4u/public_html/user_menu/index.html
+  M       home/exim4u/public_html/user_menu/favicon.ico
+  M       home/exim4u/public_html/exim4u/adminuseradd.php
+  M       home/exim4u/public_html/exim4u/style.css
+  M       home/exim4u/public_html/exim4u/site.php
+  M       home/exim4u/public_html/exim4u/adminlists.php
+  M       home/exim4u/public_html/exim4u/userchangesubmit.php
+  M       home/exim4u/public_html/exim4u/sitechange.php
+  M       home/exim4u/public_html/exim4u/sitepasswordsubmit.php
+  M       home/exim4u/public_html/exim4u/userblocksubmit.php
+  M       home/exim4u/public_html/exim4u/siteadd.php
+  D       home/exim4u/public_html/exim4u/images/exim4u_52_EX.gif
+  A       home/exim4u/public_html/exim4u/images/exim4u.gif
+  M       home/exim4u/public_html/exim4u/images/check.gif
+  A       home/exim4u/public_html/exim4u/images/logo.gif
+  A       home/exim4u/public_html/exim4u/images/human-exim4u.gif
+  A       home/exim4u/public_html/exim4u/images/check-vexim.gif
+  A       home/exim4u/public_html/exim4u/images/check-exim4u.gif
+  A       home/exim4u/public_html/exim4u/images/clearpixel.png
+  M       home/exim4u/public_html/exim4u/adminuseraddsubmit.php
+  M       home/exim4u/public_html/exim4u/.htaccess
+  M       home/exim4u/public_html/exim4u/adminfailchange.php
+  M       home/exim4u/public_html/exim4u/adminuserchange.php
+  M       home/exim4u/public_html/exim4u/adminfailadd.php
+  M       home/exim4u/public_html/exim4u/sitechangesubmit.php
+  M       home/exim4u/public_html/exim4u/siteaddsubmit.php
+  M       home/exim4u/public_html/exim4u/relay_changesubmit.php
+  M       home/exim4u/public_html/exim4u/sitechange_relay.php
+  M       home/exim4u/public_html/exim4u/README
+  M       home/exim4u/public_html/exim4u/index.php
+  A       home/exim4u/public_html/exim4u/config/header.php-LINK_SELF
+  A       home/exim4u/public_html/exim4u/config/header_domain.php-BOLD
+  M       home/exim4u/public_html/exim4u/config/authuser.php
+  A       home/exim4u/public_html/exim4u/config/header_domain.php-LINK_EXIM4U
+  A       home/exim4u/public_html/exim4u/config/header.php-BOLD
+  M       home/exim4u/public_html/exim4u/config/variables.php
+  M       home/exim4u/public_html/exim4u/config/functions.php
+  A       home/exim4u/public_html/exim4u/config/header.php-LINK_EXIM4U
+  A       home/exim4u/public_html/exim4u/config/header_domain.php-LINK_SELF
+  M       home/exim4u/public_html/exim4u/config/authsite.php
+  M       home/exim4u/public_html/exim4u/userchange.php
+  M       home/exim4u/public_html/exim4u/sitedelete.php
+  M       home/exim4u/public_html/exim4u/sitepassword.php
+  D       home/exim4u/public_html/admin_menu/assets/images/104_EX.gif
+  A       home/exim4u/public_html/admin_menu/assets/images/exim4u.gif
+  M       home/exim4u/public_html/admin_menu/assets/images/autogen/clearpixel.gif
+  A       home/exim4u/public_html/admin_menu/assets/images/logo.gif
+  M       home/exim4u/public_html/admin_menu/index.html
+  M       home/exim4u/public_html/admin_menu/favicon.ico
+  
+1.2.2 Instructions For Upgrading From Version 1.2.1
+
+  1) Documentation - Refer to the revised documentation from the Exim4U 1.2.2
+     distribution's root directory:
+        WEBMAIL
+        DEBIAN
+        EXIM_4.69
+        CHANGELOG
+        FREEBSD
+        README
+        APPEARANCE
+        REDHAT-CENTOS
+        SPAMASSASSIN
+        INSTALL
+  2) Exim Configuration Files - Copy the following files to your live
+     installation from the Exim4U 1.2.2 distribution's root directory.
+     Be sure to make a backup copy of your 1.2.1 version files prior
+     to overwriting them.
+        etc/exim/exim4u_local.conf.inc (Modify as per your requirements)
+        etc/exim/exim.conf
+        etc/exim/exim4u_acl_check_dkim.conf.inc (Modify as per your requirements)
+	etc/exim/exim4u_global_spam_virus (Modify as per your requirements)
+        etc/exim/exim4u_local_rl.conf.inc (Modify as per your requirements)
+  3) Restart exim.
+  4) Shell Script Utility Programs - Copy the following scripts to your
+     live installation from the Exim4U 1.2.2 distribution's root directory.
+     Be sure to make a backup copy of your 1.2.1 version scripts prior to
+     overwriting them.
+	xtrasw/eximstats/eximstats.sh (Modify as per your requirements)
+        xtrasw/exim-greylist/greylist-tidy.sh
+        xtrasw/spam_box_report/spamreport (Modify as per your requirements)
+        xtrasw/spam_box_delete/spamdel (Modify as per your requirements)
+  5) Exim4U Menu System (HTML) - Copy the contents of the following directories
+     to your live installation from the Exim4U 1.2.2 distribution's root
+     directory. Be sure to make a backup copy of your 1.2.1 version directories
+     and files prior to overwriting them.
+	home/exim4u/public_html/user_menu
+	home/exim4u/public_html/admin_menu
+     Modify the following files as per the INSTALL and APPEARANCE instructions:
+	home/exim4u/public_html/user_menu/index.html 
+	home/exim4u/public_html/admin_menu/index.html 
+  6) Exim4U Email Admin (PHP) - Copy the contents of the following directory
+     to your live installation from the Exim4U 1.2.2 distribution's root 
+     directory. Be sure to make a backup copy of your 1.2.1 version directories
+     and files prior to overwriting them.
+	home/exim4u/public_html/exim4u
+     Modify the following file as per the INSTALL instructions:
+	home/exim4u/public_html/exim4u/config/variables.php
+
+
+
+1.2.1 Release Date: December 27, 2009
+
+1.2.1 Changelog Summary (Versus Version 1.2.0)
+
+  M     mysql_migrate/mysql_migrate.sql
+  M     mysql_setup/mysql.sql
+  M	CHANGELOG
+
+1.2.1 Instructions For Upgrading From Version 1.2.0:
+
+  1) Copy the following files from the Exim4U 1.2.1 distribution's root directory:
+	mysql_migrate/mysql_migrate.sql
+        mysql_setup/mysql.sql
+        CHANGELOG
+
+
+
+1.2.0 Release Date: December 21, 2009
+
+1.2.0 Changelog Summary (Versus Version 1.1.0)
+
+  M       LICENSE
+  M       TODO
+  M       VERSION
+  M       INSTALL
+  A       CHANGELOG
+  A       home/exim4u/public_html/webmail/VERSION
+  D       xtrasw/exim_rpms-for-redhat/Version_4.69-33.el5.i386
+  D       xtrasw/exim_rpms-for-redhat/dependencies
+  D       xtrasw/exim_rpms-for-redhat/Version_4.69-36.el5.i386
+  D       xtrasw/exim_rpms-for-redhat/Version_4.69-36.el5.x86_64
+  M       xtrasw/exim_rpms-for-redhat/README
+  M       etc/exim/exim4u_backup_mx_rl_host_names
+  M       etc/exim/exim4u_local.conf.inc
+  M       etc/exim/exim4u_backup_mx_host_names
+  M       etc/exim/exim.conf
+  A       etc/exim/exim4u_acl_check_dkim.conf.inc
+  M       README
+
+1.2.0 Instructions For Upgrading From Version 1.1.0:
+
+  1) Install Exim 4.71 either from scratch or from a repo as per the INSTALL
+     file instructions in the Exim4U 1.2.0 distributions root directory.
+  2) Download the "lite" 1.2.0 tarball (exim4u_ver1.2.0_lite.tar.gz) and
+     extract the tarball.
+  3) Make a backup copy of your live version of /etc/exim/exim4u_local.conf.inc.
+  4) Copy the following files to your live installation from the Exim4U 1.2.0
+     distribution's root directory:
+	etc/exim/exim4u_local.conf.inc (Modify as per your requirements)
+	etc/exim/exim.conf
+	etc/exim/exim4u_acl_check_dkim.conf.inc (Modify as per your requirements)
+	home/exim4u/public_html/webmail/VERSION (If webmail is installed)
+  5) Restart Exim
+
+
+
+1.1.0 Release Date: November 30, 2009 - Original Exim4U Release
