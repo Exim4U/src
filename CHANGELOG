@@ -6,8 +6,8 @@
 1.2.4 Changelog Summary (Versus Version 1.2.3)
 
   M       WEBMAIL
-  M       home/exim4u/public_html/webmail/VERSION
   M       TODO
+  M       home/exim4u/public_html/webmail/*
   M       etc/exim/exim4u_local.conf.inc
   M       etc/exim/exim.conf
 

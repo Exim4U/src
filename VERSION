@@ -5,7 +5,7 @@
 
 1.2.4 Release Date: October 21, 2010
 
-  Webmail Groupware Upgraded
+  Webmail Groupware Upgraded to version Horde-1.2.7
 
     Webmail Groupware (home/exim4u/public_html/webmail) was upgraded to incorporate Horde
     Webmail Groupware Version 1.2.7.
@@ -19,7 +19,7 @@
   Revised Documentation:
 
     WEBMAIL - Minor modifications were made to the Webmail instructions to improve clarity.
-    TODO - Revised to include an addional item 5 - Mailbox size quota notification script.
+    TODO - Revised to include an additional item 5 - Mailbox size quota notification script.
 
 
 1.2.3 Release Date: May 13, 2010
