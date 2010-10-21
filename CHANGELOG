@@ -1,6 +1,35 @@
                          Exim4U Changelog Summaries
 
 
+1.2.4 Release Date: October 21, 2010
+
+1.2.4 Changelog Summary (Versus Version 1.2.3)
+
+  M       WEBMAIL
+  M       home/exim4u/public_html/webmail/VERSION
+  M       TODO
+  M       etc/exim/exim4u_local.conf.inc
+  M       etc/exim/exim.conf
+
+1.2.4 Instructions For Upgrading From Version 1.2.3
+
+  1) Documentation - Refer to the revised documentation in the Exim4U 1.2.4
+     distribution's root directory:
+        WEBMAIL
+	TODO
+  2) Webmail Groupware - Follow the upgrade instructions in section 2 of
+     the WEBMAIL documentation file in the Exim4u 1.2.4 distribution's root
+     directory (Upgrading An Existing Installation).
+  3) Exim Configuration Files - Copy the following files to your live
+     installation from the Exim4U 1.2.4 distribution's root directory:
+        etc/exim/exim.conf
+        etc/exim/exim4u_local.conf.inc (Modify as per your requirements)
+     Be sure to make a backup copy of your 1.2.3 version files prior
+     to overwriting them. Also, as an FYI, the only changes made to
+     exim4u_local.conf.inc were modifications to the in-line documentation
+     which may or may not justify the hassle of upgrading that file.
+
+
 1.2.3 Release Date: May 13, 2010
 
 1.2.3 Changelog Summary (Versus Version 1.2.2)
@@ -63,7 +92,7 @@
   M       etc/exim/exim4u_local.conf.inc
   M       etc/exim/exim.conf
 
-1.2.3 Instructions for Upgrading From Version 1.2.2
+1.2.3 Instructions For Upgrading From Version 1.2.2
 
   1) Documentation - Refer to the revised documentation from the Exim4U 1.2.3
      distribution's root directory:
@@ -170,7 +199,7 @@
   M       home/exim4u/public_html/admin_menu/index.html
   M       home/exim4u/public_html/admin_menu/favicon.ico
   
-1.2.2 Instructions for Upgrading From Version 1.2.1
+1.2.2 Instructions For Upgrading From Version 1.2.1
 
   1) Documentation - Refer to the revised documentation from the Exim4U 1.2.2
      distribution's root directory:
@@ -260,7 +289,7 @@
   A       etc/exim/exim4u_acl_check_dkim.conf.inc
   M       README
 
-1.2.0 Instructions for Upgrading From Version 1.1.0:
+1.2.0 Instructions For Upgrading From Version 1.1.0:
 
   1) Install Exim 4.71 either from scratch or from a repo as per the INSTALL
      file instructions in the Exim4U 1.2.0 distributions root directory.
