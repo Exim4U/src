@@ -1,11 +1,31 @@
                            Exim4U Version History
 
-                       Current Exim4U Version Is 1.2.4
+                       Current Exim4U Version Is 1.2.5
+
+
+1.2.5 Release Date: TBA
+
+  Exim Configuration's URIBL/SURBL/DBL Blocklists (exim_surbl) Upgraded
+
+     Upgraded exim_surbl from version 2.0 to version 2.1. This new version of exim_surbl
+     adds support for the Spamhaus DBL list and supports the new SURBL implementation
+     guidelines.
+
+     exim_surbl version 2.1 is described here: http://www.teuton.org/~ejm/exim_surbl
+
+  Revised Documentation
+
+     The following documents were revised to reflect the upgrade of exim_surbl from
+     version 2.0 to version 2.1: README, INSTALL, NOTES, and SPAMASSASSIN.
+
+     The following document was added which contains a crontab script necessary
+     for the implementation of exim_surbl version 2.1: etc/exim/exim.pl/README2.
+
 
 
 1.2.4 Release Date: October 21, 2010
 
-  Webmail Groupware Upgraded to version Horde-1.2.7
+  Webmail Groupware Upgraded To Version Horde-1.2.7
 
     Webmail Groupware (home/exim4u/public_html/webmail) was upgraded to incorporate Horde
     Webmail Groupware Version 1.2.7.
@@ -20,6 +40,7 @@
 
     WEBMAIL - Minor modifications were made to the Webmail instructions to improve clarity.
     TODO - Revised to include an additional item 5 - Mailbox size quota notification script.
+
 
 
 1.2.3 Release Date: May 13, 2010

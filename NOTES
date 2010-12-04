@@ -66,11 +66,11 @@ A further discussion on the recommended configurations for coordinating local ho
 relay hosts may be found in etc/exim/exim4u_global_spam_virus.
 
 
-4) General Discussion about URIBL AND SURBL Spam Blocking
+4) General Discussion about URIBL, SURBL and DBL Spam Blocking
 
 Exim4U automatically blocks spam mail that contain URLs which
-are on either the URIBL and SURBL blacklists. This is done within
-the ACLs in /etc/exim/exim.conf's prior to calling spamassassin.
+are on the URIBL, SURBL or Spamhaus DBL blacklists. This is done
+within the ACLs in /etc/exim/exim.conf's prior to calling spamassassin.
 
    URIBL Testing
 
@@ -92,7 +92,7 @@ the ACLs in /etc/exim/exim.conf's prior to calling spamassassin.
 	255 11111111  your DNS is blocked from querying URIBL
 
    For systems processing 300,000 queries/day then the URIBL may block access
-   to their database. If you use your ISP's Nameservers for resolution, and
+   to their database. If you use your ISP's nameservers for resolution, and
    they are blocked, consider running your own caching nameserver. Otherwise,
    consider subscribing to the URIBL's commercial datafeed services to run
    local copies of the URIBL zones and keep your queries on your own network.
@@ -130,6 +130,44 @@ the ACLs in /etc/exim/exim.conf's prior to calling spamassassin.
    available at:
 
 	http://george.surbl.org/pricing.html
+
+   DBL Testing
+
+   To test a given domain, domain.tld, on the Spamhaus DBL:
+
+        nslookup domain.tld.dbl.spamhaus.com
+
+   If the host domain is not found then it isn't listed. If the host is
+   listed, the answer will be 127.0.1.X where X indicates the list.
+   Here is a chart for what X means:
+
+	Return Codes 	Data Source
+	------------	-----------
+	2 		spam domain
+	3-19 		spam domain (future use)
+	20-39 		phish domain (future use)
+	40-59 		malware domain (future use)
+	255 		IP queries prohibited!
+
+	RFC5782 operational test
+	------------------------
+	Command: nslookup test.dbl.spamhaus.org
+	Results: 127.0.1.2 (which indicates a spam domain)
+
+   Use of the Spamhaus DNSBLs via DNS queries to the Spamhaus public
+   DNSBL servers is allowed if you meet all three of the following
+   criteria:
+	1) Your use of the Spamhaus DNSBLs is non-commercial,
+    	   and
+	2) Your email traffic is less than 100,000 SMTP connections
+    	   per day, and
+	3) Your DNSBL query volume is less than 300,000 queries
+    	   per day.
+   If you do not fit all three of these criteria then you should use the
+   Spamhaus Datafeed Service. More information about the Spamhaus Datafeed
+   Service is available at:
+
+	http://www.spamhaus.org/organization/dnsblusage.html
 
 
 5) Example iptables configuration for Exim4U

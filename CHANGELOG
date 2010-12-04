@@ -1,12 +1,59 @@
                          Exim4U Changelog Summaries
 
 
+1.2.5 Release Date: TBA
+
+1.2.5 Changelog Summary (Versus Version 1.2.4)
+
+  M       README
+  M       INSTALL
+  M       NOTES
+  M       SPAMASSASSIN
+  M       VERSION
+  M       CHANGELOG
+  M       etc/exim/exim.conf
+  A       etc/exim/exim.pl/README2
+  A       etc/exim/exim.pl/three-level-tlds
+  M       etc/exim/exim.pl/surbl_whitelist.txt
+  A       etc/exim/exim.pl/two-level-tlds
+  A       etc/exim/exim.pl/exim_surbl.pl
+  D       etc/exim/exim.pl/ccTLD.txt
+  D       etc/exim/exim.pl/exim.pl
+  M       etc/exim/exim.pl/README
+
+1.2.5 Instructions For Upgrading From Version 1.2.4
+
+  1) Documentation - Refer to the revised documentation in the Exim4U 1.2.5
+     distribution's root directory:
+	README
+	INSTALL
+	NOTES
+	SPAMASSASSIN
+	VERSION
+	CHANGELOG
+  2) Exim Configuration Files - Copy the following files to your live
+     installation from the Exim4U 1.2.5 distribution's root directory:
+	etc/exim/exim.conf
+        etc/exim/exim.pl/*
+     Delete the following two files:
+	etc/exim/exim.pl/ccTLD.txt
+        etc/exim/exim.pl/exim.pl
+     Be sure to make a backup copy of your 1.2.4 version files prior
+     to overwriting/deleting them. Update etc/exim/exim.pl/surbl_whitelist.txt
+     to include any URLs that you want whitelisted from the URIBL/SURBL/DBL
+     checks in exim.  Restart exim.
+  3) Crontab - Add the etc/exim/exim.pl/README2 script to your root user's
+     crontab.
+
+
 1.2.4 Release Date: October 21, 2010
 
 1.2.4 Changelog Summary (Versus Version 1.2.3)
 
   M       WEBMAIL
   M       TODO
+  M       VERSION
+  M       CHANGELOG
   M       home/exim4u/public_html/webmail/*
   M       etc/exim/exim4u_local.conf.inc
   M       etc/exim/exim.conf
@@ -17,6 +64,8 @@
      distribution's root directory:
         WEBMAIL
 	TODO
+	VERSION
+        CHANGELOG
   2) Webmail Groupware - Follow the upgrade instructions in section 2 of
      the WEBMAIL documentation file in the Exim4u 1.2.4 distribution's root
      directory (Upgrading An Existing Installation).
@@ -213,6 +262,7 @@
         REDHAT-CENTOS
         SPAMASSASSIN
         INSTALL
+	VERSION
   2) Exim Configuration Files - Copy the following files to your live
      installation from the Exim4U 1.2.2 distribution's root directory.
      Be sure to make a backup copy of your 1.2.1 version files prior
@@ -257,6 +307,7 @@
   M     mysql_migrate/mysql_migrate.sql
   M     mysql_setup/mysql.sql
   M	CHANGELOG
+  M	VERSION
 
 1.2.1 Instructions For Upgrading From Version 1.2.0:
 
@@ -264,6 +315,7 @@
 	mysql_migrate/mysql_migrate.sql
         mysql_setup/mysql.sql
         CHANGELOG
+	VERSION
 
 
 
