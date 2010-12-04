@@ -153,10 +153,13 @@ Main Exim Configuration Files - DO NOT ALTER
 * exim-acl-check-spf.conf - SPF configuration file for exim.conf.
 * exim-greylist.conf - Greylisting configuration file for exim.conf.
 * exim-group-router.conf - Group router configuration file for exim.conf.
-* exim.pl - Directory containing SURBL/URIBL Perl scripts.  
+* exim.pl - Directory containing SURBL/URIBL/DBL Perl scripts.  
      
 NOTE: There is one file in etc/exim/exim.pl that is site specific: surbl_whitelist.txt. This file is for
-whitelisting URLs from the URIBL/SURBL checks in exim.   
+whitelisting URLs from the URIBL/SURBL/DBL checks in exim. Also, there are two other files in etc/exim/exim.pl
+that should be updated periodically: three-level-tlds and two-level-tlds.  There is an update script in
+etc/exim/exim.pl/README2 that should be added to your root user's crontab that will update these two files
+automatically.
 
 NOTE: Exim4U's Greylisting is triggered by a number of conditions as documented in etc/exim.conf.
 The most frequent reason why Exim4U greylisting occurs is if the spamscore > 0.  In all instances,

@@ -91,7 +91,7 @@ exim-acl-check-spf.conf.inc - SPF include file. (Usually not modified)
 exim.conf - Main exim configuration file. (Usually not modified)
 exim-greylist.conf.inc - Greylisting include file. (Usually not modified)
 exim-group-router.conf.inc - Group router include file. (Usually not modified)
-exim.pl directory - Perl script and files for URIBL/SURBL checks. (Usually not modified)
+exim.pl directory - Perl script and files for URIBL/SURBL/DBL checks. (Usually not modified)
 
 All of the above files whose name begin with "exim4u_" should be modified to include
 appropriate site specific configuration options.
@@ -132,6 +132,10 @@ prevent the exim databases from growing forever without bound.
 This script simply deletes older entries from the database:
 
         cp xtrasw/exim-tidydb/exim-tidydb /etc/cron.daily
+
+Update etc/exim/exim.pl/surbl_whitelist.txt to include any URLs that you want whitelisted from the
+URIBL/SURBL/DBL checks in exim and add the etc/exim/exim.pl/README2 script to your root user's
+crontab.
 
 5. Configure mysql
 

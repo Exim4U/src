@@ -323,12 +323,12 @@ will be higher thus leading to better spam detection.
         uri     GOOGLENOTEBOOK  /google.com\/notebook\/public/
         score   GOOGLENOTEBOOK  3.0
 
-9) Disabling URIBL and SURBL RBL Checks in SpamAssassin
+9) Disabling URIBL/SURBL/DBL RBL Checks in SpamAssassin
 
-   Exim4U checks the URIBL and SURBL lists within exim's ACLs. Therefore, you may disable the URIBL and SURBL
+   Exim4U checks the URIBL, SURBL and DBL lists within exim's ACLs. Therefore, you may disable the URIBL/SURBL/DBL
    RBL checks in spamassassin by setting all the score values to zero in /etc/mail/spamassassin/local.cf:
 
-	# Disable URIBL and SURBL in SpamAssassin since I am now checking them in exim. 
+	# Disable URIBL, SURBL and DBL in SpamAssassin since I am now checking them in exim. 
 	score   URIBL_BLACK     0.0 
 	score   URIBL_GREY      0.0 
 	score   URIBL_RED       0.0 
@@ -338,6 +338,7 @@ will be higher thus leading to better spam detection.
 	score   URIBL_OB_SURBL  0.0 
 	score   URIBL_AB_SURBL  0.0 
 	score   URIBL_JP_SURBL  0.0
+	score   URIBL_DBL_SPAM  0.0
 
 10) Setting The required_score And report_safe Values
 

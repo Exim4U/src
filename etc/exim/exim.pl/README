@@ -1,5 +1,5 @@
-EXIM - SURBL/URIBL README FILE
-Version 2.0 - 06 Jan 07
+BLOCKING SPAM IN EXIM WITH URI BLOCK LISTS
+Version 2.1 - 15 Jun 10
 
 See the changelog (below) for details on changes.
 
@@ -7,26 +7,28 @@ Written and maintained by Erik Mugele
 http://www.teuton.org/~ejm
 
 Introduction
-------------
+============
 
-This document describes using the SURBL (Spam URI Realtime Blocklists)
-and URIBL in conjunction with the Exim MTA. This utilizes Exim's MIME
-and/or DATA ACLs and Exim's embedded Perl engine.
+This document describes using SURBL (Spam URI Realtime Blocklists),
+URIBL, and the Spamhaus DBL in conjunction with the Exim MTA to block
+spam containing "spamvertizing" URLs. To achieve this, one can use the
+Perl script that is found below. This utilizes Exim's MIME and/or DATA
+ACLs and Exim's embedded Perl engine.
 
 The Perl routine from this page should be relatively easy to modify to
 use in any other MTA that can call an external script to scan a
 message.
 
-The SURBL and URIBL systems functions just like a normal DNSBL system
-but instead of containing a list of IPs of servers that send spam,
-they maintain a list of the domains that are found in the bodies of
-messages. These are the domains that are part of the URL the spammers
-want you to click on to buy their wares. It's quite an effective way
-of filtering for spam and can be used in conjunction with traditional
-DNSBLs for maximum effectiveness.
+The SURBL, URIBL and Spamhaus DBL systems functions just like a normal
+DNSBL system but instead of containing a list of IPs of servers that
+send spam, they maintain a list of the domains that are found in the
+bodies of messages. These are the domains that are part of the URL the
+spammers want you to click on to buy their wares. It's quite an
+effective way of filtering for spam and can be used in conjunction
+with traditional DNSBLs for maximum effectiveness.
 
 Exim Configuration
-------------------
+==================
 
 Exim MUST be compiled with the option to enable the embedded Perl
 engine. See Chapter 12 of the Exim Specification for details. By
@@ -43,7 +45,7 @@ exiscan additions (included in Exim 4.60 and higher).
 
 The following two ACLs are working examples of Exim MIME and DATA ACLs
 that call the Perl subroutine to scan the message for blacklisted
-domain names in URLS.  See Chapter 39 of the Exim Specification for 
+domain names in URLs. See Chapter 40 of the Exim Specification for
 details on Exim ACLs.
 
 MIME ACL - This ACL should go in the MIME ACL section of the Exim
@@ -69,68 +71,85 @@ DATA ACL is only called if no MIME ACL was called (i.e. there were no
 MIME parts).  This keeps the message from being scanned inefficiently
 twice by both the MIME and DATA ACLs.
 
-Exim's message_body_visible option will determine how much of of the
-body is scanned and the default value won't catch much. I use a value
-of 5000.
+The following two Exim options should be set in the main configuration
+area:
+
+message_body_visible = 5000
+message_body_newlines = true
+
+The message_body_visible option will determine how much of of the body
+is scanned during the DATA ACL and the default value won't catch
+much. A value of 5000 is recommended.
+
+The message_body_newlines option should be set to "true". This ensures
+the message body will be parsed correctly.
 
 Script Installation and Configuration
--------------------------------------
+=====================================
 
-Download and extract the contents of the gzipped TAR file (see
-below). The archive contains three files:
+Download and extract the contents of the gzipped tar file (see
+below). The archive contains four files:
 
-- README - This file
-- ccTLD.txt - The list of of Country Code Top Level Domains
-- surbl_whitelist.txt - The whitelist file with default entries
-- exim_surbl.pl - The Exim-SURBL Perl subroutine
+    * README - README file similar to this page
+    * two-level-tlds - List of two-level Top Level Domains
+    * three-level-tlds - List of three-level Top Level Domains
+    * surbl_whitelist.txt - The whitelist file with default entries
+    * exim_surbl.pl - The Exim-SURBL Perl subroutine
 
-If this is the only Perl subroutine in the Exim installation then copy
-the Perl subroutine file to the location specified in the perl_startup
-Exim configuration setting (mentioned above). If other subroutines are
-in use then append the contents of the Perl subroutine file to the
-existing file defined in perl_startup.
+If this is the only Perl subroutine in the Exim installation, copy
+exim_surbl.pl to the location specified in the perl_startup Exim
+configuration setting (mentioned above). If other subroutines are in
+use, append the contents of exim_surbl.pl to the existing file defined
+in perl_startup.
 
-Copy the ccTLD.txt file to the same location as the Perl subroutine
-script.
+The two-level-tlds, three-level-tlds, and surbl_whitelist.txt files
+should be copied to the same location as the Perl subroutine
+script. It is recommended that these files be updated regularly
+(e.g. monthly) via a cron job from their original sources.
+Two-level-tlds and Three-level-tlds Files 
 
-Copy the surbl_whitelist.txt file to the same location as the Perl subroutine 
-script.
-
-ccTLD File
-----------
+Two-level-tlds and Three-level-tlds Files
+-----------------------------------------
 
 The Perl subroutine script follows the SURBL Implementation Guidelines
-found at the SURBL website. The script makes use of a file containing
-Country Code Top Level Domains. Near the top of the script is the
-following variable definition example:
+found at the SURBL website. As such, the script makes use of files
+that contain two-level and three-level TLDs.
 
-my $cctld_file = "/usr/local/etc/exim/ccTLD.txt";
+These files define domains generally have sub domains and need to have
+those sub-domains checked. For example, blogspot.com generally has
+sub-domains such as foo.blogspot.com that need to be checked.
 
-This $cctld_file variable MUST be set to the full path of the file
-containing the list of ccTLDs or the script will not work.
+Near the top of the script are the following variable definitions:
 
-Whitelist File
---------------
+my $twotld_file = "/etc/exim/two-level-tlds";
+my $threetld_file = "/etc/exim/three-level-tlds";
 
-Also as part of the SURBL Implementation Guidelines, the Perl subroutine script
-makes use of a whitelist file which contains certain known good domains such
-as yahoo.com which will never be blacklisted. The use of this whitelist file
-will prevent unnecessary queries.
+These variables MUST be set to the full path of the file containing
+the these lists.
 
-Near the top of the script is the following variable definition example:
+If a domain has two or more elements, all levels from two through four
+are checked against the URIBL and Spamhaus DBL lists.
 
-my $whitelist_file = "/usr/local/etc/exim/surbl_whitelist.txt";
+Surbl_whitelist File
+--------------------
 
-This $whitelist_file variable MUST be set to the full path of the file 
-containing the whitelisted domains or the script will not work.
+As part of the SURBL Implementation Guidelines, the Perl subroutine
+script makes use of a whitelist file which contains certain known good
+domains such as yahoo.com which will never be blacklisted. The use of
+this whitelist file will prevent unnecessary queries.
 
-The file of whitelisted domains can contain additional domains that need to 
-be whitelisted locally. The domains should be entered exactly one domain 
-per line. Blank lines and those beginning with # (comments) are ignored. 
-Each entry should be entered exactly as it is found in the SURBL database. 
-Entries are case insensitive. Entries that are IP addresses should be in 
-IN-ADDR format (reversed). Here is an example of some simple whitelist 
-entries:
+Near the top of the script is the following variable definition:
+
+my $whitelist_file = "/etc/exim/surbl_whitelist.txt";
+
+This variable MUST be set to the full path of the file containing the
+whitelisted domains.
+
+The file of whitelisted domains can contain additional domains that
+need to be whitelisted locally. The domains should be entered exactly
+one domain per line. Blank lines and those beginning with # (comments)
+are ignored. Entries that are IP addresses should be in IN-ADDR format
+(reversed). Here is an example of some simple whitelist entries:
 
 ### BEGIN SAMPLE WHITELIST ENTRIES
 # This is a sample SURBL whitelist file
@@ -140,104 +159,133 @@ test.surbl.org
 2.0.0.127
 ### END SAMPLE WHITELIST ENTRIES
 
-Enabling/Disabling the SURBL or URIBL Check
--------------------------------------------
+If a domain is listed in the whitelist file, not only will that domain
+be exempt from checking but all sub-domains to that domain will be
+exempt as well. For example, if example.com is whitelisted,
+foo.example.com and foo.bar.example.com will be also be exempt.
 
-Since the Perl subroutine script now has the ability to check both the
-SURBL and URIBL, the ability has been added to disable these checks.
-Both are enabled by default.  Near the top of the script are two
-variables:
+Enabling/Disabling Individual URI Checks
+----------------------------------------
+
+Since the Perl subroutine script now has the ability to check multiple
+databases, the ability has been added to disable individual
+checks. All are enabled by default. Near the top of the script are the
+following variables:
 
 my $surbl_enable = 1;
 my $uribl_enable = 1;
+my $dbl_enable = 1;
 
-Set either of these variables to 0 to disable the desired list check.
-While it will not produce an error, it should go without saying that
-disabling both of these checks would be a waste of resources.
-
+Set any of these variables to 0 to disable the desired list
+check. While it will not produce an error, it should go without saying
+that disabling all of these checks would be a waste of resources.
 Limiting MIME Attachment Scanning Based on Attachment Size
-----------------------------------------------------------
 
-Scanning large MIME attachment can cause excessive load on the mail 
-system.  This situation can be exacerbated by the way Exim decodes 
-the MIME attachments prior to scanning.
+Scanning large MIME attachment can cause excessive load on the mail
+system. This situation can be exacerbated by the way Exim decodes the
+MIME attachments prior to scanning.
 
 Near the top of the script is the following variable definition:
 
 my $max_file_size = 50000;
 
-Set this variable to be the maximum size of an attachment that will be 
-scanned.  If the attachment is larger than this size, scanning of that 
-attachment will be skipped. By default, this size is 50KB.  The variable 
-is specified in bytes.
+Set this variable to be the maximum size of an attachment that will be
+scanned. If the attachment is larger than this size, scanning of that
+attachment will be skipped. By default, this size is 50KB. The
+variable is specified in bytes.
 
 License
--------
+=======
 
-This script is NOT under a GPL license but rather a BSD style
-license. See the script for details.
+This script is under a BSD style license. See the script for details. 
 
 Changes
--------
+=======
+
+Version 2.1 - 10 Jun 10
+
+    * Major rewrite to support new SURBL Implementation Guidelines.
+    * The script is significantly longer than previous versions. While
+    * the script could be compacted, it is more maintainable.
+    * Added support for the Spamhaus DBL list.
+    * Removed ccTLD.txt file.
+    * Added two-level-tlds and three-level-tlds files.
+    * Regenerated surbl_whitelist.txt file.
+
 Version 2.0 - 06 Jan 07
-- Fixed a bug that could cause false positives in VERY rare circumstances 
-when legitimate and spam messages come in the same connection.
-- Fixed a parsing problem with quoted-printable messages when the domain name 
-has a line break in it.
-- Regenerated ccTLD.txt file.
-- Regenerated surbl_whitelist.txt file.
+
+    * Fixed a bug that could cause false positives in VERY rare
+      circumstances when legitimate and spam messages come in the same
+      connection.
+    * Fixed a parsing problem with quoted-printable messages when the
+      domain name has a line break in it.
+    * Regenerated ccTLD.txt file.
+    * Regenerated surbl_whitelist.txt file.
 
 Version 1.9 - 12 Oct 06
-- Moved some file IO functions to make them more efficient.
-- Made the lookups more efficient by only looking up domains once even if they
-appear in the message more than once.
-- Make whitelisting mandatory and include a whitelisting file with data that
-the SURBL project will never blacklist.
-- Regenerated ccTLD.txt file.
-- Regenerated surbl_whitelist.txt file.
+
+    * Moved some file IO functions to make them more efficient.
+    * Made the lookups more efficient by only looking up domains once
+    * even if they appear in the message more than once.
+    * Make whitelisting mandatory and include a whitelisting file with
+    * data that the SURBL will never blacklist.
+    * Regenerated ccTLD.txt file.
+    * Regenerated surbl_whitelist.txt file.
 
 Version 1.8 - 26 Sep 06
-- Fixed a problem with the decoding of ASCII obfuscated URLs that cause the 
-script to crash.
-- Fixed several other logic errors related decoding of obfuscated URLs in 
-general.
-- Thanks to Craig Whitmore for pointing out the original issue and especially 
-for providing excellent diagnostics when reporting the problem.
+
+    * Fixed a problem with the decoding of ASCII obfuscated URLs that
+      cause the script to crash.
+    * Fixed several other logic errors related to the decoding of
+      obfuscated URLs in general.
+    * Thanks to Craig Whitmore for pointing out the original issue and
+      especially for providing excellent diagnostics when reporting
+      the problem.
 
 Version 1.7 - 4 Sep 06
-- Added support for limiting the size of MIME attachments scanned.
-- Updated ccTLD.txt file.
+
+    * Added support for limiting the size of MIME attachments scanned.
+    * Updated ccTLD.txt file.
 
 Version 1.6 - 1 May 06
-- Add support for checking decoded MIME attachments (i.e. base64).
-- Updated ccTLD.txt file.
+
+    * Add support for checking decoded MIME attachments (i.e. base64).
+    * Updated ccTLD.txt file.
 
 Version 1.5 - 29 Mar 06
-- Add support for the URIBL.
-- Moved the error message from the Exim data ACL into the Perl script.
-- Updated ccTLD.txt file.
+
+    * Add support for the URIBL.
+    * Moved the error message from the Exim data ACL into the Perl
+    * script.
+    * Updated ccTLD.txt file.
 
 Version 1.4 - 20 Feb 06
-- Rewrite a good portion of the script to more closely follow the
-Implementation Guidelines found on the SURBL website.
-- This means that the script now REQUIRES the use of a file containting
-a list of Country Code Top Level Domains (ccTLD).
-- The script is now more efficient and does much fewer lookups for each
-URL found in the message.
+
+    * Rewrite a good portion of the script to more closely follow the
+      Implementation Guidelines found on the SURBL website.
+    * This means that the script now REQUIRES the use of a file
+      containting a list of Country Code Top Level Domains (ccTLD).
+    * The script is now more efficient and does much fewer lookups for
+      each URL found in the message.
 
 Version 1.3 - 17 Jun 05
-Make the http:// delimeter case insensitive. Yes, spammers were trying
-this.
+
+    * Make the http:// delimeter case insensitive. Yes, spammers were
+      trying this.
 
 Version 1.2 - 1 May 05
-Fix regression introduced in 1.1.
+
+    * Fix regression introduced in 1.1.
 
 Version 1.1 - 29 Apr 05
-Added support for whitelists and a license.
+
+    * Added support for whitelists and a license.
 
 Version 1.0
-9 Nov 04 - Added support to handle quoted-printable hex characters.
-8 Nov 04 - Semi-major rewrite to handle domains of any
-length. Previously it was limited to just two level domains.
-3 Oct 04 - To handle % ASCII obfuscated URLs commonly found in
-Phishing spam. Also to handle SURBL's [jp] list.
+
+    * 9 Nov 04 - Added support to handle quoted-printable hex
+      characters.
+    * 8 Nov 04 - Semi-major rewrite to handle domains of any
+      length. Previously it was limited to just two level domains.
+    * 3 Oct 04 - To handle % ASCII obfuscated URLs commonly found in
+      Phishing spam. Also to handle SURBL's [jp] list.
