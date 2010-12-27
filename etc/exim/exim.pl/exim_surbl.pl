@@ -1,4 +1,4 @@
-# Copyright (c) 2006-2010 Erik Mugele.  All rights reserved.
+# Copyright (c) 2006-2011 Erik Mugele.  All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -23,8 +23,8 @@
 sub surblspamcheck
 {
 
-# Designed and written by Erik Mugele, 2004-2010, http://www.teuton.org/~ejm
-# Version 2.1
+# Designed and written by Erik Mugele, 2004-2010,1http://www.teuton.org/~ejm
+# Version 2.2
 #
 # Please see the following website for details on usage of
 # this script:  http://www.teuton.org/~ejm/exim_surbl
@@ -35,7 +35,7 @@ sub surblspamcheck
     # THIS VARIABLE MUST BE SET TO THE FULL PATH AND NAME OF THE FILE 
     # CONTAINING THE TWO LEVEL TLD!
     # ---------------------------------------------------------------------
-    my $twotld_file = "/etc/exim/exim.pl/two-level-tlds";    
+    my $twotld_file = "/etc/exim/two-level-tlds";    
     
     # The following variable is the full path to the file containing the 
     # three-level top level domains (TLD).
@@ -43,7 +43,7 @@ sub surblspamcheck
     # THIS VARIABLE MUST BE SET TO THE FULL PATH AND NAME OF THE FILE 
     # CONTAINING THE THREE LEVEL TLD!
     # ---------------------------------------------------------------------
-    my $threetld_file = "/etc/exim/exim.pl/three-level-tlds";
+    my $threetld_file = "/etc/exim/three-level-tlds";
 
     # The following variable is the full path to the file containing
     # whitelist entries.  
@@ -51,7 +51,7 @@ sub surblspamcheck
     # THIS VARIABLE MUST BE SET TO THE FULL PATH AND NAME OF THE FILE 
     # CONTAINING THE WHITELIST DOMAINS!
     # ---------------------------------------------------------------------
-    my $whitelist_file = "/etc/exim/exim.pl/surbl_whitelist.txt";
+    my $whitelist_file = "/etc/exim/surbl_whitelist.txt";
     
     # This variable defines the maximum MIME file size that will be checked
     # if this script is called by the MIME ACL.  This is primarily to
@@ -219,6 +219,11 @@ sub surblspamcheck
                 push(@whitelist,$_);
             }
             close (whitelist_handle) or die "Close: $!\n";
+
+            @surbl_list = ();
+            @uribl_list = ();
+            @dbl_list = ();
+
             # Go through each of the HTTP parts that were found in the message
             for ($i=1; $i < scalar(@parts); $i++) {
                 # Special case of Quoted Printable EOL marker
@@ -252,9 +257,6 @@ sub surblspamcheck
                 # at this point it is probably bogus or there is a bug in one of 
                 # the decoding/converting routines above.
                 if (scalar(@domain) >=2) {
-                    @surbl_list = ();
-                    @uribl_list = ();
-                    @dbl_list = ();
                     $spamcheckdomain = "";
 
                     # DEBUG statement.
@@ -575,7 +577,7 @@ sub surblspamcheck
 	    # is enabled and the previous lookups did not return a result
 	    # then perform lookups on them.
 	    if ((scalar(@dbl_list) > 0) && 
-		($surbl_enable == 1) &&
+		($dbl_enable == 1) &&
 		($return_result eq "")) {
 		foreach $i (@dbl_list) {
 		    # DEBUG statement.
