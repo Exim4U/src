@@ -35,7 +35,7 @@ sub surblspamcheck
     # THIS VARIABLE MUST BE SET TO THE FULL PATH AND NAME OF THE FILE 
     # CONTAINING THE TWO LEVEL TLD!
     # ---------------------------------------------------------------------
-    my $twotld_file = "/etc/exim/two-level-tlds";    
+    my $twotld_file = "/etc/exim/exim.pl/two-level-tlds";    
     
     # The following variable is the full path to the file containing the 
     # three-level top level domains (TLD).
@@ -43,7 +43,7 @@ sub surblspamcheck
     # THIS VARIABLE MUST BE SET TO THE FULL PATH AND NAME OF THE FILE 
     # CONTAINING THE THREE LEVEL TLD!
     # ---------------------------------------------------------------------
-    my $threetld_file = "/etc/exim/three-level-tlds";
+    my $threetld_file = "/etc/exim/exim.pl/three-level-tlds";
 
     # The following variable is the full path to the file containing
     # whitelist entries.  
@@ -51,7 +51,7 @@ sub surblspamcheck
     # THIS VARIABLE MUST BE SET TO THE FULL PATH AND NAME OF THE FILE 
     # CONTAINING THE WHITELIST DOMAINS!
     # ---------------------------------------------------------------------
-    my $whitelist_file = "/etc/exim/surbl_whitelist.txt";
+    my $whitelist_file = "/etc/exim/exim.pl/surbl_whitelist.txt";
     
     # This variable defines the maximum MIME file size that will be checked
     # if this script is called by the MIME ACL.  This is primarily to
