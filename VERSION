@@ -4,16 +4,16 @@
 
   Exim Configuration's URIBL/SURBL/DBL Blocklists (exim_surbl) Upgraded
 
-     Upgraded exim_surbl from version 2.0 to version 2.1. This new version of exim_surbl
+     Upgraded exim_surbl from version 2.0 to version 2.2. This new version of exim_surbl
      adds support for the Spamhaus DBL list and supports the new SURBL implementation
      guidelines.
 
-     exim_surbl version 2.1 is described here: http://www.teuton.org/~ejm/exim_surbl
+     exim_surbl version 2.2 is described here: http://www.teuton.org/~ejm/exim_surbl
 
   Revised Documentation
 
      The following documents were revised to reflect the upgrade of exim_surbl from
-     version 2.0 to version 2.1: README, INSTALL, NOTES, and SPAMASSASSIN.
+     version 2.0 to version 2.2: README, INSTALL, NOTES, and SPAMASSASSIN.
 
      The following document was added which contains a crontab script necessary
      for the implementation of exim_surbl version 2.1: etc/exim/exim.pl/README2.
