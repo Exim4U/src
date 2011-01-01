@@ -235,9 +235,7 @@
         <tr>
           <td><?php echo _('Vacation message'); ?>:</td>
           <td>
-            <textarea name="vacation" cols="40" rows="5" class="textfield">
-              <?php print $row['vacation']; ?>
-            </textarea>
+            <textarea name="vacation" cols="40" rows="5" class="textfield"><?php print $row['vacation']; ?></textarea>
           </td>
         <tr>
           <td><?php echo _('Forwarding on'); ?>:</td>
