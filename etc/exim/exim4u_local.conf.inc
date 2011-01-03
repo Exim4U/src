@@ -138,6 +138,23 @@ MAILMAN_GROUP = mail
 LOCAL_USER = mail
 LOCAL_GROUP = mail
 #
+#
+# exim4u: Specify vacation autoreply message parameters. This feature limits autoreplys for
+# each sender to one autoreply per time period in order to avoid email ping pong infinite loops.
+# Specify AR_ONCE_FILE which defines the recipient's "once" files that track autoreplies by
+# recepient. The directory path must exist or be created. Specify AR_SUBJECT_TXT which is the
+# text/language to be used in the autoreply subject field. Specify AR_ONCE_REPEAT which is how
+# often the vacation autoreply can be sent. The default value of 1d means that senders will only
+# receive 1 autoreply per day no matter how many emails are sent. 1s means that senders may
+# receive 1 autoreply per second which essentially enables autoreply for all email received. A
+# setting of zero time for AR_ONCE_REPEAT prevents a message from being sent a second time
+# forever. In that case, zero means infinity.
+#
+AR_ONCE_FILE = /var/spool/exim/db/autoreply_${local_part}_${domain}.db
+AR_SUBJECT_TXT = Autoreply from ${local_part}@${domain}
+AR_ONCE_REPEAT = 1d
+#
+#
 # END Of Host Specific Configuration Settings
 #
 #
