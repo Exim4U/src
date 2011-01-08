@@ -155,6 +155,20 @@ AR_SUBJECT_TXT = Autoreply from ${local_part}@${domain}
 AR_ONCE_REPEAT = 1d
 #
 #
+# exim4u: The smtp_accept_queue_per_connection option limits the number of delivery processes
+# that exim starts automatically when receiving messages via SMTP. If the value of the option is
+# greater than zero, and the number of messages received in a single SMTP session exceeds this
+# number, subsequent messages are placed in the queue, but no delivery processes are started. This
+# helps to limit the number of exim processes when a server restarts after downtime and there is a lot
+# of mail waiting for it on other systems. On large systems and dial-in client systems the default should
+# probably be increased or set to zero (zero means disabled). Systems with large mailing lists should
+# also increase or disable it.  The default value is 10 if unspecified. The following message will appear
+# in the exim logs if the default value of 10 is being exceeded: "no immediate delivery: more than 10
+# messages received in one connection". Uncomment the following line to disable smtp_accept_queue_per_connection.
+#
+# smtp_accept_queue_per_connection = 0
+#
+#
 # END Of Host Specific Configuration Settings
 #
 #
