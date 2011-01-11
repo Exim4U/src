@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `exim4u`.`users`
 	sa_tag           smallint(5)   unsigned  NOT NULL  default '0',
 	sa_refuse        smallint(5)   unsigned  NOT NULL  default '0',
 	tagline          varchar(255)                      default NULL,
-	vacation         varchar(255)                      default NULL,
+	vacation         varchar(4096)                     default NULL,
 	on_spambox       tinyint(1)              NOT NULL  default '0',
 	on_spamboxreport tinyint(1)	         NOT NULL  default '0',
 	PRIMARY KEY (user_id),
