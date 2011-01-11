@@ -105,6 +105,11 @@ Exim user/group. To create the database and set the correct ownership execute:
  	sqlite3 /var/spool/exim/db/greylist.db < xtrasw/exim-greylist/mk-greylist-db.sql
 	chown exim:exim /var/spool/exim/db/greylist.db
 
+Note that this command assumes that the greylist.db file is located in the /var/spool/exim/db
+directory. You may change the location as per your exim installation, however, you must then
+also modify etc/exim/exim-greylist.conf.inc and xtrasw/exim-greylist/greylist-tidy.sh to
+specify the location of greylist.db within those two scripts as well.
+
 Install the script xtrasw/exim-greylist/greylist-tidy.sh in cron.daily to
 prevent the database from growing forever without bound. This script simply
 deletes entries from the greylist table that are older than 7 days:  
