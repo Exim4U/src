@@ -1,5 +1,7 @@
                          Exim4U Changelog Summaries
 
+                      Current Exim4U Version Is 1.2.5
+
 
 1.2.5 Release Date: TBA
 
@@ -11,6 +13,8 @@
   M       SPAMASSASSIN
   M       VERSION
   M       CHANGELOG
+* M       MIGRATE
+* M       etc/exim/exim4u_local.conf.inc
   M       etc/exim/exim.conf
   A       etc/exim/exim.pl/README2
   A       etc/exim/exim.pl/three-level-tlds
@@ -20,6 +24,9 @@
   D       etc/exim/exim.pl/ccTLD.txt
   D       etc/exim/exim.pl/exim.pl
   M       etc/exim/exim.pl/README
+* M       home/exim4u/public_html/exim4u/adminuserchange.php
+* A       mysql_migrate/mysql_expand_vacation.sql
+* M       mysql_setup/mysql.sql
 
 1.2.5 Instructions For Upgrading From Version 1.2.4
 
@@ -31,8 +38,12 @@
 	SPAMASSASSIN
 	VERSION
 	CHANGELOG
+	MIGRATE
   2) Exim Configuration Files - Copy the following files to your live
-     installation from the Exim4U 1.2.5 distribution's root directory:
+     installation from the Exim4U 1.2.5 distribution's root directory.
+     Be sure to make a backup copy of your 1.2.2 version files prior
+     to overwriting them. 
+        etc/exim/exim4u_local.conf.inc (Modify as per your requirements)
 	etc/exim/exim.conf
         etc/exim/exim.pl/*
      Delete the following two files:
@@ -44,6 +55,26 @@
      checks in exim.  Restart exim.
   3) Crontab - Add the etc/exim/exim.pl/README2 script to your root user's
      crontab.
+  4) Exim4U Email Admin (PHP) File - (Vacation Autoreply Bug Fix) - Copy the
+     following file to your live installation from the Exim4U 1.2.5
+     distribution's root directory.
+	home/exim4u/public_html/exim4u/adminuserchange.php
+  5) Vacation Autoreply Scripts - Copy the following two scripts to your live
+     installation from the Exim4U 1.2.5 distribution's root directory. 
+        mysql_setup/mysql.sql
+	mysql_migrate/mysql_expand_vacation.sql
+     The mysql_setup/mysql.sql script is only used to initally setup a Exim4U
+     database and is not used for upgrading since your database has already been
+     created. However, the vacation autoreply message field in the MySQL database
+     should be expanded to a larger value than the default 255 characters in prior
+     versions of Exim4U and Vexim2. This is optional since Exim4U will work properly
+     regardless of the field width, however, the users' vacation autoreply message
+     will potentially be truncated if left at 255 characters since it is so short.
+     To expand the vacation autoreply field to Exim4U's recommended 4096 characters,
+     run the following command:
+	mysql -u<user_name> -p<password> < mysql_migrate/mysql_expand_vacation.sql
+     where: <username> = Your MYSQL root username
+            <password> = Your MYSQL root username's password
 
 
 1.2.4 Release Date: October 21, 2010
