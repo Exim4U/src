@@ -13,8 +13,8 @@
   M       SPAMASSASSIN
   M       VERSION
   M       CHANGELOG
-* M       MIGRATE
-* M       etc/exim/exim4u_local.conf.inc
+  M       MIGRATE
+  M       etc/exim/exim4u_local.conf.inc
   M       etc/exim/exim.conf
   A       etc/exim/exim.pl/README2
   A       etc/exim/exim.pl/three-level-tlds
@@ -24,9 +24,9 @@
   D       etc/exim/exim.pl/ccTLD.txt
   D       etc/exim/exim.pl/exim.pl
   M       etc/exim/exim.pl/README
-* M       home/exim4u/public_html/exim4u/adminuserchange.php
-* A       mysql_migrate/mysql_expand_vacation.sql
-* M       mysql_setup/mysql.sql
+  M       home/exim4u/public_html/exim4u/adminuserchange.php
+  A       mysql_migrate/mysql_expand_vacation.sql
+  M       mysql_setup/mysql.sql
 
 1.2.5 Instructions For Upgrading From Version 1.2.4
 
