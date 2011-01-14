@@ -101,10 +101,10 @@ daemon_smtp_ports = 25 : 2525 : 587
 #
 spamd_address = 127.0.0.1 783
 #
-# This configuration variable defines the virus scanner that is used with
-# the 'malware' ACL condition of the exiscan acl-patch. If you do not use
-# virus scanning, leave it commented. Please read doc/exiscan-acl-readme.txt
-# for a list of supported scanners.
+# This configuration variable defines the virus scanner (socket file) that is
+# used with the 'malware' ACL condition of the exiscan acl-patch. If you do not
+# use virus scanning, leave it commented. Please read the exim document 
+# doc/exiscan-acl-readme.txt for a list of supported scanners.
 #
 av_scanner = clamd:/var/run/clamav/clamd
 #
