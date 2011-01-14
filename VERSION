@@ -5,10 +5,16 @@
   Exim Configuration's URIBL/SURBL/DBL Blocklists (exim_surbl) Upgraded
 
      Upgraded exim_surbl from version 2.0 to version 2.2. This new version of exim_surbl
-     adds support for the Spamhaus DBL list and supports the new SURBL implementation
-     guidelines.
+     adds the Spamhaus DBL list for enhanced spam prevention and supports the new SURBL
+     implementation guidelines.
 
      exim_surbl version 2.2 is described here: http://www.teuton.org/~ejm/exim_surbl
+
+  Revised Exim Configuration's Vacation Autoreply Transport Configuration
+
+     The new vacation autoreply transport configuration limits autoreplys for each sender
+     to one autoreply per user specified time period (default = 1 day) in order to avoid
+     email ping pong infinite loops with mailing lists, etc.
 
   Revised Documentation
 
@@ -16,7 +22,28 @@
      version 2.0 to version 2.2: README, INSTALL, NOTES, and SPAMASSASSIN.
 
      The following document was added which contains a crontab script necessary
-     for the implementation of exim_surbl version 2.1: etc/exim/exim.pl/README2.
+     for the implementation of exim_surbl version 2.2: etc/exim/exim.pl/README2.
+
+  Other:
+
+     Bug fix to adminuserchange.php related to the vacation autoreply text for admin users.
+
+     Expanded the vacation autoreply message field in the MySQL database to 4096 characters.
+
+     The smtp_accept_queue_per_connection configuration option was added to exim4u_local.conf.inc.
+     This option specifies the maximum number of delivery processes that exim starts automatically
+     when receiving messages via SMTP. If not specified, a default value of 10 is used, however, 
+     on large systems and/or systems with large mailing lists, this parameter should be increased
+     or set to zero (zero means disabled).
+     
+     Other minor enhancements were implemented to several of the documentation files and
+     the exim configuration files.
+
+  Credits:
+
+     The vacation autoreply modifications were contributed by Jörg Roßdeutscher.  The upgrade to
+     exim_surbl 2.2 and the smtp_accept_queue_per_connection configuration option was suggested by
+     Odhiambo Washington.  Thanks Jörg and Odhiambo!
 
 
 

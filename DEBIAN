@@ -140,7 +140,18 @@ instructions locate the web interface's DocumentRoot at /home/exim4u/public_html
 for RedHat/CentOS. Nevertheless, you may relocate the DocumentRoot to any other directory that you
 prefer.
 
-3) SPAMASSASSIN
+3) CLAMAV (ClamAV)
+
+The socket file that the clam daemon (clamd) uses is defined in exim4u_local.conf.inc with a default
+setting of:
+
+	av_scanner = clamd:/var/run/clamav/clamd
+
+This default works with CentOS, however, on debian that line should read:
+
+	av_scanner = clamd:/var/run/clamav/clamd.ctl
+
+4) SPAMASSASSIN
 
 The file SPAMASSASSIN recommends to setup a set of channels to maximize SPAM protection, here are
 working instructions to pull perl packages required by these channels, note that some have no Debian
@@ -166,7 +177,7 @@ Check that spamassassin daemon is enabled
         $ grep ENABLE /etc/default/spamassassin
         ENABLED=1
 
-4) EXIM FROM DEBIAN BACKPORT
+5) EXIM FROM DEBIAN BACKPORT
 
 If you want to use Exim4U's DKIM feature and the Debian stable exim version is 4.69 then you need
 the backported exim version 4.71 or higher. Ensure you have a reference to the backport repository:
