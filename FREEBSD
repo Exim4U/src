@@ -192,7 +192,16 @@ Make sure and specify the TCP socket as 3310 for clamd in clamd.conf:
 	 TCPSocket 3310
 
 Otherwise, without the TCPSocket specified, the Clamd header writing
-will not specify the ClamAV version. 
+will not specify the ClamAV version.
+
+The socket file that exim uses for the clam daemon (clamd) is defined in
+exim4u_local.conf.inc with a default setting of:
+
+        av_scanner = clamd:/var/run/clamav/clamd
+
+This default works with CentOS, however, on FreeBSD that line should read:
+
+        av_scanner = clamd:/var/run/clamav/clamd.sock 
 
 9) Webmin
 
