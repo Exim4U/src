@@ -96,8 +96,36 @@ exim is:
 
 	/etc/init.d/exim4
 
+### Debian SQLite Command Syntax ###
 
-### Exim Versions prior to 4.71 - Disabling DKIM ###
+Exim4U utlizes the SQLite database engine for its greylisting database. Under RedHat/CentOS, SQLite
+is invoked with the "sqlite3" command, however, this command is named "sqlite" in Debian. The "sqlite3"
+command is used to setup the greylisting database file, greylist.db, as described in the INSTALL file.
+The "sqlite3" command is also used by the greylist-tidy.sh script. An easy way to remedy this conflict
+in SQLite command syntax in Debian is to symbolically link sqlite to sqlite3 with the following command:
+
+        ln -s /usr/bin/sqlite /usr/bin/sqlite3
+
+### Greylisting Database File Location Under Debian ###
+
+Exim4U's greylisting functionality requires that a sqlite database file, named greylist.db, be setup and
+maintained for greylisting. The Exim4U INSTALL file includes instructions for locating this file in the
+exim db directory (/var/spool/exim/db in RedHat/CentOS). Logically, for Debian, the greylist.db file would
+therefore be put in /var/spool/exim4/db, however, this location will confict with the cron scripts
+that are installed with exim4 under Debian for cleaning up the other exim4 database files in that directory.  
+Therefore, the greylist.db file should be located somewhere else instead of the exim db directory for Debian
+systems.  You can put the greylist.db file anywhere else that you want in your file system, however, you
+must then amend etc/exim/exim-greylist.conf.inc and the greylist-tidy.sh script to reflect your chosen
+location for greylist.db.
+
+### Vacation Autoreply Database File Location Under Debian ###
+
+Exim4U's vacation autoreply functionality uses db files as well. As is the case with the greylist.db file,
+the vacation autoreply files should be stored elsewhere other than the exim db directory for Debian systems.
+You may specify the directory where these files are stored with the variable, AR_ONCE_FILE, in
+etc/exim/exim4u_local.conf.inc.   
+
+### Exim Versions Prior To 4.71 - Disabling DKIM ###
 
 If the following error is reported when starting exim4, then you probably are running an Exim version
 prior to 4.71:
@@ -147,7 +175,7 @@ setting of:
 
 	av_scanner = clamd:/var/run/clamav/clamd
 
-This default works with CentOS, however, on debian that line should read:
+This default works with RedHat/CentOS, however, on Debian that line should read:
 
 	av_scanner = clamd:/var/run/clamav/clamd.ctl
 

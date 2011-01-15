@@ -1,5 +1,6 @@
 # $Id: exim-greylist.conf.inc,v 1.2 2009/03/12 16:57:38 gordon Exp $
 
+# Specify where the greylisting database should be stored.
 GREYDB=/var/spool/exim/db/greylist.db
 
 # ACL for greylisting. Place reason(s) for greylisting into a variable named

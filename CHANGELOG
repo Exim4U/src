@@ -14,6 +14,7 @@
   M       VERSION
   M       CHANGELOG
   M       MIGRATE
+  M       DEBIAN
   M       etc/exim/exim4u_local.conf.inc
   M       etc/exim/exim.conf
   A       etc/exim/exim.pl/README2
@@ -39,6 +40,7 @@
 	VERSION
 	CHANGELOG
 	MIGRATE
+	DEBIAN
   2) Exim Configuration Files - Copy the following files to your live
      installation from the Exim4U 1.2.5 distribution's root directory.
      Be sure to make a backup copy of your 1.2.2 version files prior
