@@ -24,6 +24,17 @@
      The following document was added which contains a crontab script necessary
      for the implementation of exim_surbl version 2.2: etc/exim/exim.pl/README2.
 
+     The MIGRATE document was changed to include instructions for expanding the vacation
+     autoreply message field in the MySQL database.
+
+     The DEBIAN file was amended to include instructions for resolving the difference in
+     SQLite syntax between the Exim4U instructions and the Debian implementation
+     since RedHat/CentOS and FreeBSD use the "sqlite3" command while Debian uses "sqlite".  
+     The DEBIAN file was also changed to include instructions for the location of the
+     greylisting db file and the vacation autoreply db files since the db file locations in
+     the instructions work fine in RedHat/CentoS and FreeBSD, however, they have been
+     reported to conflict with Debian's exim4-base cron.daily script.
+
   Other:
 
      Bug fix to adminuserchange.php related to the vacation autoreply text for admin users.
@@ -41,8 +52,9 @@
 
   Credits:
 
-     The vacation autoreply modifications were contributed by Jörg Roßdeutscher.  The upgrade to
-     exim_surbl 2.2 and the smtp_accept_queue_per_connection configuration option was suggested by
+     The vacation autoreply modifications were contributed by Jörg Roßdeutscher who also
+     recommended the additions to the DEBIAN documentation file.  The upgrade to exim_surbl
+     2.2 and the smtp_accept_queue_per_connection configuration option was suggested by
      Odhiambo Washington.  Thanks Jörg and Odhiambo!
 
 
