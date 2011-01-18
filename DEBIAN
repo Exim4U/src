@@ -96,15 +96,12 @@ exim is:
 
 	/etc/init.d/exim4
 
-### Debian SQLite Command Syntax ###
+### Debian sqlite3 Command ###
 
-Exim4U utlizes the SQLite database engine for its greylisting database. Under RedHat/CentOS, SQLite
-is invoked with the "sqlite3" command, however, this command is named "sqlite" in Debian. The "sqlite3"
-command is used to setup the greylisting database file, greylist.db, as described in the INSTALL file.
-The "sqlite3" command is also used by the greylist-tidy.sh script. An easy way to remedy this conflict
-in SQLite command syntax in Debian is to symbolically link sqlite to sqlite3 with the following command:
+Exim4U utlizes the sqlite3 database engine for its greylisting database. If sqlite3 has not yet been installed
+on your Debian system then you need to install it as follows:
 
-        ln -s /usr/bin/sqlite /usr/bin/sqlite3
+sudo apt-get install sqlite3
 
 ### Greylisting Database File Location Under Debian ###
 
