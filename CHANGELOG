@@ -43,18 +43,17 @@
 	DEBIAN
   2) Exim Configuration Files - Copy the following files to your live
      installation from the Exim4U 1.2.5 distribution's root directory.
-     Be sure to make a backup copy of your 1.2.2 version files prior
-     to overwriting them. 
+     Be sure to make a backup copy of your 1.2.4 version files prior
+     to overwriting/deleting them. 
         etc/exim/exim4u_local.conf.inc (Modify as per your requirements)
 	etc/exim/exim.conf
         etc/exim/exim.pl/*
      Delete the following two files:
 	etc/exim/exim.pl/ccTLD.txt
         etc/exim/exim.pl/exim.pl
-     Be sure to make a backup copy of your 1.2.4 version files prior
-     to overwriting/deleting them. Update etc/exim/exim.pl/surbl_whitelist.txt
-     to include any URLs that you want whitelisted from the URIBL/SURBL/DBL
-     checks in exim.  Restart exim.
+     Update etc/exim/exim.pl/surbl_whitelist.txt to include any URLs
+     that you want whitelisted from the URIBL/SURBL/DBL checks in exim.
+     Restart exim.
   3) Crontab - Add the etc/exim/exim.pl/README2 script to your root user's
      crontab.
   4) Exim4U Email Admin (PHP) File - (Vacation Autoreply Bug Fix) - Copy the
