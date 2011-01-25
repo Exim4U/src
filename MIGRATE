@@ -42,6 +42,12 @@ exim4u database.
 larger than the default 255 characters in vexim2.  To expand this field to Exim4U's 4096
 characters, run the following command from within this distributions root directory:
 
-mysql -u<user_name> -p<password> < mysql_migrate/mysql_expand_vacation.sql
+mysql -u<user_name> -p<password> exim4u < mysql_migrate/mysql_expand_vacation.sql
+
+where: <username> = Your MYSQL root username
+       <password> = Your MYSQL root username's password
+
+For example, for user_name=MYNAME and password=SECRET then the command would be:
+        mysql -uMYNAME -pSECRET exim4u < mysql_migrate/mysql_expand_vacation.sql
 
 4) Continue on step 6 of the INSTALL help file and continue through all remaining steps.
