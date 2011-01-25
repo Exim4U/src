@@ -3,7 +3,7 @@
                       Current Exim4U Version Is 1.2.5
 
 
-1.2.5 Release Date: TBA
+1.2.5 Release Date: January 27, 2010
 
 1.2.5 Changelog Summary (Versus Version 1.2.4)
 
@@ -73,9 +73,11 @@
      will potentially be truncated if left at 255 characters since it is so short.
      To expand the vacation autoreply field to Exim4U's recommended 4096 characters,
      run the following command:
-	mysql -u<user_name> -p<password> < mysql_migrate/mysql_expand_vacation.sql
+	mysql -u<user_name> -p<password> exim4u < mysql_migrate/mysql_expand_vacation.sql
      where: <username> = Your MYSQL root username
             <password> = Your MYSQL root username's password
+     For example, for user_name=MYNAME and password=SECRET then the command would be:
+        mysql -uMYNAME -pSECRET exim4u < mysql_migrate/mysql_expand_vacation.sql
 
 
 1.2.4 Release Date: October 21, 2010
