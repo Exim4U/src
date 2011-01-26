@@ -1,0 +1,383 @@
+SpamAssassin Installation Instructions - Tested With Version 3.2.5
+
+These instructions cover Exim4U's recommended SpamAssassin implementation which includes
+the following default components, add-on modules and modifications:
+
+1) SA Rules Channel - The default SpamAssassin rules.
+2) Open Protect Rules Channel - Additional rules from SARE (SpamAssassin Rules Emporium).
+3) Razor - Collaborative spam detection add-on using statistical signatures.
+4) DCC - Collaborative spam detection add-on using distributed checksums.
+5) Pyzor - Collaborative spam detection add-on using statistical signatures.
+6) Modifying SpamAssassin's Global and PAM User Account Settings
+7) Whitelisting in SpamAssassin
+8) Adding Spamscore Points For Mail With Links To Sites Commonly Abused By Spammers
+9) Disabling URIBL and SURBL RBL Checks in SpamAssassin
+10) Setting The required_score And report_safe Values
+11) Testing SpamAssassin
+
+The SA Rules Channel and the Open Protect Rules Channel rely on the sa-update command
+to check for updates to their spam detection rules as described in Steps 1 and 2
+below. These rules change but they do not change frequently.  Therefore, crontab
+should be utilized to have sa-update run periodically to fetch any updates to
+these spam detection rules. sa-update should be run no more often than once per
+day and once per week is generally sufficient.
+
+Razor, DCC and Pyzor are very similar in methodology, however, it is beneficial to use
+all three add-ons since each of the three spam data bases are unique.  In other
+words, a given spam email may exist in one of the databases but not the other two.
+Also, if a given spam exists in two or more data bases then the resulting spamscore
+will be higher thus leading to better spam detection.
+
+1) SA Rules Channel
+
+   In this step, you will install the default SA Rules Channel and all necessary perl
+   modules that are not installed as per the "sa-update -D" command's report.
+   SpamAssassin's RuleUpdates and sa-update are described here:
+
+	http://wiki.apache.org/spamassassin/RuleUpdates
+
+   Note that the sa-update command updates SpamAssassin's rules after which
+   SpamAssassin must be restarted to reflect changes.
+
+   First, run "sa-update" once to download the default SpamAssassin rules from the
+   "updates.spamassassin.org" rules channel:
+
+	sa-update
+
+   This should enable SpamAssassin to find all its rules under the "/var/lib/spamassassin"
+   directory from now onwards. Then, import the default SpamAssassin channel's GPG key and
+   run sa-update to import the key:
+
+	wget http://spamassassin.apache.org/updates/GPG.KEY
+	sa-update --import GPG.KEY
+
+   Restart the spamassassin service:
+
+	/etc/init.d/spamassassin restart
+
+   (On some Linux distributions, the spamassassin service is named "spamd".)
+
+   Now, run sa-update in debug mode:
+
+	sa-update -D
+
+   Running "sa-update -D" will probably generate errors like the following within its output:
+
+	[28216] dbg: diag: module not installed: Mail::SPF:Query ('require' failed)
+
+   Now, install the missing Perl modules. Most of these Perl modules are available in your
+   Linux distribution's repositories or alternatively may be downloaded from:
+
+	http://cpan.org
+
+   Debian users should read the DEBIAN file for additional instructions for installing the
+   neccessary Perl modules.
+
+   The absence of the Razor module may generate a similar error as follows:
+
+	[28216] dbg: diag: module not installed: Razor2::Client::Agent ('require' failed)
+
+   Razor will be installed during step 3 below.
+
+   Continue installing Perl modules until sa-update runs without any "module not installed"
+   errors. SpamAssassin must be restarted after each sa-update execution for the changes 
+   to take effect:
+
+        /etc/init.d/spamassassin restart
+
+2) Install Open Protect Rules Channel
+
+   Follow the instructions verbatim at:
+
+	http://saupdates.openprotect.com/
+
+   After installing Open Protect's channel then run sa-update in debug mode as follows
+   and review the    output:
+
+	/usr/bin/sa-update --allowplugins -D --gpgkey D1C035168C1EBC08464946DA258CDB3ABDE9DC10 \
+        --channel saupdates.openprotect.com --channel updates.spamassassin.org
+
+   Continue installing any perl modules that are not installed as per the report. SpamAssassin
+   must be restarted after each sa-update execution for the changes to take effect:
+
+	/etc/init.d/spamassassin restart
+
+   Continue installing Perl modules until sa-update runs without any "module not installed"
+   errors
+
+3) Razor Plugin For SpamAssassin
+
+   Follow these installation instructions for a source code install:
+
+	http://razor.sourceforge.net/docs/install.php
+
+   Also, for RedHat/CentOS 5 systems, razor can be alternative installed
+   from the RPMForge repostory with yum or apt.
+
+   Debian users should refer to the DEBIAN file for instructions related to Razor on Debian.
+
+   Follow these instructions to implement razor site wide with one configuration file
+   and one log file:
+
+	http://wiki.apache.org/spamassassin/RazorSiteWide
+
+   SpamAssassin must be restarted for the changes to take effect:
+
+        /etc/init.d/spamassassin restart
+
+4) DCC Plugin For SpamAssassin
+
+   The DCC plugin for spamassassin is found here:
+
+	http://www.rhyolite.com/anti-spam/dcc/
+
+   Additional documentation on DCC may be found here:
+
+	http://wiki.apache.org/spamassassin/NetTestFirewallIssues
+	http://www.linux.com/feature/114342
+
+   Follow these instructions to compile and install DCC:
+
+	wget http://www.rhyolite.com/anti-spam/dcc/source/dcc.tar.Z
+	tar -zxvf dcc.tar.Z
+	# Change the version number to the latest one
+	cd dcc-1.3.82
+	./configure
+	make
+	make install
+
+	Edit DCC configuration file as follows:
+
+		cd /var/dcc
+		vi dcc_conf
+
+	Change DCC to run as daemon:
+
+		DCCD_ENABLE=off
+		DCCIFD_ENABLE=on
+
+	Turn off loging with:
+
+		DCCM_LOG_AT=NEVER
+
+	Set log retention to one day (just in case):
+
+		DBCLEAN_LOGDAYS=1
+
+	Uncomment the DCC plugin line in /etc/mail/spamassassin/v310.pre:
+
+		loadplugin Mail::SpamAssassin::Plugin::DCC
+
+	Copy the service startup script to init.d and add as a service
+	according to your Linux distribution. As an example, for
+	RedHat/CentOS:
+
+		cd /etc/rc.d/init.d
+		ln -s /var/dcc/libexec/rcDCC DCC
+		chkconfig --add DCC
+		service DCC start
+
+	Install a cron job to clean up temp file on daily basis
+
+		cd /etc/cron.daily
+		ln -s /var/dcc/libexec/cron-dccd
+
+	Configure SpamAssassin by editing local.cf to add the following lines:
+
+		use_dcc 1
+		dcc_home /var/dcc
+		dcc_path /usr/local/bin/dccproc
+		add_header all  DCC _DCCB_: _DCCR_
+
+
+	Configure your firewall to allow UDP packets for port 6277. Assuming you
+	allow all outbound packets out of your machine, you only need to add
+	an INPUT rule to your /etc/sysconfig/iptables file. Add the following
+	line in your INPUT chain, above any REJECT rules:
+
+		-A <chain-name> -p udp -m udp --sport 6277 -j ACCEPT
+
+	Restart iptables.
+
+	To check the firewall, run 'cdcc info' after installing DCC:
+
+		cdcc info
+
+	The output should contain lines like this:
+
+		dcc1.dcc-servers.net,- RTT+0 ms anon
+		dcc2.dcc-servers.net,- RTT+0 ms anon ...
+
+	There should be *at least one*, preferably more than half a dozen, 
+	of the public DCC servers listed. If this is not the case, a likely
+	cause is an interfering firewall.
+
+   SpamAssassin must be restarted for the changes to take effect:
+
+        /etc/init.d/spamassassin restart 
+
+5) Pyzor SpamAssassin Installation
+
+   The Pyzor home page is:
+
+	http://sourceforge.net/apps/trac/pyzor/
+
+   Download the latest version of Pyzor here:
+
+	http://sourceforge.net/project/downloading.php?group_id=50000&filename=pyzor-0.5.0.tar.gz&a=83782234
+
+   Extract the tarball:
+
+	tar -xvzpf pyzor-0.5.0.tar.gz
+
+   Then, follow the installation instructions in the INSTALL file in the root directory of the Pyzor download.
+
+   Additional information on Pyzor may be found here:
+
+	http://wiki.apache.org/spamassassin/UsingPyzor
+
+   For RedHat/CentOS users, the ATRPMS repository at http://atrpms.net/dist/el5/pyzor/ has a Pyzor rpm which
+   you may opt to use instead.
+
+	xtrasw/pyzor/pyzor-0.4.0-9.0.el5.noarch.rpm
+
+   The install may mess up some of the permissions. We can fix it by issuing these commands:
+
+	chmod -R a+rX /usr/share/doc/pyzor
+	chmod -R a+rX /usr/lib/python2.4/site-packages/pyzor
+	chmod -R a+rX /usr/bin/pyzor
+	chmod -R a+rX /usr/bin/pyzord
+
+   The gdbm module is required for Pyzor’s operation as well. You can check if it’s installed by running:
+
+	python -c 'import gdbm' && echo 'gdbm found'
+
+   If you get a “gdbm found”, you’re all set. If not:
+
+	* For RedHat/CentOS 5 run: yum install gdbm
+	* For Debian, Gentoo and FreeBSD, instructions for obtaining the gdbm module are found in Pyzor's INSTALL
+	  file in the root directory of the Pyzor download.
+
+   Tell Pyzor to find the Pyzor server(s) for the root user at /root/.pyzor (spamd runs as root):
+
+	pyzor discover
+
+   Optionally, to put the Pyzor servers in the /etc/mail/spamassassin directory, add the following to your
+   /etc/mail/spamassassin/local.cf:
+
+	pyzor_options --homedir /etc/mail/spamassassin/.pyzor
+
+   	And execute the following command:
+
+	pyzor --homedir /etc/mail/spamassassin/.pyzor discover
+
+   And finally, restart spamd:
+
+	/etc/init.d/spamassassin restart
+
+   To test pyzor:
+
+	spamassassin -D pyzor < sample-spam.txt  (sample-spam.txt is the GTUBE spam test file)
+
+
+6) SpamAssassin Global and PAM User Account Settings
+
+   You may add new rules to your SpamAssassin configuration by modifying the following files:
+
+   Global settings file: /etc/mail/spamassassin/*.cf
+
+   Individual account (domain) settings file: /home/<accountname>/.spamassassin/user_prefs
+
+   Numerous customization options are available for implementation in these files both on a global basis
+   and on a domain basis. For example, senders can be whitelisted and/or blacklisted, URL spamscores can be
+   adjusted/blacklisted/whitelisted and RBLs added. 
+
+7) Whitelisting in SpamAssassin
+
+   It is recommended that the "whitelist_from_rcvd" parameter be used for whitelisting email addresses
+   since it is more secure than the "whitelist_from" parameter because it allows you to also specify the
+   sender's host name in addition to the email address to be whitelisted. That is, the command,
+   “whitelist_from_rcvd”, will whitelist an address but only if the mail comes from the specified sending
+   SMTP server. For example, add the following line to /etc/mail/spamassassin/local.cf to whitelist the
+   email address "user@domain.tld" whose sending server is "sendingserver.tld":
+
+        whitelist_from_rcvd user@domain.tld sendingserver.tld
+
+   Other whitelist_from_rcvd examples:
+
+        whitelist_from_rcvd joe@example.com example.com
+        whitelist_from_rcvd *@axkit.org     sergeant.org
+
+   See: http://spamassassin.apache.org/full/3.2.x/doc/Mail_SpamAssassin_Conf.html#whitelist_and_blacklist_options
+
+8) Adding Spamscore Points For Mail With Links To Sites Commonly Abused By Spammers
+
+   Many spammers have recently resorted to hijacking web pages on public share sites such as Live Journal,
+   Google Notebook, Google Reader, Google Groups and Yahoo Groups. The large ISPs are slow to shutdown these
+   spammer pages and none of the URIBL black listing services will blacklist links that contain the large ISP
+   domain names. So, if you want to detect spam with links to these sites then you must modify the SpamAssassin
+   settings files to add spamscore points for mail that contains these links. For example, to add 3 spamscore
+   points to any mail that includes a Google Notebook link then add the following lines to
+   /etc/mail/spamassassin/local.cf:
+
+        uri     GOOGLENOTEBOOK  /google.com\/notebook\/public/
+        score   GOOGLENOTEBOOK  3.0
+
+9) Disabling URIBL/SURBL/DBL RBL Checks in SpamAssassin
+
+   Exim4U checks the URIBL, SURBL and DBL lists within exim's ACLs. Therefore, you may disable the URIBL/SURBL/DBL
+   RBL checks in spamassassin by setting all the score values to zero in /etc/mail/spamassassin/local.cf:
+
+	# Disable URIBL, SURBL and DBL in SpamAssassin since I am now checking them in exim. 
+	score   URIBL_BLACK     0.0 
+	score   URIBL_GREY      0.0 
+	score   URIBL_RED       0.0 
+	score   URIBL_SC_SURBL  0.0 
+	score   URIBL_WS_SURBL  0.0 
+	score   URIBL_PH_SURBL  0.0 
+	score   URIBL_OB_SURBL  0.0 
+	score   URIBL_AB_SURBL  0.0 
+	score   URIBL_JP_SURBL  0.0
+	score   URIBL_DBL_SPAM  0.0
+
+10) Setting The required_score And report_safe Values
+
+   The required_score and report_safe values are set globally in the file: /etc/mail/spamassassin/local.cf.
+
+   The required_score value in your global local.cf file should be set such that it is equal to or less
+   than the lowest Spam Tag Value used for all users in the Exim4U web interface.  A safe value to use
+   is 0.  So, change the following to your /etc/mail/spamassassin/local.cf:
+
+	required_score 0
+
+   The required_score value was previously named required_hits which can still be used but is now deprecated.
+
+   We also recommend that you set the report_safe to 0 with:
+
+	report_safe 0
+
+11) Testing SpamAssassin:
+
+   To test SpamAssassin:
+
+        spamassassin -D --lint 2>&1 | less
+
+   To test a specific spamassassin plugin or feature:
+
+	spamassassin -D <feature>  <  sample-spam.txt
+
+   where sample-spam.txt is a sample spam email file.
+
+   Examples:
+
+	To test spf:  spamassassin -D spf <sample-spf_test.txt
+	To test pyzor: spamassassin -D pyzor <sample-spam.txt
+
+   To test spamassassin with a test email use the GTUBE test which can be downloaded from here:
+
+	http://spamassassin.apache.org/gtube/gtube.txt
+
+   Simply copy the contents to a file on the server and then execute spamassassin <test.eml>.
+   This will exercise everything except the URIBL link checks which can be tested with any email
+   that you create with a spam link.
+
