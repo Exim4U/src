@@ -244,7 +244,7 @@ AR_ONCE_REPEAT = 1d
 # For MULTI_IP = YES, tls certificates and keys for each domain/IP are stored here:
 # /etc/pki/tls/exim_tls/exim.MY_IP.cert
 # /etc/pki/tls/exim_tls/exim.MY_IP.key
-# where MY_IP_address = Transport's interface IP address. As an example, if a domain's IP address is
+# where MY_IP = Transport's interface IP address. As an example, if a domain's IP address is
 # 111.222.333.444 then the certificate is stored here: /etc/pki/tls/exim_tls/exim.111.222.333.444.cert
 #
 # To accomplish this, a unique IP address must be assigned to each domain and the mail server should
