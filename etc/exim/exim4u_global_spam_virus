@@ -1,4 +1,4 @@
-# GLOBAL VIRUS AND SPAMASSASSIN SETTINGS
+# GLOBAm4u_backup_mx_rl_host_names VIRUS AND SPAMASSASSIN SETTINGS
 #
 # ClamAV Global Setting
 # When enabled, Exim4U uses ClamAV to scan incoming mail for viruses during
@@ -89,9 +89,11 @@ SpamFolder: .INBOX.spam
 # installation although the spam processing occured on the relaying server.
 #
 # If, on the other hand your backup MX servers are not running Exim4U then, on the primary Exim4U
-# installation, add the backup MX server to /etc/exim/exim4U_backup_mx_rl_host_names (instead of
+# installation, add the backup MX servers to /etc/exim/exim4u_backup_mx_rl_host_names (instead of
 # exim4u_backup_mx_host_names) which will cause all relayed mail to be filtered for spam but
-# exempted from ratelimit checks.
+# exempted from ratelimit checks. Also, if your backup MX servers are not running Exim4U, then also
+# add the backup MX servers to /etc/exim/exim4u_IPskip_sender_verify which will exempt sender
+# address verifications which would otherwise erroneously generate verification failures.
 
 # NOTE ABOUT SpamTagScore AND SpamDiscardScore
 # The SpamTagScore and SpamDiscardScore are both specified in the Exim4U Email Admin web interface
