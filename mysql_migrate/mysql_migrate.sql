@@ -67,3 +67,30 @@ call exim4u.AddColumnUnlessExists('exim4u', 'users', 'on_spambox', 'tinyint(1) u
 call exim4u.AddColumnUnlessExists('exim4u', 'users', 'on_spamboxreport', 'tinyint(1) unsigned NOT NULL default 0'); 
 
 drop procedure exim4u.AddColumnUnlessExists;
+
+
+--
+-- Modify vacation field for vacation mod:
+--
+alter table users modify vacation VARCHAR(4096);
+
+
+--
+-- Add table for simple mailing list
+--
+DROP TABLE IF EXISTS `exim4u`.`ml`;
+CREATE TABLE IF NOT EXISTS `exim4u`.`ml`
+(
+    domain_id           mediumint(8) unsigned   NOT NULL,
+    name                varchar(64)             NOT NULL,
+    email               varchar(128)            NOT NULL,
+    enabled             bool                    NOT NULL default '1',
+    -- m for member, h for head member
+    type                char(1)                 NOT NULL default 'm',
+    memberCount         int                     NULL,
+    -- s for sender, m for mailing list
+    replyTo             char(1)                 NOT NULL default 's',
+    -- there are 3 head members that hold info for the group : memberCount and enabled
+    fullName            varchar(256)            NULL,
+    PRIMARY KEY (domain_id, type, name, email)
+);
