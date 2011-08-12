@@ -20,9 +20,9 @@
   </head>
   <?php include dirname(__FILE__) . '/config/header_domain.php'; ?>
   <div id="menu">
-    <a href="siteadd.php?type=alias"><?php echo _('Add alias domain'); ?></a><br>
-    <a href="siteadd.php?type=local"><?php echo _('Add local domain'); ?></a><br>
-    <a href="siteadd.php?type=relay"><?php echo _('Add relay domain'); ?></a><br>
+    <a href="siteadd.php?type=alias"><?php echo _('Add Alias Domain'); ?></a><br>
+    <a href="siteadd.php?type=local"><?php echo _('Add Local Domain'); ?></a><br>
+    <a href="siteadd.php?type=relay"><?php echo _('Add Relay Domain'); ?></a><br>
     <a href='sitepassword.php'><?php echo _('Site Password'); ?></a><br>
     <br><a href="logout.php"><?php echo _('Logout'); ?></a><br>
   </div>
@@ -42,9 +42,9 @@
     <table>
       <tr>
         <th></th>
-        <th><?php echo _('Local domains'); ?></th>
-        <th><?php echo _('Admin account'); ?></th>
-        <th><?php echo _('Total admins'); ?></th>
+        <th><?php echo _('Local Domains'); ?></th>
+        <th><?php echo _('Admin Account'); ?></th>
+        <th><?php echo _('Total Admins'); ?></th>
       </tr>
       <?php
         $query = "SELECT MIN(localpart) AS localpart, domain,
@@ -105,7 +105,7 @@
       <tr><td></td></tr>
       <tr>
         <th></th>
-        <th><?php echo _('Relay domains'); ?></th>
+        <th><?php echo _('Relay Domains'); ?></th>
       </tr>
       <?php
         $query = "SELECT domain,domain_id FROM domains
@@ -136,7 +136,7 @@
       ?>
       <tr>
         <th></th>
-        <th><?php echo _('Aliased domains'); ?></th>
+        <th><?php echo _('Aliased Domains'); ?></th>
       </tr>
       <?php
         $query = "SELECT alias,domain FROM domainalias,domains

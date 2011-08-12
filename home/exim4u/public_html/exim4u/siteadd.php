@@ -77,7 +77,7 @@
             </td>
           </tr>
           <tr>
-            <td><?php echo _('Domain Mail directory'); ?>:</td>
+            <td><?php echo _('Domain Mail Directory'); ?>:</td>
             <td>
               <input name="maildir" type="text" class="textfield"
                 value="<?php echo $mailroot; ?>">
@@ -91,7 +91,7 @@
           </tr>
           <tr>
             <td>
-              <?php echo _('Maximum accounts'); ?><br>
+              <?php echo _('Maximum Accounts'); ?><br>
               (<?php echo _("0 for unlimited"); ?>):
             </td>
             <td>
@@ -101,7 +101,7 @@
           </tr>
           <tr>
             <td>
-              <?php echo _('Max mailbox quota'); ?>
+              <?php echo _('Max Mailbox Quota'); ?>
               (<?php echo _('0 for disabled'); ?>):
             </td>
             <td>
@@ -110,7 +110,7 @@
             </td>
           </tr>
           <tr>
-            <td><?php echo _('Maximum message size'); ?>:</td>
+            <td><?php echo _('Maximum Message Size'); ?>:</td>
             <td>
               <input name="maxmsgsize" size="5" type="text" class="textfield"
                 value="0"><?php echo _('Kb'); ?>
@@ -121,14 +121,14 @@
             </td>
           </tr>
           <tr>
-            <td><?php echo _('Spamassassin tag score'); ?>:</td>
+            <td><?php echo _('Spamassassin Tag Score'); ?>:</td>
             <td>
               <input name="sa_tag" size="5" type="text" class="textfield"
                 value="<?php echo $sa_tag; ?>">
             </td>
           </tr>
           <tr>
-            <td><?php echo _('Spamassassin discard score'); ?>:</td>
+            <td><?php echo _('Spamassassin Discard Score'); ?>:</td>
             <td>
               <input name="sa_refuse" size="5" type="text" class="textfield"
               value="<?php echo $sa_refuse; ?>">
@@ -156,7 +156,7 @@
            } else if ($_GET['type'] == "alias") {
         ?>
           <tr>
-            <td><?php echo _('Redirect messages to domain'); ?>:</td>
+            <td><?php echo _('Redirect Messages To Domain'); ?>:</td>
             <td>
               <input name="aliasdest" type="text" class="textfield">
             </td>
@@ -175,14 +175,14 @@
                 </td>
           </tr>
           <tr>
-            <td><?php echo _('Spamassassin tag score'); ?>:</td>
+            <td><?php echo _('Spamassassin Tag Score'); ?>:</td>
             <td>
               <input name="sa_tag" size="5" type="text" class="textfield"
                 value="<?php echo $sa_tag; ?>">
             </td>
           </tr>
           <tr>
-            <td><?php echo _('Spamassassin discard score'); ?>:</td>
+            <td><?php echo _('Spamassassin Discard Score'); ?>:</td>
             <td>
               <input name="sa_refuse" size="5" type="text" class="textfield"
               value="<?php echo $sa_refuse; ?>">

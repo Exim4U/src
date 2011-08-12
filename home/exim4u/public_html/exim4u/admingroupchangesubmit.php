@@ -13,9 +13,10 @@
     die;
   }
   $query = "UPDATE groups SET name='{$_POST['localpart']}',
-    enabled='{$_POST['enabled']}', is_public='{$_POST['is_public']}'
-    WHERE id='{$_POST['group_id']}' AND domain_id = '{$_SESSION['domain_id']}'";
-  $result = $db->query($query);
+    enabled={$_POST['enabled']}, is_public='{$_POST['is_public']}'
+    WHERE id={$_POST['group_id']} AND domain_id = {$_SESSION['domain_id']}";
+  echo $query;
+  $result = $db->query($query)."\n";
   if (!DB::isError($result)) { 
     header ("Location: admingroupchange.php?group_id={$_POST['group_id']}&group_updated={$_POST['localpart']}"); 
   } else { 

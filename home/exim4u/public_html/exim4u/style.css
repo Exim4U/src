@@ -2,8 +2,6 @@
   Layout and CSS tricks obtained from 
   http://www.bluerobot.com/web/layouts/ 
 */
-
-
 body {
       font-size: 10pt;
       margin:0px;
@@ -190,3 +188,76 @@ img.check { border:0;
             width:13px;
             height:12px
           }
+/* ----- all rules below are for group pages -----  */
+#messageBar {
+    position:fixed;
+    bottom:1em;
+    left:20px;
+    font-style:italic;
+}
+#state, #running {
+    background-color:white;
+}
+a.ml:hover {
+    cursor:pointer;
+    background-color:#eee;
+}
+.addmlbox a:hover {
+    cursor:pointer;
+    background-color:white;
+}
+table.mllist {
+    margin:0;
+    padding:0;
+    border:0;
+}
+td.trashbox {
+    margin:0;
+    padding:0;
+    border:0;
+    height:18px;
+    width:14px;
+    text-align:left;
+    padding-right:0.5em;
+}
+#mledit {
+}
+#mlcontent {
+    height:10em;
+    width:28em;
+}
+#mledit table {
+    margin:0;
+    padding:0;
+    border:0;
+}
+.mlfieldname {
+    font-weight:bold;
+    vertical-align:top;
+    text-align:left;
+    margin-left:0;
+    padding-left:0;
+    border-left:0;
+}
+#mlreplyfield {
+    text-align:left;
+    padding-bottom:1em;
+}
+.nospace {
+    border:0;
+    padding:0;
+    margin:0;
+}
+.buttons {
+    text-align:right;
+}
+img.mlcheck {
+    border:0;
+    width:16px;
+    height:16px;
+}
+a.mlchec
+td.mlcheckbox {
+    padding-left:0.5em;
+}
+

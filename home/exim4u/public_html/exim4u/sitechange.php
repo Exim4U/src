@@ -51,18 +51,18 @@
        <?php } ?>
         <tr><td><?php echo _("System UID"); ?>:</td><td><input type="text" size="5" name="uid" value="<?php print $row['uid']; ?>" class="textfield"></td></tr>
         <tr><td><?php echo _("System GID"); ?>:</td><td><input type="text" size="5" name="gid" value="<?php print $row['gid']; ?>" class="textfield"></td></tr>
-        <tr><td><?php echo _("Maximum accounts") . "<br />(" . _("0 for unlimited") . ")"; ?>:</td><td><input type="text" size="5" name="max_accounts" value="<?php print $row['max_accounts']; ?>" class="textfield"></td></tr>
-        <tr><td><?php echo _("Max mailbox quota in Mb") . "<br />(" . _("0 for disabled") . ")"; ?>:</td>
+        <tr><td><?php echo _("Maximum Accounts") . "<br />(" . _("0 for unlimited") . ")"; ?>:</td><td><input type="text" size="5" name="max_accounts" value="<?php print $row['max_accounts']; ?>" class="textfield"></td></tr>
+        <tr><td><?php echo _("Max Mailbox Quota In Mb") . "<br />(" . _("0 for disabled") . ")"; ?>:</td>
             <td><input type="text" size="5" name="quotas" value="<?php print $row['quotas']; ?>" class="textfield"></td></tr>
-        <tr><td><?php echo _("Maximum message size"); ?>:</td>
+        <tr><td><?php echo _("Maximum Message Size"); ?>:</td>
             <td><input name="maxmsgsize" size="5" type="text" class="textfield" value="<?php print $row['maxmsgsize']; ?>"> Kb</td></tr>
-        <tr><td><?php echo _("Spamassassin tag score"); ?>:</td>
+        <tr><td><?php echo _("Spamassassin Tag Score"); ?>:</td>
             <td><input type="text" size="5" name="sa_tag" value="<?php print $row['sa_tag']; ?>" class="textfield"></td></tr>
-        <tr><td><?php echo _("Spamassassin discard score"); ?>:</td>
+        <tr><td><?php echo _("Spamassassin Discard Score"); ?>:</td>
             <td><input type="text" size="5" name="sa_refuse" value="<?php print $row['sa_refuse']; ?>" class="textfield"></td></tr>
         <tr><td><?php echo _("Spamassassin"); ?>:</td>
             <td><input type="checkbox" name="spamassassin" <?php if ($row['spamassassin'] == 1) {print "checked";} ?>></td></tr>
-      <tr><td><?php echo _("Piping to command"); ?>:</td>
+      <tr><td><?php echo _("Piping To Command"); ?>:</td>
             <td><input type="checkbox" name="pipe" <?php if ($row['pipe'] == 1) {print "checked";} ?>></td></tr>
         <tr><td><?php echo _("Enabled"); ?>:</td><td><input type="checkbox" name="enabled" <?php if ($row['enabled'] == 1) {print "checked";} ?>></td>
         <td><input name="domain_id" type="hidden" value="<?php print $_GET['domain_id']; ?>">

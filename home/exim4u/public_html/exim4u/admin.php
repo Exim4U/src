@@ -17,7 +17,7 @@
           <td>
             <a href="adminuser.php">
               <?php
-                echo _('Add, delete and manage POP/IMAP accounts');
+                echo _('POP/IMAP Accounts');
               ?>
             </a>
           </td>
@@ -26,7 +26,7 @@
           <td>
             <a href="adminalias.php">
               <?php
-                echo _('Add, delete and manage aliases, forwards and a Catchall');
+                echo _('Aliases, Forwards And Catchalls');
               ?>
             </a>
           </td>
@@ -34,20 +34,27 @@
         <tr>
           <td>
             <a href="admingroup.php">
-              <?php echo _('Add, delete and manage groups'); ?>
+              <?php echo _('Groups'); ?>
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a href="admingroupnew.php">
+              <?php echo _('Mailing Lists'); ?>
             </a>
           </td>
         </tr>
         <tr>
           <td>
             <a href="adminfail.php">
-              <?php echo _('Add, delete and manage :fail:\'s'); ?>
+              <?php echo _('Addresses To Fail'); ?>
             </a>
           </td>
         </tr>
           <?php
             if ($mailmaninstalled != "no") {
-              print '<tr><td><a href="adminlists.php">' . _('Manage Mailman mailing lists') . '</a></td></tr>';
+              print '<tr><td><a href="adminlists.php">' . _('Mailman Mailing List Manager') . '</a></td></tr>';
             }
           ?>
         <tr>
