@@ -33,6 +33,13 @@
         </tr>
         <tr>
           <td>
+            <a href="adminfail.php">
+              <?php echo _('Addresses To Fail'); ?>
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td>
             <a href="admingroup.php">
               <?php echo _('Groups'); ?>
             </a>
@@ -41,14 +48,7 @@
         <tr>
           <td>
             <a href="admingroupnew.php">
-              <?php echo _('Mailing Lists'); ?>
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <a href="adminfail.php">
-              <?php echo _('Addresses To Fail'); ?>
+              <?php echo _('Simple Mailing Lists'); ?>
             </a>
           </td>
         </tr>
