@@ -93,19 +93,19 @@
         </tr>
         <?php if ($row['pipe'] == "1") { ?>
            <tr>
-            <td><?php echo _('Pipe to command'); ?>:</td>
+            <td><?php echo _('Pipe To Command'); ?>:</td>
             <td><input type="textfield" size="25" name="smtp" class="textfield"></td>
           </tr>
           <tr>
             <td colspan="2" style="padding-bottom:1em">
               <?php echo _('Optional'); ?>:
-              <?php echo _('Pipe all mail to a command (e.g. procmail)'); ?>
+              <?php echo _('Pipe all mail to a command (e.g. procmail).'); ?>
               <br>
-              <?php echo _('Check box below to enable'); ?>
+              <?php echo _('Check box below to enable.'); ?>
             </td>
           </tr>
           <tr>
-            <td><?php echo _('Enable piped command?'); ?></td>
+            <td><?php echo _('Enable Piped Command?'); ?></td>
             <td><input type="checkbox" name="on_piped"></td>
           </tr>
           <?php }
@@ -124,13 +124,13 @@
             <td><?php echo _('Enable Spam Box Report'); ?>:</td>
             <td><input name="on_spamboxreport" type="checkbox" ></td>
           </tr>
-            <td><?php echo _('Spamassassin tag score'); ?>:</td>
+            <td><?php echo _('Spamassassin Tag Score'); ?>:</td>
             <td>
               <input name="sa_tag" size="5" type="text" class="textfield"
                 value="<?php echo $row['sa_tag']; ?>"></td>
           </tr>
           <tr>
-            <td><?php echo _('Spamassassin discard score'); ?>:</td>
+            <td><?php echo _('Spamassassin Discard Score'); ?>:</td>
             <td>
               <input name="sa_refuse" size="5" type="text" class="textfield"
                 value="<?php echo $row['sa_refuse']; ?>">
@@ -138,7 +138,7 @@
           </tr>
           <?php } ?>
           <tr>
-            <td><?php echo _('Maximum message size'); ?>:</td>
+            <td><?php echo _('Maximum Message Size'); ?>:</td>
             <td>
               <input name="maxmsgsize" size="5" type="text"
                 value="<?php echo $row['maxmsgsize']; ?>">Kb

@@ -42,9 +42,9 @@
             </td>
           </tr>
             
-        <tr><td><?php echo _("Spamassassin tag score"); ?>:</td>
+        <tr><td><?php echo _("Spamassassin Tag Score"); ?>:</td>
             <td><input type="text" size="5" name="sa_tag" value="<?php print $row['sa_tag']; ?>" class="textfield"></td></tr>
-        <tr><td><?php echo _("Spamassassin discard score"); ?>:</td>
+        <tr><td><?php echo _("Spamassassin Discard Score"); ?>:</td>
             <td><input type="text" size="5" name="sa_refuse" value="<?php print $row['sa_refuse']; ?>" class="textfield"></td></tr>
         <tr><td><?php echo _("Spamassassin"); ?>:</td>
             <td><input type="checkbox" name="spamassassin" <?php if ($row['spamassassin'] == 1) {print "checked";} ?>></td></tr>

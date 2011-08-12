@@ -49,33 +49,35 @@
       print "<tr><td>" . _("Spamassassin") . ":</td><td><input name=\"on_spamassassin\" type=\"checkbox\"";
       if ($row['on_spamassassin'] == "1") { 
         print " checked "; 
-      } 
-       print "<tr><td>" . _("Enable Spam Box") . ":</td><td><input name=\"on_spambox\" type=\"checkbox\"";
+      }
+      print "></td></tr>\n";
+      print "<tr><td>" . _("Enable Spam Box") . ":</td><td><input name=\"on_spambox\" type=\"checkbox\"";
         if ($row['on_spambox'] == "1") {
           print " checked ";
         }
+      print "></td></tr>\n";
       print "<tr><td>" . _("Enable Spam Box Report") . ":</td><td><input name=\"on_spamboxreport\" type=\"checkbox\"";
         if ($row['on_spamboxreport'] == "1") {
           print " checked ";
       }
       print "></td></tr>\n";
-      print "<tr><td>" . _("SpamAssassin tag score") . ":</td>";
+      print "<tr><td>" . _("SpamAssassin Tag Score") . ":</td>";
       print "<td><input type=\"text\" size=\"5\" name=\"sa_tag\" value=\"{$row['sa_tag']}\" class=\"textfield\"></td></tr>\n";
-      print "<tr><td>" . _("SpamAssassin refuse score") . ":</td>";
+      print "<tr><td>" . _("SpamAssassin Discard Score") . ":</td>";
       print "<td><input type=\"text\" size=\"5\" name=\"sa_refuse\" value=\"{$row['sa_refuse']}\" class=\"textfield\"></td></tr>\n";
       }
-      print "<tr><td>" . _("Maximum message size") . ":</td>";
+      print "<tr><td>" . _("Maximum Message Size") . ":</td>";
       print "<td><input type=\"text\" size=\"5\" name=\"maxmsgsize\" value=\"{$row['maxmsgsize']}\" class=\"textfield\"> " . _("Kb") . "</td></tr>\n";
-      print "<tr><td>" . _("Vacation enabled") . ":</td><td><input name=\"on_vacation\" type=\"checkbox\"";
+      print "<tr><td>" . _("Vacation Enabled") . ":</td><td><input name=\"on_vacation\" type=\"checkbox\"";
       if ($row['on_vacation'] == "1") { print " checked "; } 
       print "></td></tr>\n";
-      print "<tr><td>" . _("Vacation message") . ":</td>";
+      print "<tr><td>" . _("Vacation Message") . ":</td>";
       print "<td><textarea name=\"vacation\" cols=\"40\" rows=\"5\" class=\"textfield\">{$row['vacation']}</textarea>";
-      print "<tr><td>" . _("Forwarding enabled") . ":</td><td><input name=\"on_forward\" type=\"checkbox\"";
+      print "<tr><td>" . _("Forwarding Enabled") . ":</td><td><input name=\"on_forward\" type=\"checkbox\"";
       if ($row['on_forward'] == "1") { print " checked "; } 
       print "></td></tr>\n";
-      print "<tr><td>" . _("Forward mail to") . ":</td>";
-      print "<td><input type=\"text\" name=\"forward\" value=\"{$row['forward']}\" class=\"textfield\"><br>\n";
+      print "<tr><td>" . _("Forward Mail To") . ":</td>";
+      print "<td><br><input type=\"text\" name=\"forward\" value=\"{$row['forward']}\" class=\"textfield\"><br>\n";
       print _("Must be a full e-mail address") . "!</td></tr>\n";
       print "<tr><td>" . _("Store Forwarded Mail Locally") . ":</td><td><input name=\"unseen\" type=\"checkbox\"";
       if ($row['unseen'] == "1") { print " checked "; } print "></td></tr>\n";
@@ -85,8 +87,9 @@
   </form>
   <form name="blocklist" method="post" action="userblocksubmit.php">
     <table align="center">
-      <tr><td><?php echo _("Add a new header blocking filter"); ?>:</td></tr>
-      <tr><td><select name="blockhdr" class="textfield">
+      <tr><td><?php echo _("Add A New Header Blocking Filter"); ?>:</td></tr>
+     <tr><td><?php echo _("Header"); ?>:</td>
+      <td><select name="blockhdr" class="textfield">
         <option value="From"><?php echo _("From"); ?>:</option>
         <option value="To"><?php echo _("To"); ?>:</option>
         <option value="Subject"><?php echo _("Subject"); ?>:</option>
@@ -98,7 +101,7 @@
     </table>
     </form>
     <table align="center">
-      <tr><td><?php echo _("Blocked"); ?></td><td><?php echo _("Headers To Be"); ?></td><td><?php echo _("Deleted"); ?></td></tr>
+      <tr><td><?php echo _("Blocked"); ?></td><td><?php echo _("Headers Listed Below"); ?></td><td><?php echo _("(mail will be deleted):"); ?></td></tr>
       <?php if (!DB::isError($blockresult)) {
       while ($blockrow = $blockresult->fetchRow()) {
         print "<tr><td><a href=\"userblocksubmit.php?action=delete&block_id={$blockrow['block_id']}\"><img style=\"border:0;width:10px;height:16px\" title=\"Delete\" src=\"images/trashcan.gif\" alt=\"trashcan\"></a></td>";

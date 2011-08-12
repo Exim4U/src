@@ -128,7 +128,7 @@
           if ($domrow['pipe'] == "1") {
           ?>
           <tr>
-            <td><?php echo _('Pipe to command or alternative Maildir'); ?>:</td>
+            <td><?php echo _('Pipe To Command Or Alternative Maildir'); ?>:</td>
             <td>
               <input type="textfield" size="25" name="smtp" class="textfield"
                 value="<?php echo $row['smtp']; ?>">
@@ -194,14 +194,14 @@
           <tr>
             <td><?php echo _(' '); ?></td>
           </tr>
-              <td><?php echo _('Spamassassin tag score'); ?>:</td>
+              <td><?php echo _('Spamassassin Tag Score'); ?>:</td>
               <td>
                 <input type="text" size="5" name="sa_tag"
                   value="<?php echo $row['sa_tag']; ?>" class="textfield">
               </td>
             </tr>
             <tr>
-              <td><?php echo _('Spamassassin discard score'); ?>:</td>
+              <td><?php echo _('Spamassassin Discard Score'); ?>:</td>
               <td>
                 <input type="text" size="5" name="sa_refuse"
                   value="<?php echo $row['sa_refuse']; ?>" class="textfield">
@@ -210,7 +210,7 @@
             }
           ?>
         <tr>
-          <td><?php echo _('Maximum message size'); ?>:</td>
+          <td><?php echo _('Maximum Message Size'); ?>:</td>
           <td>
             <input type="text" size="5" name="maxmsgsize"
               value="<?php echo $row['maxmsgsize']; ?>" class="textfield">Kb
@@ -225,7 +225,7 @@
           </td>
         </tr>
         <tr>
-          <td><?php echo _('Vacation on'); ?>:</td>
+          <td><?php echo _('Vacation On'); ?>:</td>
           <td><input name="on_vacation" type="checkbox" <?php
             if ($row['on_vacation'] == "1") {
               print " checked ";
@@ -233,12 +233,12 @@
           </td>
         </tr>
         <tr>
-          <td><?php echo _('Vacation message'); ?>:</td>
+          <td><?php echo _('Vacation Message'); ?>:</td>
           <td>
             <textarea name="vacation" cols="40" rows="5" class="textfield"><?php print $row['vacation']; ?></textarea>
           </td>
         <tr>
-          <td><?php echo _('Forwarding on'); ?>:</td>
+          <td><?php echo _('Forwarding Enabled'); ?>:</td>
           <td><input name="on_forward" type="checkbox" <?php
             if ($row['on_forward'] == "1") {
               print " checked";
@@ -246,10 +246,9 @@
           </td>
         </tr>
         <tr>
-          <td><?php echo _('Forward mail to'); ?>:</td>
+          <td><?php echo _('Forward Mail To'); ?>:<br><br><br><br></td>
           <td>
-            <input type="text" size="25" name="forward"
-            value="<?php print $row['forward']; ?>" class="textfield"><br>
+            <input type="text" size="25" name="forward" value="<?php print $row['forward']; ?>" class="textfield"><br>
             <? echo _('Must be a full e-mail address'); ?>!<br>
             <? echo _('OR') .":<br>\n"; ?>
             <select name="forwardmenu">
@@ -291,7 +290,7 @@
         </tr>
         <tr>
           <td colspan="2" style="padding-top:1em">
-          <?php echo _('Aliases to this account'); ?>:<br>
+          <?php echo _('Aliases To This Account'); ?>:<br>
           <?php
             # Print the aliases associated with this account
             $query = "SELECT user_id,localpart,domain,realname FROM users,domains
@@ -332,7 +331,7 @@
         <tr>
           <td colspan="2">
             <?php
-              echo _('Add a new header blocking filter for this user');
+              echo _('Add A New Header Blocking Filter For This User');
             ?>:
           </td>
         </tr>
@@ -366,8 +365,8 @@
     <table align="center">
       <tr>
         <td><?php echo _('Blocked'); ?></td>
-        <td><?php echo _('Headers To Be'); ?></td>
-        <td><?php echo _('Deleted'); ?></td>
+        <td><?php echo _('Headers Listed Below'); ?></td>
+        <td><?php echo _('(mail will be deleted):'); ?></td>
       </tr>
       <?php
         if ($blockresult->numRows()) {

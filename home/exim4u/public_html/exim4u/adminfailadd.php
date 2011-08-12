@@ -20,7 +20,7 @@
       <form name="adminadd" method="post" action="adminfailaddsubmit.php">
         <table align="center">
         <tr>
-          <td><?php echo _('Address to fail'); ?>:</td>
+          <td><?php echo _('Address To Fail'); ?>:</td>
             <td>
               <input name="localpart" type="text" class="textfield">@
               <?php print $_SESSION['domain']; ?>

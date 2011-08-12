@@ -45,7 +45,7 @@
           </td>
         </tr>
         <tr>
-          <td><?php echo _('Is public'); ?></td>
+          <td><?php echo _('Is Public'); ?></td>
           <td>
             <input name="is_public" type="checkbox"
               <?php echo $row['is_public'] == 'Y' ? 'checked' : ''; ?>
@@ -140,7 +140,9 @@
                 <option selected value=""></option>
                 <?php
                   $query = "select realname, username, user_id from users
-                    where enabled = '1' and domain_id = '{$_SESSION['domain_id']}' and type != 'fail'
+                      where enabled = '1' and domain_id = '{$_SESSION['domain_id']}'
+                      and (type = 'local'
+                         or (type = 'alias' and smtp like '%@{$_SESSION['domain']}'))
                     order by realname, username, type desc";
                   $result = $db->query($query);
                   while ($row = $result->fetchRow()) {

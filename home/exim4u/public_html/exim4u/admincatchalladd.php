@@ -25,11 +25,11 @@
             <td><?php echo _('Catchall'); ?> </td>
           </tr>
           <tr>
-            <td><?php echo _('Forward email addressed to'); ?>:</td>
+            <td><?php echo _('For Email Addressed To'); ?>:</td>
             <td>*@<?php echo $_SESSION['domain']; ?></td>
           </tr>
           <tr>
-            <td><?php echo _('Forward the email to'); ?>:</td>
+            <td><?php echo _('Forward The Email To'); ?>:</td>
             <td><input name="smtp" type="text" class="textfield"><br>
               <?php echo _('Must be a full e-mail address'); ?>!
             </td>
