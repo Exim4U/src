@@ -20,7 +20,7 @@
             <div id="mlAndGroupLists">
                 <? //////////////////////////////////////////////// Mailing List ?>
                 <div id="mllist">
-                    <h2>Mailing Lists</h2>
+                    <h2>Simple Mailing Lists</h2>
                     <table class="mllist">
                         <thead>
                             <tr>
