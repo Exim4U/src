@@ -54,7 +54,7 @@
         </tr>
           <?php
             if ($mailmaninstalled != "no") {
-              print '<tr><td><a href="adminlists.php">' . _('Mailman Mailing List Manager') . '</a></td></tr>';
+              print '<tr><td><a href="adminlists.php">' . _('Mailman Mailing Lists') . '</a></td></tr>';
             }
           ?>
         <tr>
