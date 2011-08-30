@@ -3,5 +3,9 @@
 #
 # Install exim4u preferences in webmail
 #
-cp ./config/* ../config
-cp ./imp/config/* ../imp/config
+echo;echo "This script installs exim4u's custom preferences into Horde webmail's configuation files.";echo
+# Get data from terminal.
+echo -n "Enter webmail home directory: (example: /home/exim4u/public_html/webmail): ";read webmail_dir;
+#
+cp ./config/* $webmail_dir/config
+cp ./imp/config/* $webmail_dir/imp/config
