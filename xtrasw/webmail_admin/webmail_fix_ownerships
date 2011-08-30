@@ -3,48 +3,52 @@
 #
 # Copyright (c) 2009 MailHub4U.com, LLC
 #
-chown exim4u:apache ../turba/config
-chown exim4u:apache ../imp/config
-chown exim4u:apache ../kronolith/config
-chown exim4u:apache ../mnemo/config
-chown exim4u:apache ../nag/config
-chown exim4u:apache ../config
-chown exim4u:apache ../ingo/config
+echo;echo "This script properly sets the ownership/permissions for webmail's configuation files.";echo
+# Get data from terminal.
+echo -n "Enter webmail home directory: (example: /home/exim4u/public_html/webmail): ";read webmail_dir;
 #
-chmod 770 ../turba/config
-chmod 770 ../imp/config
-chmod 770 ../kronolith/config
-chmod 770 ../mnemo/config
-chmod 770 ../nag/config
-chmod 770 ../config
-chmod 770 ../ingo/config
+chown exim4u:apache $webmail_dir/turba/config
+chown exim4u:apache $webmail_dir/imp/config
+chown exim4u:apache $webmail_dir/kronolith/config
+chown exim4u:apache $webmail_dir/mnemo/config
+chown exim4u:apache $webmail_dir/nag/config
+chown exim4u:apache $webmail_dir/config
+chown exim4u:apache $webmail_dir/ingo/config
 #
-chown -f exim4u:apache ../turba/config/conf.bak.php
-chown -f exim4u:apache ../imp/config/conf.bak.php
-chown -f exim4u:apache ../kronolith/config/conf.bak.php
-chown -f exim4u:apache ../mnemo/config/conf.bak.php
-chown -f exim4u:apache ../nag/config/conf.bak.php
-chown -f exim4u:apache ../config/conf.bak.php
-chown -f exim4u:apache ../ingo/config/conf.bak.php
-chown exim4u:apache ../turba/config/conf.php
-chown exim4u:apache ../imp/config/conf.php
-chown exim4u:apache ../kronolith/config/conf.php
-chown exim4u:apache ../mnemo/config/conf.php
-chown exim4u:apache ../nag/config/conf.php
-chown exim4u:apache ../config/conf.php
-chown exim4u:apache ../ingo/config/conf.php
+chmod 770 $webmail_dir/turba/config
+chmod 770 $webmail_dir/imp/config
+chmod 770 $webmail_dir/kronolith/config
+chmod 770 $webmail_dir/mnemo/config
+chmod 770 $webmail_dir/nag/config
+chmod 770 $webmail_dir/config
+chmod 770 $webmail_dir/ingo/config
 #
-chmod -f 660 ../turba/config/conf.bak.php
-chmod -f 660 ../imp/config/conf.bak.php
-chmod -f 660 ../kronolith/config/conf.bak.php
-chmod -f 660 ../mnemo/config/conf.bak.php
-chmod -f 660 ../nag/config/conf.bak.php
-chmod -f 660 ../config/conf.bak.php
-chmod -f 660 ../ingo/config/conf.bak.php
-chmod 660 ../turba/config/conf.php
-chmod 660 ../imp/config/conf.php
-chmod 660 ../kronolith/config/conf.php
-chmod 660 ../mnemo/config/conf.php
-chmod 660 ../nag/config/conf.php
-chmod 660 ../config/conf.php
-chmod 660 ../ingo/config/conf.php
+chown -f exim4u:apache $webmail_dir/turba/config/conf.bak.php
+chown -f exim4u:apache $webmail_dir/imp/config/conf.bak.php
+chown -f exim4u:apache $webmail_dir/kronolith/config/conf.bak.php
+chown -f exim4u:apache $webmail_dir/mnemo/config/conf.bak.php
+chown -f exim4u:apache $webmail_dir/nag/config/conf.bak.php
+chown -f exim4u:apache $webmail_dir/config/conf.bak.php
+chown -f exim4u:apache $webmail_dir/ingo/config/conf.bak.php
+chown exim4u:apache $webmail_dir/turba/config/conf.php
+chown exim4u:apache $webmail_dir/imp/config/conf.php
+chown exim4u:apache $webmail_dir/kronolith/config/conf.php
+chown exim4u:apache $webmail_dir/mnemo/config/conf.php
+chown exim4u:apache $webmail_dir/nag/config/conf.php
+chown exim4u:apache $webmail_dir/config/conf.php
+chown exim4u:apache $webmail_dir/ingo/config/conf.php
+#
+chmod -f 660 $webmail_dir/turba/config/conf.bak.php
+chmod -f 660 $webmail_dir/imp/config/conf.bak.php
+chmod -f 660 $webmail_dir/kronolith/config/conf.bak.php
+chmod -f 660 $webmail_dir/mnemo/config/conf.bak.php
+chmod -f 660 $webmail_dir/nag/config/conf.bak.php
+chmod -f 660 $webmail_dir/config/conf.bak.php
+chmod -f 660 $webmail_dir/ingo/config/conf.bak.php
+chmod 660 $webmail_dir/turba/config/conf.php
+chmod 660 $webmail_dir/imp/config/conf.php
+chmod 660 $webmail_dir/kronolith/config/conf.php
+chmod 660 $webmail_dir/mnemo/config/conf.php
+chmod 660 $webmail_dir/nag/config/conf.php
+chmod 660 $webmail_dir/config/conf.php
+chmod 660 $webmail_dir/ingo/config/conf.php
