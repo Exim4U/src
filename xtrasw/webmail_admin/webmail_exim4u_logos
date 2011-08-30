@@ -1,3 +1,6 @@
+#!/bin/sh
+# Copyright (c) 2011 MailHub4U.com, LLC
+#
 # Script for installing Exim4U logos and favicons in Horde.
 #
 # Copy favicons.
