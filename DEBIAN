@@ -122,6 +122,12 @@ the vacation autoreply files should be stored elsewhere other than the exim db d
 You may specify the directory where these files are stored with the variable, AR_ONCE_FILE, in
 etc/exim/exim4u_local.conf.inc.   
 
+### SPF Perl Module Location ###
+
+In Debian/Ubuntu, the SPF perl module is located at /usr/local/bin/spfd.perl-msq instead of /usr/bin/spfd.perl-msq.
+Therefore, the command to put into /etc/rc.local as described in the INSTALL file should be amended to reflect this
+location (/usr/local/bin instead of /usr/bin).
+
 ### Exim Versions Prior To 4.71 - Disabling DKIM ###
 
 If the following error is reported when starting exim4, then you probably are running an Exim version
