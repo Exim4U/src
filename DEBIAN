@@ -124,9 +124,11 @@ etc/exim/exim4u_local.conf.inc.
 
 ### SPF Perl Module Location ###
 
-In Debian/Ubuntu, the SPF perl module is located at /usr/local/bin/spfd.perl-msq instead of /usr/bin/spfd.perl-msq.
+In Debian/Ubuntu, the SPF perl module is located at /usr/local/bin/spfd instead of /usr/bin/spfd.perl-msq.
 Therefore, the command to put into /etc/rc.local as described in the INSTALL file should be amended to reflect this
-location (/usr/local/bin instead of /usr/bin).
+location as follows:
+
+	/usr/local/bin/spfd -path=/tmp/spfd --socket-user Debian-exim --socket-group Debian-exim --set-user Debian-exim &
 
 ### Exim Versions Prior To 4.71 - Disabling DKIM ###
 
@@ -181,6 +183,10 @@ setting of:
 This default works with RedHat/CentOS, however, on Debian that line should read:
 
 	av_scanner = clamd:/var/run/clamav/clamd.ctl
+
+It has been reported that on Ubuntu 11.04 this line should read:
+
+	av_scanner = clamd:/var/run/clamav/clamd.sock
 
 4) SPAMASSASSIN
 
