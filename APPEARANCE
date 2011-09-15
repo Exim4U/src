@@ -208,66 +208,25 @@ To use check-exim4u.gif as the check mark:
 
 6) Webmail (Horde) - Customize Theme, Images And Logos
 
-Exim4U's webmail uses the Horde Silver Surfer theme. You may substitute your preferred Horde theme
-in the file:
+Exim4U's webmail and Horde now both use the Horde Silver Surfer theme. 
+You may change your preferred Horde theme in the file:
 
-	home/exim4u/public_html/webmail/config/prefs.php
+	webmail/config/prefs.local.php
 
-The theme section appears in the prefs.php file as follows:
+Change/add the following line in webmail/config/prefs.local.php
+substituting your preferred theme for CHANGE_THEME_NAME:
 
-	// UI theme 
-	$_prefs['theme'] = array( 
-	    'value' => 'silver',  
-	    'locked' => false, 
-	    'shared' => true, 
-	    'type' => 'select', 
-	    'desc' => _("Select your color scheme.")
+	$_prefs['theme'] ['value'] = 'CHANGE_THEME_NAME';
 
-Search the prefs.php file for "UI theme" and modify the 'value' parameter to specify your preferred
-theme.
+The preferred method for customizing the icons and logos is to change the
+logo/icon files used by the shell script:
 
-You may replace or remove the logo below the login credentials on the Webmail Groupware login page.
-The login page logo is located here:
+	xtrasw/webmail_admin/webmail_exim4u_logos
 
-	home/exim4u/public_html/webmail/themes/silver/graphics/horde-power1.png
+These files are located in xtrasw/webmail_admin/logos.  There are three image files
+that may be customized:
 
-To change this logo, simply replace horde-power1.png with your preferred logo file by copying your
-preferred logo file to horde-power1.png. Please note that your logo should be converted to a .png file.
-Alternatively, to remove this logo altogether, replace the horde-power1.png file with:
+	favion.ico - Favicon .ico file.
+	favicon.png - Favicon .png file.
+	horde-power1_52px_WebmailGroupware3.png - Login page image.
 
-	home/exim4u/public_html/exim4u/images/clearpixel.png
-
-To replace the logo on the top of the sidebar with your logo (Traditional Mode only), login to Webmail's
-Traditional Mode as Administrator and go to:
-
-	Administration > Setup > Webmail Groupware (horde) > Menu
-
-Then, place the url for your preferred logo in the next to last field which is $conf[logo]. You can
-also specify a link for the logo in the last field which is $conf[logo][link]. 
-
-The small favicon size icon that is found in various places in both the Traditional and Dynamic mode is
-located here: 
-
-	/home/exim4u/public_html/webmail/themes/silver/graphics/horde.png
-
-To change this icon simply replace horde.png with your preferred logo file by copying your
-preferred logo file to horde.png. Please note that your logo should be converted to a .png file.
-Alternatively, to remove this icon altogether, replace the horde.png file with:
-
-        home/exim4u/public_html/exim4u/images/clearpixel.png
-
-Webmail's favicon files are located here:
-
-	home/exim4u/public_html/webmail/favicon.ico
-	home/exim4u/public_html/webmail/ingo/themes/silver/graphics/favicon.ico
-	home/exim4u/public_html/webmail/kronolith/themes/silver/graphics/favicon.ico
-	home/exim4u/public_html/webmail/dimp/themes/silver/graphics/favicon.ico
-	home/exim4u/public_html/webmail/imp/themes/silver/graphics/favicon.ico 
-	home/exim4u/public_html/webmail/turba/themes/silver/graphics/favicon.ico
-	home/exim4u/public_html/webmail/mnemo/themes/silver/graphics/favicon.ico
-	home/exim4u/public_html/webmail/nag/themes/silver/graphics/favicon.ico
-	home/exim4u/public_html/webmail/themes/silver/graphics/favicon.ico
-	home/exim4u/public_html/webmail/mimp/themes/graphics/favicon.ico
-
-You may replace these favicons with your preferred favicon by coping your preferred favicon to the
-above file locations.

@@ -1,50 +1,90 @@
-               Exim4U Webmail Installation Documentation
+               Exim4U Webmail Groupware Installation Documentation
 
+Exim4U Webmail Groupware is a modified version of Horde Groupware Webmail. Prior
+versions of Exim4U included Webmail Groupware that was based on Horde Version 3
+whereas this Exim4U version (Exim4U version 2.0 and later) includes Webmail Groupware 
+that is based on Horde Version 4. Horde Version 4 is a significant upgrade over Horde
+Version 3 with much improved AJAX frontends for the various Horde modules along with
+a new installation process using the PEAR installer. Prior versions of Exim4u included
+Webmail Groupware in the tar format whereas Exim4u version 2.0 and later will rely on the
+Horde PEAR installer. The Horde PEAR installer has several advantages including a much
+easier installation/configuration process and installations may be updated at will
+immediately after new Horde versions are released.
+
+This WEBMAIL instruction file includes the necessary instructions for installing,
+upgrading and maintaining Exim4U Webmail Groupware using the Horde PEAR installer.
+Once installed, Horde is then easily customized for Exim4U using three shell
+scripts which transform Horde Groupware Webmail into Exim4u Webmail Groupware.
+Additional configuration instructions are included but are optional according to
+the needs of each individual installation.
 
 The following is the table of contents for this file:
 
-	1) First Time Installation Instructions
-	2) Upgrading An Existing Installation
-	3) Example Apache Configuration
-	4) File Permissions
-	5) Generic Horde Documentation
+	1) Horde PEAR Installation Documents
+	2) Webmail Groupware Prerequisite Software
+	3) First Time Installation Instructions
+	4) Upgrading An Existing Installation
+	5) Recommended Configuration Settings
+	6) File Permissions
+	7) Customizing Preferences And Appearance
+	8) Exim4U Shell Scripts
+
+Table of Contents items 1 and 2 are provided primarily for reference purposes. In most
+cases, you may skip directly to item 3 for first time installations or item 4 for upgrades.  
 
 
-1) First Time Installation Instructions
+1) Horde PEAR Installation Documents
 
-The Webmail software provided with Exim4U is a modified version of the Horde
-Groupware Suite. Horde can be difficult to install, however, we will hopefully
-demonstrate how to get it done easily with Exim4U.
+The Horde INSTALL document is available at the following link:
 
-First, copy home/exim4u/public_html/webmail from this Exim4U distribution to the
-webmail directory in your web root directory. Copy the files and set the ownerships:
+	http://www.horde.org/apps/webmail/docs/INSTALL
 
-From within this distribution's home/exim4u/public_html/webmail directory execute:
-        cp -r * <target document root directory>/webmail
-        chown -R <directory owner>:apache <target document root directory>/webmail
-Example:
-        cp -r * /home/exim4u/public_html/webmail
-        chown -R exim4u:apache /home/exim4u/public_html/webmail
+The Horde UPGRADING document is available at the following link:
 
-Make sure that all files and directories are read-writable by the owner (exim4u)
-and are readable by the group (apache).
+	http://www.horde.org/apps/webmail/docs/INSTALL
 
-You must install DOM XML support for your Linux distro. To install DOM XML
-support on RedHat/CentOS 5:
 
-                yum install php-dom
-                service httpd restart
+2) Webmail Groupware Prerequisite Software
 
-You may now proceed to the Horde INSTALL file in the home/exim4u/public_html/webmail/docs
-directory but skip the “Quick Install” and start by reviewing the “Prerequisites”
-section. Then, proceed to the section entitled "Configuring Horde Groupware Webmail
-Edition" and follow the instructions.
+All prerequisite software required for Horde Version 4 must be installed as listed
+in the Horde INSTALL file.
 
-Continue with step number 2 in the section entitled: “Configuring Horde Groupware
-Webmail Edition”.  Run the script, home/exim4u/public_html/webmail/scripts/setup.php,
-and select options 1, 2 and 3 in scripts/setup.php.
+The most siginificant new requirement is PHP 5.2.0 or higher. 
 
-Run option 1 of scripts/setup.php and reply to the dialog as follows:
+
+3) First Time Installation Instructions
+
+First time installations are defined as follows:
+ 
+        - New Exim4U Webmail Groupware Installation 
+          (eg.: New Horde 4 Groupware Webmail Installation)
+        - Upgrade of Webmail Groupware from Exim4U versions prior to 2.0 
+          (eg.: Upgrade from Horde Groupware Webmail versions prior to Horde 4.)
+
+Comprehensive installation instructions are included in the Horde INSTALL file at the
+above link listed in Section 1 entitled Horde PEAR Installation Documents. The following
+instructions are more brief and will suffice for most installations.
+
+Run the following commands to setup the horde pear channel:
+
+	pear channel-discover pear.horde.org
+	pear install horde/horde_role
+	pear run-scripts horde/horde_role
+
+Then, execute the following command to install Horde Groupware Webmail Edition:
+
+	pear install -a -B horde/webmail 
+
+For first time installations the horde mysql user and horde mysql database must be
+setup using mysql or phpmyadmin.  The horde user must be setup as follows:
+
+	user=horde, host=localhost, password set, global privileges=Usage, Grant=No.
+
+Then run:
+
+	webmail-install.
+
+Answer the questions from webmail-install as follows:
 
 	- What database to use: mysql
 	- Persistent connections: No
@@ -55,75 +95,207 @@ Run option 1 of scripts/setup.php and reply to the dialog as follows:
 	  Refer to your documentation for the socket location on other distros.
 	- Database name to use: horde
 	- Character set: utf-8
-	- Use SSL to connect to server: No (Unless your mysql server is remote.)
 	- Certificate Authority: None (Unless your mysql server is remote.)
 	- Split Reads: Disabled
-
-Now, run option 2 to create your mysql database for webmail. Respond to the dialog
-with your mysql superuser name and password. If for some reason the script does not
-run option 2 successfully in configuring mysql then you may alternatively setup the
-mysql database manually. To do this, go to home/exim4u/public_html/webmail/scripts/sql
-and proceed as follows:
-
-	Edit the first few lines of the file, groupware.mysql.sql, and change the
-	PASSWORD value from 'horde' to your secure password that you specified
-	above in option 1 of scripts/setup.php. The line that you edit appears as
-	PASSWORD('horde') as follows:	
-
-		-- IMPORTANT: Change this password.
-        		PASSWORD('horde')
-	
-	Then, execute the following command:
-
-		mysql -u<username> -p<password> < groupware.mysql.sql
-
-		where: 	<username> = Your MySQL root username
-               		<password> = Your MySQL root username's password
-
-	For example, if <username> = root
-        	        <password> = secret
-
-	Then, the command would be:
-
-	mysql -uroot -psecret < groupware.mysql.sql
-
-	The mysql_create.sql script will create a database called 'horde', and a user
-	called 'horde' (with your password) that has full rights to the database. 
-	Refer to the README file in the home/exim4u/public_html/webmail/scripts/sql/ 
-	directory for more info. After running this script, restart the mysql server:
-
- 	mysqladmin -uroot -p reload  (where root = MySQL root user)
-
-	Then check if its working OK and that you can access mysql with the horde
-	login that was created by the script:
-
-	mysql -uhorde -p<horde>
+	- Administrator Email Address: Enter a valid Admin email address.
 
 In the future, you can use mysql or phpmyadmin to access the horde data base
-and change the mysql horde password as desired.  Webmail (Horde) stores the mysql
-password in home/exim4u/public_html/webmail/config/conf.php so you need to
-set the mysql password here as well.
+and change the mysql horde password as desired.
 
-Now, you can run scripts/setup.php but only run option 3 to configure the admin 
-settings which is the email address for admin. Continue on Step 3 in the 
-docs/INSTALL file and setup the Horde alarms in Horde. Now you are done with 
-the /docs/INSTALL file.
+Set the ownerships and permissions as described in Section 6 of this WEBMAIL document
+entitled File Permissions.
+
+Install the Exim4U preferences and appearance features with the following two scripts
+in the xtrasw/webmail_admin directory.  These two scripts should be run from
+within the webmail_admin directory as follows:
+
+	./webmail_exim4u_prefs
+	./webmail_exim4u_logos
+
+Then, as outlined in step 7 of the Horde INSTALL file under section 1 entitled Quick Install,
+run:
+
+        https://<domainname.com>>/webmail/test.php  (if using SSL)
+or;
+        http://<domainname.com>>/webmail/test.php  (if not using SSL)
+
+Keep installing pear and pecl modules until all red colored prerequisites are
+gone in the test.php scripts display.
+
+Lastly, check your file permissions again as described in section 6 of this WEBMAIL document. 
+
+Finally, you can access webmail's web interface with:
+
+	https://<domainname.com>>/webmail
+	or;
+	http://<domainname.com>>/webmail
+
+Use the email address that you specified when you ran webmail-install and the associated
+password to login to Webmail as the Administrator..
+
+
+4) Upgrading An Existing Installation
+
+Comprehensive upgrading instructions are included in the Horde UPGRADING file at the
+above link listed in Section 1 entitled Horde PEAR Installation Documents. The following
+instructions are more brief and will suffice for most installations.
+
+Execute the following command to upgrade Horde Groupware Webmail Edition:
+
+        pear upgrade -a -B horde/webmail
+
+Set the ownerships and permissions as described in Section 6 entitled File Permissions.
+
+Install the Exim4U appearance features with the following script from this distribution
+at xtrasw/webmail_admin.  This script should be run from the webmail_admin directory as:
+
+        ./webmail_exim4u_logos
+
+You should not ever need to reinstall the Exim4U preferences after upgrades since the
+files are stored as *.local.conf, however, if you want to reinstall the Exim4U prefereneces
+then run the following script:
+
+	./webmail_exim4u_prefs
+
+5) Recommended Configuration Settings
+
+Log into the horde web interface and make the following changes:
+
+	Go to: 	Adminstration > Configuration > Groupware (horde) > General Tab
+
+	Change the following setting which specifies the directory for Webmail Groupware
+	relative to Apache's document root:
+
+		$conf['cookie']['path'] = '/webmail'   <-- Define path from document root.
+
+	Afterward, save changes by “Generate Horde Configuration".
+
+	Go to: Adminstration > Configuration > Groupware (horde) > Spell Checker
+
+	Specify to use the aspell command line for spell checking:
+
+		$conf[spell] [driver] = aspell (command line)
+
+	Specify the location of the aspell binary:
+
+		$conf[spell] [params][path] = /usr/bin/aspell   <-- Path to aspell.
+
+	Afterward, save changes by “Generate Horde Configuration".
+
+	Go to: Adminstration > Configuration > Groupware (horde) > Mailer Tab
+
+	Change the following settings:
+
+	 	Mailer: “Use a SMTP server”.
+		Host: “localhost”
+		Port: “25”
+		Local hostname/domain: “localhost”
+		SMTP Authentication: “No Authentication”
+
+	Afterward, save changes by “Generate Horde Configuration".
+
+	Go to Administration > Setup > Horde > Database
+
+	Verify the following:
+
+	        Database: Mysql
+        	Persistent connections: Yes (Check)
+        	User Name: horde
+        	Password: CHANGE
+        	Database Connection: UNIX Sockets
+        	Socket: /var/lib/mysql/mysql.sock
+        	Database Name: horde
+        	Charset: utf-8
+        	Split Reads: Disabled
+
+	Afterward, save changes by “Generate Horde Configuration".
+
+	Go to Adminstration > Configuration > Groupware (horde) > Logging
+
+	Change the following settings:
+
+		$conf[log][type]: File
+       		$conf[log][name]: /tmp/horde.log   <-- Creates Horde Log File at /tmp/horde.log
+
+	Afterward, save changes by “Generate Horde Configuration".
+
+	Go to Adminstration > Configuration > Groupware (horde) > Menu Tab
+
+	Select the following apps:
+
+		imp, ingo, kronolith, mnemo, nag and turba.
+
+	Afterward, save changes by “Generate Horde Configuration".
+	
+  	Now, go to each application (Administration > Configuration > App name) and specify
+	the menu tab accordingly for Address Book, Calendar, Filters, Mail, Notes and Tasks..  
+
+Configure METAR Weather For Horde Portal Home Page
+
+	Install the PEAR Services_Weather module as root from the command line:
+
+		pear install Services_Weather
+
+	Then, go to Horde Portal > Add Content > Add > Groupware Metar Weather
+
+	You should now be able to pick a location and setup weather preferences. However,
+	if the Location fields do not include any choices then you will need to do the
+	following:
+
+		cd /usr/share/pear/data/Services_Weather
+
+		Modify line 273 in buildMetarDB.php file from:
+			
+			if (extension_loaded("zlib")) {
+		to:
+			if (extension_loaded("zlibXXXX")) {
+
+		php buildMetarDB.php -a -u horde_db_user -p horde_db_pass -d horde_db
+		php buildMetarDB.php -l -u horde_db_user -p horde_db_pass -d horde_db
+
+		The horde_db_user is usually named "horde" and the horde_db is also
+		usually named "horde".If database is not on localhost, you might add
+		 options -h <hostname> and -r tcp.
+
+	Now, check the metarAirports and metarLocations tables in the horde database and
+	they should be populated with metar data sites.
+
+	See: http://wiki.horde.org/MetarWeather?referrer=HowTo
+
+
+6) File Permissions
+
+When your installation or upgrade is complete the last thing that you should do
+is check the file permissions for the configuration files.
+
+Set the ownership group for the webmail directory and all of its contents so that it is
+readable by Apache. This can be done as follows (for RedHat/CentOS):
+
+        chown -R exim4u:apache webmail
+        chmod -R g+r webmail
+
+If your Apache version runs as a different user/group then you should modify the chown
+command accordingly.
 
 There are a number of configuration files that require read/write apache permission.
 There is a script to set these permissions automatically in this distribution at
 xtrasw/webmail_admin/webmail_fix_ownerships.  This script should be run from the
-./webmail directory. If this is the first time that the webmail_fix_ownerships script
-has been run prior to running webmail with a browser then you may get the following
-error message which should be ignored:
+webmail_admin directory as:
 
-	chown: cannot access `./config/conf.bak.php': No such file or directory
-	chmod: cannot access `./config/conf.bak.php': No such file or directory
+        ./webmail_fix_ownerships
 
-conf.bak.php is re-created every time that conf.php is written by the Webmail Groupware
-application using Administration > Setup > Generate Webmail Groupware Configuration. On
-a new installation, conf.bak.php has not yet been created which results in the above 
-error message. The file permissions of conf.bak.php should be verified whenever the   
-Webmail Groupware Configuration Configuration is regenerated.
+If your Apache version runs as a different user/group then you should modify the chown
+commands in the webmail_fix_ownerships script accordingly.
+
+These are the directories that must have read and write permission for the apache user:
+
+webmail/turba/config
+webmail/imp/config
+webmail/kronolith/config
+webmail/mnemo/config
+webmail/nag/config
+webmail/config
+webmail/ingo/config
 
 These are the files that must have read and write permission for the apache user:
 
@@ -132,7 +304,6 @@ webmail/imp/config/conf.bak.php
 webmail/kronolith/config/conf.bak.php
 webmail/mnemo/config/conf.bak.php
 webmail/nag/config/conf.bak.php
-webmail/mimp/config/conf.bak.php
 webmail/config/conf.bak.php
 webmail/ingo/config/conf.bak.php
 webmail/turba/config/conf.php
@@ -140,8 +311,6 @@ webmail/imp/config/conf.php
 webmail/kronolith/config/conf.php
 webmail/mnemo/config/conf.php
 webmail/nag/config/conf.php
-webmail/mimp/config/conf.php
-webmail/dimp/config/conf.php
 webmail/config/conf.php
 webmail/ingo/config/conf.php
 
@@ -155,207 +324,20 @@ Example:
 
         chmod 660  /home/exim4u/public_html/webmail/config/conf*php
 
-Then, as outlined in step 4 of the Configuring Horde Groupware Webmail Edition
-section, run:
 
-        https://<domainname.com>>/webmail/test.php  (if using SSL)
-or;
-        http://<domainname.com>>/webmail/test.php  (if not using SSL)
+7) Customizing Preferences And Appearance
 
-Keep installing pear and pecl modules until all red colored prerequisites are
-gone in the test.php scripts display.  Also, several yellow colored prerequisites
-will remain including “PostgreSQL Support” and “memory_limit_value: 96M” which
-keeps on being displayed even if set it to values over 64M. This is OK.
+You may customize the Preferences and Appearance as desired. Refer to the APPEARANCE file
+in this distribution's root directory for customizing Webmail Groupware's appearance. You
+may also modify the *.local.php files in the various Horde module directories to change
+your preferences. Refer to the preference modifications in the *.local.php files in 
+the xtrasw/webmail_admin/webmail_exim4u_prefs script for further guidance.
 
-Lastly, check your file permissions again as described in section 4 of this WEBMAIL document. 
+8) Exim4U Shell Scripts
 
-Finally, you can access webmail's web interface with:
+Three shell scripts are provided in the xtrasw/webmail_admin directory as follows:
 
-	https://<domainname.com>>/webmail
-	or;
-	http://<domainname.com>>/webmail
-
-Use the email address that you specified when you ran option 3 in
-scripts/setup.php and the associated password to login to Webmail.
-
-After you log into Webmail's web interface, go to:
-
-	Administration > Setup > Webmail Groupware (horde) > Mailer Tab 
-
-and change settings as follows (afterward, save changes by 
-“Generate Horde Configuration”):
-
- 	Mailer: “Use a SMTP server”.
- 	Host: “localhost”
- 	Port: “25”
- 	Local hostname/domain: “localhost”
- 	SMTP Authentication: “No Authentication”
-
-You can now optionally customize the menus at the top of the screen for
-each Webmail application (such as mail, calendar, etc.).  As an example,
-go to:
-
-	Administration > Setup > Webmail Groupware (horde) > Menu Tab
-
-and select the following apps: imp, ingo, kronolith, nimp, mnemo, nag
-and turba.  DO NOT CONFIGURE THE IMP (MAIL) MENU.  Leave the imp menu
-empty since it includes everything by default. Otherwise, it will cause
-duplicate menus for imp and the other apps.
-
-Go to Administration > Setup > Horde > Database and verify the following:
-
-	Database: Mysql
-	Persistent connections: Yes (Check)
-	User Name: horde
-	Password: CHANGE
-	Database Connection: UNIX Sockets
-	Socket: /var/lib/mysql/mysql.sock
-	Database Name: horde
-	Charset: utf-8
-	Split Reads: Disabled
-
-Go to Administration > Setup > Horde > DataTree System and verify the
-following:
-
-	Backend: SQL Database
-	Driver Config: Horde Defaults
-
-After you have performed all of these configuration tasks then once again
-check your file permissions as described in section 4 of this WEBMAIL document. 
-
-The horde log is /tmp/horde.log.
-
-
-2) Upgrading An Existing Installation
-
-These instructions may be used when upgrading to a new version of
-Exim4U's Webmail from another Exim4U Webmail installation or from a
-native Horde installation.
-
-As the root system user, make a backup of the mysql database with either
-phpMyAdmin or with MySQL as follows:
-
-	mysqldump --add-drop-table -u<rootuser> -p horde > <Backup File Name>
-
-	where	<rootuser> = MySQL Root User
-		<Backup File Name> = Name Of Backup File
-
-For example, if <rootuser> = root and <Backup File Name> = /home/exim4u/webmail.backup
-then the command would be:
-
-	mysqldump --add-drop-table -uroot -p horde > /home/exim4u/webmail.backup
-
-Copy the new Webmail version to a sister directory such as:
-
-	/home/exim4u/public_html/webmail_new
-
-Run scripts/setup.php from within the new installation and choose the
-“Update From Older Horde Installation” option in the setup menu. Follow the dialog
-and the upgrade should complete successfully. Afterward, you must change the root
-directory from “webmail_new” to “webmail” by either editing config/conf.php or
-within Webmail using:
-
-	Administration > Setup > Webmail Groupware (horde) > General > $conf[cookie][path]
-
-If the login quits working during this procedure then you need to erase your cookies
-in your browser.
-
-Lastly, set your file permissions as described in section 4 of this WEBMAIL document. 
-
-Also, refer to the home/exim4u/public_html/webmail/docs/UPGRADING file in this Exim4U
-distribution and to the Horde instructions for upgrading at:
-
-	http://www.horde.org/webmail/docs/?f=UPGRADING.html
-
-
-3) Example Apache Configuration
-
-Here is an example Apache configuration for horde:
-
-#
-# webmail
-#
-<Directory /home/exim4u/public_html/webmail>
-    # Uncomment the following 3 lines to make webmail locally accessible only
-    #Order Deny,Allow
-    #Deny from all
-    #Allow from 127.0.0.1
-
-    Options +FollowSymLinks
-
-    # Webmail's recommended PHP settings:
-    php_admin_flag safe_mode off
-    php_admin_flag magic_quotes_runtime off
-    php_flag session.use_trans_sid off
-    php_flag session.auto_start off
-    php_admin_flag file_uploads on
-    # Optional - required for weather block in webmail to function
-    php_admin_flag allow_url_fopen on
-
-    # If webmail dies while trying to handle large email file attachments,
-    #  you are probably hitting PHP's memory limit.  Raise that limit here,
-    #  but use caution
-    # Set to your preference - memory_limit should be at least 32M
-    #  and be greater than the value set for post_max_size
-    #php_value memory_limit 32M
-    #php_value post_max_size 20M
-    #php_value upload_max_filesize 10M
-
-    # /usr/share/pear is needed for PEAR. /var/www/html/webmail is needed for webmail itself
-    # TODO: Set an appropriate include_path, too. Might even increase speed a bit.
-    php_admin_value open_basedir "/home/exim4u/public_html/webmail:/home/exim4u/public_html/webmail/config:/usr/share/pear:/tmp"
-    php_admin_flag register_globals off
-</Directory>
-
-<Directory /home/exim4u/public_html/webmail/config>
-    Order Deny,Allow
-    Deny from all
-</Directory>
-
-# Deny access to files that are not served directly by the webserver
-<DirectoryMatch "^/home/exim4u/public_html/webmail/(.*/)?(config|lib|locale|po|scripts|templates)/(.*)?">
-    Order Deny,Allow
-    Deny from all
-</DirectoryMatch>
-#
-
-
-4) File Permissions
-
-When your installation or upgrade is complete the last thing that you should do
-is check the file permissions for the configuration files.
-
-There are a number of configuration files that require read/write apache permission.
-There is a script to set these permissions automatically in this distribution at
-xtrasw/webmail_admin/webmail_fix_ownerships. This script should be run from the
-./webmail directory.
-
-Don't forget that the siteadmin password is stored in /webmail/config/conf.php
-and is backed up to webmail/config/conf.bak.php.  So, these files should be set
-so that the owner has read/write access, the group (apache) has read/write access
-and all other users have no access:
-
-        chmod 660 <target document root directory>/webmail/config/conf*php
-Example:
-
-        chmod 660  /home/exim4u/public_html/webmail/config/conf*php
-
-If the webmail file permissions ever appear to have become mangled
-then, while this is a bit sloppy, you can try resetting them with:
-
-From within this directory execute:
-        chmod -R 755 <target document root directory>/webmail
-Example:
-        chmod -R 755 /home/exim4u/public_html/webmail
-
-After which you should then reset the configuration file permissions as described
-above in the first three paragaphs of this section 4 entitled File Permissions.
-
-
-5) Generic Horde Documentation
-
-Horde's documentation may be found at:
-
-     http://www.horde.org/documentation.php
-
+./webmail_exim4u_logos - Script for installing the Exim4U appearance features (logos and icons).
+./webmail_exim4u_prefs - Script for installing the Exim4U preferences.
+./webmail_fix_ownerships - Script for properly setting file permissions.
 
