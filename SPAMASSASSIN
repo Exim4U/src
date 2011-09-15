@@ -4,23 +4,22 @@ These instructions cover Exim4U's recommended SpamAssassin implementation which 
 the following default components, add-on modules and modifications:
 
 1) SA Rules Channel - The default SpamAssassin rules.
-2) Open Protect Rules Channel - Additional rules from SARE (SpamAssassin Rules Emporium).
-3) Razor - Collaborative spam detection add-on using statistical signatures.
-4) DCC - Collaborative spam detection add-on using distributed checksums.
-5) Pyzor - Collaborative spam detection add-on using statistical signatures.
-6) Modifying SpamAssassin's Global and PAM User Account Settings
-7) Whitelisting in SpamAssassin
-8) Adding Spamscore Points For Mail With Links To Sites Commonly Abused By Spammers
-9) Disabling URIBL and SURBL RBL Checks in SpamAssassin
-10) Setting The required_score And report_safe Values
-11) Testing SpamAssassin
+2) Razor - Collaborative spam detection add-on using statistical signatures.
+3) DCC - Collaborative spam detection add-on using distributed checksums.
+4) Pyzor - Collaborative spam detection add-on using statistical signatures.
+5) Modifying SpamAssassin's Global and PAM User Account Settings
+6) Whitelisting in SpamAssassin
+7) Adding Spamscore Points For Mail With Links To Sites Commonly Abused By Spammers
+8) Disabling URIBL and SURBL RBL Checks in SpamAssassin
+9) Setting The required_score And report_safe Values
+10) Testing SpamAssassin
 
-The SA Rules Channel and the Open Protect Rules Channel rely on the sa-update command
-to check for updates to their spam detection rules as described in Steps 1 and 2
-below. These rules change but they do not change frequently.  Therefore, crontab
-should be utilized to have sa-update run periodically to fetch any updates to
-these spam detection rules. sa-update should be run no more often than once per
-day and once per week is generally sufficient.
+The SA Rules Channel relies on the sa-update command to check for updates to
+its spam detection rules as described in Step 1 below. These rules change but
+they do not change frequently.  Therefore, crontab should be utilized to have
+sa-update run periodically to fetch any updates to these spam detection rules.
+sa-update should be run no more often than once per day and once per week is
+generally sufficient.
 
 Razor, DCC and Pyzor are very similar in methodology, however, it is beneficial to use
 all three add-ons since each of the three spam data bases are unique.  In other
@@ -85,27 +84,7 @@ will be higher thus leading to better spam detection.
 
         /etc/init.d/spamassassin restart
 
-2) Install Open Protect Rules Channel
-
-   Follow the instructions verbatim at:
-
-	http://saupdates.openprotect.com/
-
-   After installing Open Protect's channel then run sa-update in debug mode as follows
-   and review the    output:
-
-	/usr/bin/sa-update --allowplugins -D --gpgkey D1C035168C1EBC08464946DA258CDB3ABDE9DC10 \
-        --channel saupdates.openprotect.com --channel updates.spamassassin.org
-
-   Continue installing any perl modules that are not installed as per the report. SpamAssassin
-   must be restarted after each sa-update execution for the changes to take effect:
-
-	/etc/init.d/spamassassin restart
-
-   Continue installing Perl modules until sa-update runs without any "module not installed"
-   errors
-
-3) Razor Plugin For SpamAssassin
+2) Razor Plugin For SpamAssassin
 
    Follow these installation instructions for a source code install:
 
@@ -125,7 +104,7 @@ will be higher thus leading to better spam detection.
 
         /etc/init.d/spamassassin restart
 
-4) DCC Plugin For SpamAssassin
+3) DCC Plugin For SpamAssassin
 
    The DCC plugin for spamassassin is found here:
 
@@ -216,7 +195,7 @@ will be higher thus leading to better spam detection.
 
         /etc/init.d/spamassassin restart 
 
-5) Pyzor SpamAssassin Installation
+4) Pyzor SpamAssassin Installation
 
    The Pyzor home page is:
 
@@ -280,7 +259,7 @@ will be higher thus leading to better spam detection.
 	spamassassin -D pyzor < sample-spam.txt  (sample-spam.txt is the GTUBE spam test file)
 
 
-6) SpamAssassin Global and PAM User Account Settings
+5) SpamAssassin Global and PAM User Account Settings
 
    You may add new rules to your SpamAssassin configuration by modifying the following files:
 
@@ -292,7 +271,7 @@ will be higher thus leading to better spam detection.
    and on a domain basis. For example, senders can be whitelisted and/or blacklisted, URL spamscores can be
    adjusted/blacklisted/whitelisted and RBLs added. 
 
-7) Whitelisting in SpamAssassin
+6) Whitelisting in SpamAssassin
 
    It is recommended that the "whitelist_from_rcvd" parameter be used for whitelisting email addresses
    since it is more secure than the "whitelist_from" parameter because it allows you to also specify the
@@ -310,7 +289,7 @@ will be higher thus leading to better spam detection.
 
    See: http://spamassassin.apache.org/full/3.2.x/doc/Mail_SpamAssassin_Conf.html#whitelist_and_blacklist_options
 
-8) Adding Spamscore Points For Mail With Links To Sites Commonly Abused By Spammers
+7) Adding Spamscore Points For Mail With Links To Sites Commonly Abused By Spammers
 
    Many spammers have recently resorted to hijacking web pages on public share sites such as Live Journal,
    Google Notebook, Google Reader, Google Groups and Yahoo Groups. The large ISPs are slow to shutdown these
@@ -323,7 +302,7 @@ will be higher thus leading to better spam detection.
         uri     GOOGLENOTEBOOK  /google.com\/notebook\/public/
         score   GOOGLENOTEBOOK  3.0
 
-9) Disabling URIBL/SURBL/DBL RBL Checks in SpamAssassin
+8) Disabling URIBL/SURBL/DBL RBL Checks in SpamAssassin
 
    Exim4U checks the URIBL, SURBL and DBL lists within exim's ACLs. Therefore, you may disable the URIBL/SURBL/DBL
    RBL checks in spamassassin by setting all the score values to zero in /etc/mail/spamassassin/local.cf:
@@ -340,7 +319,7 @@ will be higher thus leading to better spam detection.
 	score   URIBL_JP_SURBL  0.0
 	score   URIBL_DBL_SPAM  0.0
 
-10) Setting The required_score And report_safe Values
+9) Setting The required_score And report_safe Values
 
    The required_score and report_safe values are set globally in the file: /etc/mail/spamassassin/local.cf.
 
@@ -356,7 +335,7 @@ will be higher thus leading to better spam detection.
 
 	report_safe 0
 
-11) Testing SpamAssassin:
+10) Testing SpamAssassin:
 
    To test SpamAssassin:
 
