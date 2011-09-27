@@ -67,4 +67,3 @@ call exim4u.AddColumnUnlessExists('exim4u', 'users', 'on_spambox', 'tinyint(1) u
 call exim4u.AddColumnUnlessExists('exim4u', 'users', 'on_spamboxreport', 'tinyint(1) unsigned NOT NULL default 0'); 
 
 drop procedure exim4u.AddColumnUnlessExists;
-
