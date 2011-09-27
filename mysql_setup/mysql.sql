@@ -159,7 +159,7 @@ VALUES
 );
 
 -- Fix password when using DES encrypted password:
--- UPDATE `vexim`.`users` SET `crypt` = '0Apup3ZbF9RPg'
+-- UPDATE `exim4u`.`users` SET `crypt` = '0Apup3ZbF9RPg'
 --   WHERE `user_id` = '1' LIMIT 1 ;
 
 
