@@ -1,4 +1,4 @@
-# GLOBAm4u_backup_mx_rl_host_names VIRUS AND SPAMASSASSIN SETTINGS
+# GLOBAL VIRUS AND SPAMASSASSIN SETTINGS
 #
 # ClamAV Global Setting
 # When enabled, Exim4U uses ClamAV to scan incoming mail for viruses during
