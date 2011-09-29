@@ -19,14 +19,17 @@
 	SPAMASSASSIN
 	CHANGELOG
 	VERSION
-  2) Exim Configuration Files - Copy the following files to your live
-     installation from the Exim4U 2.0.1 distribution's root directory.
-     Be sure to make a backup copy of your 1.2.4 version files prior
-     to overwriting/deleting them.
-	etc/exim/exim.conf
-	etc/exim/exim-mailinglist-router.conf.inc
-	etc/exim/exim-mailinglist-transport.conf.inc
-     Restart exim.
+  2) Simple Mailing List - Data Base Upgrade Script - Copy the following script to
+     your live installation from the Exim4U 1.2.5 distribution's root directory:
+        mysql_migrate/mysql_mailing_list.sql
+     This script updates the exim4u database to include the necessary database
+     tables and fields to support the Simple Mailing List. Proceed by running
+     the following command:
+        mysql -u<user_name> -p<password> exim4u < mysql_mailing_list.sql
+     where: <username> = Your MYSQL root username
+            <password> = Your MYSQL root username's password
+     For example, for user_name=MYNAME and password=SECRET then the command would be:
+        mysql -uMYNAME -pSECRET exim4u < mysql_mailing_list.sql
   3) Exim4U Email Admin (PHP) - Copy the contents of the following directory
      (including subdirectories and files) to your live installation from the
      Exim4U 2.0.1 distribution's root directory:
@@ -37,18 +40,14 @@
         home/exim4u/public_html/exim4u/config/variables.php
      Alternatively, you may simply use the variables.php file from your backup
      of the 1.2.5 installation.
-  4) Simple Mailing List Data Base Upgrade Script - Copy the following script to
-     your live installation from the Exim4U 1.2.5 distribution's root directory:
-        mysql_migrate/mysql_mailing_list.sql
-     This script updates the exim4u database to include the necessary database
-     tables and fields to support the Simple Mailing List. Proceed by running
-     the following command:
-        mysql -u<user_name> -p<password> exim4u < mysql_migrate/mysql_mailing_list.sql
-     where: <username> = Your MYSQL root username
-            <password> = Your MYSQL root username's password
-     For example, for user_name=MYNAME and password=SECRET then the command would be:
-        mysql -uMYNAME -pSECRET exim4u < mysql_migrate/mysql_mailing_list.sql
-
+  4) Exim Configuration Files - Copy the following files to your live
+     installation from the Exim4U 2.0.1 distribution's root directory.
+     Be sure to make a backup copy of your 1.2.4 version files prior
+     to overwriting/deleting them.
+	etc/exim/exim.conf
+	etc/exim/exim-mailinglist-router.conf.inc
+	etc/exim/exim-mailinglist-transport.conf.inc
+     Restart exim.
 
 
 1.2.5 Release Date: January 26, 2011
