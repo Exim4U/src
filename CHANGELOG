@@ -48,7 +48,19 @@
 	etc/exim/exim-mailinglist-router.conf.inc
 	etc/exim/exim-mailinglist-transport.conf.inc
      Restart exim.
-
+  5) Exim4U Webmail Groupware Users Only - Upgrade Webmail Groupware to use the
+     Horde PEAR installer. Exim4U Webmail Groupware is a modified version of Horde
+     Groupware Webmail. Prior versions of Exim4U included Webmail Groupware in the
+     tar format whereas Exim4U version 2.0 and later will rely on the Horde PEAR
+     installer. The Horde PEAR installer has several advantages including a much
+     easier installation/configuration process and installations may be updated at
+     will immediately after new Horde versions are released. Refer to the WEBMAIL
+     instruction file in this distribution's root directory for detailed upgrade
+     instructions. Specifically, follow the instructions in Step 3, "First Time
+     Time Installation Instructions" to upgrade Webmail Groupware from Exim4U
+     versions prior to 2.0. Two scripts are provided which will automatically
+     install the Exim4U preferences and appearance features. A third script is
+     also provided for automatically setting the file ownerships and permissions.
 
 1.2.5 Release Date: January 26, 2011
 
@@ -148,7 +160,7 @@
 	VERSION
         CHANGELOG
   2) Webmail Groupware - Follow the upgrade instructions in section 2 of
-     the WEBMAIL documentation file in the Exim4u 1.2.4 distribution's root
+     the WEBMAIL documentation file in the Exim4U 1.2.4 distribution's root
      directory (Upgrading An Existing Installation).
   3) Exim Configuration Files - Copy the following files to your live
      installation from the Exim4U 1.2.4 distribution's root directory:
