@@ -1,6 +1,61 @@
                            Exim4U Version History
 
-                      Current Exim4U Version Is 1.2.5
+                      Current Exim4U Version Is 2.0.1
+          Upgrade Instructions Are Included In The CHANGELOG File
+
+
+2.0.1 Release Date: October 6, 2011
+
+  Simple Mailing List Added To Exim4U's Web Interface
+
+     Exim4U now includes a mailing list manager module called the Simple Mailing List.
+     This module is accessable from within the Exim4U web interface and is similar in
+     functionality to dedicated mailing list manager packages but with substantially
+     fewer features. The Simple Mailing List is not meant as a direct replacement for
+     dedicated mailing list manager packages since it has a much smaller feature set,
+     however, it offers a quick and simple alternative for basic mailing lists especially
+     for installations where no other mailing list manager is installed. 
+
+  Exim4U Webmail Groupware Is Now Based On Horde Version 4 And Uses The Horde Pear Installer
+
+     Horde Version 4 is a significant upgrade over Horde version 3 with much improved
+     AJAX frontends for the various modules along with a new installation process using
+     the PEAR installer. The Horde PEAR installer has several advantages including a
+     much easier installation/configuration process and installations may be updated at
+     will immediately after new Horde versions are released. Scripts are provided which
+     will automatically configure the Exim4U preferences, appearance features and file
+     ownerships/permissions.
+
+ Revised Documentation
+
+     The following documents were revised: APPEARANCE, DEBIAN, MIGRATE, SPAMASSASSIN,
+     and WEBMAIL.
+
+  Other
+
+     Exim4U web interface has been streamlined to be simplier and more consistent for
+     improved usability.
+
+     OpenProtect's rule channel has been removed from the recommended Spamassassin
+     configuration since the OpenProtect channel is now obsolete.
+
+     The spamreport script would not run properly on Debian/Ubuntu which is now fixed.
+
+     Problem Discovered with empty crypt field on Debian Squeeze was resolved with
+     a modification to the crypt_password function in config/function.php.
+
+     Various improvement and bug fixes.
+
+  Credits
+
+     Thomas Carrié designed and implemented all of the software for the Simple Mailing
+     List module. Thanks Thomas!
+
+     Neza Nice reported the spamreport bug, the obsolescense of the OpenProtect
+     Spamassassin channel and also contributed changes in the DEBIAN instruction file.
+     Kebba Foon reported the empty crypt field problem and contributed to the bug fix.
+     Thanks Neza and Kebba!
+
 
 1.2.5 Release Date: January 26, 2011
 
