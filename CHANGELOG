@@ -69,7 +69,13 @@
      Prior versions of Exim4U included instructions for installing this ruleset,
      therefore, this ruleset should now be uninstalled.  Simply remove all ruleset
      files that match *openprotect* or *sare*.  These files are unually stored at
-     /var/lib/spamassassin/*/*openprotect*.  Also, see:
+     /var/lib/spamassassin/*/*openprotect*. Also, remove the OpenProtect rules update
+     from the sa-update command that is periodically run in crontab for updating
+     spamassassin. The following command can be used in crontab to update the spamassassin
+     ruleset only and which runs sa-update and then restarts the spamassassin service
+     if the rules have changed:
+        /usr/bin/sa-update --allowplugins -D --channel updates.spamassassin.org && /etc/init.d/spamassassin restart
+     Also see:
 	http://saupdates.openprotect.com/
 
 

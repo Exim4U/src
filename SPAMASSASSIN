@@ -13,6 +13,7 @@ the following default components, add-on modules and modifications:
 8) Disabling URIBL and SURBL RBL Checks in SpamAssassin
 9) Setting The required_score And report_safe Values
 10) Testing SpamAssassin
+11) sa-update crontab
 
 The SA Rules Channel relies on the sa-update command to check for updates to
 its spam detection rules as described in Step 1 below. These rules change but
@@ -359,4 +360,14 @@ will be higher thus leading to better spam detection.
    Simply copy the contents to a file on the server and then execute spamassassin <test.eml>.
    This will exercise everything except the URIBL link checks which can be tested with any email
    that you create with a spam link.
+
+11) sa-update crontab
+
+    The SA Rules Channel relies on the sa-update command to check for updates to
+    its spam detection rules. These rules change but they do not change frequently.
+    Therefore, crontab should be utilized to have sa-update run periodically to fetch
+    any updates to these spam detection rules. sa-update should be run no more often
+    than once per day and once per week is generally sufficient. The following command
+    will run sa-update and then restart spamassassin if the rules have changed:
+	/usr/bin/sa-update --allowplugins -D --channel updates.spamassassin.org && /etc/init.d/spamassassin restart
 
