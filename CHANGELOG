@@ -1,4 +1,4 @@
-                         Exim4U Changelog Summaries
+            Exim4U Changelog Summaries And Upgrade Instructions
 
                       Current Exim4U Version Is 2.0.1
 
@@ -6,7 +6,76 @@
 
 2.0.1 Changelog Summary (Versus Version 1.2.5)
 
-< svn changelog summary goes here>
+  M       WEBMAIL
+  M       DEBIAN
+  M       MIGRATE
+  M       APPEARANCE
+  M       SPAMASSASSIN
+  M       CHANGELOG
+  M       VERSION
+  M       xtrasw/spam_box_report/spamreport
+  A       xtrasw/webmail_admin/logos/favicon.png
+  A       xtrasw/webmail_admin/logos/horde-power1_52px_WebmailGroupware3.png
+  A       xtrasw/webmail_admin/logos/favicon.ico
+  A       xtrasw/webmail_admin/logos
+  A       xtrasw/webmail_admin/config/registry.local.php
+  A       xtrasw/webmail_admin/config/prefs.local.php
+  A       xtrasw/webmail_admin/config
+  A       xtrasw/webmail_admin/imp/config/mime_drivers.local.php
+  A       xtrasw/webmail_admin/imp/config/prefs.local.php
+  A       xtrasw/webmail_admin/imp/config
+  A       xtrasw/webmail_admin/imp
+  M       xtrasw/webmail_admin/webmail_fix_ownerships
+  A       xtrasw/webmail_admin/webmail_exim4u_prefs
+  A       xtrasw/webmail_admin/webmail_exim4u_logos
+  M       home/exim4u/public_html/user_menu/index.html
+  A       home/exim4u/public_html/exim4u/translateJs.php
+  M       home/exim4u/public_html/exim4u/adminuseradd.php
+  M       home/exim4u/public_html/exim4u/adminlists.php
+  M       home/exim4u/public_html/exim4u/sitechangerelay.php
+  M       home/exim4u/public_html/exim4u/sitechange.php
+  M       home/exim4u/public_html/exim4u/admingroupchange.php
+  M       home/exim4u/public_html/exim4u/siteadd.php
+  A       home/exim4u/public_html/exim4u/save  MailingListChanges.php
+  M       home/exim4u/public_html/exim4u/admin.php
+  M       home/exim4u/public_html/exim4u/adminuserchange.php
+  M       home/exim4u/public_html/exim4u/adminfailadd.php
+  M       home/exim4u/public_html/exim4u/admingroupchangesubmit.php
+  M       home/exim4u/public_html/exim4u/adminaliasadd.php
+  A       home/exim4u/public_html/exim4u/logger.php
+  A       home/exim4u/public_html/exim4u/config/service_group_sql.php
+  A       home/exim4u/public_html/exim4u/config/service_user.php
+  M       home/exim4u/public_html/exim4u/config/functions.php
+  A       home/exim4u/public_html/exim4u/config/service_group.php
+  A       home/exim4u/public_html/exim4u/admingroupnew.php
+  A       home/exim4u/public_html/exim4u/archiGuiExim4u.dot
+  M       home/exim4u/public_html/exim4u/admincatchalladd.php
+  M       home/exim4u/public_html/exim4u/style.css
+  A       home/exim4u/public_html/exim4u/admingroup.tpl.php
+  M       home/exim4u/public_html/exim4u/site.php
+  A       home/exim4u/public_html/exim4u/images/user-group-new.png
+  A       home/exim4u/public_html/exim4u/images/archiGuiExim4u.svg
+  A       home/exim4u/public_html/exim4u/images/disabled.png
+  A       home/exim4u/public_html/exim4u/images/enabled.png
+  A       home/exim4u/public_html/exim4u/appContext.php
+  A       home/exim4u/public_html/exim4u/ajaxLayer/group.php
+  A       home/exim4u/public_html/exim4u/ajaxLayer/PHPLiveX.php
+  A       home/exim4u/public_html/exim4u/ajaxLayer/phplivex.js
+  A       home/exim4u/public_html/exim4u/ajaxLayer
+  M       home/exim4u/public_html/exim4u/adminaliaschange.php
+  A       home/exim4u/public_html/exim4u/group.js
+  M       home/exim4u/public_html/exim4u/admincatchall.php
+  M       home/exim4u/public_html/exim4u/userchange.php
+  M       home/exim4u/public_html/admin_menu/index.html
+  M       etc/exim/exim4u_local.conf.inc
+  A       etc/exim/exim-mailinglist-router.conf.inc
+  M       etc/exim/exim.conf
+  A       etc/exim/exim-mailinglist-transport.conf.inc
+  M       etc/exim/exim4u_global_spam_virus
+  M       etc/exim/exim.pl/three-level-tlds
+  M       etc/exim/exim.pl/two-level-tlds
+  A       mysql_migrate/mysql_mailing_list.sql
+  M       mysql_setup/mysql.sql
 
 2.0.1 Instructions For Upgrading From Version 1.2.5
 
@@ -63,11 +132,8 @@
      also provided for automatically setting the file ownerships and permissions.
 
   6) Uninstall OpenProtect's Spamassassin Rules - This channel is now obsolete.
-     OpenProtect has announced that it is no longer updating its ruleset. Their
-     website now states: "OpenProtect's SpamAssassin sa-update channel is obsolete
-     since SARE stopped updating their rulesets. Please stop using this channel."
      Prior versions of Exim4U included instructions for installing this ruleset,
-     therefore, this ruleset should now be uninstalled.  Simply remove all ruleset
+     therefore, this ruleset should now be removed.  Simply remove all ruleset
      files that match *openprotect* or *sare*.  These files are unually stored at
      /var/lib/spamassassin/*/*openprotect*. Also, remove the OpenProtect rules update
      from the sa-update command that is periodically run in crontab for updating
