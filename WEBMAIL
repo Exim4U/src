@@ -49,7 +49,7 @@ The Horde UPGRADING document is available at the following link:
 All prerequisite software required for Horde Version 4 must be installed as listed
 in the Horde INSTALL file.
 
-The most siginificant new requirement is PHP 5.2.0 or higher. 
+The most significant new requirement is PHP 5.2.0 or higher. 
 
 
 3) First Time Installation Instructions
@@ -152,7 +152,7 @@ at xtrasw/webmail_admin.  This script should be run from the webmail_admin direc
         ./webmail_exim4u_logos
 
 You should not ever need to reinstall the Exim4U preferences after upgrades since the
-files are stored as *.local.conf, however, if you want to reinstall the Exim4U prefereneces
+files are stored as *.local.conf, however, if you want to reinstall the Exim4U preferences
 then run the following script:
 
 	./webmail_exim4u_prefs

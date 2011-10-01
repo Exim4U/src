@@ -125,7 +125,7 @@ etc/exim/exim4u_local.conf.inc.
 ### SPF Perl Module Location ###
 
 In Debian/Ubuntu, the SPF perl module is located at /usr/local/bin/spfd instead of /usr/bin/spfd.perl-msq.
-Therefore, the command to put into /etc/rc.local as described in the INSTALL file should be amended to reflect this
+Therefore, the command to put into /etc/Tc.local as described in the INSTALL file should be amended to reflect this
 location as follows:
 
 	/usr/local/bin/spfd -path=/tmp/spfd --socket-user Debian-exim --socket-group Debian-exim --set-user Debian-exim &

@@ -9,7 +9,7 @@
   Simple Mailing List Added To Exim4U's Web Interface
 
      Exim4U now includes a mailing list manager module called the Simple Mailing List.
-     This module is accessable from within the Exim4U web interface and is similar in
+     This module is accessibly from within the Exim4U web interface and is similar in
      functionality to dedicated mailing list manager packages but with substantially
      fewer features. The Simple Mailing List is not meant as a direct replacement for
      dedicated mailing list manager packages since it has a much smaller feature set,
@@ -33,7 +33,7 @@
 
   Other
 
-     Exim4U web interface has been streamlined to be simplier and more consistent for
+     Exim4U web interface has been streamlined to be simpler and more consistent for
      improved usability.
 
      OpenProtect's rule channel has been removed from the recommended Spamassassin
@@ -51,9 +51,9 @@
      Thomas Carrié designed and implemented all of the software for the Simple Mailing
      List module. Thanks Thomas!
 
-     Neza Nice reported the spamreport bug, the obsolescense of the OpenProtect
-     Spamassassin channel and also contributed changes in the DEBIAN instruction file.
-     Kebba Foon reported the empty crypt field problem and contributed to the bug fix.
+     Neza Nice reported the spamreport bug, the obsolescence of the OpenProtect
+     Spamassassin channel and contributed changes in the DEBIAN instruction file.
+     Kebba Foon reported the empty crypt field bug and participated in its resolution.
      Thanks Neza and Kebba!
 
 
