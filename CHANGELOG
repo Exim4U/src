@@ -62,6 +62,17 @@
      install the Exim4U preferences and appearance features. A third script is
      also provided for automatically setting the file ownerships and permissions.
 
+  6) Uninstall OpenProtect's Spamassassin Rules - This channel is now obsolete.
+     OpenProtect has announced that it is no longer updating its ruleset. Their
+     website now states: "OpenProtect's SpamAssassin sa-update channel is obsolete
+     since SARE stopped updating their rulesets. Please stop using this channel."
+     Prior versions of Exim4U included instructions for installing this ruleset,
+     therefore, this ruleset should now be uninstalled.  Simply remove all ruleset
+     files that match *openprotect* or *sare*.  These files are unually stored at
+     /var/lib/spamassassin/*/*openprotect*.  Also, see:
+	http://saupdates.openprotect.com/
+
+
 1.2.5 Release Date: January 26, 2011
 
 1.2.5 Changelog Summary (Versus Version 1.2.4)
