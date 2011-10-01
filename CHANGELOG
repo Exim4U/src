@@ -100,7 +100,7 @@
      For example, for user_name=MYNAME and password=SECRET then the command would be:
         mysql -uMYNAME -pSECRET exim4u < mysql_mailing_list.sql
   3) Exim4U Email Admin (PHP) - Copy the contents of the following directory
-     (including subdirectories and files) to your live installation from the
+     (including sub-directories and files) to your live installation from the
      Exim4U 2.0.1 distribution's root directory:
         home/exim4u/public_html/exim4u
      Be sure to make a backup copy of your 1.2.5 version directories and files
@@ -134,7 +134,7 @@
   6) Uninstall OpenProtect's Spamassassin Rules - This channel is now obsolete.
      Prior versions of Exim4U included instructions for installing this ruleset,
      therefore, this ruleset should now be removed.  Simply remove all ruleset
-     files that match *openprotect* or *sare*.  These files are unually stored at
+     files that match *openprotect* or *sare*.  These files are usually stored at
      /var/lib/spamassassin/*/*openprotect*. Also, remove the OpenProtect rules update
      from the sa-update command that is periodically run in crontab for updating
      spamassassin. The following command can be used in crontab to update the spamassassin
