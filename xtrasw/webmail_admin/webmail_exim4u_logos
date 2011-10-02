@@ -3,7 +3,7 @@
 #
 # Script for installing Exim4U logos and favicons in Horde.
 #
-echo:echo "This script installs Exim4u's images and logos into Horde webmail.";echo
+echo;echo "This script installs Exim4u's images and logos into Horde webmail.";echo
 # Get data from terminal.
 echo -n "Enter webmail home directory: (example: /home/exim4u/public_html/webmail): ";read webmail_dir;
 #
