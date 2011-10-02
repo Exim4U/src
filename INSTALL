@@ -260,10 +260,10 @@ corresponding default Dovecot service script is located at etc/init.d/dovecot.
 
 8. Install Webmail
 
-Refer to the WEBMAIL help file in this distribution's root directory for installing
-Exim4U's Webmail Groupware which is a customized version of Horde Groupware Webmail
-Edition. Alternatively, install your favorite webmail product, such as Squirrel Mail
-or Round Cube, in <DocumentRoot>/webmail (eg.: /home/exim4u/public_html/webmail). 
+Refer to the WEBMAIL documentation file in this distribution's root directory for
+installing Exim4U's Webmail Groupware which is a customized version of Horde Groupware
+Webmail Edition. Alternatively, install your favorite webmail product, such as Squirrel
+Mail or Round Cube, in <DocumentRoot>/webmail (eg.: /home/exim4u/public_html/webmail). 
 
 9. Install Exim4U's User Menu and Admin Menu interfaces from the user_menu and
 admin_menu directories.

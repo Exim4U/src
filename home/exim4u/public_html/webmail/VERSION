@@ -1,5 +1,6 @@
-Webmail Version is Horde-1.2.7
-
 Exim4u's Webmail is a modified version of Horde Groupware that is customized
-and branded for inclusion with the Exim4U software suite.  Exim4U's webmail
-source code is maintained external to the Exim4U subversion repository.
+and branded for inclusion with the Exim4U software suite.  Webmail should be
+installed using the Horde PEAR channel as described in the WEBMAIL document
+in the Exim4U root directory. Scripts are provided which will automatically
+configure the Exim4U preferences, appearance features and file
+ownerships/permissions.
