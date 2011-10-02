@@ -1,11 +1,12 @@
-            Exim4U Changelog Summaries And Upgrade Instructions
+            Exim4U Changelog Summary And Upgrade Instructions
 
                       Current Exim4U Version Is 2.0.1
 
-2.0.1 Release Date: TBA
+2.0.1 Release Date: October 6, 2011
 
 2.0.1 Changelog Summary (Versus Version 1.2.5)
 
+  M       INSTALL
   M       WEBMAIL
   M       DEBIAN
   M       MIGRATE
@@ -67,6 +68,7 @@
   M       home/exim4u/public_html/exim4u/admincatchall.php
   M       home/exim4u/public_html/exim4u/userchange.php
   M       home/exim4u/public_html/admin_menu/index.html
+  M       home/exim4u/public_html/webmail/VERSION
   M       etc/exim/exim4u_local.conf.inc
   A       etc/exim/exim-mailinglist-router.conf.inc
   M       etc/exim/exim.conf
@@ -111,7 +113,7 @@
      of the 1.2.5 installation.
   4) Exim Configuration Files - Copy the following files to your live
      installation from the Exim4U 2.0.1 distribution's root directory.
-     Be sure to make a backup copy of your 1.2.4 version files prior
+     Be sure to make a backup copy of your 1.2.5 version files prior
      to overwriting/deleting them.
 	etc/exim/exim.conf
 	etc/exim/exim-mailinglist-router.conf.inc

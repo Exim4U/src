@@ -1,6 +1,7 @@
                            Exim4U Version History
 
                       Current Exim4U Version Is 2.0.1
+
           Upgrade Instructions Are Included In The CHANGELOG File
 
 
@@ -33,7 +34,7 @@
 
   Other
 
-     Exim4U web interface has been streamlined to be simpler and more consistent for
+     The Exim4U web interface has been streamlined to be simpler and more consistent for
      improved usability.
 
      OpenProtect's rule channel has been removed from the recommended Spamassassin
@@ -41,10 +42,11 @@
 
      The spamreport script would not run properly on Debian/Ubuntu which is now fixed.
 
-     Problem Discovered with empty crypt field on Debian Squeeze was resolved with
-     a modification to the crypt_password function in config/function.php.
+     A problem was discovered on Debian Squeeze related to an empty crypt field while
+     logging into exim4u's web interface and was resolved with a modification to the
+     crypt_password function in config/function.php.
 
-     Various improvement and bug fixes.
+     Various other improvements and bug fixes.
 
   Credits
 
