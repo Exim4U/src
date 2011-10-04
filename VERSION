@@ -44,6 +44,9 @@
      logging into exim4u's web interface and was resolved with a modification to the
      crypt_password function in config/function.php.
 
+     A bug was fixed in the Exim4U user interface that caused formatting problems in
+     userchange.php
+
      Various other improvements and bug fixes.
 
   Credits
