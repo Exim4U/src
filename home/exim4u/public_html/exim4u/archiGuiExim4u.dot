@@ -1,0 +1,31 @@
+digraph Exim4uGuiArchi {
+    
+    graph [ label="Exim4u GUI Architecture", fontsize=18 ];
+
+    subgraph service {
+        graph [ style=filled,color=green];
+        node [style=filled,color=antiquewhite3];
+
+        userService;
+        groupService;
+        baseClasses [ label="Email4u, MailingList4u, ..." ];
+    }
+    appContext [label="appContext.php"];
+    guiFunctions [label="group.js, ajaxLayer/group.php",style=filled,color=lightgreen];
+    adminGroupGuiTemplate [
+        label="admingroup.tpl.php",style=filled,color=lightgreen];
+    adminGroupGui [label="admingroupnew.php"];
+
+    groupService -> userService;
+    userService -> baseClasses;
+    groupService -> baseClasses;
+
+    guiFunctions -> baseClasses;
+    guiFunctions -> userService;
+    guiFunctions -> groupService;
+    adminGroupGuiTemplate -> guiFunctions;
+    adminGroupGui -> adminGroupGuiTemplate;
+    adminGroupGui -> appContext;
+
+    // http://wingraphviz.sourceforge.net/wingraphviz/language/colorname.htm
+}

@@ -1,0 +1,11 @@
+# exim_surbl crontab updates - Update "two-level-tlds" weekly and "three-level-tlds" monthly.
+#
+# Put the last two lines of this README2 file in your root user's crontab. Modify as
+# appropriate to download the surbl updates into the directory where you are storing
+# the "two-level-tlds" and "three-level-tlds" files. By default, Exim4U stores these
+# files in the /etc/exim/exim.pl/ directory but that can be changed by modifying the
+# exim_surbl.pl file.
+#
+# Here is what goes into your root crontab:
+0 0 * * 1 /usr/bin/wget -O /etc/exim/exim.pl/two-level-tlds http://www.surbl.org/tld/two-level-tlds
+0 0 1 * * /usr/bin/wget -O /etc/exim/exim.pl/three-level-tlds http://www.surbl.org/tld/three-level-tlds

@@ -1,0 +1,104 @@
+# GLOBAL VIRUS AND SPAMASSASSIN SETTINGS
+#
+# ClamAV Global Setting
+# When enabled, Exim4U uses ClamAV to scan incoming mail for viruses during
+# the SMTP connection. ClamAV is enabled (on) or disabled (off):
+#ClamAV: off
+ClamAV: on
+# Note about disabling ClamAV: You must also comment out the av_scanner socket
+# definition in exim4u_local.conf.inc: # av_scanner = clamd:/var/run/clamav/clamd
+#
+# Spamassassin Global Setting
+# When enabled, Exim4U uses spamassassin to scan for spam during the final phase
+# of the SMTP connection. spam_reject_score is the spamassassin score at
+# which all mail will be rejected. Keep in mind that Exim4U's web
+# interface allows each user to specify a lower spam score for discarding spam
+# during the router's delivery such that users can be more aggressive in
+# blocking spam on an indivicual basis if they so desire. A SpamRejectScore of
+# 10 or higher is generally considered conservative where no "ham" is rejected.
+# To globally disable spamassassin altogether, specify a value of 100.
+# Spamassassin is enabled (SpamRejectScore < 100) or disabled (SpamRejectScore = 100):
+#SpamRejectScore: 100
+SpamRejectScore: 10
+#
+# When Exim4U processes mail with a spam score greater than the tag value then Exim4U
+# places a text string in the beginning of the Subject header enclosed by brackets.
+# You may specify the text to be placed in the Subject header here. For Example,
+# specifying "SPAM" will result in [SPAM] being inserted at the very start of the Subject.
+# Subject tagging may be disabled by setting the tag value to be equal to or greater 
+# the discard value (or rejection value). Enter the text that should be included between
+# the brackets in the Subject header for mail tagged as spam:
+#SpamTagText: SPAM
+SpamTagText: BULK
+#
+# Exim4u only calls Spamassassin if the message is less than or equal to the MaxScanSize.
+# Specify the maximum size message that Spamassassin will scan:
+#MaxScanSize: 50K
+MaxScanSize: 75K
+#
+# Put the IMAP file name of your spambox folder here:
+SpamFolder: .INBOX.spam
+#
+# DISCUSSION OF HOW EXIM4U PROCESSES MAIL WITH SPAMASSASSIN
+# Exim4u offers three levels of spamassassin customization.
+# First, Exim4u rejects all spam scores >= SpamRejectScore at SMTP time. The 
+# SpamRejectScore value is global and applies to all local domains, all relay domains
+# and all individual user accounts.  The recommended SpamRejectScore value is 10 and
+# is specified in this file. The individual users and relay domains can then be more
+# aggressive on an individual basis with the second level criteria (discard score) 
+# and third level criteria (tag score) which are specified for each individual email
+# account and/or each individual relay domain using the Exim4U web interface. For
+# example, Exim4u discards (to blackhole) all spam scores >= discard values after the
+# SMTP connection is closed. Exim4u also tags all spam scores > tag values upon delivery.
+# The discard values and tag values for relay domains are specified under the Domain
+# Administration menu in the web interface by the site administrator. Likewise, the
+# discard values and tag values for individual email accounts are specified under
+# "manage POP/IMAP accounts" within each domain in the web interface. The recommended 
+# range of values for individual discard scores is 8 to 10. The recommended range
+# of values for tag scores is 4 to 6. 
+
+# SPAMASSASSIN CONFIGURATION NOTE
+# This note is regarding spamassassin's required_hits value in /etc/mail/spamassassin/local.cf
+# as it pertains to the X-Spam-Report manipulation in the ROUTERS section of exim.conf.
+# The X-Spam-Report is initally added to the header for any mail where the X-Spam-Score is
+# greater than the required_hits value in /etc/mail/spamassassin/local.cf. Then, in the exim.conf
+# router, X-Spam-Report is removed if X-Spamscore-Integer is less than the SpamTagScore.
+# Spamassassin's required_hits value is normally set to 5 which causes the X-Spam-Report
+# to be included if the X-Spam-Score is greater than 5. However, since each user is able to
+# specify the SpamTagScore, it is recommended that the required_hits value be set to 0 so that the
+# X-Spam-Report is always initially included if the X-Spam-Score is greater than 0.  That way, 
+# it will most probably always be available even for very low SpamTagScore values.
+
+# BACKUP MX SERVERS (OR RELAY SERVERS) CONFIGURATION NOTE
+# For maximum efficiency and compatibility, we recommend that all backup MX (relay) servers use
+# Exim4U installations for relaying mail to other Exim4U primary installations. The following
+# instructions will cause spam filtering to occur only on whichever (primary or relay) server
+# receives a given mail. However, the mail Subject header manipulation will only occur on the
+# primary installation which is delivering the mail to the end user. With this setup, each user
+# will be able to specify the SpamTagScore and SpamDiscardScore in the Exim4U Email Admin web
+# interface for all mail no matter if it is delivered directly from the primary server or via a
+# relay server.
+#
+# First, turn Spamassassin on in the Exim4U web interface for all domains on both the primary and
+# backup MX servers. Then, on the primary installation, add the backup MX server to
+# /etc/exim/exim4U_backup_mx_host_names which will exempt mail relayed by the backup MX server
+# from spam filtering and ratelimit checks. Subsequently, on the backup MX server, set the
+# SpamTagScore to be greater than the SpamDiscardScore for all relayed domains. That way, the relay
+# will not rewrite the subject header for any mail, however, the X-Spamscore-Integer and
+# X-Spam_Report will be included and the subject will be rewritten by the Exim4U primary
+# installation although the spam processing occured on the relaying server.
+#
+# If, on the other hand your backup MX servers are not running Exim4U then, on the primary Exim4U
+# installation, add the backup MX servers to /etc/exim/exim4u_backup_mx_rl_host_names (instead of
+# exim4u_backup_mx_host_names) which will cause all relayed mail to be filtered for spam but
+# exempted from ratelimit checks. Also, if your backup MX servers are not running Exim4U, then also
+# add the backup MX servers to /etc/exim/exim4u_IPskip_sender_verify which will exempt sender
+# address verifications which would otherwise erroneously generate verification failures.
+
+# NOTE ABOUT SpamTagScore AND SpamDiscardScore
+# The SpamTagScore and SpamDiscardScore are both specified in the Exim4U Email Admin web interface
+# as "Spamassassin tag score" and Spamassassin discard score" by each individual user for email
+# accounts on primary domains and by each domain's administrator for relay (backup MX) domains.
+# The SpamTagScore is the score at or above which the mail is tagged as spam and the Subject header
+# rewritten with the SpamTagText.  Whereas the SpamDiscardScore is the score at or above which the
+# mail is discarded and delivered to /dev/null.
