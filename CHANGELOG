@@ -128,10 +128,10 @@
      will immediately after new Horde versions are released. Refer to the WEBMAIL
      instruction file in this distribution's root directory for detailed upgrade
      instructions. Specifically, follow the instructions in Step 3, "First Time
-     Time Installation Instructions" to upgrade Webmail Groupware from Exim4U
-     versions prior to 2.0. Two scripts are provided which will automatically
-     install the Exim4U preferences and appearance features. A third script is
-     also provided for automatically setting the file ownerships and permissions.
+     Installation Instructions" to upgrade Webmail Groupware from Exim4U versions
+     prior to 2.0. Two scripts are provided which will automatically install the
+     Exim4U preferences and appearance features. A third script is also provided
+     for automatically setting the file ownerships and permissions.
 
   6) Uninstall OpenProtect's Spamassassin Rules - This channel is now obsolete.
      Prior versions of Exim4U included instructions for installing this ruleset,
