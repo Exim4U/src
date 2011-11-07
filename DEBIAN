@@ -30,12 +30,12 @@ These commands should setup and install the following packages:
 	exim4
 
 The version of Exim in the Debian/Ubuntu repositories as of this writing was 4.69
-whereas Exim4U version 1.2.x requires Exim version 4.71 for complete functionality.
-However, the only functionality that is lost with Exim 4.69 is DKIM signing and
-verification. See the file, EXIM_4.69, which includes instructions for modifying
-Exim4U version 1.2.x to run with Exim version 4.69. Alternatively, you may use
-Exim 4.71 from Debian Backports if you want DKIM signing and verification features
-(read Exim From Debian Backport below)
+whereas Exim4U versions 1.2.x and above requires Exim version 4.71 for complete
+functionality. However, the only functionality that is lost with Exim 4.69 is DKIM
+signing and verification. See the file, EXIM_4.69, which includes instructions for
+modifying Exim4U versions 1.2.x and above to run with Exim version 4.69. Alternatively,
+you may use more current versions of Exim (4.71 and above) from Debian Backports if
+you want DKIM signing and verification features (read Exim From Debian Backport below)
 
 The Debian distribution has its own exim configuration system, however, you can
 implement a custom configuration in /etc/exim4/exim4.conf.  Therefore, follow the

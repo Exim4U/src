@@ -1,6 +1,6 @@
 			Instructions For Exim 4.69 Users
 
-Follow these instructions to enable Exim4U version 1.2.x to run under Exim 4.69.
+Follow these instructions to enable Exim4U versions 1.2.x and above to run under Exim 4.69.
 
 Please note that Exim4U's DKIM signing and verification functions will not be
 operational with these changes.
