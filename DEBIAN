@@ -47,7 +47,7 @@ following procedure for enabling the Exim4U exim configuration under Debian/Ubun
 
 		ln -s /etc/exim/exim.conf /etc/exim4/exim4.conf
 
-	Additionally, you may want to set dc_eximconfig_configtype=none in
+	Additionally, you may want to set dc_eximconfig_configtype='none' in
         /etc/exim4/update-exim4.conf.conf to stop debconf from asking you questions
 	about Debian's exim4 configuration.  Use "man update-exim4.conf" for more
 	information.
@@ -124,11 +124,15 @@ etc/exim/exim4u_local.conf.inc.
 
 ### SPF Perl Module Location ###
 
+Install spfd with:
+
+apt-get install spf-tools-perl
+
 In Debian/Ubuntu, the SPF perl module is located at /usr/local/bin/spfd instead of /usr/bin/spfd.perl-msq.
-Therefore, the command to put into /etc/Tc.local as described in the INSTALL file should be amended to reflect this
+Therefore, the command to put into /etc/rc.local as described in the INSTALL file should be amended to reflect this
 location as follows:
 
-	/usr/local/bin/spfd -path=/tmp/spfd --socket-user Debian-exim --socket-group Debian-exim --set-user Debian-exim &
+	/usr/sbin/spfd -path=/tmp/spfd --socket-user Debian-exim --socket-group Debian-exim --set-user Debian-exim &
 
 ### Exim Versions Prior To 4.71 - Disabling DKIM ###
 
@@ -151,13 +155,26 @@ The following can be used to comment out the DKIM functionality:
 
 	In addition, edit /etc/exim4/exim4.conf and comment out the following sections:
 
-		remote_smtp_multi_IP_DK:
+		emote_smtp_multi_IP_DK:
 		remote_smtp_DK:
 
 
 2) EXIM4U WEB INTERFACE
 
-Apache runs under Debian/Ubuntu as apache2.  Install apache2, php5, perl, mysql and php-pear with apt.
+Apache runs under Debian/Ubuntu as apache2.  Install apache2, php5, libapache2-mod-php5, mysql, 
+and php-pear with apt:
+
+apt-get install apache2 php5 libapache2-mod-php5
+apt-get install mysql-server mysql-client php5-mysql
+apt-get install php-pear
+
+Perl should be preinstalled, however, if not then install it with:
+
+apt-get install pear
+
+Optionally, install PhpMyAdmin:
+
+apt-get  install  phpmyadmin
 
 You also need to install the db.php pear module which is referred to as php-pear-db in the INSTALL
 file:
@@ -175,6 +192,10 @@ prefer.
 
 3) CLAMAV (ClamAV)
 
+To install in Debian:
+
+apt-get install clamav clamav-daemon
+
 The socket file that the clam daemon (clamd) uses is defined in exim4u_local.conf.inc with a default
 setting of:
 
@@ -187,6 +208,10 @@ This default works with RedHat/CentOS, however, on Debian that line should read:
 It has been reported that on Ubuntu 11.04 this line should read:
 
 	av_scanner = clamd:/var/run/clamav/clamd.sock
+
+In Debian, service scripts are included in /etc/init.d for both the clamav daemon and for freshclam so
+there is no need to otherwise start the freshclam daemon in /etc/rc.local as described in the
+INSTALL file for Redhat/CentOS.
 
 4) SPAMASSASSIN
 
@@ -201,11 +226,16 @@ package and must be fetched from CPAN:
         perl -MCPAN -e'CPAN::Shell->install("Encode::Detect")'
         perl -MCPAN -e "CPAN::Shell->force(qw(install Mail::SPF::Query));"
 
-Thanks to the Debian razor package, you may start the razor setup procedure at the step where you
-create the config file (read file SPAMASSASSIN for razor setup).
+Thanks to the Debian razor package, you may install razor with "apt-get install razor". Then,  start
+the razor setup procedure at the step where you create the config file (read file SPAMASSASSIN for
+razor setup).
 
-Force install is required for package Mail::SPF::Query to ignore unrelevant test failure on error
+Pyzor may also be installed from the Debian repos with: apt-get install pyzor.
+
+Force install may be required for package Mail::SPF::Query to ignore unrelevant test failure on error
 message comparison.
+
+For Debian Squeeze, the perl installation of Mail::DomainKeys and Mail::SPF::Query are not required.
 
 g++ is required to compile Encode::Detect.
 
