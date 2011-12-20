@@ -29,7 +29,7 @@ rfc1413_query_timeout = 5s
 # and putting domain names that look like IP addresses on the right hand side of MX
 # records. Exim follows the rules and rejects this, giving an error message that
 # explains the mis-configuration. However, some other MTAs support this practice,
-# so to avoid “Why can’t Exim do this?” complaints, allow_mx_to_ip exists, in order
+# so to avoid "Why can’t Exim do this?" complaints, allow_mx_to_ip exists, in order
 # to enable this heinous activity. It is not recommended, except when you have
 # no other choice.
 #
@@ -71,6 +71,8 @@ SENDER_RL = YES
 # following line if using tls certificates (If not, then comment the following line out):
 #
 tls_advertise_hosts = *
+# The following line requires TLS encryption for all authenticated connections:
+auth_advertise_hosts = ${if eq{$tls_cipher}{}{}{*}}
 #
 # exim4u: Setup MYSQL
 # Specify our mysql information: socket location, database name, user name  and password.
