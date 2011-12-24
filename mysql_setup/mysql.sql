@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `exim4u`.`users`
 	localpart        varchar(192)            NOT NULL  default '',
 	username         varchar(255)            NOT NULL  default '',
 	clear            varchar(255)                      default NULL,
-	crypt            varchar(48)                       default NULL,
+	crypt            varchar(255)                       default NULL,
 	uid              smallint(5)   unsigned  NOT NULL  default '65534',
 	gid              smallint(5)   unsigned  NOT NULL  default '65534',
 	smtp             varchar(255)                      default NULL,
