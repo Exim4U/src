@@ -1,4 +1,4 @@
-# Script to widen the crypt field.
+# Script to increase the crypt field length.
 #
 # mysql -u<user_name> -p<password> exim4u < mysql_migrate/mysql_expand_crypt.sql
 #     where: <username> = Your MYSQL root username
