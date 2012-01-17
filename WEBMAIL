@@ -136,8 +136,9 @@ password to login to Webmail as the Administrator..
 
 4) Upgrading An Existing Installation
 
-Execute the following command to upgrade Horde Groupware Webmail Edition:
+Execute the following commands to upgrade Horde Groupware Webmail Edition:
 
+	pear channel-update pear.horde.org
         pear upgrade -a -B horde/webmail
 
 Comprehensive upgrading instructions are included in the Horde UPGRADING file at the
