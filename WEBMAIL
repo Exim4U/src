@@ -136,13 +136,22 @@ password to login to Webmail as the Administrator..
 
 4) Upgrading An Existing Installation
 
-Comprehensive upgrading instructions are included in the Horde UPGRADING file at the
-above link listed in Section 1 entitled Horde PEAR Installation Documents. The following
-instructions are more brief and will suffice for most installations.
-
 Execute the following command to upgrade Horde Groupware Webmail Edition:
 
         pear upgrade -a -B horde/webmail
+
+Comprehensive upgrading instructions are included in the Horde UPGRADING file at the
+following link:
+
+        http://www.horde.org/apps/webmail/docs/UPGRADING
+
+If you want to upgrade from a Horde Groupware Webmail Edition version prior to 4.0, please
+follow the instructions in the Horde INSTALL file to install the most recent Horde Groupware
+Webmail Edition version using the PEAR installer.
+
+After updating to a newer Horde Groupware Webmail Edition version, you always need to
+update configurations and database schemes. Log in as an administrator, go to
+Administration => Configuration and update anything that's highlighted as outdated.
 
 Set the ownerships and permissions as described in Section 6 entitled File Permissions.
 
