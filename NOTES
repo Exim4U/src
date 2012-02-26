@@ -76,7 +76,7 @@ within the ACLs in /etc/exim/exim.conf's prior to calling spamassassin.
 
    To test a given domain, domain.tld, on the URIBL:
 
-	nslookup domain.tld.black.uribl.com
+	nslookup domain.tld.multi.uribl.com
 
    If the host domain is not found then it isn't listed. If the host is
    listed, the answer will be 127.0.0.X where X indicates the list.
