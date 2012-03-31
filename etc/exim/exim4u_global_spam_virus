@@ -39,6 +39,11 @@ MaxScanSize: 75K
 # Put the IMAP file name of your spambox folder here:
 SpamFolder: .INBOX.spam
 #
+# Specify the SpamHeaderType here. For SpamHeaderType=0, Spamassassin's spamreport will
+# only appear in email headers for SpamScore > Spam Tag Score.  For SpamHeaderType=1,
+# Spamassassin's spamreport will appear in all email headers.
+SpamHeaderType: 0
+#
 # DISCUSSION OF HOW EXIM4U PROCESSES MAIL WITH SPAMASSASSIN
 # Exim4u offers three levels of spamassassin customization.
 # First, Exim4u rejects all spam scores >= SpamRejectScore at SMTP time. The 

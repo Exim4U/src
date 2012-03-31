@@ -1,4 +1,4 @@
-# Copyright (c) 2006-2011 Erik Mugele.  All rights reserved.
+# Copyright (c) 2006-2012 Erik Mugele.  All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -24,7 +24,7 @@ sub surblspamcheck
 {
 
 # Designed and written by Erik Mugele, 2004-2010,1http://www.teuton.org/~ejm
-# Version 2.2
+# Version 2.3-beta
 #
 # Please see the following website for details on usage of
 # this script:  http://www.teuton.org/~ejm/exim_surbl
@@ -196,7 +196,7 @@ sub surblspamcheck
 
     if ($exim_body) {
         # Find all the URLs in the message by finding the HTTP string
-        @parts = split(/[hH][tT][tT][pP]:\/\//,$exim_body);
+        @parts = split(/[hH][tT][tT][pP](:|=3[aA])(\/|=2[Ff])(\/|=2[Ff])/,$exim_body);
         if (scalar(@parts) > 1) {
             # Read the entries from the two-level TLD file.
             open (twotld_handle,$twotld_file) or die "Can't open $twotld_file.\n";
