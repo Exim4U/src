@@ -103,11 +103,6 @@
      */
   $mailmanpath = "mailman";
 
-  /* exim4u: Specify the path to mailman from the domain document roots. That is, if on your installation
-     for each domain, mailman is located at https://<domain.tld>/mailmandir then specify "mailmandir".
-     */
-  $mailmanpath = "mailman";
-
 
   /* sa_tag is the default value to offer when we create new domains for SpamAssassin tagging
      sa_refuse is the default value to offer when we create new domains for SpamAssassin dropping */
