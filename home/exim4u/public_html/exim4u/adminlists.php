@@ -4,7 +4,12 @@
   include_once dirname(__FILE__) . '/config/httpheaders.php';
   include_once dirname(__FILE__) . '/config/authpostmaster.php';
   if (isset($_POST['listname'])) {
-    header ("Location: $mailmanprotocol://{$_SESSION['domain']}/$mailmanpath/admin/{$_POST['listname']}");
+    if ($mailmandomain == "default") {
+        header ("Location: $mailmanprotocol://{$_SESSION['domain']}/$mailmanpath/admin/{$_POST['listname']}");
+    } else {
+        header ("Location: $mailmanprotocol://$mailmandomain/$mailmanpath/admin/{$_POST['listname']}");
+    }
+
   }
 ?>
 <html>
@@ -16,8 +21,14 @@
     <?php include dirname(__FILE__) . '/config/header.php'; ?>
     <div id="menu">
       <?php print  _('Mailman Lists') . '<br><br>'; ?>
-      <?php print "<a href=\"$mailmanprotocol://{$_SESSION['domain']}/$mailmanpath/listinfo\">" . _('View Lists') . '</a><br>'; ?>
-      <?php print "<a href=\"$mailmanprotocol://{$_SESSION['domain']}/$mailmanpath/create\">" . _('Add A List') . '</a><br>'; ?>
+    <?php
+    if ($mailmandomain == "default") {
+      print "<a href=\"$mailmanprotocol://{$_SESSION['domain']}/$mailmanpath/listinfo\">" . _('View Lists') . '</a><br>';
+      print "<a href=\"$mailmanprotocol://{$_SESSION['domain']}/$mailmanpath/create\">" . _('Add A List') . '</a><br>';
+    } else {
+      print "<a href=\"$mailmanprotocol://$mailmandomain/$mailmanpath/listinfo\">" . _('View Lists') . '</a><br>';
+      print "<a href=\"$mailmanprotocol://$mailmandomain/$mailmanpath/create\">" . _('Add A List') . '</a><br>';
+    } ?>
       <a href="admin.php"><?php echo _('Main Menu'); ?></a><br>
       <br><a href="logout.php"><?php echo _('Logout'); ?></a><br>
     </div>

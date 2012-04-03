@@ -88,6 +88,21 @@
      "https" or "http" for mailman.   */
   $mailmanprotocol = "https";
 
+  /* If web hosting for mail domains are not on the same server as Exim4U then
+     you need to specify a domain for mailman to use on the Exim4u server.
+     Specify mailman domain name to be used as "domain.tld" or use "default"
+     to use the local mail domains.   
+  $mailmandomain = "default";
+     or
+  $mailmandomain = "domain.tld";
+  */
+  $mailmandomain = "default";
+  
+  /* exim4u: Specify the path to mailman from the domain document roots. That is, if on your installation
+     for each domain, mailman is located at https://<domain.tld>/mailmandir then specify "mailmandir".
+     */
+  $mailmanpath = "mailman";
+
   /* exim4u: Specify the path to mailman from the domain document roots. That is, if on your installation
      for each domain, mailman is located at https://<domain.tld>/mailmandir then specify "mailmandir".
      */
