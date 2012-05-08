@@ -1,5 +1,5 @@
 BLOCKING SPAM IN EXIM WITH URI BLOCK LISTS
-Version 2.2 - 26 Dec 10
+Version 2.3 - 06 Mar 12
 
 See the changelog (below) for details on changes.
 
@@ -201,6 +201,13 @@ This script is under a BSD style license. See the script for details.
 
 Changes
 =======
+Version 2.3 - 06 Mar 12
+
+    * Added functionality to better parse "http://" strings that are being 
+      encoded.  Thanks to Gordon Dickens for spotting this in the wild and 
+      providing test data.
+    * Regenerated surble_whitelist.txt, two-level-tlds, and three-level-tlds 
+      files.
 
 Version 2.2 - 26 Dec 10
 
