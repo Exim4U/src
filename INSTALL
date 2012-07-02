@@ -212,10 +212,9 @@ More specifically, with a DocumentRoot = /home/exim4u/public_html, then;
 	find  /home/exim4u/public_html/exim4u -type d -exec chmod 755 {} \;
         find  /home/exim4u/public_html/exim4u -type f -exec chmod 644 {} \;
 
-Since the siteadmin password is stored in /exim4u/sysconfig/variables.php
-the permissions on this file should be set so that the owner has read/write
-access, the group (apache) has read access and all other users have no access.
-For example:
+The permissions on the /exim4u/sysconfig/variables.php file should be set so that
+the owner has read/write access, the group (apache) has read access and all other
+users have no access. For example:
 
 	chmod 640 <target document root directory>/exim4u/config/variables.php
 
