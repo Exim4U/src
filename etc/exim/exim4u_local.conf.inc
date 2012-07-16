@@ -23,7 +23,7 @@ exim_group = exim
 # rfc1413_hosts = * : ! 192.168.0.0/16
 #
 rfc1413_hosts = *
-rfc1413_query_timeout = 5s
+rfc1413_query_timeout = 0s
 #
 # exim4u: It appears that more and more DNS zone administrators are breaking the rules
 # and putting domain names that look like IP addresses on the right hand side of MX
