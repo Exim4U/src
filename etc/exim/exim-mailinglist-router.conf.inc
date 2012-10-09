@@ -29,8 +29,8 @@ virtual_mailing_lists:
                 and d.domain_id = m.domain_id \
                 and m.enabled   = '1' \
                 and m.name      = '${quote_mysql:$local_part}' }}
-    local_part_suffix = -*
-    local_part_suffix_optional
+#    local_part_suffix = -*
+#    local_part_suffix_optional
     retry_use_local_part
     reply_transport = address_reply
     pipe_transport = address_pipe

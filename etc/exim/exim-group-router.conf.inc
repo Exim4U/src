@@ -36,8 +36,8 @@ virtual_dom_groups:
                   d.domain_id   = u.domain_id   and \
                   u.enabled     = '1'           and \
                   g.name        = '${quote_mysql:$local_part}'} }
-  local_part_suffix = -*
-  local_part_suffix_optional
+#  local_part_suffix = -*
+#  local_part_suffix_optional
   retry_use_local_part
   reply_transport = address_reply
   pipe_transport = address_pipe
