@@ -1,7 +1,5 @@
-# The entries are automatically generated from:
-# http://www.surbl.org/tld/two-level-tlds
-# Tue Mar  6 20:43:27 MST 2012
 0.bg
+0fees.net
 1.bg
 110mb.com
 150m.com
@@ -353,6 +351,7 @@ bielawa.pl
 biella.it
 bieszczady.pl
 bievat.no
+bij.pl
 bilbao.museum
 bill.museum
 bindal.no
@@ -391,7 +390,39 @@ blog.br
 blog.com
 blog.ru
 blog4ever.com
+blogger.ca
+blogger.cf
+blogger.ch
+blogger.co.id
+blogger.co.il
+blogger.com.au
+blogger.com.co
+blogger.com.my
+blogger.com.pe
+blogger.com.ph
+blogger.cv
+blogger.jp
+blogger.pl
+blogger.re
+blogger.se
+blogspot.ca
+blogspot.co.nz
+blogspot.co.uk
 blogspot.com
+blogspot.com.ar
+blogspot.com.au
+blogspot.com.br
+blogspot.com.es
+blogspot.cv
+blogspot.de
+blogspot.fr
+blogspot.in
+blogspot.it
+blogspot.jp
+blogspot.mx
+blogspot.pt
+blogspot.re
+blogspot.se
 bmd.br
 bn.it
 bo.it
@@ -550,6 +581,7 @@ club.aero
 club.tw
 cmw.ru
 cn.com
+cn.im
 cn.it
 cn.ms
 cn.pn
@@ -568,6 +600,7 @@ co.bw
 co.cc
 co.ci
 co.ck
+co.cm
 co.cr
 co.cu
 co.dk
@@ -591,6 +624,7 @@ co.lc
 co.ls
 co.ma
 co.me
+co.mp
 co.mu
 co.mw
 co.mz
@@ -659,10 +693,12 @@ com.bz
 com.cd
 com.ch
 com.ci
+com.cm
 com.cn
 com.co
 com.cu
 com.cy
+com.de
 com.dm
 com.do
 com.dz
@@ -772,6 +808,7 @@ com.vn
 com.vu
 com.ws
 com.ye
+com.zm
 communication.museum
 communications.museum
 community.museum
@@ -827,7 +864,6 @@ culturalcenter.museum
 culture.museum
 cuneo.it
 cv.ua
-cw.cm
 cx.cc
 cyber.museum
 cymru.museum
@@ -836,6 +872,7 @@ cz.cc
 cz.it
 cz.tc
 cz.tf
+cz.tl
 czeladz.pl
 czest.pl
 d.bg
@@ -858,6 +895,7 @@ de.net
 de.pn
 de.tc
 de.tf
+de.tl
 de.tt
 de.us
 de.vu
@@ -1011,6 +1049,7 @@ edu.ml
 edu.mm
 edu.mn
 edu.mo
+edu.mp
 edu.mt
 edu.mv
 edu.mw
@@ -1067,6 +1106,7 @@ edu.ws
 edu.ye
 edu.yu
 edu.za
+edu.zm
 educ.ar
 education.museum
 educational.museum
@@ -1343,9 +1383,11 @@ go.th
 go.tj
 go.tz
 go.ug
+gob.ar
 gob.bo
 gob.cl
 gob.do
+gob.ec
 gob.es
 gob.gt
 gob.hn
@@ -1389,6 +1431,7 @@ gov.bd
 gov.bf
 gov.bh
 gov.bm
+gov.bn
 gov.bo
 gov.br
 gov.bs
@@ -1463,6 +1506,7 @@ gov.ml
 gov.mm
 gov.mn
 gov.mo
+gov.mp
 gov.mr
 gov.mt
 gov.mu
@@ -1519,6 +1563,7 @@ gov.zw
 government.aero
 government.pn
 govt.nz
+gr.com
 gr.it
 gr.jp
 grajewo.pl
@@ -1833,6 +1878,7 @@ joshkar-ola.ru
 journal.aero
 journalism.museum
 journalist.aero
+jp.net
 jp.pn
 jpn.com
 js.cn
@@ -2416,6 +2462,7 @@ net.cd
 net.ch
 net.ci
 net.ck
+net.cm
 net.cn
 net.co
 net.cu
@@ -2474,6 +2521,7 @@ net.mk
 net.ml
 net.mm
 net.mo
+net.mp
 net.ms
 net.mt
 net.mu
@@ -2536,6 +2584,7 @@ net.vu
 net.ws
 net.ye
 net.za
+net.zm
 netfirms.com
 netsolhost.com
 neues.museum
@@ -2578,6 +2627,13 @@ nm.cn
 nm.ru
 nm.us
 nnov.ru
+no-ip.biz
+no-ip.ca
+no-ip.co.uk
+no-ip.com
+no-ip.info
+no-ip.net
+no-ip.org
 no.com
 no.it
 no.tc
@@ -2789,6 +2845,7 @@ org.ml
 org.mm
 org.mn
 org.mo
+org.mp
 org.mt
 org.mu
 org.mv
@@ -2861,6 +2918,7 @@ orland.no
 orskog.no
 orsta.no
 oryol.ru
+osa.pl
 osaka.jp
 osen.no
 oskol.ru
@@ -2973,6 +3031,7 @@ poltava.ua
 pomorskie.pl
 pomorze.pl
 pop3.ru
+populus.ch
 pordenone.it
 porsanger.no
 porsangu.no
@@ -3364,6 +3423,7 @@ soundandvision.museum
 southcarolina.museum
 southwest.museum
 sp.it
+sp.ru
 space.museum
 spb.ru
 spjelkavik.no
@@ -3569,6 +3629,7 @@ tsaritsyn.ru
 tsk.ru
 tula.ru
 tumblr.com
+tur.ar
 tur.br
 tur.cu
 turek.pl
@@ -3603,6 +3664,7 @@ udm.ru
 udmurtia.ru
 uhren.museum
 uk.com
+uk.mn
 uk.net
 uk.pn
 uk.tc
@@ -3633,6 +3695,7 @@ urn.arpa
 us.com
 us.ms
 us.na
+us.org
 us.tc
 us.tf
 us.to
@@ -3773,6 +3836,7 @@ web.tr
 web.ve
 web.za
 webcindario.com
+webgarden.es
 webs.com
 weebly.com
 wegrow.pl
