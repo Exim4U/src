@@ -1,0 +1,8 @@
+# This setting specifies IP addresses that can use our host as an outgoing
+# relay to any other host on the Internet. Such a setting commonly refers
+# to a complete local network as well as the localhost. These are trusted
+# hosts and no spam checking is performed.  Virus checking, however, is
+# performed. For example:
+# 127.0.0.1
+# 192.168.0.0/16
+127.0.0.1
