@@ -1,6 +1,61 @@
                            Exim4U Version History
 
-                      Current Exim4U Version Is 2.0.1
+                      Current Exim4U Version Is 2.1.1
+
+
+2.1.1 Release Date: October 12, 2012
+
+  Exim Configuration's URIBL/SURBL/DBL Blocklists (exim_surbl) Upgraded
+
+     exim_surbl upgraded from version 2.2 to version 2.3. This new version of exim_surbl
+     supports added functionality to better parse "http://" strings that are encoded.
+
+     Regenerated surbl_whitelist.txt, two-level-tlds, and three-level-tlds files.
+
+     exim_surbl version 2.3 is described here: http://www.teuton.org/~ejm/exim_surbl
+
+  Spamassassin's Spam Report May Now Be Included In All Email
+
+     SpamHeaderType variable is now specified in the exim4u_global_spam_virus configuration
+     file. For SpamHeaderType=0, Spamassassin's Spam Report will only appear in email
+     headers for Spam Score > Spam Tag Score.  For SpamHeaderType=1, Spamassassin's
+     Spam Report will appear in all email headers.
+
+  Bug Fixes
+
+     The crypt field was expanded to 256 characters which solved a problem with Debian
+     installations.  An update script is also provided for upgrading existing installs.
+
+     In prior Exim4U versions, a domain's Mailman installation could not be implemented on the
+     Exim4U server when webhosting for that domain was on a different server. Exim4U's php code
+     has been modified to solve this issue. Now, if web hosting for a mail domain is not on the
+     same server as Exim4U then another domain is specified in variables.php which is to be used
+     by Mailman on the Exim4U server.
+
+  Other
+
+     Exim's ident callbacks are now disabled by default in exim4u_local.conf.inc with:
+          rfc1413_query_timeout = 0s
+     This can be re-enabled by setting a value > 0.
+
+     The default config now requires TLS encryption for all authenticated connections in
+     exim4u_local.conf.inc with:
+          +auth_advertise_hosts = ${if eq{$tls_cipher}{}{}{*}}
+     This can be disabled by commenting out the auth_advertise_hosts line.
+
+     The Groups router configuration and the Simple Mailing List router configuration were
+     modified to support Groups and Simple Mailing List addresses with hyphens in the local
+     part of the address.  Uncomment the following lines in exim-mailinglist-router.conf.inc and
+     exim-group-router.conf.inc. to re-enable:
+          local_part_suffix = -*
+          local_part_suffix_optional
+
+     Various other modifications and bug fixes were also implemented.
+
+  Revised Documentation
+
+     The following documents were revised: INSTALL, NOTES, EXIM_4.69, DEBIAN, WEBMAIL, 
+     CHANGELOG and VERSION.
 
 
 2.0.1 Release Date: October 11, 2011
@@ -142,7 +197,7 @@
 
     Version 1.2.3 is a critical security release. As such, all Exim4U installations
     should immediately be upgraded to version 1.2.3.  This release addresses 
-    several security vulnerabilities in Exim4u v1.2.2 that were inherited from 
+    several security vulnerabilities in Exim4U v1.2.2 that were inherited from 
     the base Vexim 2.2.1 php code.  In addition to resolving the security issues 
     identified, it tightens other areas of the php code effectively reducing the 
     potential for additional undiscovered vulnerabilities being present in the 
