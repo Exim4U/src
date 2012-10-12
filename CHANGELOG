@@ -1,6 +1,91 @@
             Exim4U Changelog Summary And Upgrade Instructions
 
-                      Current Exim4U Version Is 2.0.1
+                      Current Exim4U Version Is 2.1.1
+
+
+2.1.1 Release Date: October 12, 2012
+     
+2.1.1 Changelog Summary (Versus Version 2.0.1)
+
+  M       WEBMAIL
+  M       DEBIAN
+  M       EXIM_4.69
+  M       NOTES
+  M       INSTALL
+  M       CHANGELOG
+  M       VERSION
+  M       etc/exim/exim4u_local.conf.inc
+  M       etc/exim/exim4u_global_spam_virus
+  M       etc/exim/exim.conf
+  M       etc/exim/exim-group-router.conf.inc
+  M       etc/exim/exim-mailinglist-router.conf.inc
+  M       etc/exim/exim.pl/three-level-tlds
+  M       etc/exim/exim.pl/surbl_whitelist.txt
+  M       etc/exim/exim.pl/two-level-tlds
+  M       etc/exim/exim.pl/exim_surbl.pl
+  M       etc/exim/exim.pl/README
+  M       mysql_setup/mysql.sql
+  A       mysql_migrate/mysql_expand_crypt.sql
+  M       home/exim4u/public_html/phpadmin/assets/images/HUB_222_by_75.gif
+  M       home/exim4u/public_html/phpadmin/index.html
+  M       home/exim4u/public_html/eximstats/assets/images/HUB_222_by_75.gif
+  M       home/exim4u/public_html/eximstats/eximstats.html
+  M       home/exim4u/public_html/munin/assets/images/HUB_222_by_75.gif
+  M       home/exim4u/public_html/munin/index.html
+  M       home/exim4u/public_html/exim4u/adminlists.php
+  M       home/exim4u/public_html/exim4u/config/variables.php
+  D       home/exim4u/public_html/admin_menu/.htaccess
+  D       home/exim4u/public_html/eximstats/.htaccess
+  D       home/exim4u/public_html/munin/.htaccess
+  D       home/exim4u/public_html/exim4u/.htaccess
+
+2.1.1 Instructions For Upgrading From Version 2.0.1
+
+  1) Documentation - Refer to the revised documentation in the Exim4U 2.1.1
+     distribution's root directory:
+        WEBMAIL
+        DEBIAN
+        EXIM_4.69
+	NOTES
+	INSTALL
+	CHANGELOG
+        VERSION
+  2) Exim Configuration Files - Copy the following files to your live
+     installation from the Exim4U 2.1.1 distribution's root directory.
+     Be sure to make a backup copy of your 2.0.1 version files prior
+     to overwriting/deleting them.
+        etc/exim/exim4u_local.conf.inc (Modify as per your requirements)
+	etc/exim/exim4u_global_spam_virus (Modify as per your requirements)
+        etc/exim/exim.conf
+        etc/exim/exim-group-router.conf.inc
+        etc/exim/exim-mailinglist-router.conf.inc
+        etc/exim/exim.pl/*
+     Update etc/exim/exim.pl/surbl_whitelist.txt to include any URLs
+     that you want whitelisted from the URIBL/SURBL/DBL checks in exim.
+     Restart exim.
+  3) Crypt Field Expansion - Copy the following two scripts to your live
+     installation from the Exim4U 2.1.1 distribution's root directory. 
+        mysql_setup/mysql.sql
+        mysql_migrate/mysql_expand_crypt.sql
+     The mysql_setup/mysql.sql script is only used to initally setup a Exim4U
+     database and is not used for upgrading since your database has already been
+     created. However, the crypt field in the MySQL database should be expanded to
+     256 characters. To expand the crypt field to 256 characters, run the following
+     command:
+        mysql -u<user_name> -p<password> exim4u < mysql_migrate/mysql_expand_crypt.sql
+     where: <username> = Your MYSQL root username
+            <password> = Your MYSQL root username's password 
+     For example, for user_name=MYNAME and password=SECRET then the command would be:
+        mysql -uMYNAME -pSECRET exim4u < mysql_migrate/mysql_expand_crypt.sql 
+  4) Exim4U Email Admin (PHP) - Copy the contents of the following directory
+     (including sub-directories and files) to your live installation from the
+     Exim4U 2.1.1 distribution's root directory:
+        home/exim4u/public_html/exim4u
+     Be sure to make a backup copy of your 2.0.1 version directories and files
+     prior to overwriting them. Modify the following file as per the INSTALL
+     instructions:
+        home/exim4u/public_html/exim4u/config/variables.php
+
 
 2.0.1 Release Date: October 11, 2011
 
