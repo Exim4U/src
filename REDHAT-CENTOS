@@ -5,3 +5,11 @@ Exim4U should work "right out of the box" on RedHat and CentOS systems. The
 instructions included with Exim4U are written specifically for RedHat and
 CentOS systems so just follow the README and INSTALL files verbatim.
 
+Exim4U Webmail Groupware is a modified version of Horde Groupware Webmail. Prior
+versions of Exim4U included Webmail Groupware that was based on Horde Version 3
+whereas this Exim4U version (Exim4U version 2.0 and later) includes Webmail Groupware 
+that is based on Horde Version 4 or higher. Horde version 4 or higher require php 5.3.0
+or above, however, stock CentOS 5.x only provides php 5.1.x by default.  Therefore,
+CentOS 5.x users will need to install php version 5.3.x.  CentOS 5.6 and above include
+php 5.3 which is packaged as php53.  Alternatively, php 5.3.x can be obtained from 3rd
+party repositories such as the EPEL repo.
