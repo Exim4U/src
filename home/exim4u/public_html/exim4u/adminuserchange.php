@@ -179,14 +179,14 @@
           <tr>
             <td><?php echo _('Enable Spam Box'); ?>:</td>
               <td><input name="on_spambox" type="checkbox"
-                <? if ($row['on_spambox'] == "1") {
+                <?php if ($row['on_spambox'] == "1") {
                   print " checked";
                 }?>>
               </td>
       </tr><tr>
        <td><?php echo _('Enable Spam Box Report'); ?>:</td>
               <td><input name="on_spamboxreport" type="checkbox"
-                <? if ($row['on_spamboxreport'] == "1") {
+                <?php if ($row['on_spamboxreport'] == "1") {
                   print " checked";
                 }?>>
               </td>      
@@ -249,8 +249,8 @@
           <td><?php echo _('Forward Mail To'); ?>:<br><br><br><br></td>
           <td>
             <input type="text" size="25" name="forward" value="<?php print $row['forward']; ?>" class="textfield"><br>
-            <? echo _('Must be a full e-mail address'); ?>!<br>
-            <? echo _('OR') .":<br>\n"; ?>
+            <?php echo _('Must be a full e-mail address'); ?>!<br>
+            <?php echo _('OR') .":<br>\n"; ?>
             <select name="forwardmenu">
               <option selected value=""></option>
               <?php
