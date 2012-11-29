@@ -8,26 +8,32 @@ echo;echo "This script installs Exim4u's images and logos into Horde webmail.";e
 echo -n "Enter webmail home directory: (example: /home/exim4u/public_html/webmail): ";read webmail_dir;
 #
 # Copy favicons.
-cp -f ./logos/favicon.ico $webmail_dir/ingo/themes/default/graphics/favicon.ico 
-cp -f ./logos/favicon.ico $webmail_dir/kronolith/themes/tango-blue/graphics/favicon.ico 
-cp -f ./logos/favicon.ico $webmail_dir/kronolith/themes/silver/graphics/favicon.ico 
-cp -f ./logos/favicon.ico $webmail_dir/kronolith/themes/default/graphics/favicon.ico 
-cp -f ./logos/favicon.ico $webmail_dir/imp/themes/tango-blue/graphics/favicon.ico 
-cp -f ./logos/favicon.ico $webmail_dir/imp/themes/default/graphics/favicon.ico 
-cp -f ./logos/favicon.ico $webmail_dir/turba/themes/tango-blue/graphics/favicon.ico 
-cp -f ./logos/favicon.ico $webmail_dir/turba/themes/silver/graphics/favicon.ico 
-cp -f ./logos/favicon.ico $webmail_dir/turba/themes/default/graphics/favicon.ico 
-cp -f ./logos/favicon.ico $webmail_dir/mnemo/themes/tango-blue/graphics/favicon.ico 
-cp -f ./logos/favicon.ico $webmail_dir/mnemo/themes/silver/graphics/favicon.ico 
-cp -f ./logos/favicon.ico $webmail_dir/mnemo/themes/default/graphics/favicon.ico 
-cp -f ./logos/favicon.ico $webmail_dir/nag/themes/tango-blue/graphics/favicon.ico 
-cp -f ./logos/favicon.ico $webmail_dir/nag/themes/silver/graphics/favicon.ico 
-cp -f ./logos/favicon.ico $webmail_dir/nag/themes/default/graphics/favicon.ico 
-cp -f ./logos/favicon.ico $webmail_dir/themes/silver/graphics/favicon.ico 
 cp -f ./logos/favicon.ico $webmail_dir/themes/default/graphics/favicon.ico
+
+# Remove these for Horde 5, keep for prior versions
+# Also, keep in Horde 5 to have Exim4U favicon for all modules.
+# cp -f ./logos/favicon.ico $webmail_dir/ingo/themes/default/graphics/favicon.ico
+# cp -f ./logos/favicon.ico $webmail_dir/kronolith/themes/default/graphics/favicon.ico
+# cp -f ./logos/favicon.ico $webmail_dir/imp/themes/default/graphics/favicon.ico
+# cp -f ./logos/favicon.ico $webmail_dir/turba/themes/default/graphics/favicon.ico
+# cp -f ./logos/favicon.ico $webmail_dir/mnemo/themes/default/graphics/favicon.ico
+# cp -f ./logos/favicon.ico $webmail_dir/nag/themes/default/graphics/favicon.ico
+
+# Remove these for Horde 5, keep for prior versions
+# cp -f ./logos/favicon.ico $webmail_dir/kronolith/themes/tango-blue/graphics/favicon.ico 
+# cp -f ./logos/favicon.ico $webmail_dir/kronolith/themes/silver/graphics/favicon.ico 
+# cp -f ./logos/favicon.ico $webmail_dir/imp/themes/tango-blue/graphics/favicon.ico 
+# cp -f ./logos/favicon.ico $webmail_dir/turba/themes/tango-blue/graphics/favicon.ico 
+# cp -f ./logos/favicon.ico $webmail_dir/turba/themes/silver/graphics/favicon.ico 
+# cp -f ./logos/favicon.ico $webmail_dir/mnemo/themes/tango-blue/graphics/favicon.ico 
+# cp -f ./logos/favicon.ico $webmail_dir/mnemo/themes/silver/graphics/favicon.ico 
+# cp -f ./logos/favicon.ico $webmail_dir/nag/themes/tango-blue/graphics/favicon.ico 
+# cp -f ./logos/favicon.ico $webmail_dir/nag/themes/silver/graphics/favicon.ico 
+# cp -f ./logos/favicon.ico $webmail_dir/themes/silver/graphics/favicon.ico 
 #
 # Copy Login Page Logo
 cp -f ./logos/horde-power1_52px_WebmailGroupware3.png $webmail_dir/themes/default/graphics/horde-power1.png
 #
 # Copy Small Logo .png image.
-cp -f ./logos/favicon.png $webmail_dir/themes/silver/graphics/horde.png
+# Remove for Horde 5, keep for prior versions
+# cp -f ./logos/favicon.png $webmail_dir/themes/silver/graphics/horde.png
