@@ -1,0 +1,45 @@
+#!/bin/bash
+#
+# Copyright (c) 2013 MailHub4U.com, LLC
+#
+#
+# This script detects outgoing ratelimit violations which are usually bulk spam originating
+# from internal user accounts that have been compromized via hacking or viruses, etc. Upon
+# detection, an email is then sent to the designated admin address to report the outgoing
+# ratelimit violation.
+#
+# The logwarn program must be downloaded, compiled and installed for this script to work.
+# Logwarn may be obtained here:
+#
+#       http://code.google.com/p/logwarn/
+#
+# Create the following directory: /var/lib/logwarn
+#
+#       mkdir /var/lib/logwarn
+#
+# Put the following entry in your root crontab which will run this script every 10 minutes:
+#
+#       # Check for sender ratelimit spammer.
+#       */10 * * * * <path-to-spamalert-script>/spamalert > /dev/null 2>&1
+#
+server=servername
+#
+mailcommand=/usr/bin/nail          # Should be mailx or nail from Heirloom project.
+# mailcommand=/usr/local/bin/mailx   # Should be mailx or nail from Heirloom project.
+#
+# Define path to logfile
+logfile=/var/log/exim/main.log
+#
+# Define email address where the report will be sent
+emailaddr="admin@domain.tld"
+#
+# Do not modify anything below here.
+#
+GREP_STRING=`logwarn -p $logfile 'ratelimit \('`
+echo "$server outgoing ratelimit alert. Spammer hack possible. Check the Exim logs ASAP." > /tmp/spamalert.txt
+echo >> /tmp/spamalert.txt
+echo $GREP_STRING >> /tmp/spamalert.txt
+if [ -n "$GREP_STRING" ] 
+        then
+        $mailcommand -s "$server sender ratelimit alert." -a /tmp/spamalert.txt $emailaddr < /dev/null > /dev/null 2>&1;
+fi
