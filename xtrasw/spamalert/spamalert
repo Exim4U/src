@@ -36,7 +36,7 @@ emailaddr=admin@domain.tld
 # Do not modify anything below here.
 #
 # echo "$server does not have outgoing ratelimit alerts." > /tmp/spamalert.txt
-GREP_STRING=`logwarn -p $logfile 'ratelimit \('`
+GREP_STRING=`/usr/bin/logwarn -p $logfile 'ratelimit \('`
 if [ -n "$GREP_STRING" ]
 then
 	echo "$server outgoing ratelimit alert. Spammer hack possible. Check the Exim logs ASAP." > /tmp/spamalert.txt
