@@ -8,7 +8,7 @@
 # detection, an email is then sent to the designated admin address to report the outgoing
 # ratelimit violation.
 #
-# The logwarn program must be downloaded, compiled and installed for this script to work.
+# The Logwarn program must be downloaded, compiled and installed for this script to work.
 # Logwarn may be obtained here:
 #
 #       http://code.google.com/p/logwarn/
@@ -31,15 +31,15 @@ mailcommand=/usr/bin/nail          # Should be mailx or nail from Heirloom proje
 logfile=/var/log/exim/main.log
 #
 # Define email address where the report will be sent
-emailaddr="admin@domain.tld"
+emailaddr=admin@domain.tld
 #
 # Do not modify anything below here.
 #
+# echo "$server does not have ratelimit alerts." > /tmp/spamalert.txt
 GREP_STRING=`logwarn -p $logfile 'ratelimit \('`
-echo "$server outgoing ratelimit alert. Spammer hack possible. Check the Exim logs ASAP." > /tmp/spamalert.txt
-echo >> /tmp/spamalert.txt
-echo $GREP_STRING >> /tmp/spamalert.txt
-if [ -n "$GREP_STRING" ] 
-        then
+if [ -n "$GREP_STRING" ] then
+	echo "$server outgoing ratelimit alert. Spammer hack possible. Check the Exim logs ASAP." > /tmp/spamalert.txt
+	echo >> /tmp/spamalert.txt
+	echo $GREP_STRING >> /tmp/spamalert.txt
         $mailcommand -s "$server sender ratelimit alert." -a /tmp/spamalert.txt $emailaddr < /dev/null > /dev/null 2>&1;
 fi
