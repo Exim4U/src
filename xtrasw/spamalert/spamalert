@@ -42,5 +42,5 @@ then
 	echo "$server outgoing ratelimit alert. Spammer hack possible. Check the Exim logs ASAP." > /tmp/spamalert.txt
 	echo >> /tmp/spamalert.txt
 	echo $GREP_STRING >> /tmp/spamalert.txt
-        $mailcommand -s "$server sender ratelimit alert." -a /tmp/spamalert.txt $emailaddr < /dev/null > /dev/null 2>&1;
+        $mailcommand -s "$server sender ratelimit alert." -a /tmp/spamalert.txt $emailaddr < /dev/null
 fi
