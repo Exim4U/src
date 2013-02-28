@@ -9,6 +9,9 @@ http://users.exim4u.org/Exim4U-UI-revamp-td4023515.html
 
 https://github.com/mkay/Exim4UI
 
+This bootstrapified version of the Exim4U user interface was contributed by
+Mika Reduerk.
+
 All files in this directory should be copied to the exim4u directory in
 your document root such as /home/exim4u/public_html/exim4u. The files
 should be readable by apache but not writeable by apache.
