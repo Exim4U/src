@@ -255,23 +255,27 @@ AR_ONCE_REPEAT = 1d
 # For each IP/domain that is added, the following must be perfomed:
 # 1. Modify the DNS zone file in /var/named.  Add "A" and "MX" records for each IP/domain. Also,
 #    for each IP/domain, modify the spf record to include the new IP and mx address.
-# 2. For each domain, generate a self-signed SSL certificate or purchase an SSL certificate.
+# 2. Reverse DNS records (PTR records) must be published for each domain. The PTR lookup of each
+#    IP address must result in the domain name that is designated in your DNS zone files for that IP 
+#    address in your multi-IP installation. PTR records are typically not designated in your DNS zone
+#    file but must be set by your ISP or hosting provider.
+# 3. For each domain, generate a self-signed SSL certificate or purchase an SSL certificate.
 #    Add each domain's SSL certificate and key files to /etc/pki/tls/exim-tls. The file names
 #    should be: exim.MY_IP.cert and exim.MY_IP_key where MY_IP is the ip address for the
 #    certificate's domain. eg: MY_IP = 111.222.333.444.  Make sure that file ownerships for the
 #    certificates and keys are all set to exim.  That is;
 #    chown exim.exim -R /etc/pki/tls/exim-tls
-# 3. Add all domains and IPs to the local host's file named: /etc/exim/exim4u_hostnames+hostIPs
-# 4. If using relays then, on the local host, add the domain of each relay server to either of
+# 4. Add all domains and IPs to the local host's file named: /etc/exim/exim4u_hostnames+hostIPs
+# 5. If using relays then, on the local host, add the domain of each relay server to either of
 #    the following files as per your config:
 #       /etc/exim/exim4u_backup_mx_host_names or;
 #       /etc/exim/exim4u_backup_mx_rl_host_names
-# 5. Add a new Dovecot configuration file for each IP address and put it in /etc/dovecot. The 
+# 6. Add a new Dovecot configuration file for each IP address and put it in /etc/dovecot. The 
 #    Dovecot configuration file names should be dovecot.MY_IP.conf where MY_IP is the IP
 #    address for the domain.  Then, modify the /etc/init.d/dovecot service to include all dovecot
 #    configuration files (for each IP). That is, a daemon should be configured to start for each
 #    configuration file in /etc/init.d/dovecot.
-# 6. Using exim4u's web interface, set the "Outgoing IP" to the "A" DNS record for each local
+# 7. Using exim4u's web interface, set the "Outgoing IP" to the "A" DNS record for each local
 #    domain. The local domain's "Outgoing IP" must be an IP address and not a FQDN.
-# 7. For relay hosts do the following: Using exim4u's web interface, set the "Relay Server Address"
+# 8. For relay hosts do the following: Using exim4u's web interface, set the "Relay Server Address"
 #    for each domain.  The "Relay Server Address" may be either the IP address or the FQDN.
