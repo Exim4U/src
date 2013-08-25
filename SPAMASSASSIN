@@ -77,7 +77,7 @@ will be higher thus leading to better spam detection.
 
 	[28216] dbg: diag: module not installed: Razor2::Client::Agent ('require' failed)
 
-   Razor will be installed during step 3 below.
+   Razor will be installed during step 2 below.
 
    Continue installing Perl modules until sa-update runs without any "module not installed"
    errors. SpamAssassin must be restarted after each sa-update execution for the changes 
