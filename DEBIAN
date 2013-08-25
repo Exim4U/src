@@ -74,17 +74,17 @@ The mysql socket location under Debian/Ubuntu is:
 
 The mysql statement in exim4u_local.conf.inc should then be as follows:
 
-	hide mysql_servers = <hostname>::(/var/run/mysqld/mysqld.sock)/exim4u/Debian-exim/<password>
+	hide mysql_servers = <hostname>::(/var/run/mysqld/mysqld.sock)/exim4u/mysql_user/<password>
 
 	(Exim4U default is: hide mysql_servers = localhost::(/var/lib/mysql/mysql.sock)/exim4u/exim4u/CHANGE)
 
 The following command can be used to set the mysql socket path correctly:
 
-	sed -i -e 's/^\(hide mysql_servers =.*::(\).*\().*\)\/.*\/.*\/.*/\1\/var\/run\/mysqld\/mysqld.sock\2\/exim4u\/Debian-exim\/NEWPASSWORD/' /etc/exim/exim4u_local.conf.inc 
+	sed -i -e 's/^\(hide mysql_servers =.*::(\).*\().*\)\/.*\/.*\/.*/\1\/var\/run\/mysqld\/mysqld.sock\2\/exim4u\/mysql_user\/NEWPASSWORD/' /etc/exim/exim4u_local.conf.inc 
 
-where: 	exim4u = Database Name
-        Debian-exim = User Name
-        NEWPASSWORD = Password
+where: 	exim4u = Database Name (default value = exim4u)
+        mysql-user = MySQL User Name (default value = exim4u)
+        NEWPASSWORD = MySQL Password
 
 Alternatively edit /etc/exim/exim4u_local.conf.inc and customize as required in the following format:
 
