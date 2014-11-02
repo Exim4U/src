@@ -151,10 +151,11 @@ not specified. (Most installations opt to create a user and a group both named
 exim4u and then use the UID and GID for exim4u.) Change the third instance
 of the word 'CHANGE' to the password you want the exim4u database user to have.
 This is the same mysql password you chose when editing /etc/exim/exim4u_local.conf.inc
-above. You also need to know if your system uses MD5 or DES passwords.
-BSD and Linux normally use MD5, whereas Solaris systems commonly use
-the older style DES. Uncomment the appropriate line, as noted by the comments,
-at the end of mysql.sql.
+above. DO NOT modify the fourth instance of the word 'CHANGE' since 'CHANGE' will be the
+default password for the first time that the siteadmin user logs in. You also need to 
+know if your system uses MD5 or DES passwords. BSD and Linux normally use MD5, 
+whereas Solaris systems commonly use the older style DES. Uncomment the appropriate
+line, as noted by the comments, at the end of mysql.sql.
 
 Save the file, and run:
 
