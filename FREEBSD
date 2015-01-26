@@ -1,4 +1,5 @@
                         Notes For FreeBSD Users
+                     (Based On FreeBSD Version 8)
 
 These notes provide guidance for installing and running Exim4U on FreeBSD systems.
 As stated elsewhere in these instructions, Exim4U was originally developed under
@@ -29,7 +30,7 @@ directory and compile and install using "make install clean".
 2) Exim MTA
 
 The Exim package should be compiled with MySQL and SQLite enabled. Compile Exim
-from the FreeBSD ports collection in the /usr/local/ports/mail/exim directory.
+from the FreeBSD ports collection in the /usr/ports/mail/exim directory.
 Use the "make config" command and include MySQL and SQLite by checking the MySQL
 and SQLite boxes in the config menu. If this is a new installation, then compile
 and install as follows:
@@ -93,6 +94,7 @@ example, these php extensions are required for the Exim4U web interface:
 	php5-session  (installed from /usr/ports/www/php5-session)
 	php5-dom      (installed from /usr/ports/textproc/php5-dom)
 	php5-posix    (installed from /usr/ports/sysutils/php5-posix)
+	php5-imap
 
 The standard DocumentRoot for FreeBSD is typically /usr/local/www/apache22/data or
 /usr/local/www/apache22/data_ssl.  Exim4U's INSTALL file instructions locate the
@@ -285,7 +287,7 @@ following ports generally need to be opened for Exim4U to function properly:
 
 14) Addendum - List Of All Packages Installed From The Ports Collection For Exim4U
 
-The following is the output from the "pkg_info" command:
+The following is the output from the "pkg_info" command from a fully functional FreeBSD version 8 installation:
 
 # pkg_info
 
