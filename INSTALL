@@ -21,6 +21,7 @@ Linux distributions as well.
 * PHP - Tested with Version 5.1.6
 * Perl - Tested With Version 5.8.8
 * php-pear-DB
+* php-imap
 
 2. Install: ClamAV (Clamd and Freshclam) - Tested with Version 0.95.2
 
