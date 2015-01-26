@@ -6,7 +6,7 @@
 --
 -- Create exim4u database.
 --
-CREATE DATABASE IF NOT EXISTS `exim4u`;
+CREATE DATABASE IF NOT EXISTS `exim4u` DEFAULT CHARACTER SET utf8;
 --
 --
 -- Create tables and copy the contents of existing fields
