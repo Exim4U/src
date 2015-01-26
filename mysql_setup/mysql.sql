@@ -1,7 +1,7 @@
 --
 -- Database: `exim4u`
 --
-CREATE DATABASE IF NOT EXISTS `exim4u`;
+CREATE DATABASE IF NOT EXISTS `exim4u` DEFAULT CHARACTER SET utf8;
 
 --
 -- Table: `domains`

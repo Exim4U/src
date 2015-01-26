@@ -11,7 +11,9 @@
   $dsn = "$sqltype://$sqluser:$sqlpass@$sqlserver/$sqldb";
   $db = DB::connect($dsn);
   if (DB::isError($db)) { die ($db->getMessage()); }
-  $db->setFetchMode(DB_FETCHMODE_ASSOC); 
+  $db->setFetchMode(DB_FETCHMODE_ASSOC);
+  $db->Query("SET CHARACTER SET UTF8");
+  $db->Query("SET NAMES UTF8");
 
   /* We use this IMAP server to check user quotas */
   $imapquotaserver = "{mail.CHANGE.com:143/imap/notls}";
@@ -67,7 +69,9 @@
 
   /* The location of your mailstore for new domains.
      Make sure the directory belongs to the configured $uid/$gid!
-  $mailroot = "/home/USER/mail/"; */
+        $mailroot = "/home/USER/mail/";
+     For most Linux, $mailroot = "/home/exim4u/mail/";
+     For most FreeBSD, $mailroot = "/usr/home/exim4u/mail/"; */
         
         $mailroot = "/home/exim4u/mail/";
 
@@ -110,7 +114,7 @@
   $sa_refuse = "10";
 
   /* max size of a vacation message */
-  $max_vacation_length = 255;
+  $max_vacation_length = 4095;
 
   /* Welcome message, sent to new POP/IMAP accounts */
   $welcome_message = "Welcome, {$_POST['realname']} !\n\nYour new E-mail account is all ready for you.\n\n"

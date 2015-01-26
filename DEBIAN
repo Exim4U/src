@@ -166,7 +166,7 @@ and php-pear with apt:
 
 apt-get install apache2 php5 libapache2-mod-php5
 apt-get install mysql-server mysql-client php5-mysql
-apt-get install php-pear
+apt-get install php-pear php5-imap
 
 Perl should be preinstalled, however, if not then install it with:
 
