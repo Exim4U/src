@@ -825,7 +825,7 @@ relay_MX_direct_header_mod:
 # exim4u Added this for spam processing for relay domains.
 # exim4u header_remove to remove subject if spam.
   headers_remove = ${if >={$acl_m_spamscore}{${lookup mysql{select domains.sa_tag * 10 from domains \
-                where domain = '${quote_mysql::$domain}' \
+                where domain = '${quote_mysql:$domain}' \
                 and domains.spamassassin = '1'}}} \
                 {Subject} \
                 }
@@ -1047,8 +1047,8 @@ virtual_domains:
 
 # exim4u header_remove to remove subject if spam or X-Spam-Report if not spam and SPAMHEADERTYPE=0.
   headers_remove = ${if >={$acl_m_spamscore}{${lookup mysql{select users.sa_tag * 10 from users,domains \
-                where localpart = '${quote_mysql::$local_part}' \
-                and domain = '${quote_mysql::$domain}' \
+                where localpart = '${quote_mysql:$local_part}' \
+                and domain = '${quote_mysql:$domain}' \
                 and users.on_spamassassin = '1' \
                 and users.domain_id=domains.domain_id }{$value}fail}} \
                 {Subject}{${if eq{SPAMHEADERTYPE}{0}{X-Spam-Report}}}  \
@@ -1088,7 +1088,7 @@ mailman_router:
                       -confirm+* : -join : -leave : \
                       -owner : -request : -admin
 #  headers_remove = X-Spam-Score:X-Spam-Report:X-Spam-Flag:X-Spam-Score-Integer
-  headers_remove = ${if eq{SPAMHEADERTYPE}{0}{X-Spam-Score::X-Spam-Report::X-Spam-Flag::X-Spam-Score-Integer}}
+  headers_remove = ${if eq{SPAMHEADERTYPE}{0}{X-Spam-Score:X-Spam-Report:X-Spam-Flag:X-Spam-Score-Integer}}
   transport = mailman_transport
 
  
