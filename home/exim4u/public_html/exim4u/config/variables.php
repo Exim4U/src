@@ -26,8 +26,8 @@
   $alphadomains = 1;
   $alphausers = 1;
 
-  /* Set to either "des" or "md5" depending on your crypt() libraries */
-  $cryptscheme = "md5";
+/* Set to either "sha", "sha512", "des" or "md5" depending on your crypt() libraries */
+  $cryptscheme = "sha512";
 
   /* Choose the type of domain name input for the index page. It should
      either be 'static', 'dropdown' or 'textbox'. Static causes the

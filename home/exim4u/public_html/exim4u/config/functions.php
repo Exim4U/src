@@ -123,10 +123,10 @@
      * @param   string  $salt   optional salt
      * @return  string          the properly crypted password
      */
-    function crypt_password($clear, $salt = '')
+function crypt_password($clear, $salt = '')
     {
         global $cryptscheme;
-        
+
         if ($cryptscheme == 'sha')
         {
             $hash = sha1($clear);
@@ -134,34 +134,32 @@
         }
         else
         {
-            if ($cryptscheme == 'des')
+            if ($salt != '')
             {
-                 if (!empty($salt))
+                if ($cryptscheme == 'sha512')
+                {
+                   $salt = substr($salt, 0, 16);
+                }
+                else
+                if ($cryptscheme == 'des')
                 {
                     $salt = substr($salt, 0, 2);
                 }
                 else
+                if ($cryptscheme == 'md5')
                 {
-                    $salt = get_random_bytes(2);
-                }
-           }
-           else
-           if ($cryptscheme == 'md5')
-           {
-               if (!empty($salt))
-               {
                     $salt = substr($salt, 0, 12);
-               }
-               else
-               {
-                    $salt = '$1$'.get_random_bytes(8).'$';
-               }
-           }
-           else
-           {
-               $salt = '';
-           }
-           $cryptedpass = crypt($clear, $salt);
+                }
+                else
+                {
+                    $salt = '';
+                }
+                $cryptedpass = crypt($clear, $salt);
+            }
+            else {
+                $cryptedpass = crypt($clear);
+
+            }
         }
 
         return $cryptedpass;
