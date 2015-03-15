@@ -94,7 +94,7 @@ example, these php extensions are required for the Exim4U web interface:
 	php5-session  (installed from /usr/ports/www/php5-session)
 	php5-dom      (installed from /usr/ports/textproc/php5-dom)
 	php5-posix    (installed from /usr/ports/sysutils/php5-posix)
-	php5-imap
+	php5-imap     (installed from /usr/ports/mail/php5-imap)
 
 The standard DocumentRoot for FreeBSD is typically /usr/local/www/apache22/data or
 /usr/local/www/apache22/data_ssl.  Exim4U's INSTALL file instructions locate the

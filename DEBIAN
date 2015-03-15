@@ -161,8 +161,8 @@ The following can be used to comment out the DKIM functionality:
 
 2) EXIM4U WEB INTERFACE
 
-Apache runs under Debian/Ubuntu as apache2.  Install apache2, php5, libapache2-mod-php5, mysql, 
-and php-pear with apt:
+Apache runs under Debian/Ubuntu as apache2.  Install apache2, php5, libapache2-mod-php5, mysql-server, 
+mysql-client php5-mysql and php-pear and php5-imap with apt:
 
 apt-get install apache2 php5 libapache2-mod-php5
 apt-get install mysql-server mysql-client php5-mysql
