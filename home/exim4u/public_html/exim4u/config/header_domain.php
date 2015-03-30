@@ -1,22 +1,24 @@
 <?php
   if (isset($_SESSION['domain_id'])) {
     $domheaderquery = "SELECT enabled FROM domains WHERE domains.domain_id='" . $_SESSION['domain_id'] . "'";
-    $domheaderresult = $db->query($domheaderquery);
-    $domheaderrow = $domheaderresult->fetchRow();
+    $domheaderresult = $dbh->query($domheaderquery);
+    $domheaderrow = $domheaderresult->fetch();
     $usrheaderquery = "SELECT enabled FROM users WHERE localpart='" . $_SESSION['localpart'] . "' AND domain_id='" . $_SESSION['domain_id'] . "'";
-    $usrheaderresult = $db->query($usrheaderquery);
-    $usrheaderrow = $usrheaderresult->fetchRow();
+    $usrheaderresult = $dbh->query($usrheaderquery);
+    $usrheaderrow = $usrheaderresult->fetch();
   }
 
   print "<div id=\"Header\"><p><a href=\"http://exim4u.org/\" target=\"_blank\">" . _("Exim4U Email Admin") . "</a> ";
   if (isset($_SESSION['domain'])) {
     print     "-- Domain Administration";
   }
-  if (($domheaderrow['enabled'] == "0") || ($domheaderrow['enabled'] == "f")) {
-    print   _("-- domain disabled (please see your administrator).");
-  } else if (($usrheaderrow['enabled'] == "0") ||($usrheaderrow['enabled'] == "f")) {
-    print   _("-- account disabled (please see your administrator).");
-  }
+ if (isset($_SESSION['domain_id'])) {
+   if (($domheaderrow['enabled'] == "0") || ($domheaderrow['enabled'] == "f")) {
+     print _("-- domain disabled (please see your administrator).");
+   } else if (($usrheaderrow['enabled'] == "0") ||($usrheaderrow['enabled'] == "f")) {
+     print _("-- account disabled (please see your administrator).");
+ }
+}
   // First a few status messages about account maintenance
   if (isset($_GET['added'])) {
     printf (_("-- %s has been successfully added."), $_GET['added']);
@@ -83,7 +85,6 @@
   } else if (isset($_GET['failuidguid'])) {
     printf (_("-- Error getting UID/GID for %s"), $_GET['failuidguid']);
   }
-  if ($_GET['login'] == "failed") { print _("Login failed"); }
-
+  if (isset($_GET['login']) && ($_GET['login'] == "failed")) { print _("Login failed"); }
   print "</p></div>";
 ?>

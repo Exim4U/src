@@ -57,7 +57,7 @@
         <tr>
             <td><?php echo _('Outgoing IP'); ?>:</td>
             <td>
-              <input name="outgoingip" size="12" type="text" class="textfield"
+              <input name="outgoing_ip" size="12" type="text" class="textfield"
                 value="<?php echo $outgoing_IP; ?>">
             </td>
           </tr>
@@ -168,7 +168,7 @@
           <tr>
             <td><?php echo _('Relay Server'); ?>:</td>
             <td>
-              <input name="relaydest" type="text" size="22" class="textfield">
+              <input name="relay_address" type="text" size="22" class="textfield">
             </td>
             <td>
             <?php echo _('Destination mail server name.'); ?>

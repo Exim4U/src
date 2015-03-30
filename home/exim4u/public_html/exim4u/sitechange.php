@@ -23,19 +23,19 @@
         <tr><td><?php echo _("Admin"); ?>:</td><td><select name="localpart" class="textfield">
           <?php
             $query = "SELECT localpart,domain FROM users,domains
-            WHERE domains.domain_id='" . $_GET['domain_id'] . "'
-            AND admin=1 AND users.domain_id=domains.domain_id";
-            $result = $db->query($query);
-            if ($result->numRows()) {
-            while ($row = $result->fetchRow()) {
-              print '<option value="' . $row['localpart'] . '">' . $row['localpart'] . '</option>' . "\n\t";
-            }
-            }
+              WHERE domains.domain_id=:domain_id
+              AND admin=1 AND users.domain_id=domains.domain_id";
+         $sth = $dbh->prepare($query);
+         $sth->execute(array(':domain_id'=>$_GET['domain_id']));
+         while ($row = $sth->fetch()) {
+                 print '<option value="' . $row['localpart'] . '">' . $row['localpart'] . '</option>' . "\n\t";
+         }
           ?>
           </select>@<?php 
-          $query = "SELECT * FROM domains WHERE domain_id='{$_GET['domain_id']}'";
-          $result = $db->query($query);
-          if ($result->numRows()) { $row = $result->fetchRow(); }
+           $query = "SELECT * FROM domains WHERE domain_id=:domain_id";
+         $sth = $dbh->prepare($query);
+         $sth->execute(array(':domain_id'=>$_GET['domain_id']));
+         if ($sth->rowCount()) { $row = $sth->fetch(); }
           print $row['domain']; ?></td>
         <td><input name="domain_id" type="hidden" value="<?php print $_GET['domain_id']; ?>">
             <input name="domain" type="hidden" value="<?php print $_GET['domain']; ?>"></td></tr>
@@ -47,7 +47,7 @@
       <tr><td colspan="2"><h4><?php echo _("Modify Domain Properties"); ?>:</h4></td></tr>
       <form name="domainchange" method="post" action="sitechangesubmit.php">
        <?php if ($multi_ip == "yes") { ?>
-               <tr><td><?php echo _("Outgoing IP"); ?>:</td><td><input type="text" size="12" name="outgoingip" value="<?php print $row['outgoing_ip']; ?>" class="textfield"></td></tr>
+               <tr><td><?php echo _("Outgoing IP"); ?>:</td><td><input type="text" size="12" name="outgoing_ip" value="<?php print $row['outgoing_ip']; ?>" class="textfield"></td></tr>
        <?php } ?>
         <tr><td><?php echo _("System UID"); ?>:</td><td><input type="text" size="5" name="uid" value="<?php print $row['uid']; ?>" class="textfield"></td></tr>
         <tr><td><?php echo _("System GID"); ?>:</td><td><input type="text" size="5" name="gid" value="<?php print $row['gid']; ?>" class="textfield"></td></tr>

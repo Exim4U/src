@@ -22,13 +22,13 @@
           <tr><td colspan="2"><h4><?php echo _("Modify Relay Domain Properties"); ?>:</h4>
 
           <?php 
-          $query = "SELECT * FROM domains WHERE domain_id='{$_GET['domain_id']}'";
-          $result = $db->query($query);
-          if ($result->numRows()) { $row = $result->fetchRow(); }
+          $query = "SELECT * FROM domains WHERE domain_id=:domain_id";
+          $sth = $dbh->prepare($query);
+          $sth->execute(array(':domain_id'=>$_GET['domain_id']));
+          if ($sth->rowCount()) { $row = $sth->fetch(); }
                 echo _("Relay Domain: "); echo $row['domain'];      
           ?>
           </td></tr>
-
       
         <td><input name="domain_id" type="hidden" value="<?php print $_GET['domain_id']; ?>">
             <input name="domain" type="hidden" value="<?php print $_GET['domain']; ?>"></td></tr>
@@ -38,7 +38,7 @@
       <tr>
             <td><?php echo _('Relay Server Address'); ?>:</td>
             <td>
-            <input type="text" size="30" name="relaydest" value="<?php print $row['relay_address']; ?>" class="textfield">
+            <input type="text" size="30" name="relay_address" value="<?php print $row['relay_address']; ?>" class="textfield">
             </td>
           </tr>
             

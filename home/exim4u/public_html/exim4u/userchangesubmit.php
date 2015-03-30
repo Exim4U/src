@@ -7,17 +7,19 @@
   if (isset($_POST['on_forward'])) {$_POST['on_forward'] = 1;} else {$_POST['on_forward'] = 0;}
   if (isset($_POST['unseen'])) {$_POST['unseen'] = 1;} else {$_POST['unseen'] = 0;}
   # Do some checking, to make sure the user is ALLOWED to make these changes
-  $query = "SELECT spamassassin,maxmsgsize from domains WHERE domain_id = '{$_SESSION['domain_id']}'";
-  $result = $db->query($query);
-  $row = $result->fetchRow();
+   $query = "SELECT spamassassin,maxmsgsize from domains WHERE domain_id=:domain_id";
+   $sth = $dbh->prepare($query);
+   $sth->execute(array(':domain_id'=>$_SESSION['domain_id']));
+   $row = $sth->fetch();
   if ((isset($_POST['on_spambox'])) && (isset($_POST['on_spamassassin']))) {$_POST['on_spambox'] = 1;} else {$_POST['on_spambox'] = 0;}
   if ((isset($_POST['on_spamassassin'])) && ($row['spamassassin'] = 1)) {$_POST['on_spamassassin'] = 1;} else {$_POST['on_spamassassin'] = 0;}
   if ((isset($_POST['maxmsgsize'])) && ($_POST['maxmsgsize'] > $row['maxmsgsize'])) {$_POST['maxmsgsize'] = $row['maxmsgsize'];}
 
   if ($_POST['realname'] != "") {
-    $query = "UPDATE users SET realname='{$_POST['realname']}'
-            WHERE user_id='{$_SESSION['user_id']}'";
-    $result = $db->query($query);
+   $query = "UPDATE users SET realname=:realname
+  	WHERE user_id=:user_id";
+   $sth = $dbh->prepare($query);
+   $sth->execute(array(':realname'=>$_POST['realname'], ':user_id'=>$_SESSION['user_id']));
   }
   if (isset($_POST['on_spamboxreport'])) {
     $_POST['on_spamboxreport'] = 1;
@@ -28,11 +30,10 @@
 # Update the password, if the password was given
   if (validate_password($_POST['clear'], $_POST['vclear'])) {
     $cryptedpassword = crypt_password($_POST['clear']);
-    $query = "UPDATE users SET crypt='$cryptedpassword',
-            clear='{$_POST['clear']}'
-            WHERE user_id='{$_SESSION['user_id']}'";
-    $result = $db->query($query);
-    if (!DB::isError($result)) {
+    $query = "UPDATE users SET crypt=:crypt, clear=:clear WHERE user_id=:user_id";
+    $sth = $dbh->prepare($query);
+    $success = $sth->execute(array(':crypt'=>$cryptedpassword, ':clear'=>$_POST['clear'], ':user_id'=>$_SESSION['user_id']));
+    if ($success) {
       $_SESSION['crypt'] = $cryptedpassword;
       header ("Location: userchange.php?userupdated");
       die;
@@ -46,20 +47,25 @@
 
 
     # Finally 'the rest' which is handled by the profile form
-    $query = "UPDATE users SET on_spamassassin='{$_POST['on_spamassassin']}',
-            on_spambox='{$_POST['on_spambox']}',
-            on_spamboxreport='{$_POST['on_spamboxreport']}',
-            sa_tag='{$_POST['sa_tag']}',
-            sa_refuse='{$_POST['sa_refuse']}',
-            on_vacation='{$_POST['on_vacation']}',
-            vacation='".imap_8bit(trim($_POST['vacation']))."',
-            on_forward='{$_POST['on_forward']}',
-            forward='{$_POST['forward']}',
-            maxmsgsize='{$_POST['maxmsgsize']}',
-            unseen='{$_POST['unseen']}'
-            WHERE user_id='{$_SESSION['user_id']}'";
-    $result = $db->query($query);
-    if (!DB::isError($result)) {
+    $query = "UPDATE users SET on_spamassassin=:on_spamassassin,
+             on_spambox=:on_spambox, on_spamboxreport=:on_spamboxreport,
+             sa_tag=:sa_tag, sa_refuse=:sa_refuse, 
+             on_vacation=:on_vacation, vacation=:vacation,
+             on_forward=:on_forward, forward=:forward,
+             maxmsgsize=:maxmsgsize, unseen=:unseen
+      WHERE user_id=:user_id";
+    $sth = $dbh->prepare($query);
+    $success = $sth->execute(array(':on_spamassassin'=>$_POST['on_spamassassin'],
+      ':on_spambox'=>$_POST['on_spambox'],
+      ':on_spamboxreport'=>$_POST['on_spamboxreport'],
+      ':sa_tag'=>$_POST['sa_tag'], ':sa_refuse'=>$_POST['sa_refuse'],
+      ':on_vacation'=>$_POST['on_vacation'],
+      ':vacation'=>imap_8bit(trim($_POST['vacation'])),
+      ':on_forward'=>$_POST['on_forward'], ':forward'=>$_POST['forward'],
+      ':maxmsgsize'=>$_POST['maxmsgsize'], ':unseen'=>$_POST['unseen'],
+      ':user_id'=>$_SESSION['user_id']
+      ));
+    if ($success) {
       if (strlen($_POST['vacation']) > $max_vacation_length)
       {
         header ("Location: userchange.php?uservacationtolong=" . strlen($_POST['vacation']));

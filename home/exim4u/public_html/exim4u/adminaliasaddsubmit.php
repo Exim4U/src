@@ -16,9 +16,10 @@
     $_POST['enabled'] = 0;
   }
     $query = "SELECT spamassassin from domains
-    WHERE domain_id = '{$_SESSION['domain_id']}'";
-  $result = $db->query($query);
-  $row = $result->fetchRow();
+     WHERE domain_id=:domain_id";
+  $sth = $dbh->prepare($query);
+  $sth->execute(array(':domain_id'=>$_SESSION['domain_id']));
+  $row = $sth->fetch();
   if ((isset($_POST['on_spamassassin'])) && ($row['spamassassin'] == 1)) {
     $_POST['on_spamassassin'] = 1;
   } else {
@@ -39,7 +40,7 @@
 
   # check_user_exists() will die if a user account already exists with the same localpart and domain id
   check_user_exists(
-    $db,$_POST['localpart'],$_SESSION['domain_id'],'adminalias.php'
+   $dbh,$_POST['localpart'],$_SESSION['domain_id'],'adminalias.php'
   );
   
   if ((preg_match("/['@%!\/\|\" ']/",$_POST['localpart']))
@@ -53,23 +54,27 @@
     $query = "INSERT INTO users
       (localpart, username, domain_id, crypt, clear, smtp, pop, uid,
       gid, realname, type, admin, on_spamassassin, enabled)
-      SELECT '{$_POST['localpart']}',
-      '{$_POST['localpart']}@{$_SESSION['domain']}',
-      '{$_SESSION['domain_id']}',
-      '" . crypt_password($_POST['clear'],$salt) . "',
-      '{$_POST['clear']}',
-      '{$aliasto}',
-      '{$aliasto}',
-      uid,
-      gid,
-      '{$_POST['realname']}',
-      'alias',
-      '{$_POST['admin']}',
-      '{$_POST['on_spamassassin']}',
-      '{$_POST['enabled']}' from domains
-      WHERE domains.domain_id='{$_SESSION['domain_id']}'";
-    $result = $db->query($query);
-    if (!DB::isError($result)) {
+	SELECT :localpart, :username, :domain_id, :crypt, :clear, :smtp,
+        :pop, uid, gid, :realname, 'alias', :admin,
+        :on_spamassassin, :enabled
+        FROM domains
+        WHERE domains.domain_id=:domain_id";
+      $sth = $dbh->prepare($query);
+      $success = $sth->execute(array(
+          ':localpart' => $_POST['localpart'],
+          ':username' => $_POST['localpart'] . '@' . $_SESSION['domain'],
+          ':domain_id' => $_SESSION['domain_id'],
+          ':crypt' => crypt_password($_POST['clear'],$salt),
+          ':clear' => $_POST['clear'],
+          ':smtp' => $aliasto,
+          ':pop' => $aliasto,
+          ':realname' => $_POST['realname'],
+          ':admin' => $_POST['admin'],
+          ':on_spamassassin' => $_POST['on_spamassassin'],
+          ':enabled' => $_POST['enabled']
+        ));
+
+  if ($success) {
       header ("Location: adminalias.php?added={$_POST['localpart']}");
     } else {
       header ("Location: adminalias.php?failadded={$_POST['localpart']}");

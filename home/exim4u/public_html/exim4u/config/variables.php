@@ -1,19 +1,22 @@
 <?php
   /* SQL Database login information */
-  require_once "DB.php";
   include_once dirname(__FILE__) . "/i18n.php";
 
-  $sqlserver = "unix+localhost";
+  $sqlserver = "localhost";
   $sqltype = "mysql";
   $sqldb = "exim4u";
   $sqluser = "exim4u";
   $sqlpass = "CHANGE";
-  $dsn = "$sqltype://$sqluser:$sqlpass@$sqlserver/$sqldb";
-  $db = DB::connect($dsn);
-  if (DB::isError($db)) { die ($db->getMessage()); }
-  $db->setFetchMode(DB_FETCHMODE_ASSOC);
-  $db->Query("SET CHARACTER SET UTF8");
-  $db->Query("SET NAMES UTF8");
+
+  $dsn = "$sqltype:host=$sqlserver;dbname=$sqldb";
+  $dboptions = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES UTF8');
+ 
+  try {
+    $dbh = new PDO($dsn, $sqluser, $sqlpass, $dboptions);
+    $dbh->setAttribute($dbh::ATTR_DEFAULT_FETCH_MODE, $dbh::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    die($e->getMessage());
+  }
 
   /* We use this IMAP server to check user quotas */
   $imapquotaserver = "{mail.CHANGE.com:143/imap/notls}";
@@ -26,7 +29,8 @@
   $alphadomains = 1;
   $alphausers = 1;
 
-/* Set to either "sha", "sha512", "des" or "md5" depending on your crypt() libraries */
+/* Set to either "sha", "sha512", "des" or "md5" depending on your crypt() libraries.
+   Examples: Debian 7 - use sha512, FreeBSD 10.1 - use sha, Older OSs - use md5 */
   $cryptscheme = "sha512";
 
   /* Choose the type of domain name input for the index page. It should
