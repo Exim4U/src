@@ -30,9 +30,7 @@ CREATE TABLE IF NOT EXISTS `exim4u`.`domains`
 	relay_address    varchar(64)             NOT NULL  default '',
 	outgoing_ip      varchar(15)             NOT NULL  default '',
 	PRIMARY KEY (domain_id),
-	UNIQUE KEY domain (domain),
-	KEY domain_id (domain_id),
-	KEY domains (domain)
+	UNIQUE KEY domain (domain)
 );
 
 --
@@ -133,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `exim4u`.`group_contents`
 );
 
 --
--- Priviledges:
+-- Privileges:
 --
 GRANT SELECT,INSERT,DELETE,UPDATE ON `exim4u`.* to "exim4u"@"localhost" 
     IDENTIFIED BY 'CHANGE';
