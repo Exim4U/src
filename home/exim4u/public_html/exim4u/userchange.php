@@ -31,7 +31,6 @@
     <div id="forms">
       <form name="userchange" method="post" action="userchangesubmit.php">
       <table align="center">
-        <tr><td><?php echo _("Name"); ?>:</td><td><input name="realname" type="text" value="<?php print $row['realname']; ?>" class="textfield"></td></tr>
         <tr><td><?php echo _("Email Address"); ?>:</td><td><?php print $row['localpart']."@".$_SESSION['domain']; ?></td>
         <tr><td><?php echo _("Password"); ?>:</td><td><input name="clear" type="password" class="textfield"></td></tr>
         <tr><td><?php echo _("Verify Password"); ?>:</td><td><input name="vclear" type="password" class="textfield"></td></tr>
@@ -47,7 +46,9 @@
           } else {
             print _("Your mailbox quota is currently: Unlimited");
           }
-        ?></td></tr><?php 
+        ?></td></tr>
+<tr><td><?php echo _("Name"); ?>:</td><td><input name="realname" type="text" value="<?php print $row['realname']; ?>" class="textfield"></td></tr>
+<?php 
       if ($domrow['spamassassin'] == "1") {
       print "<tr><td>" . _("Spamassassin") . ":</td><td><input name=\"on_spamassassin\" type=\"checkbox\"";
       if ($row['on_spamassassin'] == "1") { 
@@ -75,7 +76,7 @@
       if ($row['on_vacation'] == "1") { print " checked "; } 
       print "></td></tr>\n";
       print "<tr><td>" . _("Vacation Message") . ":</td>";
-      print "<td><textarea name=\"vacation\" cols=\"40\" rows=\"5\" class=\"textfield\">".imap_qprint($row['vacation'])."</textarea>";
+      print "<td><textarea name=\"vacation\" cols=\"40\" rows=\"5\" class=\"textfield\">".(function_exists('imap_qprint') ? imap_qprint($row['vacation']) : $row['vacation'])."</textarea>";
       print "<tr><td>" . _("Forwarding Enabled") . ":</td><td><input name=\"on_forward\" type=\"checkbox\"";
       if ($row['on_forward'] == "1") { print " checked "; } 
       print "></td></tr>\n";
