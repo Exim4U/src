@@ -1,35 +1,10 @@
 <?php
-    // Strictly three aren't alone functions, but they are functions of sorts 
-    // and we call it every
-    // page to prevent tainted data expoits
-    foreach ($_GET as $getkey => $getval) 
-    {
-        $_GET[$getkey] = preg_replace('/[\'";$%]/','',$getval);
-    }
-
-    foreach ($_POST as $postkey => $postval) 
-    {
-        $_POST[$postkey] = preg_replace('/[\'";$%]/','',$postval);
-    }
-
-    $globals = array('_GET', '_POST');
-    foreach ($globals as $i => $val) 
-    {
-        foreach ($$val as $j => $var) 
-        {
-            if ( isset($$var) ) 
-            { 
-                unset($$var); 
-            }
-        }
-    }
-
 
     /**
      * validate user password
      *
-     * validate if password and confirmation password match
-     * and contain no invalid characters. They can not be empty.
+     * validate if password and confirmation password match.
+     * They can not be empty.
      *
      * @param   string   $clear   cleartext password
      * @param   string   $vclear  cleartext password (for validation)
@@ -37,16 +12,14 @@
      */
     function validate_password($clear,$vclear) 
     {
-        return ($clear == $vclear) &&
-               ($clear != "") &&
-               ($clear == preg_replace("/[\'\"\`\;]/","",$clear));
+    return ($clear == $vclear) && ($clear != "");
     }
 
 
     /**
      * validate alias password
      *
-     * like validate_password, but the pasword can be empty
+     * like validate_password, but the password can be empty
      *
      * @see     validate_password
      * @param   string   $clear   cleartext password
@@ -55,8 +28,7 @@
      */
     function alias_validate_password($clear,$vclear) 
     {
-        return ($clear == $vclear) &&
-               ($clear == preg_replace("/[\'\"\`\;]/","",$clear));
+    return ($clear == $vclear);
     }
 
 
