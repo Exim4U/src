@@ -85,6 +85,11 @@
 		header ('Location: index.php?domaindisabled');
 		die();
 	} 
+
+	if (($row['admin'] == '0') && ($row['type'] == 'alias')) {
+		header ('Location: index.php?login=failed');
+                die();
+        }
 	
 	# must be a user, send them to edit their own details
 	header ('Location: userchange.php');

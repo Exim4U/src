@@ -64,7 +64,7 @@
         <tr>
           <td><?php echo _('Verify Password'); ?>:</td>
           <td colspan="2">
-            <input type="password" size="25" id="clear" name="vclear" class="textfield">
+            <input type="password" size="25" id="vclear" name="vclear" class="textfield">
           </td>
         </tr>
         <tr>
