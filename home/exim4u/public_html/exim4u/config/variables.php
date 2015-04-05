@@ -29,7 +29,9 @@
   $alphadomains = 1;
   $alphausers = 1;
 
-/* Set to either "sha", "sha512", "des" or "md5" depending on your crypt() libraries.
+/* Set to either "sha", "sha512", "des" or "md5" depending on your
+   crypt() libraries or "clear" for clear-text passwords. Encryption
+   is recommended and the "clear" option is discouraged.
    Examples: Debian 7 - use sha512, FreeBSD 10.1 - use sha, Older OSs - use md5 */
   $cryptscheme = "sha512";
 

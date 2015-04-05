@@ -121,18 +121,25 @@ if ($multi_ip == "yes") {
     if ($success) {
       if ($_POST['type'] == "local") {
         $query = "INSERT INTO users
-             (domain_id, localpart, username, clear, crypt, uid, gid,
+             (domain_id, localpart, username, crypt, uid, gid,
+             on_spamassassin, sa_tag, sa_refuse, quota, maxmsgsize,
              smtp, pop, realname, type, admin)
-             SELECT domain_id, :localpart, :username, :clear, :crypt,
-             :uid, :gid, :smtp, :pop, 'Domain Admin', 'local', 1
+             SELECT domain_id, :localpart, :username, :crypt,:uid, :gid,
+             :on_spamassassin, :sa_tag, :sa_refuse, :quota, :maxmsgsize,
+             :smtp, :pop, 'Domain Admin', 'local', 1
              FROM domains
              WHERE domains.domain=:domain";
              $sth = $dbh->prepare($query);
              $success = $sth->execute(array(':localpart'=>$_POST['localpart'],
              ':username'=>$_POST['localpart'].'@'.$_POST['domain'],
-             ':clear'=>$_POST['clear'],
              ':crypt'=>crypt_password($_POST['clear'],$salt),
-             ':uid'=>$uid, ':gid'=>$gid, ':smtp'=>$smtphomepath,
+             ':uid'=>$uid, ':gid'=>$gid,
+             ':on_spamassassin'=>$_POST['spamassassin'],
+             ':sa_tag'=>((isset($_POST['sa_tag'])) ? $_POST['sa_tag'] : 0),
+             ':sa_refuse'=>((isset($_POST['sa_refuse'])) ? $_POST['sa_refuse'] : 0),
+             ':quota'=>((isset($_POST['quotas'])) ? $_POST['quotas'] : 0),
+             ':maxmsgsize'=>((isset($_POST['maxmsgsize'])) ? $_POST['maxmsgsize'] : 0),
+             ':smtp'=>$smtphomepath,
              ':pop'=>$pophomepath,
              ':domain'=>$_POST['domain'],
              ));

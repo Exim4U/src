@@ -100,6 +100,11 @@ function crypt_password($clear, $salt = '')
     {
         global $cryptscheme;
 
+	if ($cryptscheme == 'clear')
+	{
+		$cryptedpass=$clear;
+	}
+	else
         if ($cryptscheme == 'sha')
         {
             $hash = sha1($clear);
