@@ -12,7 +12,7 @@
 
     try {
         $ml = new MailingList4u($mlName);
-        foreach (array_unique(@split("\n", $mlcontent)) as $line) {
+        foreach (array_unique(explode("\n", $mlcontent)) as $line) {
             $s = trim($line);
             if (isset($s) and strlen($s)>0) {
                 $ml->addEmail($s);
