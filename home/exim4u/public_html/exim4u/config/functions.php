@@ -96,50 +96,55 @@
      * @param   string  $salt   optional salt
      * @return  string          the properly crypted password
      */
-function crypt_password($clear, $salt = '')
+
+    function crypt_password($clear, $salt = '')
     {
         global $cryptscheme;
-
-	if ($cryptscheme == 'clear')
-	{
-		$cryptedpass=$clear;
-	}
-	else
-        if ($cryptscheme == 'sha')
-        {
-            $hash = sha1($clear);
-            $cryptedpass = '{SHA}' . base64_encode(pack('H*', $hash));
+        
+        switch($cryptscheme){
+                case 'sha':
+                    $hash = sha1($clear);
+                    $cryptedpass = '{SHA}' . base64_encode(pack('H*', $hash));
+                break;
+ 		case 'des':
+                    if (!empty($salt))
+                    {
+                        $salt = substr($salt, 0, 2);
+                    }
+                    else
+                    {
+                        $salt = get_random_bytes(2);
+                    }
+                    $cryptedpass = crypt($clear, $salt);
+                break;
+                case 'md5':
+                    if (!empty($salt))
+                    {
+                        $salt = substr($salt, 0, 12);
+                    }
+                    else
+                    {
+                        $salt = '$1$'.get_random_bytes(8).'$';
+                    }
+                    $cryptedpass = crypt($clear, $salt);
+                break;
+                case 'sha512':
+                    if (!empty($salt))
+                    {
+                        $salt = substr($salt, 0, 16);
+                    }
+                    else
+                    {
+                        $salt = '$6$'.get_random_bytes(12).'$';
+                    }
+                    $cryptedpass = crypt($clear, $salt);
+                break;
+		case 'clear':
+                    $cryptedpass=$clear;
+                break;
+		default:
+		   $cryptedpass = crypt($clear, $salt);
         }
-        else
-        {
-            if ($salt != '')
-            {
-                if ($cryptscheme == 'sha512')
-                {
-                   $salt = substr($salt, 0, 16);
-                }
-                else
-                if ($cryptscheme == 'des')
-                {
-                    $salt = substr($salt, 0, 2);
-                }
-                else
-                if ($cryptscheme == 'md5')
-                {
-                    $salt = substr($salt, 0, 12);
-                }
-                else
-                {
-                    $salt = '';
-                }
-                $cryptedpass = crypt($clear, $salt);
-            }
-            else {
-                $cryptedpass = crypt($clear);
-
-            }
-        }
-
         return $cryptedpass;
     }
 

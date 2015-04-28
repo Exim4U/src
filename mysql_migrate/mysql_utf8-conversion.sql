@@ -4,7 +4,7 @@
 #     where: <username> = Your MYSQL root username
 #            <password> = Your MYSQL root username's password
 #            For example, for user_name=MYNAME and password=SECRET then the command would be:
-#            mysql -uMYNAME -pSECRET exim4u < mysql_migrate/mysql_expand_crypt.sql
+#            mysql -uMYNAME -pSECRET exim4u < mysql_migrate/mysql_utf8-conversion.sql
 #
 alter database exim4u charset=utf8;
 ALTER TABLE blocklists CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;
