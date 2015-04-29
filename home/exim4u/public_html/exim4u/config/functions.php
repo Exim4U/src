@@ -156,23 +156,24 @@
      */
     function get_random_bytes($count)
     {
-    /*
-        if($count <= 13)
+    // Use this if php >= 5.3 with openssl available
+        $output = base64_encode(openssl_random_pseudo_bytes($count, $strong));
+        $output = strtr(substr($output, 0, $count), '+', '.'); //base64 is longer, so must truncate the result
+        return $output;
+    //
+    // Fallback to mt_rand if php < 5.3 or no openssl available
+    /**
+        $characters = '0123456789';
+        $characters .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz/+'; 
+        $charactersLength = strlen($characters)-1;
+        $output = '';
+        //select some random characters
+        for ($i = 0; $i < $count; $i++)
         {
-            $output = uniqid();
-        }
-        else  //actually, this results in 23 characters at most, but that's enough for our use
-        {
-            $output = uniqid('', true);
-        }
-        $output = substr($output, 0 - $count);
+            $output .= $characters[mt_rand(0, $charactersLength)];
+        }        
+        return $output;
     */
-    // The above uniqid() function should not be used for security purposes. Instead, use
-    // a cryptographically secure random function such as openssl_random_pseudo_bytes(). 
-    $output = bin2hex(openssl_random_pseudo_bytes($count));
-    // When converted to hex the string length doubles so you must trim the string anyway.
-    $output = substr($output, 0 - $count);
-    return $output;
     }
 
      /**
