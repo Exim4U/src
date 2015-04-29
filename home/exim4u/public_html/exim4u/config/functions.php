@@ -128,7 +128,6 @@
                     }
                     $cryptedpass = crypt($clear, $salt);
                 break;
-
                 case 'sha512':
                     if (!empty($salt))
                     {
@@ -140,7 +139,6 @@
                     }
                     $cryptedpass = crypt($clear, $salt);
                 break;
-
 		case 'clear':
                     $cryptedpass=$clear;
                 break;
