@@ -128,6 +128,7 @@
                     }
                     $cryptedpass = crypt($clear, $salt);
                 break;
+
                 case 'sha512':
                     if (!empty($salt))
                     {
@@ -139,6 +140,7 @@
                     }
                     $cryptedpass = crypt($clear, $salt);
                 break;
+
 		case 'clear':
                     $cryptedpass=$clear;
                 break;
@@ -156,6 +158,7 @@
      */
     function get_random_bytes($count)
     {
+    /*
         if($count <= 13)
         {
             $output = uniqid();
@@ -165,9 +168,14 @@
             $output = uniqid('', true);
         }
         $output = substr($output, 0 - $count);
-
-     return $output;
-     }
+    */
+    // The above uniqid() function should not be used for security purposes. Instead, use
+    // a cryptographically secure random function such as openssl_random_pseudo_bytes(). 
+    $output = bin2hex(openssl_random_pseudo_bytes($count));
+    // When converted to hex the string length doubles so you must trim the string anyway.
+    $output = substr($output, 0 - $count);
+    return $output;
+    }
 
      /**
     * Properly encode a mail header text for using with mail().
