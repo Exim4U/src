@@ -96,7 +96,6 @@
      * @param   string  $salt   optional salt
      * @return  string          the properly crypted password
      */
-
     function crypt_password($clear, $salt = '')
     {
         global $cryptscheme;
@@ -156,24 +155,9 @@
      */
     function get_random_bytes($count)
     {
-    // Use this if php >= 5.3 with openssl available
-        $output = base64_encode(openssl_random_pseudo_bytes($count, $strong));
+        $output = base64_encode(openssl_random_pseudo_bytes($count));
         $output = strtr(substr($output, 0, $count), '+', '.'); //base64 is longer, so must truncate the result
         return $output;
-    //
-    // Fallback to mt_rand if php < 5.3 or no openssl available
-    /**
-        $characters = '0123456789';
-        $characters .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz/+'; 
-        $charactersLength = strlen($characters)-1;
-        $output = '';
-        //select some random characters
-        for ($i = 0; $i < $count; $i++)
-        {
-            $output .= $characters[mt_rand(0, $charactersLength)];
-        }        
-        return $output;
-    */
     }
 
      /**
