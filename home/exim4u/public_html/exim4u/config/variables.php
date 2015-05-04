@@ -34,7 +34,7 @@
    Encryption is recommended and the "CLEAR" option is discouraged.
    Recent versions of Linux and BSD use "SHA512". Older OS's
    may use "MD5" or "DES". */
-  $cryptscheme = "sha512";
+  $cryptscheme = "SHA512";
 
   /* Choose the type of domain name input for the index page. It should
      either be 'static', 'dropdown' or 'textbox'. Static causes the
