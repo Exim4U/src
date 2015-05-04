@@ -97,6 +97,9 @@ exim.pl directory - Perl script and files for URIBL/SURBL/DBL checks. (Usually n
 All of the above files whose name begin with "exim4u_" should be modified to include
 appropriate site specific configuration options.
 
+Refer to the EXIM_README document regarding Exim4U compatibility with various Exim versions
+and to determine which exim.conf version to install on your mail server.
+
 Create the SQLite database (SQLite3) for greylisting. You can do this
 with the sqlite3 command. The sqlite3 script for setting up the greylisting
 database is named mk-greylist-db.sql and it is in the xtrasw/exim-greylist
@@ -145,18 +148,79 @@ crontab.
 
 5. Configure mysql
 
-You must create a new MySQL database for Exim4U. Edit the mysql_setup/mysql.sql
-file and change the first two instances of the word 'CHANGE', to the
-default system UID and GID you want new domains to have if one is
-not specified. (Most installations opt to create a user and a group both named
-exim4u and then use the UID and GID for exim4u.) Change the third instance
+You must create a new MySQL database for Exim4U. Edit the mysql_setup/mysql.sql file and change
+the first two instances of the word 'CHANGE', to the default system UID and GID you want new
+domains to have if one is not specified. (Most installations opt to create a user and a group
+both named exim4u and then use the UID and GID for exim4u.) Change the third instance
 of the word 'CHANGE' to the password you want the exim4u database user to have.
 This is the same mysql password you chose when editing /etc/exim/exim4u_local.conf.inc
-above. DO NOT modify the fourth instance of the word 'CHANGE' since 'CHANGE' will be the
-default password for the first time that the siteadmin user logs in. You also need to 
-know if your system uses MD5 or DES passwords. BSD and Linux normally use MD5, 
-whereas Solaris systems commonly use the older style DES. Uncomment the appropriate
-line, as noted by the comments, at the end of mysql.sql.
+above. Then, you must decide which type of encryption that you will use. Exim4u supports SHA512,
+MD5 and DES password encryption along with clear-text passwords (although not recommended).
+Most recent Linux and BSD versions generally support SHA512 which is considered most secure.
+Some older distributions may use the older MD5 or DES encryption.
+
+The default password that is installed by the mysql.sql script is "PASSWD" and lines 154 - 164
+of mysql_setup/mysql.sql are used to specify the password, "PASSWD", as encrypted in SHA512,
+MD5 or DES or as a clear-text password. If you are using SHA512 then lines 154 - 164 should
+be set to:
+
+	-- SHA512 encryption of 'PASSWD' for crypt field:
+	'$6$4HTy8Ts3TvC1$FFAVbY1N3nKiuYi7eV3DQ0clbGS9MYrVEOjerUUQgc0sdYWfqceYbfLyPnBUK92soHAS15j.w7H05eDQn3erL/',
+	--
+	-- MD5 encryption of 'PASSWD' for crypt field:
+	-- '$1$12345678$JCW6RgxAyYiRf00lURaOE.',
+	--
+	-- DES encryption of 'PASSWD' for crypt field:
+	-- '0A/4rVI7XZP6Y',
+	--
+	-- Clear-text password:
+	-- 'PASSWD',
+
+Whereas if you are using MD5 then lines 154 - 164 should be set to:
+
+
+	-- SHA512 encryption of 'PASSWD' for crypt field:
+        -- '$6$4HTy8Ts3TvC1$FFAVbY1N3nKiuYi7eV3DQ0clbGS9MYrVEOjerUUQgc0sdYWfqceYbfLyPnBUK92soHAS15j.w7H05eDQn3erL/',
+        --
+        -- MD5 encryption of 'PASSWD' for crypt field:
+        '$1$12345678$JCW6RgxAyYiRf00lURaOE.',
+        --
+        -- DES encryption of 'PASSWD' for crypt field:
+        -- '0A/4rVI7XZP6Y',
+        --
+        -- Clear-text password:
+        -- 'PASSWD',
+
+Whereas if you are using DES then lines 154 - 164 should be set to:
+
+        -- SHA512 encryption of 'PASSWD' for crypt field:
+        -- '$6$4HTy8Ts3TvC1$FFAVbY1N3nKiuYi7eV3DQ0clbGS9MYrVEOjerUUQgc0sdYWfqceYbfLyPnBUK92soHAS15j.w7H05eDQn3erL/',
+        --
+        -- MD5 encryption of 'PASSWD' for crypt field:
+        -- '$1$12345678$JCW6RgxAyYiRf00lURaOE.',
+        --
+        -- DES encryption of 'PASSWD' for crypt field:
+        '0A/4rVI7XZP6Y',
+        --
+        -- Clear-text password:
+        -- 'PASSWD',
+
+Whereas if you are using clear-text, then 154 - 164 should be set to:
+
+        -- SHA512 encryption of 'PASSWD' for crypt field:
+        -- '$6$4HTy8Ts3TvC1$FFAVbY1N3nKiuYi7eV3DQ0clbGS9MYrVEOjerUUQgc0sdYWfqceYbfLyPnBUK92soHAS15j.w7H05eDQn3erL/',
+        --
+        -- MD5 encryption of 'PASSWD' for crypt field:
+        -- '$1$12345678$JCW6RgxAyYiRf00lURaOE.',
+        --
+        -- DES encryption of 'PASSWD' for crypt field:
+        -- '0A/4rVI7XZP6Y',
+        --
+        -- Clear-text password:
+        'PASSWD',
+
+Note that you are simply including the encrypted password for the encryption method that you are using
+while also commenting out the encrypted passwords for the encryption methods that you are not using.
 
 Save the file, and run:
 
@@ -178,6 +242,9 @@ Then, the command would be:
 
 This should create the database and add the right users.
 
+Make sure that you immediately change the siteadmin password from 'PASSWD' to some other secure
+password the first time that you login to the Exim4U web interface.
+
 6. Install Exim4U's web interface and login to the Exim4U web interface.
 
 Exim4U's web interface is comprised of a set of php scripts located in:
@@ -187,7 +254,7 @@ Exim4U's web interface is comprised of a set of php scripts located in:
 First, edit home/exim4u/public_html/exim4u/config/variables.php. You need to
 change the following settings. Change the '$sqlpass' on line 10 to the
 exim4u database user's password which you chose which editing 'mysql.sql'
-in the last step. Change the '$cryptscheme' line to either "md5", or "des"
+in the last step. Change the '$cryptscheme' line to either "MD5", or "des"
 depending on what your operating system uses. Another change to make
 in that file is the '$uid' and '$gid'. Make these the same default
 UID and GID you chose in mysql.sql. Then, specify $mailroot.  The default
@@ -239,10 +306,10 @@ Once connected, you should log in as:
 
 	Username: siteadmin
 	Domain: <none>
-	Password: CHANGE
+	Password: PASSWD
 
 Once logged in, please click on the 'Site Password' link on the left,
-and change this password.
+and immediately change the siteadmin password.
 
 7. Install Dovecot (or Courier) from your Linux distributions repository or from source.
 

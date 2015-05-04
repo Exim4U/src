@@ -191,10 +191,10 @@ web interface and create the initial postmaster users for the individual domains
 
 The default username and password for the siteadmin, are:
   Username: siteadmin
-  Password: CHANGE
+  Password: PASSWD
 
 So, the first time that you run the Exim4U web interface you will login with
-username=siteadmin and password=CHANGE. The password is case sensitive.
+username=siteadmin and password=PASSWD. The password is case sensitive.
 You should log in and change the siteadmin password immediately after
 the initial installation.
 

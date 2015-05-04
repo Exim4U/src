@@ -43,7 +43,6 @@ CREATE TABLE IF NOT EXISTS `exim4u`.`users`
 	domain_id        mediumint(8)  unsigned  NOT NULL,
 	localpart        varchar(192)            NOT NULL  default '',
 	username         varchar(255)            NOT NULL  default '',
-	clear            varchar(255)                      default NULL,
 	crypt            varchar(255)                       default NULL,
 	uid              smallint(5)   unsigned  NOT NULL  default '65534',
 	gid              smallint(5)   unsigned  NOT NULL  default '65534',
@@ -131,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `exim4u`.`group_contents`
 );
 
 --
--- Privileges:
+-- Privileges (database password):
 --
 GRANT SELECT,INSERT,DELETE,UPDATE ON `exim4u`.* to "exim4u"@"localhost" 
     IDENTIFIED BY 'CHANGE';
@@ -147,19 +146,27 @@ INSERT INTO `exim4u`.`domains` (domain_id, domain) VALUES ('1', 'admin');
 --
 INSERT INTO `exim4u`.`users`
 (
-    domain_id, localpart, username, clear, crypt, uid, gid, 
-    smtp, pop, realname, type, admin
+    crypt,
+    domain_id, localpart, username, uid, gid, smtp, pop, realname, type, admin
 )
 VALUES 
-(   '1', 'siteadmin', 'siteadmin', 'CHANGE', 
-    '$1$12345678$2lQK5REWxaFyGz.p/dos3/', '65535', '65535', '', '', 
-    'SiteAdmin', 'site', '1'
+(
+-- SHA512 encryption of 'PASSWD' for crypt field:
+'$6$4HTy8Ts3TvC1$FFAVbY1N3nKiuYi7eV3DQ0clbGS9MYrVEOjerUUQgc0sdYWfqceYbfLyPnBUK92soHAS15j.w7H05eDQn3erL/',
+--
+-- MD5 encryption of 'PASSWD' for crypt field:
+-- '$1$12345678$JCW6RgxAyYiRf00lURaOE.',
+--
+-- DES encryption of 'PASSWD' for crypt field:
+-- '0A/4rVI7XZP6Y',
+--
+-- Clear-text password:
+-- 'PASSWD',
+--
+-- Remainder of values for the users table:
+'1', 'siteadmin', 'siteadmin', '65535', '65535', '', '', 'SiteAdmin', 'site', '1'
+--
 );
-
--- Fix password when using DES encrypted password:
--- UPDATE `exim4u`.`users` SET `crypt` = '0Apup3ZbF9RPg'
---   WHERE `user_id` = '1' LIMIT 1 ;
-
 
 --
 -- Create table for simple mailing list:

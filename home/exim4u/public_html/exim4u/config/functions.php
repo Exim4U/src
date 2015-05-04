@@ -101,11 +101,7 @@
         global $cryptscheme;
         
         switch($cryptscheme){
-                case 'sha':
-                    $hash = sha1($clear);
-                    $cryptedpass = '{SHA}' . base64_encode(pack('H*', $hash));
-                break;
- 		case 'des':
+ 		case 'DES':
                     if (!empty($salt))
                     {
                         $salt = substr($salt, 0, 2);
@@ -116,7 +112,7 @@
                     }
                     $cryptedpass = crypt($clear, $salt);
                 break;
-                case 'md5':
+                case 'MD5':
                     if (!empty($salt))
                     {
                         $salt = substr($salt, 0, 12);
@@ -127,7 +123,7 @@
                     }
                     $cryptedpass = crypt($clear, $salt);
                 break;
-                case 'sha512':
+                case 'SHA512':
                     if (!empty($salt))
                     {
                         $salt = substr($salt, 0, 16);
@@ -138,7 +134,7 @@
                     }
                     $cryptedpass = crypt($clear, $salt);
                 break;
-		case 'clear':
+		case 'CLEAR':
                     $cryptedpass=$clear;
                 break;
 		default:

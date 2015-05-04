@@ -1420,10 +1420,19 @@ begin rewrite
 #                   AUTHENTICATION CONFIGURATION                     #
 ######################################################################
 
-# There are no authenticator specifications in this default configuration file.
-
 begin authenticators
 
+# Use plain_login_exim4u and fixed_login_exim4u if passwords are encrypted.
+# Otherwise, use plain_login, fixed_login and fixed_cram for plain-text
+# passwords.  This default Exim4U configuration has plain_login_exim4u
+# and fixed_login_exim4u enabled for encrypted passwords while the
+# plain_login. fixed_login and fixed_cram which are used for clear-text
+# passwords have been commented out.
+
+# The encryption method is specified in the php web interface with the
+# $cryptscheme variable in /home/exim4u/public_html/exim4u/config/variables.php.
+
+# For encrypted passwords, use the following two authenticators:
 plain_login_exim4u:
         driver = plaintext
         public_name = PLAIN
@@ -1443,32 +1452,32 @@ fixed_login_exim4u:
 				}}}{1}{0}}
 	server_set_id = $auth1
 
-# The following authenticators use the clear password field
+# For clear-text passwords, use the following three authenticators:
 # plain_login:
-# driver = plaintext
-# public_name = PLAIN
-# server_condition = ${lookup mysql{SELECT '1' FROM users \
-# WHERE username = '${quote_mysql:$2}' \
-# AND clear = '${quote_mysql:$3}'} {yes}{no}}
-# server_set_id = $2
-#
+# 	driver = plaintext
+# 	public_name = PLAIN
+# 	server_condition = ${if eq{$auth3}{${lookup mysql{ \
+#                                SELECT crypt FROM users \
+#                                WHERE username='${quote_mysql:$auth2}' \
+#                                }}}{1}{0}}
+# 	server_set_id = $auth2
 # fixed_login:
-# driver = plaintext
-# public_name = LOGIN
-# server_prompts = "Username:: : Password::"
-# server_condition = ${lookup mysql{SELECT '1' FROM users \
-# WHERE username = '${quote_mysql:$1}' \
-# AND clear = '${quote_mysql:$2}'} {yes}{no}}
-# server_set_id = $1
-#
+# 	driver = plaintext
+# 	public_name = LOGIN
+# 	server_prompts = "Username:: : Password::"
+# 	server_condition = ${if {$auth2}{${lookup mysql{ \
+#                                SELECT crypt FROM users \
+#                                WHERE username='${quote_mysql:$auth1}' \
+#                                }}}{1}{0}}
+# 	server_set_id = $auth1
 # fixed_cram:
-# driver = cram_md5
-# public_name = CRAM-MD5
-# server_secret = ${lookup mysql{SELECT clear FROM users \
-# WHERE username = '${quote_mysql:$1}'}{$value}fail}
-# server_set_id = $1
-
-
+# 	driver = cram_md5
+# 	public_name = CRAM-MD5
+# 	server_secret = ${lookup mysql{SELECT crypt FROM users \
+# 	WHERE username = '${quote_mysql:$1}'}{$value}fail}
+# 	server_set_id = $auth1
+ 
+ 
 ######################################################################
 #                   CONFIGURATION FOR local_scan()                   #
 ######################################################################

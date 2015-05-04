@@ -71,6 +71,10 @@ SENDER_RL = YES
 # following line if using tls certificates (If not, then comment the following line out):
 #
 tls_advertise_hosts = *
+#
+# Disable SSLv3 for POODLE vulnerability 10/18/14
+tls_require_ciphers = NORMAL:!VERS-SSL3.0
+#
 # The following line requires TLS encryption for all authenticated connections:
 auth_advertise_hosts = ${if eq{$tls_cipher}{}{}{*}}
 #

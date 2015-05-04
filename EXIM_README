@@ -1,0 +1,66 @@
+                            EXIM_README
+       NOTES ABOUT COMPATIBILITY WITH VARIOUS EXIM VERSIONS
+
+
+2015-03-02: Instructions for Exim4U Users regarding workarounds for
+            Exim bug 1533 which impacts Exim versions 4.83 and later.
+
+A regression was introduced in exim 4.83, 4.84 and 4.85 that caused
+the headers_remove clauses in the exim configuration files to
+malfunction. This regressions is documented as Exim Bug 1533 here:
+
+	https://bugs.exim.org/show_bug.cgi?id=1533
+
+Exim versions earlier than Exim 4.83 are not impacted by this regression.
+Additionally, changes that were made to Exim versions 4.83 and later
+introduced an additional requirement that all colons be replaced by
+double colons in the headers_remove statements. Therefore, three
+versions of exim.conf are now included with Exim4U as follows:
+
+- exim versions prior to 4.83 should use:
+  etc/exim/exim.conf-SINGLE_COLONS_IN_HEADERS_REMOVE
+- exim 4.83, 4.84 and 4.85 should use:
+  etc/exim/exim.conf-HEADERS_REMOVE_WITH_COLONS_COMMENTED_OUT
+- exim versions after exim 4.85 should use:
+  etc/exim/exim.conf-DOUBLE_COLONS_IN_HEADERS_REMOVE
+
+exim.conf is identical to etc/exim/exim.conf-DOUBLE_COLONS_IN_HEADERS_REMOVE
+and which should be used for exim versions after exim 4.85.
+
+Note that some OS distros patch older version of Exim with bug fixes
+and which may include the fixes for the headers_remove statements
+thereby requring etc/exim/exim.conf-DOUBLE_COLONS_IN_HEADERS_REMOVE
+even on Exim version 4.85 and older.
+
+
+2010-02-21: Instructions for Exim 4.69 users regarding DKIM.
+
+Follow these instructions to enable Exim4U versions 1.2.x and above to run under Exim 4.69.
+
+Please note that Exim4U's DKIM signing and verification functions will not be
+operational with these changes.
+
+1) Set DKIM_ON = NO in Exim4U's local settings configuration file:
+	etc/exim4u_local.conf.inc
+
+2) Comment out each line that contains "dkim" in Exim4U's exim configuration file:
+	etc/exim.conf
+
+   Use "#" to comment out the lines as described below.
+
+	The following global parameter definitions should be commented out:
+		# dkim_verify_signers = $dkim_signers
+		# acl_smtp_dkim = acl_check_dkim
+
+	The following include file containing the DKIM ACL should be commented out:
+		# .include /etc/exim/exim4u_acl_check_dkim.conf.inc
+
+	The following lines in the remote_smtp_multi_IP_DK transport should be commented out:
+		# dkim_domain = ${sender_address_domain}
+		# dkim_selector = exim4u
+		# dkim_private_key = "/etc/pki/tls/dk/rsa.private"
+
+	The following lines in the remote_smtp_DK transport should be commented out:
+		# dkim_domain = ${sender_address_domain}
+		# dkim_selector = exim4u
+		# dkim_private_key = "/etc/pki/tls/dk/rsa.private"

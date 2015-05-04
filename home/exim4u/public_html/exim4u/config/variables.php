@@ -29,11 +29,11 @@
   $alphadomains = 1;
   $alphausers = 1;
 
-/* Set to either "sha512", "md5" "des" or "sha" depending on your
-   crypt() libraries or "clear" for clear-text passwords.
-   Encryption is recommended and the "clear" option is discouraged.
-   Debian 7, FreeBSD 10 and most current OS's use "sha512". Older OS's
-   may use "md5". "des" and "sha" may work but are mostly untested. */
+/* Set to either "SHA512", "MD5" or "DES" depending on your
+   crypt() libraries or "CLEAR" for clear-text passwords.
+   Encryption is recommended and the "CLEAR" option is discouraged.
+   Recent versions of Linux and BSD use "SHA512". Older OS's
+   may use "MD5" or "DES". */
   $cryptscheme = "sha512";
 
   /* Choose the type of domain name input for the index page. It should
