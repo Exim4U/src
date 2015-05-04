@@ -72,8 +72,13 @@ SENDER_RL = YES
 #
 tls_advertise_hosts = *
 #
-# Disable SSLv3 for POODLE vulnerability 10/18/14
-tls_require_ciphers = NORMAL:!VERS-SSL3.0
+# Disable SSLv3 for POODLE vulnerability (10/17/14).
+# For Exim when compiled with OpenSSL (FreeBSD, RedHat, etc) use:
+#       openssl_options = +no_sslv2 +no_sslv3
+# For Exim when compiled with GnuTLS (Debian, etc) use:
+#       tls_require_ciphers = NORMAL:!VERS-SSL3.0
+# Use "exim -bV" to determine if OpenSSL or GnuTLS was used for your OS.
+openssl_options = +no_sslv2 +no_sslv3
 #
 # The following line requires TLS encryption for all authenticated connections:
 auth_advertise_hosts = ${if eq{$tls_cipher}{}{}{*}}
