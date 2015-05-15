@@ -1,6 +1,49 @@
                            Exim4U Version History
 
-                      Current Exim4U Version Is 2.1.1
+                      Current Exim4U Version Is 3.0.0
+
+
+3.0.0 Release Date: May 18, 2015
+
+  Overhauled password encryption to support SHA512, MD5 and DES. Removed the "clear"
+  password column in the users database table. When encryption is selected then
+  clear-text passwords are not stored anywhere. The "crypt" column is now used
+  exclusively to store passwords as encrypted.
+
+  Revised php code to eliminate deprecated extensions and functions. Pear-DB was
+  replaced by PDO, ereg() was replaced with preg_match() and split() was replaced
+  with explode().
+
+  exim.conf is provided in three versions for compatibility with the various versions of
+  Exim related to Exim bug 1533 which is a regression that was introduced in Exim 4.83,
+  4.84 and 4.85. This regression caused the headers_remove clauses in the Exim
+  configuration files to malfunction. Additionally, changes that were made to Exim
+  version 4.83 and later introduced an additional requirement that all colons be
+  replaced by double colons in the headers_remove statements. The three versions of
+  exim.conf are provided to address these issues.
+
+  Added random password generation for adding new users in Email Admin.
+
+  Added UTF-8 support for usernames and vacation messages.
+
+  Created a link for the email address in Email Admin so that POP/IMAP accounts can be
+  accessed by the user name or email address.
+
+  Spamalert script added that detects outgoing ratelimit violations which are usually
+  bulk spam originating from internal user accounts that have been compromised via
+  hacking or viruses, etc. Upon detection, an email is then sent to the designated
+  admin address to report the outgoing ratelimit violation.
+
+  Various other modifications, bug fixes and documentation revisions were also implemented.
+
+Credits
+
+  The Vexim team recently made significant enhancements to the Vexim2 code base which
+  were incorporated in this version of Exim4U. Thanks to Rimas Kudelis, Udera and the
+  Vexim developer team!
+
+  Michael Seidel provided a code sample to fix a problem with Debian encryption.
+  Thanks Michael!
 
 
 2.1.1 Release Date: October 12, 2012

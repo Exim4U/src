@@ -1,7 +1,7 @@
                                               Exim4U
-              Instructions For Migrating From Virtual Exim 2.2 (vexim2) to Exim4U
+              Instructions For Migrating From Virtual Exim 2.2 (Vexim2) to Exim4U
 
-These instructions cover the necessary steps to migrate from Virtual Exim 2.2 to Exim4U.
+These instructions cover the necessary steps to migrate from Vexim version 2.2 to Exim4U.
 
 
 1) Perform steps 1 through 4 in the INSTALL help file in this distributions root directory.
@@ -20,20 +20,20 @@ running Virtual Exim with PostgreSQL then you will need to migrate your database
 To migrate the MySQL database from Virtual Exim 2.2 to Exim4U, simply run the following command
 from within this distributions root directory:
 
-	mysql -u<user_name> -p<password> < mysql_migrate/mysql_migrate.sql
+	mysql -u <username> -p < mysql_migrate/mysql_migrate.sql
 
 	where: <username> = Your MYSQL root username
-	       <password> = Your MYSQL root username's password
+
+The script will then prompt you for your MYSQL root username's password.
 
 This command will create the new exim4u database and will also copy all of your vexim data over
 to the new exim4u database.
 
 For example, if <username> = root
-	 	<password> = secret
 
 Then, the command would be:
 
-	mysql -uroot -psecret < mysql_migrate/mysql_migrate.sql
+	mysql -u root -p < mysql_migrate/mysql_migrate.sql
 
 Your exim4u database should have now been created and your vexim data copied over to the
 exim4u database.
@@ -42,23 +42,27 @@ exim4u database.
 larger than the default 255 characters in vexim2.  To expand this field to Exim4U's 4096
 characters, run the following command from within this distributions root directory:
 
-mysql -u<user_name> -p<password> exim4u < mysql_migrate/mysql_expand_vacation.sql
+mysql -u <username> -p exim4u < mysql_migrate/mysql_expand_vacation.sql
 
 where: <username> = Your MYSQL root username
-       <password> = Your MYSQL root username's password
 
-For example, for user_name=MYNAME and password=SECRET then the command would be:
-        mysql -uMYNAME -pSECRET exim4u < mysql_migrate/mysql_expand_vacation.sql
+The script will then prompt you for your MYSQL root username's password.
+
+For example, for username=MYNAME then the command would be:
+
+        mysql -u MYNAME -p exim4u < mysql_migrate/mysql_expand_vacation.sql
 
 4) The simple mailing list mysql table needs to be created. To create this table, run
 the following command from within this distributions root directory:
 
-mysql -u<user_name> -p<password> exim4u < mysql_migrate/mysql_mailing_list.sql
+mysql -u <username> -p exim4u < mysql_migrate/mysql_mailing_list.sql
 
 where: <username> = Your MYSQL root username
-       <password> = Your MYSQL root username's password
 
-For example, for user_name=MYNAME and password=SECRET then the command would be:
-        mysql -uMYNAME -pSECRET exim4u < mysql_migrate/mysql_mailing_list.sql
+The script will then prompt you for your MYSQL root username's password.
+
+For example, for username=MYNAME then the command would be:
+
+        mysql -u MYNAME -p exim4u < mysql_migrate/mysql_mailing_list.sql
 
 5) Continue on step 6 of the INSTALL help file and continue through all remaining steps.

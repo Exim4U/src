@@ -1,6 +1,232 @@
             Exim4U Changelog Summary And Upgrade Instructions
 
-                      Current Exim4U Version Is 2.1.1
+                      Current Exim4U Version Is 3.0.0
+
+3.0.0 Release Date: May 18, 2015
+
+M	DEBIAN
+D	EXIM_4.69
+A	EXIM_README
+M	FREEBSD
+M	INSTALL
+M	MIGRATE
+M	NOTES
+M	README
+M	REDHAT-CENTOS
+M	SPAMASSASSIN
+D	TODO
+M	VERSION
+M	WEBMAIL
+M	etc/dovecot-sql.conf
+M	etc/exim/exim.conf
+A	etc/exim/exim.conf-DOUBLE_COLONS_IN_HEADERS_REMOVE
+A	etc/exim/exim.conf-HEADERS_REMOVE_WITH_COLONS_COMMENTED_OUT
+A	etc/exim/exim.conf-SINGLE_COLONS_IN_HEADERS_REMOVE
+M	etc/exim/exim.pl/three-level-tlds
+M	etc/exim/exim.pl/two-level-tlds
+M	etc/exim/exim4u_local.conf.inc
+M	home/exim4u/public_html/admin_menu/html/fusion.css
+M	home/exim4u/public_html/admin_menu/index.html
+M	home/exim4u/public_html/exim4u/admin.php
+M	home/exim4u/public_html/exim4u/adminalias.php
+M	home/exim4u/public_html/exim4u/adminaliasadd.php
+M	home/exim4u/public_html/exim4u/adminaliasaddsubmit.php
+M	home/exim4u/public_html/exim4u/adminaliaschange.php
+M	home/exim4u/public_html/exim4u/adminaliaschangesubmit.php
+M	home/exim4u/public_html/exim4u/adminaliasdelete.php
+M	home/exim4u/public_html/exim4u/admincatchall.php
+M	home/exim4u/public_html/exim4u/admincatchallsubmit.php
+M	home/exim4u/public_html/exim4u/adminfail.php
+M	home/exim4u/public_html/exim4u/adminfailaddsubmit.php
+M	home/exim4u/public_html/exim4u/adminfailchange.php
+M	home/exim4u/public_html/exim4u/adminfailchangesubmit.php
+M	home/exim4u/public_html/exim4u/adminfaildelete.php
+M	home/exim4u/public_html/exim4u/admingroup.php
+M	home/exim4u/public_html/exim4u/admingroup.tpl.php
+M	home/exim4u/public_html/exim4u/admingroupaddsubmit.php
+M	home/exim4u/public_html/exim4u/admingroupchange.php
+M	home/exim4u/public_html/exim4u/admingroupchangesubmit.php
+M	home/exim4u/public_html/exim4u/admingroupcontentaddsubmit.php
+M	home/exim4u/public_html/exim4u/admingroupcontentdeletesubmit.php
+M	home/exim4u/public_html/exim4u/admingroupdelete.php
+M	home/exim4u/public_html/exim4u/adminuser.php
+M	home/exim4u/public_html/exim4u/adminuseradd.php
+M	home/exim4u/public_html/exim4u/adminuseraddsubmit.php
+M	home/exim4u/public_html/exim4u/adminuserblocksubmit.php
+M	home/exim4u/public_html/exim4u/adminuserchange.php
+M	home/exim4u/public_html/exim4u/adminuserchangesubmit.php
+M	home/exim4u/public_html/exim4u/adminuserdelete.php
+M	home/exim4u/public_html/exim4u/ajaxLayer/PHPLiveX.php
+M	home/exim4u/public_html/exim4u/appContext.php
+M	home/exim4u/public_html/exim4u/config/authpostmaster.php
+M	home/exim4u/public_html/exim4u/config/authsite.php
+M	home/exim4u/public_html/exim4u/config/authuser.php
+D	home/exim4u/public_html/exim4u/config/en.po
+M	home/exim4u/public_html/exim4u/config/functions.php
+M	home/exim4u/public_html/exim4u/config/header.php
+M	home/exim4u/public_html/exim4u/config/header.php-BOLD
+M	home/exim4u/public_html/exim4u/config/header.php-LINK_EXIM4U
+M	home/exim4u/public_html/exim4u/config/header.php-LINK_SELF
+M	home/exim4u/public_html/exim4u/config/header_domain.php
+M	home/exim4u/public_html/exim4u/config/header_domain.php-BOLD
+M	home/exim4u/public_html/exim4u/config/header_domain.php-LINK_EXIM4U
+M	home/exim4u/public_html/exim4u/config/header_domain.php-LINK_SELF
+M	home/exim4u/public_html/exim4u/config/httpheaders.php
+D	home/exim4u/public_html/exim4u/config/hu.po
+M	home/exim4u/public_html/exim4u/config/i18n.php
+M	home/exim4u/public_html/exim4u/config/service_group_sql.php
+M	home/exim4u/public_html/exim4u/config/service_user.php
+D	home/exim4u/public_html/exim4u/config/template.pot
+M	home/exim4u/public_html/exim4u/config/variables.php
+M	home/exim4u/public_html/exim4u/index.php
+M	home/exim4u/public_html/exim4u/locale/de/LC_MESSAGES/de.po
+M	home/exim4u/public_html/exim4u/locale/de/LC_MESSAGES/messages.mo
+M	home/exim4u/public_html/exim4u/locale/de_DE/LC_MESSAGES/de.po
+M	home/exim4u/public_html/exim4u/locale/de_DE/LC_MESSAGES/messages.mo
+M	home/exim4u/public_html/exim4u/locale/en_EN/LC_MESSAGES/en.po
+M	home/exim4u/public_html/exim4u/locale/en_EN/LC_MESSAGES/messages.mo
+M	home/exim4u/public_html/exim4u/locale/es/LC_MESSAGES/es.po
+M	home/exim4u/public_html/exim4u/locale/es/LC_MESSAGES/messages.mo
+M	home/exim4u/public_html/exim4u/locale/es_ES/LC_MESSAGES/es.po
+M	home/exim4u/public_html/exim4u/locale/es_ES/LC_MESSAGES/messages.mo
+M	home/exim4u/public_html/exim4u/locale/hu/LC_MESSAGES/hu.po
+M	home/exim4u/public_html/exim4u/locale/hu/LC_MESSAGES/messages.mo
+M	home/exim4u/public_html/exim4u/locale/hu_HU/LC_MESSAGES/hu.po
+M	home/exim4u/public_html/exim4u/locale/hu_HU/LC_MESSAGES/messages.mo
+M	home/exim4u/public_html/exim4u/locale/ro/LC_MESSAGES/messages.mo
+M	home/exim4u/public_html/exim4u/locale/ro/LC_MESSAGES/ro.po
+M	home/exim4u/public_html/exim4u/locale/ro_RO/LC_MESSAGES/messages.mo
+M	home/exim4u/public_html/exim4u/locale/ro_RO/LC_MESSAGES/ro.po
+A	home/exim4u/public_html/exim4u/locale/template.pot
+M	home/exim4u/public_html/exim4u/login.php
+M	home/exim4u/public_html/exim4u/saveMailingListChanges.php
+A	home/exim4u/public_html/exim4u/scripts.js
+M	home/exim4u/public_html/exim4u/site.php
+M	home/exim4u/public_html/exim4u/siteadd.php
+M	home/exim4u/public_html/exim4u/siteaddsubmit.php
+M	home/exim4u/public_html/exim4u/sitechange.php
+M	home/exim4u/public_html/exim4u/sitechangerelay.php
+M	home/exim4u/public_html/exim4u/sitechangerelaysubmit.php
+M	home/exim4u/public_html/exim4u/sitechangesubmit.php
+M	home/exim4u/public_html/exim4u/sitedelete.php
+M	home/exim4u/public_html/exim4u/sitepasswordsubmit.php
+M	home/exim4u/public_html/exim4u/userblocksubmit.php
+M	home/exim4u/public_html/exim4u/userchange.php
+M	home/exim4u/public_html/exim4u/userchangesubmit.php
+M	home/exim4u/public_html/eximstats/eximstats.html
+M	home/exim4u/public_html/eximstats/html/fusion.css
+M	home/exim4u/public_html/munin/html/fusion.css
+M	home/exim4u/public_html/munin/index.html
+M	home/exim4u/public_html/phpadmin/html/fusion.css
+M	home/exim4u/public_html/phpadmin/index.html
+M	home/exim4u/public_html/user_menu/html/fusion.css
+M	home/exim4u/public_html/user_menu/index.html
+M	mysql_migrate/mysql_migrate.sql
+A	mysql_migrate/mysql_remove-clear-column.sql
+A	mysql_migrate/mysql_utf8-conversion.sql
+M	mysql_setup/mysql.sql
+M	xtrasw/perl-Mail-SPF-Query/get_Mail-SPF-Query
+A	xtrasw/spamalert/spamalert
+M	xtrasw/webmail_admin/config/prefs.local.php
+M	xtrasw/webmail_admin/logos/horde-power1_52px_WebmailGroupware3.png
+M	xtrasw/webmail_admin/webmail_exim4u_logos
+
+3.0.0 Instructions For Upgrading From Version 2.1.1
+
+  1) Documentation - Refer to the revised documentation in the Exim4U 3.0.0
+     distribution's root directory:
+       CHANGELOG
+       DEBIAN
+       EXIM_README
+       FREEBSD
+       INSTALL
+       MIGRATE
+       NOTES
+       README
+       REDHAT-CENTOS
+       SPAMASSASSIN
+       TODO
+       VERSION
+       WEBMAIL
+  2) Exim4U Email Admin (php web interface) - Copy the contents of the following
+     directory (including sub-directories and files) to your live installation
+     from the Exim4U 2.1.1 distribution's root directory:
+        home/exim4u/public_html/exim4u
+     Be sure to make a backup copy of your earlier 2.1.1 version directories and
+     files prior to overwriting them. Modify the following file as per the INSTALL
+     instructions:
+        home/exim4u/public_html/exim4u/config/variables.php
+  3) Exim Configuration Files - Copy the following files to your live
+     installation from the Exim4U 3.0.0 distribution's root directory:
+        etc/exim/exim4u_local.conf.inc  (Modify as per your requirements)
+        etc/exim/exim.conf
+     Be sure to make a backup copy of your earlier 2.1.1 version directories and
+     files prior to overwriting them.
+     Select which version of exim.conf that you need based on the
+	EXIM_README document. 
+     	- exim versions prior to 4.83 should use:
+		etc/exim/exim.conf-SINGLE_COLONS_IN_HEADERS_REMOVE
+	- exim 4.83, 4.84 and 4.85 should use:
+		etc/exim/exim.conf-HEADERS_REMOVE_WITH_COLONS_COMMENTED_OUT
+	- exim versions after exim 4.85 should use:
+		etc/exim/exim.conf-DOUBLE_COLONS_IN_HEADERS_REMOVE
+     If using clear passwords in the crypt field (not recommended) then refer to
+     the EXIM_README document to configure the AUTHENTICATION CONFIGURATION
+     section at the very end of etc/exim/exim.conf. Use the plain_login_exim4u
+     and fixed_login_exim4u authenticators if passwords are encrypted. Otherwise,
+     use the plain_login, fixed_login and fixed_cram authenticators for plain-text
+     passwords. The encryption method is specified in the php web interface with
+     the $cryptscheme variable in
+     /home/exim4u/public_html/exim4u/config/variables.php.
+  4) Dovecot mysql Configuration File - Copy etc/dovecot-sql.conf to your
+     installation from the Exim4U 3.0.0 distribution's root directory. Modify
+     dovecot-sql.conf as appropriate for your installation. If using encrypted
+     passwords in the crypt field then set default_pass_scheme = CRYPT in
+     dovecot-sql.conf. Otherwise, if using clear passwords in the crypt field
+     (not recommended) then set default_pass_scheme = PLAIN. The encryption method
+     is specified in the php web interface with the $cryptscheme variable in
+     /home/exim4u/public_html/exim4u/config/variables.php.
+  5) Database modification scripts - Modify the database for utf8 and optionally
+     delete the "clear" column in the users table. Be sure to make a backup of
+     your mysql database with mysql or phpmyadmin prior to making any database
+     changes. Copy the following two scripts to your live installation from the
+     Exim4U 3.0.0 distribution's root directory:
+        mysql_migrate/mysql_utf8-conversion.sql
+        mysql_migrate/mysql_remove-clear-column.sql
+     To convert the database to utf8, run the following command:
+        mysql -u <username> -p exim4u < mysql_migrate/mysql_utf8-conversion.sql
+     where: <username> = Your MYSQL root username.
+     The script will then prompt you for your mysql root username's password.
+     Likewise, to optionally delete the "clear" column in the users table, run the
+     following command:
+        mysql -u <username> -p exim4u < mysql_migrate/mysql_remove-clear-column.sql
+     It is recommended the "clear" column be retained for at least a short period of
+     time after Exim4U is upgraded to 3.0.0 as a preventative measure just in case
+     you end up needing to revert to version 2.1.1 or need access to the clear-text
+     passwords in the "clear" column.
+  6) spamalert script - Copy xtrasw/spamalert/spamalert to your installation from the
+     Exim4U 3.0.0 distribution's root directory. This script detects outgoing ratelimit
+     violations which are usually bulk spam originating from internal user accounts that
+     have been compromised via hacking or viruses, etc. Upon detection, an email is then
+     sent to the designated admin address to report the outgoing ratelimit violation.
+     The Logwarn program must be downloaded, compiled and installed for this script to
+     work.  Logwarn is maintained on GitHub here:
+		https://github.com/archiecobbs/logwarn
+     The current release of logwarn is published here:
+		https://code.google.com/p/logwarn/downloads/list
+     The most current release as of 2015-05-18 is logwarn-1.0.11.tar.gz which can be
+     downloaded, extracted and compiled as follows:
+		wget https://logwarn.googlecode.com/files/logwarn-1.0.11.tar.gz
+		tar xvzpf logwarn-1.0.11.tar.gz
+		cd logwarn-1.0.11
+		./configure
+		make
+		sudo make install
+    Create the following directory where Logwarn stores its log data: /var/lib/logwarn
+		sudo mkdir /var/lib/logwarn
+    Then, put the following entry in your root crontab which will run this script every 10 minutes:
+		# Check for sender ratelimit spammer.
+		*/10 * * * * <path-to-spamalert-script>/spamalert > /dev/null 2>&1
 
 
 2.1.1 Release Date: October 12, 2012
@@ -72,11 +298,11 @@
      created. However, the crypt field in the MySQL database should be expanded to
      256 characters. To expand the crypt field to 256 characters, run the following
      command:
-        mysql -u<user_name> -p<password> exim4u < mysql_migrate/mysql_expand_crypt.sql
+        mysql -u <username> -p exim4u < mysql_migrate/mysql_expand_crypt.sql
      where: <username> = Your MYSQL root username
-            <password> = Your MYSQL root username's password 
-     For example, for user_name=MYNAME and password=SECRET then the command would be:
-        mysql -uMYNAME -pSECRET exim4u < mysql_migrate/mysql_expand_crypt.sql 
+     The script will then prompt you for your MYSQL root username's password.
+     For example, for username=MYNAME then the command would be:
+        mysql -u MYNAME -p exim4u < mysql_migrate/mysql_expand_crypt.sql 
   4) Exim4U Email Admin (PHP) - Copy the contents of the following directory
      (including sub-directories and files) to your live installation from the
      Exim4U 2.1.1 distribution's root directory:
@@ -181,11 +407,11 @@
      This script updates the exim4u database to include the necessary database
      tables and fields to support the Simple Mailing List. Proceed by running
      the following command:
-        mysql -u<user_name> -p<password> exim4u < mysql_mailing_list.sql
+        mysql -u <username> -p exim4u < mysql_mailing_list.sql
      where: <username> = Your MYSQL root username
-            <password> = Your MYSQL root username's password
-     For example, for user_name=MYNAME and password=SECRET then the command would be:
-        mysql -uMYNAME -pSECRET exim4u < mysql_mailing_list.sql
+     The script will then prompt you for your MYSQL root username's password.
+     For example, for username=MYNAME then the command would be:
+        mysql -u MYNAME -p exim4u < mysql_mailing_list.sql
   3) Exim4U Email Admin (PHP) - Copy the contents of the following directory
      (including sub-directories and files) to your live installation from the
      Exim4U 2.0.1 distribution's root directory:
@@ -302,11 +528,11 @@
      will potentially be truncated if left at 255 characters since it is so short.
      To expand the vacation autoreply field to Exim4U's recommended 4096 characters,
      run the following command:
-	mysql -u<user_name> -p<password> exim4u < mysql_migrate/mysql_expand_vacation.sql
+        mysql -u <username> -p exim4u < mysql_migrate/mysql_expand_vacation.sql
      where: <username> = Your MYSQL root username
-            <password> = Your MYSQL root username's password
-     For example, for user_name=MYNAME and password=SECRET then the command would be:
-        mysql -uMYNAME -pSECRET exim4u < mysql_migrate/mysql_expand_vacation.sql
+     The script will then prompt you for your MYSQL root username's password.
+     For example, for username=MYNAME then the command would be:
+        mysql -u MYNAME -p exim4u < mysql_migrate/mysql_expand_vacation.sql
 
 
 1.2.4 Release Date: October 21, 2010

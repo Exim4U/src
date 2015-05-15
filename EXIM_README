@@ -1,5 +1,5 @@
                             EXIM_README
-       NOTES ABOUT COMPATIBILITY WITH VARIOUS EXIM VERSIONS
+       Notes About Compatibility with Varions Exim Versions
 
 
 2015-03-02: Instructions for Exim4U Users regarding workarounds for
@@ -29,8 +29,24 @@ and which should be used for exim versions after exim 4.85.
 
 Note that some OS distros patch older version of Exim with bug fixes
 and which may include the fixes for the headers_remove statements
-thereby requring etc/exim/exim.conf-DOUBLE_COLONS_IN_HEADERS_REMOVE
+thereby requiring etc/exim/exim.conf-DOUBLE_COLONS_IN_HEADERS_REMOVE
 even on Exim version 4.85 and older.
+
+
+2015-05-18: Instructions for configuring exim.conf for clear-text passwords
+            instead of encrypted passwords.
+
+If using clear passwords in the crypt field (not recommended) then modify the
+AUTHENTICATION CONFIGURATION at the very end of etc/exim/exim.conf to disable
+encrypted passwords for exim and enable clear-text passwords. The AUTHENTICATION
+CONFIGURATION is self documented on how to do this. Use the plain_login_exim4u and
+fixed_login_exim4u authenticators if passwords are encrypted. Otherwise, use the
+plain_login, fixed_login and fixed_cram authenticators for plain-text passwords.
+The default Exim4U configuration has plain_login_exim4u and fixed_login_exim4u
+enabled for encrypted passwords while the plain_login. fixed_login and fixed_cram,
+which are used for clear-text passwords, have been commented out. The encryption
+method is specified in the php web interface with the $cryptscheme variable in
+/home/exim4u/public_html/exim4u/config/variables.php. 
 
 
 2010-02-21: Instructions for Exim 4.69 users regarding DKIM.

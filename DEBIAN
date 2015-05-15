@@ -176,15 +176,6 @@ Optionally, install PhpMyAdmin:
 
 apt-get  install  phpmyadmin
 
-You also need to install the db.php pear module which is referred to as php-pear-db in the INSTALL
-file:
-
-	pear install db
-
-To list pear installs:
-
-	pear list
-
 The standard DocumentRoot for Debian/Ubuntu is typically /var/www or /home/www. Exim4U's INSTALL file
 instructions locate the web interface's DocumentRoot at /home/exim4u/public_html which is standard
 for RedHat/CentOS. Nevertheless, you may relocate the DocumentRoot to any other directory that you

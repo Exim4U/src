@@ -1,4 +1,13 @@
-ADDITIONAL NOTES AND INSTRUCTIONS FOR EXIM4U
+                Additional Notes And Instructions For Exim4U
+
+Table Of Contents
+
+1) Instruction Notes For Adding A Domain
+2) Instruction Notes For Adding Mailman Users to Exim4u
+3) General Discussion About Local Host And Relay Domain Spam Processing
+4) General Discussion about URIBL, SURBL and DBL Spam Blocking
+5) Example iptables Configuration For Exim4U
+6) How To Reset The Encrypted Password for the siteadmin Or A Domain Admin
 
 
 1) Instruction Notes For Adding A Domain
@@ -212,3 +221,25 @@ within the ACLs in /etc/exim/exim.conf's prior to calling spamassassin.
 
 	COMMIT
 
+
+6) How To Reset The Encrypted Password for the siteadmin Or A Domain Admin
+
+Beginning with Exim4U 3.0.0, if you elect to encrypt passwords then the passwords are not stored
+in clear-text anywhere.  If a user loses their password then the Domain Admin can just reset it.
+However, there is no way to reset a Domain Admin's password or the siteadmin's password from
+within the Exim4U web interface. However, the following procedure cam be used to reset a
+Domain Admin's or the siteadmin's password:
+
+	a) Use the mysql command line or phpmyadmin to change the password to a clear-text
+	   value such as "PASSWD".
+	b) Edit home/exim4u/public_html/exim4u/config/variables.php and change:
+	   $cryptscheme = "CLEAR";
+	c) Login to the Exim4U web interface using the clear-text password set in step (a)
+	   above.
+	d) While remaining logged in to the Exim4U web interface, go back and edit
+	   home/exim4u/public_html/exim4u/config/variables.php and change the $cryptscheme
+	   variable back to its previous value (SHA512, MD5 or DES).
+	e) Then, using the Exim4U web interface that you are still logged into, reset the
+	   password and click the Submit button to save it.
+
+The password has now been reset!

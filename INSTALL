@@ -7,23 +7,30 @@ of the dependent software that is to be installed is included in the repositorie
 of the major Linux vendors such as RedHat, CentOS, Debian, Ubuntu, etc.
 Therefore, detailed instructions for compiling, configuring and installing the
 various dependent packages from source is not included.  Please note that Exim4U
-was developed on a CentOS 5 system and we have included some references to
-RedHat/CentOS 5 where applicable. However, Exim4U and all of its dependent
+was developed on a CentOS system and we have included some references to
+RedHat/CentOS where applicable. However, Exim4U and all of its dependent
 software packages should install and run just fine on any of the other major
 Linux distributions as well.
 
 
 1. Install and configure the following packages:
 
-* Apache - Tested with Version 2.2.3
-* MySQL - Tested with Version 14.12 Distribution 5.0.77
-* SQLite - Tested with Version 3.3.6
-* PHP - Tested with Version 5.1.6
-* Perl - Tested With Version 5.8.8
-* php-pear-DB
-* php-imap
+* Apache - Tested with Version 2.2.3 thru 2.4.12.
+* MySQL - Tested with Version  5.0.77 thru 5.6.24.
+* SQLite - Tested with Version 3.3.6 thru 3.8.9 (SQLite3).
+* PHP - Tested with Version 5.1.6 thru 5.6.8.
+* Perl - Tested With Version 5.8.8 thru 5.18.4.
+* php-pdo - Tested with Version 5.3.29 thru 5.6.8.
+* php-openssl - Tested with Version 5.3.29 thru 5.6.8.
+* php-imap - Tested with Version 5.3.29 thru 5.6.8.
 
-2. Install: ClamAV (Clamd and Freshclam) - Tested with Version 0.95.2
+Note: php extensions, such as php-pdo, php-openssl and php-imap, may use a
+slightly different prefix, such as php5-pdo instead of php-pdo. Also, some
+distributions include some or all of these php extensions with the base
+php package. Use "php -m" to see exactly what php extensions are included
+on your installation.
+
+2. Install: ClamAV (Clamd and Freshclam) - Tested with Version 0.98.4 thru 0.98.6.
 
 Configure /etc/freshclam.conf and /etc/clamd.conf. Make sure and specify
 the TCP socket as 3310 for clamd in /etc/clamd.conf:
@@ -43,19 +50,16 @@ Add to /etc/rc.local:
 
 	/usr/bin/freshclam --daemon &
 
-3. Install: SpamAssassin - Tested With Version 3.2.5
+3. Install: SpamAssassin - Tested With Version 3.3.2 - 3.4.1.
 
 Refer to the SPAMASSASSIN help file in the root directory of this Exim4U
 distribution.
 
-4. Install: Exim - Tested With Version 4.71
+4. Install: Exim - Tested With Version 4.69 thru 4.85.
 
-Install exim 4.71 or later. If you are installing from scratch, exim must
-be compiled with MySQL, SQLite, spf, DKIM and the embedded Perl engine
-enabled. Exim 4.71 RPMs for RedHat/CentOS 5 may be obtained from the
-atrpms.net repository. Information on the atrpms.net repository is include
-with Exim4u in the xtrasw/exim_rpms-for-redhat directory. The atrpms.net RPMs
-include support for mysql, spf, srs, DKIM and embedded Perl.
+Install Exim, preferably a recent version. If you are installing from scratch,
+exim must be compiled with MySQL, SQLite, spf, DKIM and the embedded Perl
+engine enabled.
 
 Copy Exim4U's exim configuration files from etc/exim/* to the target machine.
 All files in this directory should be copied to /etc/exim. Then, change
@@ -71,8 +75,8 @@ After copying files to /etc/exim then (as user = root) execute:
 The primary file that needs to be edited for specifying site specific information
 is exim4u_local.conf.inc. This file is self documented so just read through the
 file and specify the appropriate information as detailed therein. The main exim
-configuration file for exim4u is /etc/exim/exim.conf and which typically is not
-ever modified. The configuration files required in the /etc/exim directory for
+configuration file for exim4u is /etc/exim/exim.conf which is typically not
+modified. The configuration files required in the /etc/exim directory for
 exim4u to work properly are described as follows:
 
 exim4u_acl_check_dkim.conf.inc - DKIM ACL include file.
@@ -92,13 +96,33 @@ exim-acl-check-spf.conf.inc - SPF include file. (Usually not modified)
 exim.conf - Main exim configuration file. (Usually not modified)
 exim-greylist.conf.inc - Greylisting include file. (Usually not modified)
 exim-group-router.conf.inc - Group router include file. (Usually not modified)
+exim-mailinglist-router.conf.inc - Router for the Exim4U Simple Mailing List.
+exim-mailinglist-transport.conf.inc -Transport for the Exim4U Simple Mailing List.
 exim.pl directory - Perl script and files for URIBL/SURBL/DBL checks. (Usually not modified)
 
 All of the above files whose name begin with "exim4u_" should be modified to include
 appropriate site specific configuration options.
 
 Refer to the EXIM_README document regarding Exim4U compatibility with various Exim versions
-and to determine which exim.conf version to install on your mail server.
+and to determine which exim.conf version to install on your mail server. Choose from:
+
+	- exim versions prior to 4.83 should use:
+	  etc/exim/exim.conf-SINGLE_COLONS_IN_HEADERS_REMOVE
+	- exim 4.83, 4.84 and 4.85 should use:
+	  etc/exim/exim.conf-HEADERS_REMOVE_WITH_COLONS_COMMENTED_OUT
+	- exim versions after exim 4.85 should use:
+	  etc/exim/exim.conf-DOUBLE_COLONS_IN_HEADERS_REMOVE
+
+exim.conf is identical to etc/exim/exim.conf-DOUBLE_COLONS_IN_HEADERS_REMOVE
+and which should be used for exim versions after exim 4.85.
+
+If you decide to use clear-text passwords (not recommended) then you must edit and modify
+the Authentication Configuration at the end of etc/exim/exim.conf on lines 1425 thru 1433
+as described therein.
+
+Refer to the etc/exim/exim.pl/README2 document and configure crontab entrys to update the
+three-level-tlds and two-level-tlds files in the etc/exim/exim.pl directory for the
+URIBL/SURBL/DBL checks.
 
 Create the SQLite database (SQLite3) for greylisting. You can do this
 with the sqlite3 command. The sqlite3 script for setting up the greylisting
@@ -120,9 +144,11 @@ deletes entries from the greylist table that are older than 7 days:
 
 	cp xtrasw/exim-greylist/greylist-tidy.sh /etc/cron.daily
 
-Install spf perl module
 Install perl-Mail-SPF-Query. This perl module may be downloaded from the CPAN site
-as described in xtrasw/get_Mail-SPF-Query. (RedHat/CentOS 5 RPM info also included.)
+at: 
+
+	http://search.cpan.org/dist/Mail-SPF-Query/
+
 To install the perl tarball:
 
 	gzip -dc Mail-SPF-Query-1.999.1.tar.gz | tar -xof -
@@ -159,9 +185,9 @@ MD5 and DES password encryption along with clear-text passwords (although not re
 Most recent Linux and BSD versions generally support SHA512 which is considered most secure.
 Some older distributions may use the older MD5 or DES encryption.
 
-The default password that is installed by the mysql.sql script is "PASSWD" and lines 154 - 164
+The default password that is installed by the mysql.sql script is "PASSWD" and lines 160 - 170
 of mysql_setup/mysql.sql are used to specify the password, "PASSWD", as encrypted in SHA512,
-MD5 or DES or as a clear-text password. If you are using SHA512 then lines 154 - 164 should
+MD5 or DES or as a clear-text password. If you are using SHA512 then lines 160 - 170 should
 be set to:
 
 	-- SHA512 encryption of 'PASSWD' for crypt field:
@@ -176,7 +202,7 @@ be set to:
 	-- Clear-text password:
 	-- 'PASSWD',
 
-Whereas if you are using MD5 then lines 154 - 164 should be set to:
+Whereas if you are using MD5 then lines 160 - 170 should be set to:
 
 
 	-- SHA512 encryption of 'PASSWD' for crypt field:
@@ -191,7 +217,7 @@ Whereas if you are using MD5 then lines 154 - 164 should be set to:
         -- Clear-text password:
         -- 'PASSWD',
 
-Whereas if you are using DES then lines 154 - 164 should be set to:
+Whereas if you are using DES then lines 160 - 170 should be set to:
 
         -- SHA512 encryption of 'PASSWD' for crypt field:
         -- '$6$4HTy8Ts3TvC1$FFAVbY1N3nKiuYi7eV3DQ0clbGS9MYrVEOjerUUQgc0sdYWfqceYbfLyPnBUK92soHAS15j.w7H05eDQn3erL/',
@@ -205,7 +231,7 @@ Whereas if you are using DES then lines 154 - 164 should be set to:
         -- Clear-text password:
         -- 'PASSWD',
 
-Whereas if you are using clear-text, then 154 - 164 should be set to:
+Whereas if you are using clear-text, then 160 - 170 should be set to:
 
         -- SHA512 encryption of 'PASSWD' for crypt field:
         -- '$6$4HTy8Ts3TvC1$FFAVbY1N3nKiuYi7eV3DQ0clbGS9MYrVEOjerUUQgc0sdYWfqceYbfLyPnBUK92soHAS15j.w7H05eDQn3erL/',
@@ -224,21 +250,21 @@ while also commenting out the encrypted passwords for the encryption methods tha
 
 Save the file, and run:
 
-mysql -u<user_name> -p<password> < mysql_setup/mysql.sql
+mysql -u <username> -p < mysql_setup/mysql.sql
 
         where: <username> = Your MYSQL root username
-               <password> = Your MYSQL root username's password
+
+The script will then prompt you for your MYSQL root username's password.
 
 This should create the database and add the right users.
 The password you are prompted for when doing this should be your
 MySQL database's root user password.
 
 For example, if <username> = root
-                <password> = secret
 
 Then, the command would be:
 
-        mysql -uroot -psecret < mysql_setup/mysql.sql
+        mysql -u root -p < mysql_setup/mysql.sql
 
 This should create the database and add the right users.
 
@@ -254,11 +280,11 @@ Exim4U's web interface is comprised of a set of php scripts located in:
 First, edit home/exim4u/public_html/exim4u/config/variables.php. You need to
 change the following settings. Change the '$sqlpass' on line 10 to the
 exim4u database user's password which you chose which editing 'mysql.sql'
-in the last step. Change the '$cryptscheme' line to either "MD5", or "des"
-depending on what your operating system uses. Another change to make
-in that file is the '$uid' and '$gid'. Make these the same default
-UID and GID you chose in mysql.sql. Then, specify $mailroot.  The default
-value is:
+in the last step. Change the '$cryptscheme' line to either "SHA512", "MD5",
+or "DES" depending on your encryption scheme or "CLEAR" for clear-text
+passwords (not recommended). Another change to make in that file is the
+'$uid' and '$gid'. Make these the same default UID and GID you chose in
+mysql.sql. Then, specify $mailroot.  The default value is:
 
 	$mailroot = "/home/exim4u/mail/";
 
@@ -326,6 +352,9 @@ Example service scripts are included in etc/init.d.  An example Dovecot service
 script for multi IPs is located at etc/init.d/dovecot-MULTI_IP and the
 corresponding default Dovecot service script is located at etc/init.d/dovecot.
 
+If you decide to use clear-text passwords (not recommended) then you must edit
+and modify /etc/dovecot-sql.conf as described therein on lines 4 thru 8.
+
 8. Install Webmail
 
 Refer to the WEBMAIL documentation file in this distribution's root directory for
@@ -368,7 +397,8 @@ Exim4U User Menu and Admin Menu interfaces with the following syntax:
         http://domain.tld/admin_menu
 
 10. Install the Heirloom mail package.  In RedHat/CentOS, the Heirloom package is
-available from the RPMForge repository and can be installed with yum as follows:
+available from the RepoForge (formally RPMforge) repository and can be installed
+with yum as follows:
 
         yum install nail
 
@@ -494,14 +524,50 @@ For the report to work properly, seven variables must be specified as follows;
 
 You should setup a crontab entry to run spamdel daily.
 
-14. Install the favicon and the placeholder pages for Munin and phpMyAdmin to your webserver's
+14. Install and configure the spamalert script
+
+This script detects outgoing ratelimit violations which are usually bulk spam originating
+from internal user accounts that have been compromised via hacking or viruses, etc. Upon
+detection, an email is then sent to the designated admin address to report the outgoing
+ratelimit violation.
+
+Copy xtrasw/spamalert/spamalert to your installation from the Exim4U 3.0.0 distribution's 
+root directory. Then, the Logwarn program must be downloaded, compiled and installed for
+this script to work.  Logwarn is maintained on GitHub here:
+
+	https://github.com/archiecobbs/logwarn
+
+The current release of Logwarn is published here:
+
+	https://code.google.com/p/logwarn/downloads/list
+
+The most current release as of 2015-05-18 is logwarn-1.0.11.tar.gz which can be
+downloaded, extracted and compiled as follows:
+
+	wget https://logwarn.googlecode.com/files/logwarn-1.0.11.tar.gz
+	tar xvzpf logwarn-1.0.11.tar.gz
+	cd logwarn-1.0.11
+	./configure
+	make
+	sudo make install
+
+Create the following directory where Logwarn stores its log data: /var/lib/logwarn
+
+	sudo mkdir /var/lib/logwarn
+
+Then, put the following entry in your root crontab which will run this script every 10 minutes:
+
+	# Check for sender ratelimit spammer.
+	*/10 * * * * <path-to-spamalert-script>/spamalert > /dev/null 2>&1
+
+15. Install the favicon and the placeholder pages for Munin and phpMyAdmin to your webserver's
    document root directory:
 
 	cp favicon.ico <target document root directory>
 	cp -r munin <target document root directory>
 	cp -r phpadmin <target document root directory>
 
-15. Now, the document root of your apache website installation should have all of the files
+16. Now, the document root of your apache website installation should have all of the files
     and directories that are contained in this distribution in home/exim4u/public_html as
     follows:
 
@@ -514,6 +580,6 @@ You should setup a crontab entry to run spamdel daily.
 	* phpadmin - Directory containing the phpMyAdmin place holder or output files.
 	* webmail - Directory containing the webmail (horde) php scripts.
 
-16. Install Optional Software; Mailman, Munin, phpMyAdmin and Webmin.
+17. Install Optional Software; Mailman, Munin, phpMyAdmin and Webmin.
 
-17. Done!
+18. Done!

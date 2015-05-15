@@ -1,10 +1,10 @@
 # Script to convert existing Exim4U data base to utf8
 #
-# mysql -u<user_name> -p<password> exim4u < mysql_utf8-conversion.sql
+# mysql -u <username> -p exim4u < mysql_utf8-conversion.sql
 #     where: <username> = Your MYSQL root username
-#            <password> = Your MYSQL root username's password
-#            For example, for user_name=MYNAME and password=SECRET then the command would be:
-#            mysql -uMYNAME -pSECRET exim4u < mysql_migrate/mysql_utf8-conversion.sql
+#     The script will then prompt you for your MYSQL username's password.
+#            For example, for username=MYNAME then the command would be:
+#            mysql -u MYNAME -p SECRET exim4u < mysql_migrate/mysql_utf8-conversion.sql
 #
 alter database exim4u charset=utf8;
 ALTER TABLE blocklists CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci;

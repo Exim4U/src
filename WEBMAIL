@@ -46,7 +46,7 @@ The Horde UPGRADING document is available at the following link:
 
 2) Webmail Groupware Prerequisite Software
 
-All prerequisite software required for Horde Version 4 must be installed as listed
+All prerequisite software required for Horde must be installed as listed
 in the Horde INSTALL file.
 
 The most significant new requirement is PHP 5.3.0 or higher. 
@@ -196,27 +196,27 @@ Log into the horde web interface and make the following changes:
 
 	Change the following settings:
 
-	 	Mailer: “Use a SMTP server”.
-		Host: “localhost”
-		Port: “25”
-		Local hostname/domain: “localhost”
-		SMTP Authentication: “No Authentication”
+	 	mailer type: “Use a SMTP server”.
+		mailer host: “localhost”
+		mailer port: “25”
+		mailer localhost (local hostname/domain): “localhost”
+		mailer Auth: “No”
 
 	Afterward, save changes by “Generate Horde Configuration".
 
-	Go to Administration > Setup > Horde > Database
+	Go to Administration > Configuration > Groupware (horde) > Database
 
 	Verify the following:
 
-	        Database: Mysql
-        	Persistent connections: Yes (Check)
-        	User Name: horde
-        	Password: CHANGE
-        	Database Connection: UNIX Sockets
-        	Socket: /var/lib/mysql/mysql.sock
-        	Database Name: horde
-        	Charset: utf-8
-        	Split Reads: Disabled
+	        sql phptype: MySQL/PDO
+        	sql user name: horde
+        	password: CHANGE
+        	sql protocol: UNIX Sockets
+        	socket: /var/lib/mysql/mysql.sock
+        	database: horde
+        	charset: utf-8
+		sql ssl: checked
+        	splitread: Disabled
 
 	Afterward, save changes by “Generate Horde Configuration".
 
@@ -229,24 +229,13 @@ Log into the horde web interface and make the following changes:
 
 	Afterward, save changes by “Generate Horde Configuration".
 
-	Go to Adminstration > Configuration > Groupware (horde) > Menu Tab
-
-	Select the following apps:
-
-		imp, ingo, kronolith, mnemo, nag and turba.
-
-	Afterward, save changes by “Generate Horde Configuration".
-	
-  	Now, go to each application (Administration > Configuration > App name) and specify
-	the menu tab accordingly for Address Book, Calendar, Filters, Mail, Notes and Tasks..  
-
 Configure METAR Weather For Horde Portal Home Page
 
 	Install the PEAR Services_Weather module as root from the command line:
 
 		pear install Services_Weather
 
-	Then, go to Horde Portal > Add Content > Add > Groupware Metar Weather
+	Then, go to Horde Portal (top left of screen) > Add Content > Add > Groupware Metar Weather
 
 	You should now be able to pick a location and setup weather preferences. However,
 	if the Location fields do not include any choices then you will need to do the
@@ -264,8 +253,8 @@ Configure METAR Weather For Horde Portal Home Page
 		php buildMetarDB.php -l -u horde_db_user -p horde_db_pass -d horde_db
 
 		The horde_db_user is usually named "horde" and the horde_db is also
-		usually named "horde".If database is not on localhost, you might add
-		 options -h <hostname> and -r tcp.
+		usually named "horde". If database is not on localhost, you might add
+		options -h <hostname> and -r tcp.
 
 	Now, check the metarAirports and metarLocations tables in the horde database and
 	they should be populated with metar data sites.

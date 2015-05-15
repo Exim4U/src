@@ -43,7 +43,9 @@ CREATE TABLE IF NOT EXISTS `exim4u`.`users`
 	domain_id        mediumint(8)  unsigned  NOT NULL,
 	localpart        varchar(192)            NOT NULL  default '',
 	username         varchar(255)            NOT NULL  default '',
-	crypt            varchar(255)                       default NULL,
+-- Optionally, uncomment the clear field,
+--	clear            varchar(255)                      default NULL,
+	crypt            varchar(255)                      default NULL,
 	uid              smallint(5)   unsigned  NOT NULL  default '65534',
 	gid              smallint(5)   unsigned  NOT NULL  default '65534',
 	smtp             varchar(255)                      default NULL,
@@ -151,6 +153,10 @@ INSERT INTO `exim4u`.`users`
 )
 VALUES 
 (
+-- Specify the default password, "PASSWD", as encrypted in SHA512, MD5 or DES
+-- or as a clear-text password. Select and uncomment one of the following
+-- crypt values. The default encryption method is SHA512.
+--
 -- SHA512 encryption of 'PASSWD' for crypt field:
 '$6$4HTy8Ts3TvC1$FFAVbY1N3nKiuYi7eV3DQ0clbGS9MYrVEOjerUUQgc0sdYWfqceYbfLyPnBUK92soHAS15j.w7H05eDQn3erL/',
 --
