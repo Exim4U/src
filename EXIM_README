@@ -33,7 +33,7 @@ thereby requiring etc/exim/exim.conf-DOUBLE_COLONS_IN_HEADERS_REMOVE
 even on Exim version 4.85 and older.
 
 
-2015-05-18: Instructions for configuring exim.conf for clear-text passwords
+2015-05-17: Instructions for configuring exim.conf for clear-text passwords
             instead of encrypted passwords.
 
 If using clear passwords in the crypt field (not recommended) then modify the

@@ -2,7 +2,7 @@
 
                       Current Exim4U Version Is 3.0.0
 
-3.0.0 Release Date: May 18, 2015
+3.0.0 Release Date: May 17, 2015
 
 M	DEBIAN
 D	EXIM_4.69
@@ -214,7 +214,7 @@ M	xtrasw/webmail_admin/webmail_exim4u_logos
 		https://github.com/archiecobbs/logwarn
      The current release of logwarn is published here:
 		https://code.google.com/p/logwarn/downloads/list
-     The most current release as of 2015-05-18 is logwarn-1.0.11.tar.gz which can be
+     The most current release as of 2015-05-17 is logwarn-1.0.11.tar.gz which can be
      downloaded, extracted and compiled as follows:
 		wget https://logwarn.googlecode.com/files/logwarn-1.0.11.tar.gz
 		tar xvzpf logwarn-1.0.11.tar.gz

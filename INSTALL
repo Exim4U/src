@@ -541,7 +541,7 @@ The current release of Logwarn is published here:
 
 	https://code.google.com/p/logwarn/downloads/list
 
-The most current release as of 2015-05-18 is logwarn-1.0.11.tar.gz which can be
+The most current release as of 2015-05-17 is logwarn-1.0.11.tar.gz which can be
 downloaded, extracted and compiled as follows:
 
 	wget https://logwarn.googlecode.com/files/logwarn-1.0.11.tar.gz

@@ -3,7 +3,7 @@
                       Current Exim4U Version Is 3.0.0
 
 
-3.0.0 Release Date: May 18, 2015
+3.0.0 Release Date: May 17, 2015
 
   Overhauled password encryption to support SHA512, MD5 and DES. Removed the "clear"
   password column in the users database table. When encryption is selected then
