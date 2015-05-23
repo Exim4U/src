@@ -222,24 +222,24 @@ within the ACLs in /etc/exim/exim.conf's prior to calling spamassassin.
 	COMMIT
 
 
-6) How To Reset The Encrypted Password for the siteadmin Or A Domain Admin
+6) How To Reset The Encrypted Password for the siteadmin
 
 Beginning with Exim4U 3.0.0, if you elect to encrypt passwords then the passwords are not stored
 in clear-text anywhere.  If a user loses their password then the Domain Admin can just reset it.
-However, there is no way to reset a Domain Admin's password or the siteadmin's password from
-within the Exim4U web interface. However, the following procedure cam be used to reset a
-Domain Admin's or the siteadmin's password:
+Likewise, if a Domain Admin loses their password then the siteadmin can simply reset it. However,
+there is no way to reset a siteadmin's password from within the Exim4U web interface. Therefore,
+the following procedure cam be used to reset a siteadmin's password:
 
-	a) Use the mysql command line or phpmyadmin to change the password to a clear-text
-	   value such as "PASSWD".
+	a) Use the mysql command line or phpmyadmin to change the siteadmin's password to a
+           clear-text value such as "PASSWD".
 	b) Edit home/exim4u/public_html/exim4u/config/variables.php and change:
 	   $cryptscheme = "CLEAR";
-	c) Login to the Exim4U web interface using the clear-text password set in step (a)
-	   above.
-	d) While remaining logged in to the Exim4U web interface, go back and edit
-	   home/exim4u/public_html/exim4u/config/variables.php and change the $cryptscheme
+	c) Login to the Exim4U web interface as the siteadmin using the clear-text password set
+           in step (a) above.
+	d) While remaining logged in to the Exim4U web interface as the siteadmin, go back and
+           edit home/exim4u/public_html/exim4u/config/variables.php and change the $cryptscheme
 	   variable back to its previous value (SHA512, MD5 or DES).
-	e) Then, using the Exim4U web interface that you are still logged into, reset the
-	   password and click the Submit button to save it.
+	e) Then, using the Exim4U web interface that you are still logged into as the siteadmin,
+           reset the password and click the Submit button to save it.
 
 The password has now been reset!
