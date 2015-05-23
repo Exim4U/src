@@ -7,7 +7,7 @@ Table Of Contents
 3) General Discussion About Local Host And Relay Domain Spam Processing
 4) General Discussion about URIBL, SURBL and DBL Spam Blocking
 5) Example iptables Configuration For Exim4U
-6) How To Reset The Encrypted Password for the siteadmin Or A Domain Admin
+6) How To Reset The Encrypted Password for the siteadmin
 
 
 1) Instruction Notes For Adding A Domain
