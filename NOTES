@@ -227,8 +227,9 @@ within the ACLs in /etc/exim/exim.conf's prior to calling spamassassin.
 Beginning with Exim4U 3.0.0, if you elect to encrypt passwords then the passwords are not stored
 in clear-text anywhere.  If a user loses their password then the Domain Admin can just reset it.
 Likewise, if a Domain Admin loses their password then the siteadmin can simply reset it. However,
-there is no way to reset a siteadmin's password from within the Exim4U web interface. Therefore,
-the following procedure can be used to reset a siteadmin's password:
+there is no way to reset a lost siteadmin's password from within the Exim4U web interface since
+the siteadmin can then not login. Therefore, the following procedure can be used to reset a
+siteadmin's password:
 
 	a) Use the mysql command line or phpmyadmin to change the siteadmin's password to a
            clear-text value such as "PASSWD".
