@@ -30,7 +30,9 @@ and which should be used for exim versions after exim 4.85.
 Note that some OS distros patch older version of Exim with bug fixes
 and which may include the fixes for the headers_remove statements
 thereby requiring etc/exim/exim.conf-DOUBLE_COLONS_IN_HEADERS_REMOVE
-even on Exim version 4.85 and older.
+even on Exim version 4.85 and older. This is the case with Debian 8
+Jessie where the Debian team has patched Exim bug 1533 in their Exim 4.84
+release thereby requiring etc/exim/exim.conf-DOUBLE_COLONS_IN_HEADERS_REMOVE.
 
 
 2015-05-17: Instructions for configuring exim.conf for clear-text passwords
