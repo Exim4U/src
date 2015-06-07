@@ -5,8 +5,9 @@
 #
 # Generate report from yesterdays log file.
 #
-# Copy eximstats-1.58a.src to /usr/local/bin or any other directory and put path to file here:
-eximstats_cmd=/usr/local/bin/eximstats-1.58a.src
+# Copy eximstats-1.58a.src to /usr/local/bin or any other directory and put path of the file
+# here and have it executed by the local copy of perl:
+eximstats_cmd="/usr/local/bin/perl /usr/local/bin/eximstats-1.58a.src"
 #
 mailcommand=/usr/bin/nail          # Should be mailx or nail from Heirloom project.
 # mailcommand=/usr/local/bin/mailx   # Should be mailx or nail from Heirloom project.
