@@ -554,6 +554,7 @@ acl_check_content:
 # Run ClamAV if CLAMENABLED is on.
 # exim4u: Add ClamAV header to mail. The variables $acl_m_interface_opt, $acl_m_helo_data and $acl_m_interface
 # are included in the header to confirm MULTI_IP interface info.
+# For the following header mod to function properly, clamd.conf must have the following stanza: "TCPSocket 3310".
   warn  condition               = ${if eq{CLAMENABLED}{on}{yes}{no}}
         add_header              = X-Scanned-By: ${extract{1}{/}{${readsocket{inet:localhost:3310}{VERSION}{1s}{} {ClamAV}}}} \
                                   $acl_m_interface_opt $acl_m_helo_data ($acl_m_interface); $tod_full\n
