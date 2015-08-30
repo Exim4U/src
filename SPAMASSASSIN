@@ -251,6 +251,13 @@ will be higher thus leading to better spam detection.
 
 	pyzor --homedir /etc/mail/spamassassin/.pyzor discover
 
+   Add a configuration file as discussed here:
+   	http://www.pyzor.org/en/latest/config.html
+   The configuration file is located at:
+        /etc/mail/spamassassin/.pyzor/config
+   The contents of the configuration file should be as follows:
+        https://github.com/SpamExperts/pyzor/blob/master/config/config.sample
+        
    And finally, restart spamd:
 
 	/etc/init.d/spamassassin restart
