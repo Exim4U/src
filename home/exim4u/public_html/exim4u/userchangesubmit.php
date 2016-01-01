@@ -66,7 +66,8 @@
     $success = $sth->execute(array(':on_spamassassin'=>$_POST['on_spamassassin'],
       ':on_spambox'=>$_POST['on_spambox'],
       ':on_spamboxreport'=>$_POST['on_spamboxreport'],
-      ':sa_tag'=>$_POST['sa_tag'], ':sa_refuse'=>$_POST['sa_refuse'],
+      ':sa_tag'=>(isset($_POST['sa_tag']) ? $_POST['sa_tag'] : 0),
+      ':sa_refuse'=>(isset($_POST['sa_refuse']) ? $_POST['sa_refuse'] : 0),
       ':on_vacation'=>$_POST['on_vacation'],
       ':vacation'=>$vacation,
       ':on_forward'=>$_POST['on_forward'], ':forward'=>$_POST['forward'],
@@ -87,7 +88,5 @@
       header ("Location: userchange.php?userfailed");
       die;
     }
-
-  header ("Location: userchange.php?userupdated");
 ?>
 <!-- Layout and CSS tricks obtained from http://www.bluerobot.com/web/layouts/ -->
