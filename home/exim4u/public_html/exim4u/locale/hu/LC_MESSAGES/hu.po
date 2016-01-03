@@ -1,7 +1,7 @@
 # translation of template.po to Hungarian
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Ildik&oacute; Vámos-Wentworth <translate@vamos-wentworth.org>, 2004.
+# Ildik&oacute; VÃ¡mos-Wentworth <translate@vamos-wentworth.org>, 2004.
 #
 msgid ""
 msgstr ""
@@ -29,7 +29,7 @@ msgstr ""
 #: adminuser.php:26 adminuseradd.php:24 adminuserchange.php:21
 #: adminuserdelete.php:32 index.php:8 site.php:22 siteadd.php:9
 #: sitechange.php:9 sitedelete.php:55 sitepassword.php:9 userchange.php:20
-msgid "Exim4U"
+msgid "Virtual Exim"
 msgstr ""
 
 #: config/header.php:16
