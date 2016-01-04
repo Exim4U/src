@@ -24,8 +24,8 @@ msgstr ""
 #: adminuserchange.php:26 adminuserdelete.php:63 config/header.php:11
 #: index.php:8 site.php:18 siteadd.php:9 sitechange.php:9 sitedelete.php:55
 #: sitepassword.php:9 userchange.php:20
-msgid "Virtual Exim"
-msgstr "Виртуальный Exim"
+msgid "Exim4U"
+msgstr "Exim4U"
 
 #: admin.php:20
 msgid "Add, delete and manage POP/IMAP accounts"

@@ -26,7 +26,7 @@ msgstr ""
 #: adminuserchange.php:26 adminuserdelete.php:63 config/header.php:11
 #: index.php:8 site.php:18 siteadd.php:9 sitechange.php:9 sitedelete.php:55
 #: sitepassword.php:9 userchange.php:20
-msgid "Virtual Exim"
+msgid "Exim4U"
 msgstr ""
 
 #: admin.php:20
