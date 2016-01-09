@@ -93,12 +93,6 @@ if ($multi_ip == "yes") {
        ));
 }
 
-  if (isset($_POST['sadisable']) && $success) {
-   $query = "UPDATE users SET on_spamassassin='0' WHERE domain_id=:domain_id";
-   $sth = $dbh->prepare($query);
-   $success = $sth->execute(array(':domain_id'=>$_POST['domain_id']));
-  }
-
   if ($success) {
     header ("Location: site.php?updated={$_POST['domain']}");
     die;
