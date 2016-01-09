@@ -132,7 +132,7 @@ if ($multi_ip == "yes") {
              $sth = $dbh->prepare($query);
              $success = $sth->execute(array(':localpart'=>$_POST['localpart'],
              ':username'=>$_POST['localpart'].'@'.$_POST['domain'],
-             ':crypt'=>crypt_password($_POST['clear'],$salt),
+             ':crypt'=>crypt_password($_POST['clear']),
              ':uid'=>$uid, ':gid'=>$gid,
              ':on_spamassassin'=>$_POST['spamassassin'],
              ':sa_tag'=>((isset($_POST['sa_tag'])) ? $_POST['sa_tag'] : 0),
