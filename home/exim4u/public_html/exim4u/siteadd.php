@@ -8,6 +8,7 @@
   <head>
     <title><?php echo _('Exim4U') . ': ' . _('Manage Domains'); ?></title>
     <link rel="stylesheet" href="style.css" type="text/css">
+    <script src="scripts.js" type="text/javascript"></script>
   </head>
   <body onLoad="document.siteadd.domain.focus()">
     <?php include dirname(__FILE__) . '/config/header_domain.php'; ?>
@@ -44,14 +45,25 @@
           <tr>
             <td><?php echo _('Password'); ?>:</td>
             <td>
-              <input name="clear" type="password" class="textfield">
+              <input name="clear" id="clear" type="password" class="textfield">
             </td>
           </tr>
           <tr>
             <td><?php echo _('Verify Password'); ?>:</td>
             <td>
-              <input name="vclear" type="password" class="textfield">
+              <input name="vclear" id="vclear" type="password" class="textfield">
             </td>
+          </tr>
+        <tr>
+            <td></td>
+            <td>
+              <input type="button" value="Generate password" onclick="suggestPassword('suggest')">
+              <input type="text" size="15" name="suggest" id="suggest" class="textfield">
+              <input type="button" value="Copy" onclick="copyPassword('suggest', 'clear', 'vclear')">
+            </td>
+          </tr>
+          <tr>
+            <td></td>
           </tr>
       <?php if ($multi_ip == "yes") {      ?>
         <tr>
