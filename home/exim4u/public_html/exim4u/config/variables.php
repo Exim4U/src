@@ -79,8 +79,13 @@
         $mailroot = "/home/USER/mail/";
      For most Linux, $mailroot = "/home/exim4u/mail/";
      For most FreeBSD, $mailroot = "/usr/home/exim4u/mail/"; */
-        
         $mailroot = "/home/exim4u/mail/";
+
+  /* Check if mail store specified above exists when creating a new domain.
+     Generally, this shouldn't be disabled, but there may be special cases
+     when our check doesn't work and should be disabled (e.g. the parent
+     directory of mail store is inaccessible to your web server). */
+        $testmailroot = true;
 
   /* Mailman
      exim4u: mod to allow multiple mailman domains.
