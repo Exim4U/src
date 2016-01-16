@@ -84,6 +84,8 @@
     printf (_("-- Group %s could not be updated."), $_GET['group_failupdated']);
   } else if (isset($_GET['failuidguid'])) {
     printf (_("-- Error getting UID/GID for %s"), $_GET['failuidguid']);
+  } else if (isset($_GET['invalidforward'])) {
+    printf (_("-- %s is not a valid e-mail address."), $_GET['invalidforward']);
   }
   if (isset($_GET['login']) && ($_GET['login'] == "failed")) { print _("Login failed"); }
 
