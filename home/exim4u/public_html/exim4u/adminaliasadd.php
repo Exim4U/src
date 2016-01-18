@@ -53,8 +53,7 @@
           </tr>
           <tr>
             <td colspan="2" style="padding-bottom:1em">
-              <?php echo _('Password only needed if you want the user to be able
-              to log in, or if the Alias is the admin account.'); ?>
+              <?php echo _('Password is only needed if the Alias is an admin account.'); ?>
             </td>
           </tr>
           <tr>
