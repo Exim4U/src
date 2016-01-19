@@ -31,8 +31,7 @@
           <tr>
             <td><?php echo _('Address'); ?>:</td>
             <td>
-              <input name="localpart" type="text" class="textfield">@
-              <?php print $_SESSION['domain']; ?>
+              <input name="localpart" type="text" class="textfield">@<?php print $_SESSION['domain']; ?>
             </td>
           </tr>
           <tr>
@@ -53,7 +52,8 @@
           </tr>
           <tr>
             <td colspan="2" style="padding-bottom:1em">
-              <?php echo _('Password is only needed if the Alias is an admin account.'); ?>
+              <?php echo _('Password only needed to enable alias user
+              log in or if the Alias is an admin account.'); ?>
             </td>
           </tr>
           <tr>

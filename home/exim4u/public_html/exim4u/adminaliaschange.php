@@ -47,14 +47,13 @@
             <td><?php echo _('Address'); ?>:</td>
             <td>
               <input name="localpart" type="text"
-              value="<?php print $row['localpart']; ?>"class="textfield">
-              @<?php print $_SESSION['domain']; ?>
+              value="<?php print $row['localpart']; ?>"class="textfield">@<?php print $_SESSION['domain']; ?>
             </td>
           </tr>
           <tr>
             <td>
               <input name="user_id" type="hidden"
-              value="<?php print $_GET['user_id']; ?>" class="textfield">
+              value="<?php print $_GET['user_id']; ?>"class="textfield">
             </td>
           </tr>
           <tr>
@@ -80,7 +79,8 @@
           </tr>
           <tr>
             <td colspan="2" style="padding-bottom:1em">
-              <?php echo _('Password is only needed if the Alias is an admin account.'); ?>
+              <?php echo _('Password only needed to enable alias user
+              log in or if the Alias is an admin account.'); ?>
             </td>
           </tr>
           <tr

@@ -87,7 +87,7 @@
 	} 
 
 	if (($row['admin'] == '0') && ($row['type'] == 'alias')) {
-		header ('Location: index.php?login=failed');
+		header ('Location: useraliaschange.php');
                 die();
         }
 	
