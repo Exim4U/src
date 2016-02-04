@@ -29,12 +29,14 @@
   $alphadomains = 1;
   $alphausers = 1;
 
-/* Set to either "SHA512", "MD5" or "DES" depending on your
-   crypt() libraries or "CLEAR" for clear-text passwords.
-   Encryption is recommended and the "CLEAR" option is discouraged.
-   Recent versions of Linux and BSD use "SHA512". Older OS's
-   may use "MD5" or "DES". */
-  $cryptscheme = "SHA512";
+  /* Set to either "sha512" or "bcrypt" (only on *BSD) for advanced
+     pw-hash functions, "des" and "md5" (kept for compatibility
+     to older setups), or "CLEAR" for clear-text passwords.
+     Encryption is recommended and the "CLEAR" option is discouraged.
+     Alternatively, you can specify custom salt prefix here, e.g.
+     SHA-512 with 10000 rounds -> $cryptscheme='$6$rounds=10000$'
+     or bcrypt with complexity 2^12 -> $cryptscheme='$2a$12$' */
+     $cryptscheme = 'sha512';
 
   /* Choose the type of domain name input for the index page. It should
      either be 'static', 'dropdown' or 'textbox'. Static causes the

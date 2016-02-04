@@ -83,46 +83,37 @@
     function crypt_password($clear, $salt = '')
     {
         global $cryptscheme;
-        
-        switch($cryptscheme){
- 		case 'DES':
-                    if (!empty($salt))
-                    {
-                        $salt = substr($salt, 0, 2);
-                    }
-                    else
-                    {
-                        $salt = get_random_bytes(2);
-                    }
-                    $cryptedpass = crypt($clear, $salt);
-                break;
-                case 'MD5':
-                    if (!empty($salt))
-                    {
-                        $salt = substr($salt, 0, 12);
-                    }
-                    else
-                    {
-                        $salt = '$1$'.get_random_bytes(8).'$';
-                    }
-                    $cryptedpass = crypt($clear, $salt);
-                break;
-                case 'SHA512':
-                    if (!empty($salt))
-                    {
-                        $salt = substr($salt, 0, 16);
-                    }
-                    else
-                    {
-                        $salt = '$6$'.get_random_bytes(12).'$';
-                    }
-                    $cryptedpass = crypt($clear, $salt);
-                break;
-		case 'CLEAR':
-                    $cryptedpass=$clear;
-                break;
-		default:
-		   $cryptedpass = crypt($clear, $salt);
+
+        if($cryptscheme === 'sha') {
+            $hash = sha1($clear);
+            $cryptedpass = '{SHA}' . base64_encode(pack('H*', $hash));
+        } elseif ($cryptscheme === 'CLEAR') {
+            $cryptedpass=$clear;
+        } else {
+            if(empty($salt)) {
+                switch($cryptscheme){
+                    case 'des':
+                        $salt = '';
+                    break;
+                    case 'md5':
+                        $salt='$1$';
+                    break;
+                    case 'sha512':
+                        $salt='$6$';
+                    break;
+                    case 'bcrypt':
+                        $salt='$2a$10$';
+                    break;
+                    default:
+                        if(preg_match('/\$[:digit:][:alnum:]?\$/', $cryptscheme)) {
+                            $salt=$cryptscheme;
+                        } else {
+                            die(_('The value of $cryptscheme is invalid!'));
+                        }
+                }
+                $salt.=get_random_bytes(CRYPT_SALT_LENGTH).'$';
+            }
+            $cryptedpass = crypt($clear, $salt);
         }
         return $cryptedpass;
     }
