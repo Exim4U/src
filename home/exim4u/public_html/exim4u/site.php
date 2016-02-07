@@ -18,7 +18,7 @@
     <title><?php echo _('Exim4U') . ': ' . _('Manage Sites'); ?></title>
     <link rel="stylesheet" href="style.css" type="text/css">
   </head>
-  <?php include dirname(__FILE__) . '/config/header_domain.php'; ?>
+  <?php include dirname(__FILE__) . '/config/header.php'; ?>
   <div id="menu">
     <a href="siteadd.php?type=alias"><?php echo _('Add Alias Domain'); ?></a><br>
     <a href="siteadd.php?type=local"><?php echo _('Add Local Domain'); ?></a><br>

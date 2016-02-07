@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="style.css" type="text/css">
   </head>
   <body onLoad="document.passwordchange.localpart.focus()">
-    <?php include dirname(__FILE__) . "/config/header_domain.php"; ?>
+    <?php include dirname(__FILE__) . "/config/header.php"; ?>
     <div id="menu">
       <a href="site.php"><?php echo _("Manage Domains"); ?></a><br>
       <a href="sitepassword.php"><?php echo _("Site Password"); ?></a><br>
