@@ -118,14 +118,14 @@
             </td>
             <td>
               <input name="quotas" size="5" type="text" class="textfield"
-                value="0"><?php echo _('Mb'); ?>
+                value="0"><?php echo _('MB'); ?>
             </td>
           </tr>
           <tr>
             <td><?php echo _('Maximum Message Size'); ?>:</td>
             <td>
               <input name="maxmsgsize" size="5" type="text" class="textfield"
-                value="0"><?php echo _('Kb'); ?>
+                value="0"><?php echo _('KB'); ?>
             </td>
             <td>
               <?php echo _('The maximum size for incoming mail (user

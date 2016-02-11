@@ -40,41 +40,42 @@
       <br><a href="logout.php"><?php echo _('Logout'); ?></a><br>
     </div>
     <div id="forms">
-    <form name="adminadd" method="post" action="adminuseraddsubmit.php">
-      <table align="center">
+    <table align="center">
+      <form name="adminadd" method="post" action="adminuseraddsubmit.php">
         <tr>
           <td><?php echo _('Name'); ?>:</td>
-          <td colspan="2">
-            <input type="textfield" size="25" name="realname" class="textfield">
+          <td>
+            <input type="text" size="25" name="realname" class="textfield">
           </td>
         </tr>
         <tr>
-          <td><?php echo _('Address'); ?>:</td>
-          <td colspan="2">
-            <input type="textfield" size="25" name="localpart"
+          <td><?php echo _('Email Address'); ?>:</td>
+          <td>
+            <input type="text" size="25" name="localpart"
               class="textfield">@<?php print $_SESSION['domain']; ?>
           </td>
         </tr>
         <tr>
           <td><?php echo _('Password'); ?>:</td>
-          <td colspan="2">
+          <td>
             <input type="password" size="25" id="clear" name="clear" class="textfield">
           </td>
         </tr>
         <tr>
           <td><?php echo _('Verify Password'); ?>:</td>
-          <td colspan="2">
+          <td>
             <input type="password" size="25" id="vclear" name="vclear" class="textfield">
           </td>
         </tr>
         <tr>
           <td></td>
-          <td colspan="2">
+          <td>
             <input type="button" value="<?php echo _('Generate password'); ?>" onclick="suggestPassword('suggest')">
-            <input type="text" size="15" id="suggest" class="textfield">
+            <input type="text" size="20" id="suggest" class="textfield">
             <input type="button" value="<?php echo _('Copy'); ?>" onclick="copyPassword('suggest', 'clear', 'vclear')">
           </td>
         </tr>
+        <tr></tr>
       <?php
         if ($postmasteruidgid == "yes") { ?>
         <tr>
@@ -88,8 +89,9 @@
       <?php }
         if ($row['quotas'] > "0") { ?>
         <tr>
-          <td><?php printf (_('Mailbox quota (%s Mb max)'), $row['quotas']); ?></td>
-          <td colspan="2"><input type="text" size="5" name="quota" class="textfield" value="<?php echo $row['quotas']; ?>"><?php echo _('Mb'); ?></td>
+          <td><?php printf (_('Mailbox quota:')); ?></td>
+          <td colspan="3"><input type="text" size="5" name="quota" class="textfield" value="<?php echo $row['quotas']; ?>">
+          <?php printf(_('MB (%s MB Max, 0=unlimited)'),$row['quotas']); ?></td>
         </tr>
       <?php } ?>
         <tr>
@@ -146,7 +148,8 @@
             <td><?php echo _('Maximum Message Size'); ?>:</td>
             <td colspan="2">
               <input name="maxmsgsize" size="5" type="text"
-                value="<?php echo $row['maxmsgsize']; ?>">Kb
+                value="<?php echo $row['maxmsgsize']; ?>">
+                <?php printf(_('KB (%s KB Max, 0=unlimited)'),$row['maxmsgsize']); ?>
             </td>
           </tr>
         <tr>
@@ -159,8 +162,8 @@
           <input name="submit" type="submit" value="<?php echo _('Submit'); ?>">
           </td>
         </tr>
-      </table>
-    </form>
+      </form>
+    </table>
   </body>
 </html>
 <!-- Layout and CSS tricks obtained from http://www.bluerobot.com/web/layouts/ -->

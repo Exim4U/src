@@ -4,7 +4,7 @@
   include_once dirname(__FILE__) . "/config/functions.php";
   include_once dirname(__FILE__) . "/config/httpheaders.php";
 
-   $domquery = "SELECT spamassassin FROM domains WHERE domain_id=:domain_id";
+   $domquery = "SELECT spamassassin,maxmsgsize FROM domains WHERE domain_id=:domain_id";
    $domsth = $dbh->prepare($domquery);
    $success = $domsth->execute(array(':domain_id'=>$_SESSION['domain_id']));
    if ($success) { $domrow = $domsth->fetch(); }
@@ -34,19 +34,19 @@
         <tr><td><?php echo _("Email Address"); ?>:</td><td><?php print $row['localpart']."@".$_SESSION['domain']; ?></td>
         <tr><td><?php echo _("Password"); ?>:</td><td><input name="clear" type="password" class="textfield"></td></tr>
         <tr><td><?php echo _("Verify Password"); ?>:</td><td><input name="vclear" type="password" class="textfield"></td></tr>
-           <tr><td colspan="2" style="padding-top:1em;"><b><?php echo _("Note:"); ?></b> <?php echo _("Attempting to set blank passwords does not work!"); ?><td></tr>
+           <tr><td colspan="3"><b><?php echo _("Note:"); ?></b> <?php echo _("Attempting to set blank passwords does not work!"); ?><td></tr>
         <tr><td></td><td class="button"><input name="submit" type="submit" value="<?php echo _("Submit Password"); ?>"></td></tr>
-   </form>
+   </form><tr><td>
       <form name="userchange" method="post" action="userchangesubmit.php">
       </table>
       <table align="center">
         <tr><td colspan="2"><?php
           if ($row['quota'] != "0") {
-            printf (_("Your mailbox quota is currently: %s Mb"), $row['quota']);
+            printf (_("Your mailbox quota limit is %s MB"), $row['quota']);
           } else {
-            print _("Your mailbox quota is currently: Unlimited");
+            print _("Your mailbox quota limit is: Unlimited");
           }
-        ?></td></tr>
+          printf(_("<br />Your maximum message size limit is %s KB (0=unlimited)"),$domrow['maxmsgsize']);?></td></tr>
 <tr><td><?php echo _("Name"); ?>:</td><td><input name="realname" type="text" value="<?php print $row['realname']; ?>" class="textfield"></td></tr>
 <?php 
       if ($domrow['spamassassin'] == "1") {
@@ -71,7 +71,7 @@
       print "<td><input type=\"text\" size=\"5\" name=\"sa_refuse\" value=\"{$row['sa_refuse']}\" class=\"textfield\"></td></tr>\n";
       }
       print "<tr><td>" . _("Maximum Message Size") . ":</td>";
-      print "<td><input type=\"text\" size=\"5\" name=\"maxmsgsize\" value=\"{$row['maxmsgsize']}\" class=\"textfield\"> " . _("Kb") . "</td></tr>\n";
+      print "<td><input type=\"text\" size=\"5\" name=\"maxmsgsize\" value=\"{$row['maxmsgsize']}\" class=\"textfield\"> " . _("KB") . "</td></tr>\n";
       print "<tr><td>" . _("Vacation Enabled") . ":</td><td><input name=\"on_vacation\" type=\"checkbox\"";
       if ($row['on_vacation'] == "1") { print " checked "; } 
       print "></td></tr>\n";
