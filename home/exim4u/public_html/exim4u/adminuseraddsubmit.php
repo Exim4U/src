@@ -60,7 +60,7 @@
   if(!isset($_POST['quota'])) {
     $_POST['quota'] = $row['quotas'];
   }
-  if($row['quotas'] != "0") {
+  if($row['quotas'] !== "0") {
     if (($_POST['quota'] > $row['quotas']) || ($_POST['quota'] === "0")) { 
       header ("Location: adminuser.php?quotahigh={$row['quotas']}");
       die;
@@ -69,6 +69,8 @@
   if($row['maxmsgsize'] !== "0") {
     if (($_POST['maxmsgsize'] > $row['maxmsgsize']) || ($_POST['maxmsgsize'] === "0")) {
       $_POST['maxmsgsize']=$row['maxmsgsize'];
+      header ("Location: adminuser.php?maxmsgsizehigh={$row['maxmsgsize']}");
+      die;
     }
   }
 

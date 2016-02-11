@@ -15,7 +15,7 @@
   }
  
   # Fix the boolean values
-  $query = "SELECT spamassassin,pipe,uid,gid,quotas
+  $query = "SELECT spamassassin,pipe,uid,gid,quotas,maxmsgsize
     FROM domains
      WHERE domain_id=:domain_id";
   $sth = $dbh->prepare($query);
@@ -30,7 +30,7 @@
   }
   if (isset($_POST['on_forward'])) {
     $_POST['on_forward'] = 1;
-    if(!filter_var($_POST['forward'], FILTER_VALIDATE_EMAIL)) {
+    if(!filter_var($_POST['forward'], FILTER_VALIDATE_EMAIL) && (!preg_match("/@/",$_POST['forwardmenu']))) {
       header ("Location: adminuser.php?invalidforward=".htmlentities($_POST['forward']));
       die;
     }
@@ -71,12 +71,20 @@
   if (!isset($_POST['sa_refuse'])) {
     $_POST['sa_refuse'] = "0";
   }
-  if ($row['quotas'] != "0") {
-    if (($_POST['quota'] > $row['quotas']) || ($_POST['quota'] == "0")) {
+  if ($row['quotas'] !== "0") {
+    if (($_POST['quota'] > $row['quotas']) || ($_POST['quota'] === "0")) {
       header ("Location: adminuser.php?quotahigh={$row['quotas']}");
       die;
     }
   }
+  if($row['maxmsgsize'] !== "0") {
+    if (($_POST['maxmsgsize'] > $row['maxmsgsize']) || ($_POST['maxmsgsize'] === "0")) {
+      $_POST['maxmsgsize'] = $row['maxmsgsize'];
+      header ("Location: adminuser.php?maxmsgsizehigh={$row['maxmsgsize']}");
+      die;
+    }
+  }
+
   # Do some checking, to make sure the user is ALLOWED to make these changes
   if ((isset($_POST['on_piped'])) && ($row['pipe'] = 1)) {
     $_POST['on_piped'] = 1;
@@ -84,16 +92,17 @@
     $_POST['on_piped'] = 0;
   }
 
-  if (((isset($_POST['on_spambox'])) == 1) && ((isset($_POST['on_spamassassin'])))){
-    $_POST['on_spambox'] = 1;
-  } else {
-    $_POST['on_spambox'] = 0;
-  } 
-   if (isset($_POST['on_spamboxreport'])) {
+  if ((isset($_POST['on_spamboxreport'])) && (isset($_POST['on_spamassassin'])) && (isset($_POST['on_spambox']))){
     $_POST['on_spamboxreport'] = 1;
   } else {
     $_POST['on_spamboxreport'] = 0;
   }
+
+  if ((isset($_POST['on_spambox'])) && (isset($_POST['on_spamassassin']))){
+    $_POST['on_spambox'] = 1;
+  } else {
+    $_POST['on_spambox'] = 0;
+  } 
 
   if ((isset($_POST['on_spamassassin'])) && ($row['spamassassin'] = 1)) {
     $_POST['on_spamassassin'] = 1;

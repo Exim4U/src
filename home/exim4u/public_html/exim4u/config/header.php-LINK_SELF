@@ -72,6 +72,8 @@
     print   _("-- Your Domain Account Limit Has Been Reached. Please contact your administrator.");
   } else if (isset($_GET['quotahigh'])) {
     printf (_("-- The quota you specified was too high. The maximum quota you can specify is: %s MB."), $_GET['quotahigh']);
+  } else if (isset($_GET['maxmsgsizehigh'])) {
+    printf (_("-- The maximum messages size you specified was too high. The maximum size you can specify is: %s KB."), $_GET['maxmsgsizehigh']);
   } else if (isset($_GET['group_deleted'])) {
     printf (_("-- Group %s has been successfully deleted."), $_GET['group_deleted']);
   } else if (isset($_GET['group_added'])) {

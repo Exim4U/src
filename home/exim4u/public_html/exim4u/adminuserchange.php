@@ -12,7 +12,7 @@
    if ($sth->rowCount()) { $row = $sth->fetch(); }
   
   $username = $row['username'];
-  $domquery = "SELECT spamassassin,quotas,pipe FROM domains
+  $domquery = "SELECT spamassassin,quotas,pipe,maxmsgsize FROM domains
   WHERE domain_id=:domain_id";
   $domsth = $dbh->prepare($domquery);
   $domsth->execute(array(':domain_id'=>$_SESSION['domain_id']));
@@ -78,7 +78,7 @@
           <td></td>
           <td>
             <input type="button" value="<?php echo _('Generate password'); ?>" onclick="suggestPassword('suggest')">
-            <input type="text" size="15" id="suggest" class="textfield">
+            <input type="text" size="20" id="suggest" class="textfield">
             <input type="button" value="<?php echo _('Copy'); ?>" onclick="copyPassword('suggest', 'clear', 'vclear')">
           </td>
         </tr>
@@ -107,16 +107,15 @@
           </tr>
         <?php
           }
-          //if ($domrow['quotas'] > "0") {
         ?>
+            <tr></tr>
             <tr>
                <td>
-                 <?php printf (_('Mailbox quota (%s MB max)'),
-                   $domrow['quotas']); ?>:</td>
+                 <?php printf (_('Mailbox quota:')); ?></td>
                 <td>
                   <input type="text" size="5" name="quota" class="textfield"
                     value="<?php echo ($domrow['quotas'] == 0 ? $row['quota'] : ($row['quota'] == 0 ? $domrow['quotas'] : min($domrow['quotas'], $row['quota']))); ?>">
-                    <?php echo _('MB'); ?>
+                    <?php printf(_('MB (%s MB Max, 0=unlimited)'),$domrow['quotas']); ?>
                 </td>
               </tr>
           <?php
@@ -222,10 +221,11 @@
             }
           ?>
         <tr>
-          <td><?php echo _('Maximum Message Size'); ?>:</td>
+          <td><?php printf (_('Maximum Message Size:')); ?></td>
           <td>
             <input type="text" size="5" name="maxmsgsize"
-              value="<?php echo $row['maxmsgsize']; ?>" class="textfield">Kb
+              value="<?php echo $row['maxmsgsize']; ?>" class="textfield">
+              <?php printf(_('KB (%s KB Max, 0=unlimited)'),$domrow['maxmsgsize']); ?>
           </td>
         </tr>
         <tr>
