@@ -82,10 +82,10 @@
      $pophomepath = $domainpath . "/" . $_POST['localpart'];
     }
 //Gah. Transactions!! -- GCBirzan
-  if ((validate_password($_POST['clear'], $_POST['vclear'])) &&
+if ((validate_password($_POST['clear'], $_POST['vclear'])) &&
     ($_POST['type'] != "alias")) {
 
-if ($multi_ip == "yes") {
+  if ($multi_ip == "yes") {
     $query = "INSERT INTO domains 
               (domain, spamassassin, sa_tag, sa_refuse,
               max_accounts, quotas, maildir, pipe, enabled,
@@ -100,14 +100,14 @@ if ($multi_ip == "yes") {
               ':sa_refuse'=>((isset($_POST['sa_refuse'])) ? $_POST['sa_refuse'] : 0),
               ':max_accounts'=>$_POST['max_accounts'],
               ':quotas'=>((isset($_POST['quotas'])) ? $_POST['quotas'] : 0),
-              ':maildir'=>$domainpath,
+              ':maildir'=>((isset($_POST['maildir'])) ? $domainpath : ''),
               ':pipe'=>$_POST['pipe'], ':enabled'=>$_POST['enabled'],
               ':uid'=>$uid, ':gid'=>$gid, ':type'=>$_POST['type'],
               ':maxmsgsize'=>((isset($_POST['maxmsgsize'])) ? $_POST['maxmsgsize'] : 0),
               ':relay_address'=>$_POST['relay_address'],
               ':outgoing_ip'=>$_POST['outgoing_ip']
               ));
-} else {
+  } else {
     $query = "INSERT INTO domains 
               (domain, spamassassin, sa_tag, sa_refuse,
               max_accounts, quotas, maildir, pipe, enabled,
@@ -122,13 +122,13 @@ if ($multi_ip == "yes") {
               ':sa_refuse'=>((isset($_POST['sa_refuse'])) ? $_POST['sa_refuse'] : 0),
               ':max_accounts'=>$_POST['max_accounts'],
               ':quotas'=>((isset($_POST['quotas'])) ? $_POST['quotas'] : 0),
-              ':maildir'=>$domainpath,
+              ':maildir'=>((isset($_POST['maildir'])) ? $domainpath : ''),
               ':pipe'=>$_POST['pipe'], ':enabled'=>$_POST['enabled'],
               ':uid'=>$uid, ':gid'=>$gid, ':type'=>$_POST['type'],
               ':maxmsgsize'=>((isset($_POST['maxmsgsize'])) ? $_POST['maxmsgsize'] : 0),
               ':relay_address'=>$_POST['relay_address']
               ));
-}
+  }
     if ($success) {
       if ($_POST['type'] == "local") {
         $query = "INSERT INTO users
@@ -185,7 +185,7 @@ if ($multi_ip == "yes") {
       header ("Location: site.php?failaddeddomerr={$_POST['domain']}");
       die;
     }
-  } else if ($_POST['type'] == "alias") {
+} else if ($_POST['type'] == "alias") {
     $query = "SELECT domain_id FROM domains
               WHERE domain=:aliasdest
                 AND domain_id > 1";
@@ -213,9 +213,9 @@ if ($multi_ip == "yes") {
               "&type={$_POST['type']}");
       die;
     }
-  } else {
+} else {
     header ("Location: site.php?failaddedpassmismatch={$_POST['domain']}");
-  }
+}
 
 ?>
 <!-- Layout and CSS tricks obtained from http://www.bluerobot.com/web/layouts/ -->
