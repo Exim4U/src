@@ -153,4 +153,14 @@
      // be the case too often. :)
     return $text;
     }
+
+    /**
+     * End current session and delete $_SESSION variable.
+     *
+     */
+    function invalidate_session()
+    {
+      $_SESSION = array();
+      session_destroy();
+    }
 ?>

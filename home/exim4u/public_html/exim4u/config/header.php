@@ -1,5 +1,30 @@
 <?php
-  print "<div id=\"Header\"><p><a href=\"https://github.com/vexim/vexim2\" target=\"_blank\">" . _("Virtual Exim") . "</a> ";
+  if (isset($_SESSION['domain_id'])) {
+    $headerquery = "SELECT domains.enabled AS domain, users.enabled AS user FROM users,domains
+                    WHERE users.localpart=:localpart AND domains.domain_id=:domain_id AND users.domain_id=domains.domain_id;";
+    $headerresult = $dbh->prepare($headerquery);
+    $headersuccess = $headerresult->execute(array(':localpart'=>$_SESSION['localpart'], ':domain_id'=>$_SESSION['domain_id']));
+    if ($headersuccess && $headerrow = $headerresult->fetch()) {
+      if ($headerrow['domain'] === "0") {
+        invalidate_session();
+        header ("Location: index.php?domaindisabled");
+        die();
+      }
+      if ($headerrow['user'] === "0") {
+        invalidate_session();
+        header ("Location: index.php?userdisabled");
+        die();
+      }
+    } else {
+      invalidate_session();
+      header ("Location: index.php?nodbquery");
+      die();
+    }
+  }
+  print "<div id=\"Header\"><p><a href=\"http://exim4u.org/\" target=\"_blank\">" . _("Exim4U Email Admin") . "</a> ";
+  if (isset($_SESSION['domain'])) {
+    print     "-- " . $_SESSION['domain'] . " ";
+  }
   // First a few status messages about account maintenance
   if (isset($_GET['added'])) {
     printf (_("-- %s has been successfully added."), $_GET['added']);
@@ -69,12 +94,14 @@
     printf (_("-- Group %s could not be updated."), $_GET['group_failupdated']);
   } else if (isset($_GET['failuidguid'])) {
     printf (_("-- Error getting UID/GID for %s"), $_GET['failuidguid']);
-  } else if (isset($_GET['invalidforward'])) {
-    printf (_("-- %s is not a valid e-mail address."), $_GET['invalidforward']);
   } else if (isset($_GET['failmaildirnonabsolute'])) {
-    printf (_("-- Domain Mail directory must be an absolute path, but “%s” was provided"), $_GET['failmaildirnonabsolute']);
+    printf (_("-- Domain Mail directory must be an absolute path, but “%s” was provided"), $_GET['failmaildirnonabsolute']); 
   } else if (isset($_GET['failmaildirmissing'])) {
     printf (_("-- Domain Mail directory “%s” does not exist, is not a directory or is not accessible."), $_GET['failmaildirmissing']);
+  } else if (isset($_GET['invalidforward'])) {
+    printf (_("-- %s is not a valid e-mail address."), $_GET['invalidforward']);
+  } else if (isset($_GET['nodbquery'])) {
+    print   _("-- Database query failed, terminating session");
   }
   if (isset($_GET['login']) && ($_GET['login'] == "failed")) { print _("Login failed"); }
 
