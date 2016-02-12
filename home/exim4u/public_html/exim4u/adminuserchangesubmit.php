@@ -77,13 +77,6 @@
       die;
     }
   }
-  if($row['maxmsgsize'] !== "0") {
-    if (($_POST['maxmsgsize'] > $row['maxmsgsize']) || ($_POST['maxmsgsize'] === "0")) {
-      $_POST['maxmsgsize'] = $row['maxmsgsize'];
-      header ("Location: adminuser.php?maxmsgsizehigh={$row['maxmsgsize']}");
-      die;
-    }
-  }
 
   # Do some checking, to make sure the user is ALLOWED to make these changes
   if ((isset($_POST['on_piped'])) && ($row['pipe'] = 1)) {
@@ -114,6 +107,13 @@
     $forwardaddr = $_POST['forwardmenu'];
   } else {
     $forwardaddr = $_POST['forward'];
+  }
+
+  if (isset($_POST['maxmsgsize']) && $row['maxmsgsize']!=='0') {
+    if ($_POST['maxmsgsize']<=0 || $_POST['maxmsgsize']>$row['maxmsgsize']) {
+      header ("Location: adminuser.php?maxmsgsizehigh={$row['maxmsgsize']}");
+      die;
+    }
   }
 
   # Prevent de-admining the last admin
