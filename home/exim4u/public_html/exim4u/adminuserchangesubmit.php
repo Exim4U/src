@@ -31,7 +31,7 @@
   if (isset($_POST['on_forward'])) {
     $_POST['on_forward'] = 1;
     if(!filter_var($_POST['forward'], FILTER_VALIDATE_EMAIL) && (!preg_match("/@/",$_POST['forwardmenu']))) {
-      header ("Location: adminuser.php?invalidforward=".htmlentities($_POST['forward']));
+      header ("Location: adminuserchange.php?user_id={$_POST['user_id']}&localpart={$_POST['localpart']}&invalidforward=".htmlentities($_POST['forward']));
       die;
     }
   } else {
@@ -73,29 +73,46 @@
   }
   if ($row['quotas'] !== "0") {
     if (($_POST['quota'] > $row['quotas']) || ($_POST['quota'] === "0")) {
-      header ("Location: adminuser.php?quotahigh={$row['quotas']}");
+      header ("Location: adminuserchange.php?user_id={$_POST['user_id']}&localpart={$_POST['localpart']}&quotahigh={$row['quotas']}");
       die;
     }
   }
 
   # Do some checking, to make sure the user is ALLOWED to make these changes
+  if (preg_match("/^\s*$/",$_POST['realname'])) {
+    header("Location: adminuserchange.php?user_id={$_POST['user_id']}&localpart={$_POST['localpart']}&blankname=yes");
+    die;
+  }
+
   if ((isset($_POST['on_piped'])) && ($row['pipe'] = 1)) {
     $_POST['on_piped'] = 1;
   } else {
     $_POST['on_piped'] = 0;
   }
 
-  if ((isset($_POST['on_spamboxreport'])) && (isset($_POST['on_spamassassin'])) && (isset($_POST['on_spambox']))){
-    $_POST['on_spamboxreport'] = 1;
+  if (isset($_POST['on_spamboxreport'])) {
+    if ((isset($_POST['on_spamassassin'])) && (isset($_POST['on_spambox']))) {
+      $_POST['on_spamboxreport'] = 1;
+    } else {
+      $_POST['on_spamboxreport'] = 0;
+      header ("Location: adminuserchange.php?user_id={$_POST['user_id']}&localpart={$_POST['localpart']}&spamreporterr=yes']}");
+      die;
+    }
   } else {
-    $_POST['on_spamboxreport'] = 0;
+      $_POST['on_spamboxreport'] = 0;
   }
 
-  if ((isset($_POST['on_spambox'])) && (isset($_POST['on_spamassassin']))){
-    $_POST['on_spambox'] = 1;
+  if (isset($_POST['on_spambox'])) {
+    if ((isset($_POST['on_spamassassin']))){
+      $_POST['on_spambox'] = 1;
+    } else {
+      $_POST['on_spambox'] = 0;
+      header ("Location: adminuserchange.php?user_id={$_POST['user_id']}&localpart={$_POST['localpart']}&spamboxerr=yes']}");
+      die;
+    } 
   } else {
-    $_POST['on_spambox'] = 0;
-  } 
+      $_POST['on_spamboxreport'] = 0;
+  }
 
   if ((isset($_POST['on_spamassassin'])) && ($row['spamassassin'] = 1)) {
     $_POST['on_spamassassin'] = 1;
@@ -111,7 +128,7 @@
 
   if (isset($_POST['maxmsgsize']) && $row['maxmsgsize']!=='0') {
     if ($_POST['maxmsgsize']<=0 || $_POST['maxmsgsize']>$row['maxmsgsize']) {
-      header ("Location: adminuser.php?maxmsgsizehigh={$row['maxmsgsize']}");
+      header ("Location: adminuserchange.php?user_id={$_POST['user_id']}&localpart={$_POST['localpart']}&maxmsgsizehigh={$row['maxmsgsize']}");
       die;
     }
   }
@@ -125,7 +142,7 @@
   $sth->execute(array(':domain_id'=>$_SESSION['domain_id'], ':user_id'=>$_POST['user_id']));
   $row = $sth->fetch();
   if (($row['count'] == "0") && ($_POST['admin'] == "0")) {
-    header ("Location: adminuser.php?lastadmin={$_POST['localpart']}");
+    header ("Location: adminuserchange.php?user_id={$_POST['user_id']}&localpart={$_POST['localpart']}&lastadmin={$_POST['localpart']}");
     die;
   }
 
@@ -145,7 +162,7 @@
   }
 
   # Update the password, if the password was given
-    if (isset($_POST['clear']) && $_POST['clear']!=='') {
+  if (isset($_POST['clear']) && $_POST['clear']!=='') {
     if (validate_password($_POST['clear'], $_POST['vclear'])) {
       $cryptedpassword = crypt_password($_POST['clear']);
       $query = "UPDATE users
@@ -159,11 +176,11 @@
           $_SESSION['crypt'] = $cryptedpassword;
         }
       } else { 
-        header ("Location: adminuser.php?failupdated={$_POST['localpart']}");
+        header ("Location: adminuserchange.php?user_id={$_POST['user_id']}&localpart={$_POST['localpart']}&failupdated={$_POST['localpart']}");
         die;
       }
     } else {
-        header ("Location: adminuser.php?badpass={$_POST['localpart']}");
+        header ("Location: adminuserchange.php?user_id={$_POST['user_id']}&localpart={$_POST['localpart']}&badpass={$_POST['localpart']}");
         die;
     }
   }
@@ -214,9 +231,9 @@
      ':unseen'=>$_POST['unseen'], ':user_id'=>$_POST['user_id'],
      ));
    if ($success) {
-    header ("Location: adminuser.php?updated={$_POST['localpart']}");
+    header ("Location: adminuser.php?user_id={$_POST['user_id']}&localpart={$_POST['localpart']}&updated={$_POST['localpart']}");
   } else {
-    header ("Location: adminuser.php?failupdated={$_POST['localpart']}");
+    header ("Location: adminuserchange.php?user_id={$_POST['user_id']}&localpart={$_POST['localpart']}&failupdated={$_POST['localpart']}");
   }
 ?>
 <!-- Layout and CSS tricks obtained from http://www.bluerobot.com/web/layouts/ -->

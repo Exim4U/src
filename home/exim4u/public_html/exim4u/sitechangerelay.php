@@ -48,6 +48,8 @@
             <td><input type="text" size="5" name="sa_refuse" value="<?php print $row['sa_refuse']; ?>" class="textfield"></td></tr>
         <tr><td><?php echo _("Spamassassin"); ?>:</td>
             <td><input type="checkbox" name="spamassassin" <?php if ($row['spamassassin'] == 1) {print "checked";} ?>></td></tr>
+        <tr><td><?php echo _("Enabled"); ?>:</td>
+            <td><input type="checkbox" name="enabled" <?php if ($row['enabled'] == 1) {print "checked";} ?>></td></tr>
         <tr>
         <td><input name="domain_id" type="hidden" value="<?php print $_GET['domain_id']; ?>">
             <input name="domain" type="hidden" value="<?php print $_GET['domain']; ?>"></td></tr>

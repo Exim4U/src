@@ -62,7 +62,7 @@
   }
   if($row['quotas'] !== "0") {
     if (($_POST['quota'] > $row['quotas']) || ($_POST['quota'] === "0")) { 
-      header ("Location: adminuser.php?quotahigh={$row['quotas']}");
+      header ("Location: adminadd.php?user_id={$_POST['user_id']}&localpart={$_POST['localpart']}&quotahigh={$row['quotas']}");
       die;
     }
   }
@@ -94,7 +94,7 @@
 
   if (isset($_POST['maxmsgsize']) && $row['maxmsgsize']!=='0') {
     if ($_POST['maxmsgsize']<=0 || $_POST['maxmsgsize']>$row['maxmsgsize']) {
-      header ("Location: adminuser.php?maxmsgsizehigh={$row['maxmsgsize']}");
+      header ("Location: adminuseradd.php?&maxmsgsizehigh={$row['maxmsgsize']}");
       die;
     }
   }
@@ -104,13 +104,13 @@
   );
 
   if (preg_match("/^\s*$/",$_POST['realname'])) {
-    header('Location: adminuser.php?blankname=yes');
+    header('Location: adminuseradd.php?&blankname=yes');
     die;
   }
 
   if (preg_match("/['@%!\/\| ']/",$_POST['localpart'])
     || preg_match("/^\s*$/",$_POST['localpart'])) {
-    header("Location: adminuser.php?badname={$_POST['localpart']}");
+    header("Location: adminuseradd.php?badname={$_POST['localpart']}");
     die;
   }
 
@@ -166,11 +166,11 @@
         "From: {$_SESSION['localpart']}@{$_SESSION['domain']}\r\nMIME-Version: 1.0\r\nContent-Type: text/plain; charset=utf-8\r\nContent-Transfer-Encoding: 8bit\r\n");
       die;
     } else {
-      header ("Location: adminuser.php?failadded={$_POST['localpart']}");
+      header ("Location: adminuseradd.php?failadded={$_POST['localpart']}");
       die;
     }
   } else {
-    header ("Location: adminuser.php?badpass={$_POST['localpart']}");
+    header ("Location: adminuseradd.php?badpass={$_POST['localpart']}");
     die;
   }
 ?>

@@ -48,21 +48,27 @@
     printf (_('-- Your vacation message was too long: %1$d characters. It has been truncated at %2$d.'), $_GET['uservacationtolong'], $max_vacation_length);
   } // Now some more general errors on account updates
   else if (isset($_GET['badaliaspass'])) {
-    printf (_("-- Account %s could not be added. Your passwords do not match."), $_GET['badaliaspass']);
+    printf (_("-- Account %s could not be added. Your passwords are blank or do not match."), $_GET['badaliaspass']);
   } else if (isset($_GET['badname'])) {
     printf (_("-- %s contains invalid characters."), $_GET['badname']);
   } else if (isset($_GET['badpass'])) {
-    printf (_("-- Account %s could not be added. Your passwords were blank, do not match, or contain illegal characters: ' \" ` or ;"), $_GET['badpass']);
+    printf (_("-- Account %s not added/updated. Passwords were blank, did not match, or contained illegal characters: ' \" ` or ;"), $_GET['badpass']);
   } else if (isset($_GET['baddestdom'])) {
     print   _("-- The destination domain you specified does not exist.");
   } else if (isset($_GET['blankname'])) {
     print   _("-- You can not specify a blank realname.");
+  } else if (isset($_GET['blankdomname'])) {
+    print   _("-- You can not specify a blank domain name.");
+  } else if (isset($_GET['blankrelayadd'])) {
+    print   _("-- You can not specify a blank relay server name.");
   } else if (isset($_GET['failadded'])) {
     printf (_("-- %s could not be added."), $_GET['failadded']);
   } else if (isset($_GET['failaddedpassmismatch'])) {
     printf (_("-- Domain %s could not be added. The passwords were blank, or did not match."), $_GET['failaddedpassmismatch']);
   } else if (isset($_GET['failaddedusrerr'])) {
     printf (_("-- Domain %s could not be added. There was a problem adding the admin account."), $_GET['failaddedusrerr']);
+  } else if (isset($_GET['failaddeddomerr'])) {
+    printf (_("-- Domain %s could not be added. There was a problem adding the domain."), $_GET['failaddeddomerr']);
   } else if (isset($_GET['faildeleted'])) {
     printf (_("-- %s was not deleted."), $_GET['faildeleted']);
   } else if (isset($_GET['failupdated'])) {
@@ -98,6 +104,10 @@
     printf (_("-- Domain Mail directory must be an absolute path, but “%s” was provided"), $_GET['failmaildirnonabsolute']); 
   } else if (isset($_GET['failmaildirmissing'])) {
     printf (_("-- Domain Mail directory “%s” does not exist, is not a directory or is not accessible."), $_GET['failmaildirmissing']);
+  } else if (isset($_GET['spamboxerr'])) {
+    printf (_("-- Spamassassin must be enabled for Spam Box to be enabled."), $_GET['spamboxerr']);
+  } else if (isset($_GET['spamreporterr'])) {
+    printf (_("-- Spamassassin and Spam Box must be enabled for Spam Report to be enabled."), $_GET['spamreporterr']);
   } else if (isset($_GET['invalidforward'])) {
     printf (_("-- %s is not a valid e-mail address."), $_GET['invalidforward']);
   } else if (isset($_GET['nodbquery'])) {

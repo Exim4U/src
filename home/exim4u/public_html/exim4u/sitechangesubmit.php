@@ -20,11 +20,11 @@
       header ("Location: site.php?updated={$_POST['domain']}");
       die;
       } else {
-      header ("Location: site.php?failupdated={$_POST['domain']}");
+      header ("Location: sitechange.php?domain_id={$_POST['domain_id']}&domain={$_POST['domain']}&failupdated={$_POST['domain']}");
       die;
       }
     } else {
-      header ("Location: site.php?badpass={$_POST['domain']}");
+      header ("Location: sitechange.php?domain_id={$_POST['domain_id']}&domain={$_POST['domain']}&badpass={$_POST['domain']}");
       die;
     }
   }
@@ -44,7 +44,7 @@
   } elseif ($userinfo = @posix_getpwnam ($uid)) {
     $uid = $userinfo['uid'];
   } else {
-    header ("Location: site.php?failuidguid={$_POST['domain']}");
+    header ("Location: sitechange.php?domain_id={$_POST['domain_id']}&domain={$_POST['domain']}&failuidguid={$_POST['domain']}");
     die;
   }
  
@@ -53,7 +53,7 @@
   } elseif ($groupinfo = @posix_getgrnam ($gid)) {
     $gid = $groupinfo['gid'];
   } else {
-    header ("Location: site.php?failuidguid={$_POST['domain']}");
+    header ("Location: sitechange.php?domain_id={$_POST['domain_id']}&domain={$_POST['domain']}&failuidguid={$_POST['domain']}");
     die;
   }
 
@@ -99,6 +99,6 @@ if ($multi_ip == "yes") {
   }
 
 # Just-in-case catchall
-header ("Location: site.php?failupdated={$_POST['domain']}");
+header ("Location: sitechange.php?domain_id={$_POST['domain_id']}&domain={$_POST['domain']}&failupdated={$_POST['domain']}");
 ?>
 <!-- Layout and CSS tricks obtained from http://www.bluerobot.com/web/layouts/ -->

@@ -204,6 +204,12 @@
               <input name="spamassassin" type="checkbox" checked class="textfield">
             </td></tr>
           </tr>
+          <tr>
+            <td><?php echo _('Domain enabled?'); ?></td>
+            <td>
+              <input name="enabled" type="checkbox" class="textfield" checked>
+            </td>
+          </tr>
         <?php
            }
 /* GLD MOD end */

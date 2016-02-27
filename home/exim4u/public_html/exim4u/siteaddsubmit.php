@@ -36,6 +36,15 @@
     $_POST['outgoing_ip'] = "";
   }
 
+  if (preg_match("/^\s*$/",$_POST['domain'])) {
+    header("Location: siteadd.php?type={$_POST['type']}&blankdomname=yes");
+    die;
+  }
+  if ((preg_match("/^\s*$/",$_POST['relay_address'])) && ($_POST['type'] == "relay")) {
+    header("Location: siteadd.php?type={$_POST['type']}&blankrelayadd=yes");
+    die;
+  }
+
 // User can specify either UID, or username, the former being preferred.
 // Using posix_getpwuid/posix_getgrgid even when we have an UID is so we
 // are sure the UID exists.
@@ -51,7 +60,7 @@
   } elseif ($userinfo = @posix_getpwnam ($uid)) {
     $uid = $userinfo['uid'];
   } else {
-    header ("Location: site.php?failuidguid={$_POST['domain']}");
+    header ("Location: siteadd.php?type={$_POST['type']}&failuidguid={$_POST['domain']}");
     die;
   }
   
@@ -60,17 +69,17 @@
   } elseif ($groupinfo = @posix_getgrnam ($gid)) {
     $gid = $groupinfo['gid'];
   } else {
-    header ("Location: site.php?failuidguid={$_POST['domain']}");
+    header ("Location: siteadd.php?type={$_POST['type']}&failuidguid={$_POST['domain']}");
     die;
   }
         
   if(isset($_POST['maildir']) && isset($_POST['localpart'])) {
      if (substr($_POST['maildir'], 0, 1) !== '/') {
-       header ("Location: site.php?failmaildirnonabsolute={$_POST['maildir']}");
+       header ("Location: siteadd.php?type={$_POST['type']}&failmaildirnonabsolute={$_POST['maildir']}");
  	  die();
      }
      if ($testmailroot && is_dir(realpath($_POST['maildir'])) === false) {
-       header ("Location: site.php?failmaildirmissing={$_POST['maildir']}");
+       header ("Location: siteadd.php?type={$_POST['type']}&failmaildirmissing={$_POST['maildir']}");
        die();
  	}
      $domainpath = $_POST['maildir'];
@@ -157,7 +166,7 @@ if ((validate_password($_POST['clear'], $_POST['vclear'])) &&
 
 // Is using indexes worth setting the domain_id by hand? -- GCBirzan
           if (!$success) {
-          header ("Location: site.php?failaddedusrerr={$_POST['domain']}");
+          header ("Location: siteadd.php?type={$_POST['type']}&failaddedusrerr={$_POST['domain']}");
           die;
         } else {
           header ("Location: site.php?added={$_POST['domain']}" .
@@ -182,7 +191,7 @@ if ((validate_password($_POST['clear'], $_POST['vclear'])) &&
         die;
       }
     } else {
-      header ("Location: site.php?failaddeddomerr={$_POST['domain']}");
+      header ("Location: siteadd.php?type={$_POST['type']}&failaddeddomerr={$_POST['domain']}");
       die;
     }
 } else if ($_POST['type'] == "alias") {
@@ -192,12 +201,12 @@ if ((validate_password($_POST['clear'], $_POST['vclear'])) &&
     $sth = $dbh->prepare($query);
     $success = $sth->execute(array(':aliasdest'=>$_POST['aliasdest']));
     if (!$success) {
-      header ("Location: site.php?baddestdom={$_POST['domain']}");
+      header ("Location: siteadd.php?type={$_POST['type']}&baddestdom={$_POST['domain']}");
       die;
     } else {
       $row = $sth->fetch();
       if (!isset($row['domain_id'])) {
-        header ("Location: site.php?baddestdom={$_POST['domain']}");
+        header ("Location: siteadd.php?type={$_POST['type']}&baddestdom={$_POST['domain']}");
         die;
       }
     }
@@ -206,7 +215,7 @@ if ((validate_password($_POST['clear'], $_POST['vclear'])) &&
     $sth = $dbh->prepare($query);
     $success = $sth->execute(array(':domain_id'=>$row['domain_id'], ':alias'=>$_POST['domain']));
     if (!$success) {
-      header ("Location: site.php?failaddeddomerr={$_POST['domain']}");
+      header ("Location: siteadd.php?type={$_POST['type']}&failaddeddomerr={$_POST['domain']}");
       die;
     } else {
       header ("Location: site.php?added={$_POST['domain']}" .
@@ -214,7 +223,7 @@ if ((validate_password($_POST['clear'], $_POST['vclear'])) &&
       die;
     }
 } else {
-    header ("Location: site.php?failaddedpassmismatch={$_POST['domain']}");
+    header ("Location: siteadd.php?type={$_POST['type']}&failaddedpassmismatch={$_POST['domain']}");
 }
 
 ?>

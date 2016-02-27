@@ -25,6 +25,12 @@
   } else {
     $_POST['on_spamassassin'] = 0;
   }
+  # If set to admin then require password
+    if (($_POST['admin'] === 1) && ($_POST['clear'] === "") && ($_POST['vclear'] === "")) {
+      header ("Location: adminaliasadd.php?badaliaspass={$_POST['localpart']}");
+      die;
+    }
+
   # If a password wasn't specified, create a randomised 128bit password
     if (($_POST['clear'] === "") && ($_POST['vclear'] === "")) {
     $junk = md5(rand().time().rand());
@@ -34,7 +40,7 @@
 
   # aliases must have a localpart defined
   if ($_POST['localpart']==''){
-    header("Location: adminalias.php?badname={$_POST['localpart']}");
+    header("Location: adminaliasadd.php?badname={$_POST['localpart']}");
     die;
   }
 
@@ -45,14 +51,14 @@
   
   if ((preg_match("/['@%!\/\|\" ']/",$_POST['localpart']))
     || preg_match("/^\s*$/",$_POST['realname'])) {
-    header("Location: adminalias.php?badname={$_POST['localpart']}");
+    header("Location: adminaliasadd.php?badname={$_POST['localpart']}");
     die;
   }
   $forwardto=explode(",",$_POST['smtp']);
   for($i=0; $i<count($forwardto); $i++){
     $forwardto[$i]=trim($forwardto[$i]);
     if(!filter_var($forwardto[$i], FILTER_VALIDATE_EMAIL)) {
-      header ("Location: adminalias.php?invalidforward=".htmlentities($forwardto[$i]));
+      header ("Location: adminaliasadd.php?invalidforward=".htmlentities($forwardto[$i]));
       die;
     }
   }
@@ -83,10 +89,10 @@
   if ($success) {
       header ("Location: adminalias.php?added={$_POST['localpart']}");
     } else {
-      header ("Location: adminalias.php?failadded={$_POST['localpart']}");
+      header ("Location: adminaliasadd.php?failadded={$_POST['localpart']}");
     }
   } else {
-    header ("Location: adminalias.php?badaliaspass={$_POST['localpart']}");
+    header ("Location: adminaliasadd.php?badaliaspass={$_POST['localpart']}");
   } 
 ?>
 <!-- Layout and CSS tricks obtained from http://www.bluerobot.com/web/layouts/ -->

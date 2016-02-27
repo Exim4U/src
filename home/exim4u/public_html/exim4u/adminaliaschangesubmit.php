@@ -14,7 +14,16 @@
 	  header ("Location: adminalias.php?failupdated={$_POST['localpart']}");
 	  die();  
   }
-  
+  # Do some checking, to make sure the user is ALLOWED to make these changes
+  if (preg_match("/^\s*$/",$_POST['realname'])) {
+    header("Location: adminaliaschange.php?user_id={$_POST['user_id']}&blankname=yes");
+    die;
+  }
+  if (preg_match("/['@%!\/\| ']/",$_POST['localpart'])
+    || preg_match("/^\s*$/",$_POST['localpart'])) {
+    header("Location: adminaliaschange.php?user_id={$_POST['user_id']}&badname={$_POST['localpart']}");
+    die;
+  }
   # Fix the boolean values
   if (isset($_POST['admin'])) {
     $_POST['admin'] = 1;
@@ -38,7 +47,7 @@
   }
 
   # Update the password, if the password was given
-          if(isset($_POST['password']) && $_POST['password']!=='' ){
+          if(isset($_POST['password']) && $_POST['password']!==''){
 	  if (validate_password($_POST['password'], $_POST['vpassword'])) {
 		$cryptedpassword = crypt_password($_POST['password']);
 		$query = "UPDATE users SET crypt=:crypt WHERE user_id=:user_id AND domain_id=:domain_id AND type='alias'";
@@ -54,7 +63,7 @@
 		  die();
 		}
 	  } else {
-		header ('Location: adminalias.php?badaliaspass');
+		header ('Location: adminaliaschange.php?user_id=' . $_POST['user_id'] . '&badaliaspass');
 		die();
 	  }
   }
