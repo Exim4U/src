@@ -6,7 +6,7 @@
   $sqltype = "mysql";
   $sqldb = "exim4u";
   $sqluser = "exim4u";
-  $sqlpass = "5ecur1ty";
+  $sqlpass = "CHANGE";
 
   $dsn = "$sqltype:host=$sqlserver;dbname=$sqldb";
   $dboptions = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES UTF8');
@@ -100,7 +100,7 @@
 
      Set to "yes" if mailman is installed or "no" if mailman is not installed.
      */
-  $mailmaninstalled = "yes";
+  $mailmaninstalled = "no";
 
   /* exim4u: Specify secure or insecure protocol for mailman acccess as follows:
      "https" or "http" for mailman.   */
