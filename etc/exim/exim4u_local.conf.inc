@@ -180,6 +180,10 @@ AR_ONCE_REPEAT = 1d
 # smtp_accept_queue_per_connection = 0
 #
 #
+# exim4u: If running Exim version 4.86.2 or older then a value should be assigned to keep_environment and/or add_environment.
+# keep_environment = X-SOURCE : X-SOURCE-ARGS : X-SOURCE-DIR
+# add_environment = PATH=/usr/local/sbin::/usr/local/bin::/sbin::/bin::/usr/sbin::/usr/bin::/sbin::/bin
+#
 # END Of Host Specific Configuration Settings
 #
 #
