@@ -80,7 +80,15 @@
         $query .= " AND lower(localpart) LIKE lower(:letter)";
         $queryParams[':letter'] = $letter.'%';
         } elseif ($_POST['searchfor'] != '') {
-          $query .= ' AND ' . $dbh->quote($_POST['field']) . ' LIKE :searchfor"%';
+          $query .= ' AND ';
+          switch ($_POST['field']){
+            case "localpart":
+              $query .= 'localpart';
+              break;
+            case "realname":
+              $query .= 'realname';
+            }
+          $query .= ' LIKE :searchfor';
           $queryParams[':searchfor'] = '%'.$_POST['searchfor'].'%';
         }
         $query .= ' ORDER BY realname, localpart';
