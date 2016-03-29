@@ -6,7 +6,7 @@
 #
 # This report should be run from cron.daily by simply copying this file into /etc/cron.daily.
 #
-# For report to work properly, seven variables must be specified as follows; "mailcommand", "webmailurl", "fromadd", "spamfolder", "mysql_uname", mysql_pword", "mysql_dbase".
+# For report to work properly, seven variables must be specified as follows; "mailcommand", "webmailurl", "fromadd", "spamfolder", "mysql_uname", "MYSQL_PWD", "mysql_dbase".
 #
 mailcommand=/usr/bin/nail          # Should be mailx or nail from Heirloom project.
 # mailcommand=/usr/local/bin/mailx   # Should be mailx or nail from Heirloom project.
@@ -22,11 +22,11 @@ spamfolder=".INBOX.spam"
 #
 # Specify the mysql user name, msql password and mysql database name:
 mysql_uname="exim4u";
-mysql_pword="CHANGE";
+export MYSQL_PWD="CHANGE";
 mysql_dbase="exim4u";
 #
 # Read The Database values - username is email address, smtp is file path to mail directory and on_spamboxreport turns the report on.
-echo "select username, smtp, on_spamboxreport from users where type = 'local';" | mysql -N -u $mysql_uname --password=$mysql_pword $mysql_dbase > /tmp/userspam.mysql;
+echo "select username, smtp, on_spamboxreport from users where type = 'local';" | mysql -N -u $mysql_uname $mysql_dbase > /tmp/userspam.mysql;
 #
 #
 # Do not modify anything else below here.
