@@ -181,7 +181,7 @@ AR_ONCE_REPEAT = 1d
 #
 #
 # exim4u: If running Exim version 4.86.2 or older then a value should be assigned to keep_environment and/or add_environment.
-# keep_environment = X-SOURCE : X-SOURCE-ARGS : X-SOURCE-DIR
+# keep_environment =
 # add_environment = PATH=/usr/local/sbin::/usr/local/bin::/sbin::/bin::/usr/sbin::/usr/bin
 #
 # END Of Host Specific Configuration Settings
