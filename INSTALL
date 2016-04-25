@@ -10,7 +10,7 @@ various dependent packages from source is not included.  Please note that Exim4U
 was developed on a CentOS system and we have included some references to
 RedHat/CentOS where applicable. However, Exim4U and all of its dependent
 software packages should install and run just fine on any of the other major
-Linux distributions as well.
+Linux and Unix distributions as well.
 
 
 1. Install and configure the following packages:
@@ -29,6 +29,15 @@ slightly different prefix, such as php5-pdo instead of php-pdo. Also, some
 distributions include some or all of these php extensions with the base
 php package. Use "php -m" to see exactly what php extensions are included
 on your installation.
+
+You should also consider running your own DNS nameserver by installing                
+bind9/named. While this is not an absolute requirement, Exim4U's URI Block List
+lookups are DNS lookups and some of the URI blocking servers (specifically URIBL)
+will deny querries from large volume servers, such as large ISPs, that issue
+millions of queries daily. So, it is best to implement and use your own bind9/named
+DNS nameserver. Otherwise, if you depend on someone elses nameserver, such as a
+large ISP's nameserver, then you may end up having your lookups denied which can
+potentially cause erroneous mail rejections.
 
 2. Install: ClamAV (Clamd and Freshclam) - Tested with Version 0.98.4 thru 0.98.6.
 

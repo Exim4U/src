@@ -119,6 +119,39 @@ spamd_address = 127.0.0.1 783
 #
 av_scanner = clamd:/var/run/clamav/clamd
 #
+# File Attachment Filtering
+# The following variables, UNZIP, UNRAR and WINEXE, are used to block potential malware attachments.
+# We need to unzip and unrar compressed attachments to see what's inside.
+# Install the unzip and unrar commands for your operating system and define their location.
+UNZIP = /usr/bin/unzip
+UNRAR = /usr/bin/unrar-nonfree
+# Define the attachment extensions that you want to block
+WINEXE = exe|pif|bat|scr|lnk|com|vbs|vbe|bz2|cmd|js|reg|chm|cnf|hta|ins|scf|sct|wsc|wsf|wsh|xnk|mad\
+|maf|mag|mam|maq|mar|mas|mat|mat|mav|maw|cpl|jsp|dll|sys|btm|dat|msi|prf|vb
+#
+# DNSBL Services
+# Designate the RBL/DNSBL Services to use for rejecting known spammer IP addresses. spamhaus.org
+# is the most reliable with virtually no false positives.  Spamcop.net and surriel.com will provide
+# additional protection but may block legitimate servers when their spam traps see any activity whatsoever.
+DNSBL = zen.spamhaus.org
+# DNSBL = zen.spamhaus.org:bl.spamcop.net
+# DNSBL = zen.spamhaus.org:bl.spamcop.net:psbl.surriel.com
+#
+# URI Block Lists
+# Exim4U includes the capability to reject mail that contain known spammvertized URL links as listed
+# on the SURBL, URIBL and Spamaus DBL servers.
+# Set URIBLOCK to YES to enable or NO to disable.
+URIBLOCK = YES
+# URIBLOCK = NO
+#
+# Greylist Spammy Mail
+# Exim4U includes greylisting capabilities based on several spam related paramaters such as
+# spamscore > 0. With GREYLIST = YES, then spammy incoming mail causes a temporary error
+# and the sending server is requested to try again later.  Most spammer servers will not
+# retry whereas all legitimate mail servers should retry within 5 to 30 minutes of the first
+# attempted delivery and will continue to retry for up to 3 days.
+GREYLIST = YES
+# GreyLIST = NO
 #
 # exim4u: MailMan Configuration
 #
@@ -180,9 +213,9 @@ AR_ONCE_REPEAT = 1d
 # smtp_accept_queue_per_connection = 0
 #
 #
-# exim4u: If running Exim version 4.86.2 or older then a value should be assigned to keep_environment and/or add_environment.
-# keep_environment =
-# add_environment = PATH=/usr/local/sbin::/usr/local/bin::/sbin::/bin::/usr/sbin::/usr/bin
+# exim4u: If running Exim version 4.86.2 or newer then a value should be assigned to keep_environment and/or add_environment.
+keep_environment = PATH
+add_environment =
 #
 # END Of Host Specific Configuration Settings
 #
