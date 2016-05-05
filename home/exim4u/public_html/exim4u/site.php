@@ -70,8 +70,8 @@
                 <a href="sitedelete.php?domain_id=<?php
                   echo $row['domain_id']; ?>&domain=<?php
                   echo $row['domain']; ?>">
-                  <img class="trash" title="Delete <?php $row['domain']; ?>"
-                    src="images/trashcan.gif" alt="trashcan">
+                  <img class="trash" title="<?php echo _('Delete ') .
+                    $row['domain']; ?>" src="images/trashcan.gif" alt="trashcan">
                 </a>
               </td>
               <td>
@@ -122,7 +122,7 @@
                 <a href="sitedelete.php?domain_id=<?php
                   echo $row['domain_id']; ?>&domain=<?php
                   echo $row['domain']; ?>&type=relay">
-                  <img class="trash" title="<?php echo _('Delete') .
+                  <img class="trash" title="<?php echo _('Delete ') .
                     $row['domain']; ?>" src="images/trashcan.gif" alt="trashcan">
                 </a>
               </td>
@@ -150,7 +150,7 @@
                 <a href="sitedelete.php?domain_id=<?php
                   echo $row['domain_id']; ?>&domain=<?php
                   echo $row['alias']; ?>&type=alias">
-                  <img class="trash" title="<?php echo _('Delete')
+                  <img class="trash" title="<?php echo _('Delete ')
                     . $row['alias']; ?>" src="images/trashcan.gif" alt="trashcan">
                 </a>
               </td>
