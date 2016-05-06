@@ -44,6 +44,7 @@ if ($row['count'] == "0") {
   } else {
     header ("Location: adminuser.php?faildeleted={$_GET['localpart']}");
   }
+  die;
 } else if ($_GET['confirm'] == "cancel") {                 
     header ("Location: adminuser.php?faildeleted={$_GET['localpart']}");
     die;                                                      
