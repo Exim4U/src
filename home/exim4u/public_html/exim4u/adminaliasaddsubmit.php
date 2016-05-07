@@ -44,6 +44,10 @@
     die;
   }
 
+  check_mail_address(
+    $_POST['localpart'],$_SESSION['domain_id'],'adminaliasadd.php'
+  );
+
   # check_user_exists() will die if a user account already exists with the same localpart and domain id
   check_user_exists(
    $dbh,$_POST['localpart'],$_SESSION['domain_id'],'adminalias.php'

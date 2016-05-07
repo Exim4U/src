@@ -92,6 +92,10 @@
     $_POST['on_spamassassin'] = 0;
   }
 
+  check_mail_address(
+    $_POST['localpart'],$_SESSION['domain_id'],'adminuseradd.php'
+  );
+
   if (isset($_POST['maxmsgsize']) && $row['maxmsgsize']!=='0') {
     if ($_POST['maxmsgsize']<=0 || $_POST['maxmsgsize']>$row['maxmsgsize']) {
       header ("Location: adminuseradd.php?&maxmsgsizehigh={$row['maxmsgsize']}");
@@ -100,7 +104,7 @@
   }
 
   check_user_exists(
-    $dbh,$_POST['localpart'],$_SESSION['domain_id'],'adminuser.php'
+    $dbh,$_POST['localpart'],$_SESSION['domain_id'],'adminuseradd.php'
   );
 
   if (preg_match("/^\s*$/",$_POST['realname'])) {

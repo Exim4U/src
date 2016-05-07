@@ -8,8 +8,12 @@
     die;
   }
 
+  check_mail_address(
+    $_POST['localpart'],$_SESSION['domain_id'],'admingroupadd.php'
+  );
+
   check_user_exists(
-    $dbh,$_POST['localpart'],$_SESSION['domain_id'],'admingroup.php'
+    $dbh,$_POST['localpart'],$_SESSION['domain_id'],'admingroupadd.php'
   );
 
   $query = "INSERT INTO groups (name, domain_id)

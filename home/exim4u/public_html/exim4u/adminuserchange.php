@@ -306,20 +306,23 @@
           value="<?php print $row['localpart']; ?>" class="textfield">
         <tr>
           <td colspan="2" class="button">
-            <input name="submit" type="submit" value="Submit">
+          <input name="submit" type="submit" value="<?php echo _('Submit'); ?>">
           </td>
         </tr>
         <tr>
           <td colspan="2" style="padding-top:1em">
-          <?php echo _('Aliases To This Account'); ?>:<br>
           <?php
             # Print the aliases associated with this account
             $query = "SELECT user_id,localpart,domain,realname FROM users,domains
-             WHERE smtp=:smtp AND users.domain_id=domains.domain_id ORDER BY realname";
-             $sth = $dbh->prepare($query);
-             $sth->execute(array(':smtp'=>$row['localpart'].'@'.$_SESSION['domain']));
-             if ($sth->rowCount()) {
-             while ($row = $sth->fetch()) {
+            WHERE smtp=:smtp AND users.domain_id=domains.domain_id ORDER BY realname";
+            $sth = $dbh->prepare($query);
+            $sth->execute(array(':smtp'=>$row['localpart'].'@'.$_SESSION['domain']));
+            if ($sth->rowCount()) {
+          ?>
+          <?php
+            echo _('Aliases to this account'); ?>:<br>
+          <?php
+              while ($row = $sth->fetch()) {
                 if (($row['domain'] == $_SESSION['domain'])
                   && ($row['localpart'] != "*")) {
                   print '<a href="adminaliaschange.php?user_id='
@@ -327,23 +330,23 @@
                     . '">'
                     . $row['localpart']. '@' . $row['domain']
                     . '</a>';
-                } else if (($row['domain'] == $_SESSION['domain'])
-                  && ($row['localpart'] == "*")) {
-                  print '<a href="admincatchall.php?user_id='
-                    . $row['user_id']
-                    . '">'
-                    . $row['localpart'] . '@' . $row['domain']
-                    . '</a>';
+              } else if (($row['domain'] == $_SESSION['domain'])
+                && ($row['localpart'] == "*")) {
+                print '<a href="admincatchall.php?user_id='
+                 . $row['user_id']
+                 . '">'
+                 . $row['localpart'] . '@' . $row['domain']
+                 . '</a>';
               } else {
                 print $row['localpart'] . '@' . $row['domain'];
               }
               if ($row['realname'] == "Catchall") {
                 print $row['realname'];
               }
-              print '<br>';
+                print '<br>';
+              }
             }
-          }
-        ?>
+          ?>
         </td></tr>
       </form>
     </table>
@@ -351,9 +354,11 @@
       <form name="blocklist" method="post" action="adminuserblocksubmit.php">
         <tr>
           <td colspan="2">
-            <?php
-              echo _('Add A New Header Blocking Filter For This User');
-            ?>:
+           <h4>
+             <?php
+               echo _('Add a new header blocking filter for this user');
+             ?>:
+           </h4>
           </td>
         </tr>
         <tr>
@@ -376,7 +381,7 @@
           </td>
         </tr>
         <tr>
-          <td>
+          <td colspan="3" class="button">
             <input name="submit" type="submit"
               value="<?php echo _('Submit'); ?>">
           </td>
