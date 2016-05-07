@@ -133,9 +133,9 @@ WINEXE = exe|pif|bat|scr|lnk|com|vbs|vbe|bz2|cmd|js|reg|chm|cnf|hta|ins|scf|sct|
 # Designate the RBL/DNSBL Services to use for rejecting known spammer IP addresses. spamhaus.org
 # is the most reliable with virtually no false positives.  Spamcop.net and surriel.com will provide
 # additional protection but may block legitimate servers when their spam traps see any activity whatsoever.
-DNSBL = zen.spamhaus.org
-# DNSBL = zen.spamhaus.org:bl.spamcop.net
-# DNSBL = zen.spamhaus.org:bl.spamcop.net:psbl.surriel.com
+DNSBLOCKLIST = zen.spamhaus.org
+# DNSBLOCKLIST = zen.spamhaus.org:bl.spamcop.net
+# DNSBLOCKLIST = zen.spamhaus.org:bl.spamcop.net:psbl.surriel.com
 #
 # URI Block Lists
 # Exim4U includes the capability to reject mail that contain known spammvertized URL links as listed
