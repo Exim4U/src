@@ -170,17 +170,9 @@ if ((validate_password($_POST['clear'], $_POST['vclear'])) &&
           die;
         } else {
           header ("Location: site.php?added={$_POST['domain']}" .
-                  "&type={$_POST['type']}");
-          mail("{$_POST['localpart']}@{$_POST['domain']}",
-                vexim_encode_header(_("Welcome Domain Admin!")),
-                "$welcome_newdomain",
-                "From: {$_POST['localpart']}@{$_POST['domain']}\r\nMIME-Version: 1.0\r\nContent-Type: text/plain; charset=utf-8\r\nContent-Transfer-Encoding: 8bit\r\n");
-          die;
-        }
-      } else {
-        header ("Location: site.php?added={$_POST['domain']}" .
                 "&type={$_POST['type']}");
-/* GLD fix for bug in relay welcome message to blank local part. email to: postmaster@<relay-to-domain>  */
+/* GLD fix for bug in welcome message to blank local part. email to: postmaster@<relay-to-domain>
+   Welcome message only sent for new Local domains and not for alias or Relay domains.  */
 /*      mail("{$_POST['localpart']}@{$_POST['domain']}",  GLD removed this */
         mail("postmaster@{$_POST['domain']}",
               vexim_encode_header(_("Welcome Domain Admin!")),
@@ -189,31 +181,21 @@ if ((validate_password($_POST['clear'], $_POST['vclear'])) &&
 /*            "From: {$_POST['localpart']}@{$_POST['domain']}\r\n");  GLD removed this */
 /* GLD fix: email from:  apache@<relay from domain>  */
         die;
+        }
+      } else {
+        header ("Location: site.php?added={$_POST['domain']}" .
+                "&type={$_POST['type']}");
+        die;
       }
     } else {
       header ("Location: siteadd.php?type={$_POST['type']}&failaddeddomerr={$_POST['domain']}");
       die;
     }
 } else if ($_POST['type'] == "alias") {
-    $query = "SELECT domain_id FROM domains
-              WHERE domain=:aliasdest
-                AND domain_id > 1";
-    $sth = $dbh->prepare($query);
-    $success = $sth->execute(array(':aliasdest'=>$_POST['aliasdest']));
-    if (!$success) {
-      header ("Location: siteadd.php?type={$_POST['type']}&baddestdom={$_POST['domain']}");
-      die;
-    } else {
-      $row = $sth->fetch();
-      if (!isset($row['domain_id'])) {
-        header ("Location: siteadd.php?type={$_POST['type']}&baddestdom={$_POST['domain']}");
-        die;
-      }
-    }
     $query = "INSERT INTO domainalias (domain_id, alias)
                VALUES (:domain_id, :alias)";
     $sth = $dbh->prepare($query);
-    $success = $sth->execute(array(':domain_id'=>$row['domain_id'], ':alias'=>$_POST['domain']));
+    $success = $sth->execute(array(':domain_id'=>$_POST['aliasdest'], ':alias'=>$_POST['domain']));
     if (!$success) {
       header ("Location: siteadd.php?type={$_POST['type']}&failaddeddomerr={$_POST['domain']}");
       die;

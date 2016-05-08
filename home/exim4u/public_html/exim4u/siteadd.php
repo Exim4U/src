@@ -170,7 +170,16 @@
           <tr>
             <td><?php echo _('Redirect Messages To Domain'); ?>:</td>
             <td>
-              <input name="aliasdest" type="text" class="textfield">
+              <select name="aliasdest" type="text" class="textfield">
+                <?php
+                  $query = 'SELECT domain_id, domain FROM domains WHERE type="local"';
+                  $sth = $dbh->prepare($query);
+                  $sth->execute();
+                  while ($row = $sth->fetch()) {
+                    print '<option value="' . $row['domain_id'] . '">' . $row['domain'] . '</option>' . "\n\t";
+                  }
+                ?>
+              </select>
             </td>
           </tr>
         <?php

@@ -55,8 +55,6 @@
     printf (_("-- %s contains invalid characters."), $_GET['badname']);
   } else if (isset($_GET['badpass'])) {
     printf (_("-- Account %s not added/updated. Passwords were blank, did not match, or contained illegal characters: ' \" ` or ;"), $_GET['badpass']);
-  } else if (isset($_GET['baddestdom'])) {
-    print   _("-- The destination domain you specified does not exist.");
   } else if (isset($_GET['blankname'])) {
     print   _("-- You can not specify a blank realname.");
   } else if (isset($_GET['blankdomname'])) {
