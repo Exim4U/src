@@ -38,7 +38,12 @@
      or bcrypt with complexity 2^12 -> $cryptscheme='$2a$12$' */
      $cryptscheme = 'sha512';
 
-  /* Multi IP config:
+  /* Use the hostname for the domain name and allow users to login
+     based on the local part only. It is off by default ($domainguess = 0).
+     Set $domainguess = 1 in order to enable this function */
+     $domainguess = 0;  
+
+/* Multi IP config:
      If $multi_ip = "yes" then this is a multi IP installation.  MULTI_IP must
      also be set to "YES" in the exim configuration file exim4u_local.conf.inc.
      Also reverse dns (PTR) records must be advertised for all IP addresses for

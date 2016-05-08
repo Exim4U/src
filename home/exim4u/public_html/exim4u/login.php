@@ -11,7 +11,8 @@
   die;
   }
 
-  # construct the correct sql statement based on who the user is
+if($domainguess === 1 && $_POST['username']!=='siteadmin') $_POST['username'].='@'.preg_replace ("/^mail\./", "", $_SERVER["SERVER_NAME"]);
+
     # sql statement based on username
   $query = "SELECT crypt,username,user_id,domain,domains.domain_id,users.admin,users.type,domains.enabled AS domainenabled, users.enabled AS userenabled
   FROM users,domains
