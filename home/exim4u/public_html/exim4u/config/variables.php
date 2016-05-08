@@ -6,7 +6,7 @@
   $sqltype = "mysql";
   $sqldb = "exim4u";
   $sqluser = "exim4u";
-  $sqlpass = "CHANGE";
+  $sqlpass = "!G0Falc0n5!";
 
   $dsn = "$sqltype:host=$sqlserver;dbname=$sqldb";
   $dboptions = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES UTF8');
@@ -41,9 +41,9 @@
   /* Use the hostname for the domain name and allow users to login
      based on the local part only. It is off by default ($domainguess = 0).
      Set $domainguess = 1 in order to enable this function */
-     $domainguess = 0;  
+     $domainguess = 0;
 
-/* Multi IP config:
+  /* Multi IP config:
      If $multi_ip = "yes" then this is a multi IP installation.  MULTI_IP must
      also be set to "YES" in the exim configuration file exim4u_local.conf.inc.
      Also reverse dns (PTR) records must be advertised for all IP addresses for
@@ -95,7 +95,7 @@
 
      Set to "yes" if mailman is installed or "no" if mailman is not installed.
      */
-  $mailmaninstalled = "no";
+  $mailmaninstalled = "yes";
 
   /* exim4u: Specify secure or insecure protocol for mailman acccess as follows:
      "https" or "http" for mailman.   */

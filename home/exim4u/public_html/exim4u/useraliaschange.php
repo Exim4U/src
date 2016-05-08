@@ -16,7 +16,7 @@
   </head>
   <body onLoad="document.aliaschange.realname.focus()">
     <?php include dirname(__FILE__) . '/config/header.php'; ?>
-    <div id="menu">
+    <div id="Menu">
       <a href="logout.php"><?php echo _('Logout'); ?></a><br>
     </div>
     <div id="Forms">

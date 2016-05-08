@@ -19,7 +19,7 @@
   </head>
   <body>
     <?php include dirname(__FILE__) . '/config/header.php'; ?>
-    <div id="menu">
+    <div id="Menu">
       <?php print  _('Mailman Lists') . '<br><br>'; ?>
     <?php
     if ($mailmandomain == "default") {

@@ -73,7 +73,7 @@ if ($row['count'] == "0") {
   </head>
   <body>
     <?php include dirname(__FILE__) . '/config/header.php'; ?>
-    <div id="menu">
+    <div id="Menu">
       <a href="adminuseradd.php"><?php echo _('Add User'); ?></a><br>
       <a href="admin.php"><?php echo _('Main Menu'); ?></a><br>
       <br><a href="logout.php"><?php echo _('Logout'); ?></a><br>
