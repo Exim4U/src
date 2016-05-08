@@ -38,16 +38,6 @@
      or bcrypt with complexity 2^12 -> $cryptscheme='$2a$12$' */
      $cryptscheme = 'sha512';
 
-  /* Choose the type of domain name input for the index page. It should
-     either be 'static', 'dropdown' or 'textbox'. Static causes the
-     domain name part of the URL to be used automatically, and the user
-     cannot change it. Dropdown uses a dropdown style menu with <select>
-     and <option>. Textbox presents a blank line for the user to type
-     their domain name one. Textbox might be prefered if you have a
-     large number of domains, or don't want to reveal the names of sites
-     which you host */
-  $domaininput = "dropdown";
-
   /* Multi IP config:
      If $multi_ip = "yes" then this is a multi IP installation.  MULTI_IP must
      also be set to "YES" in the exim configuration file exim4u_local.conf.inc.

@@ -91,6 +91,10 @@ div.row span.formw {
 .textfield      { border-color: #000000;
               border-width: 1px; }
 
+.loginfield { border-color: #000000; 
+              width: 250;
+              border-width: 1px; }
+
 a:link {color:#286ea0;}
 a:visited {color:#286ea0;}
 a:hover {background-color:#eee;}
