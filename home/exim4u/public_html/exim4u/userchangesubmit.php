@@ -86,7 +86,7 @@
       ':user_id'=>$_SESSION['user_id']
       ));
     if ($success) {
-      if (strlen($_POST['vacation']) > $max_vacation_length)
+      if (isset($_POST['vacation']) && strlen($_POST['vacation']) > $max_vacation_length)
       {
         header ("Location: userchange.php?uservacationtolong=" . strlen($_POST['vacation']));
       }

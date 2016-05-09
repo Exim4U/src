@@ -95,7 +95,7 @@
 
      Set to "yes" if mailman is installed or "no" if mailman is not installed.
      */
-  $mailmaninstalled = "yes";
+  $mailmaninstalled = "no";
 
   /* exim4u: Specify secure or insecure protocol for mailman acccess as follows:
      "https" or "http" for mailman.   */

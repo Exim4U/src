@@ -30,16 +30,16 @@
     </div>
     <div id="forms">
       <form name="userchange" method="post" action="userchangesubmit.php">
-      <table align="center">
+       <table align="center">
         <tr><td><?php echo _("Email Address"); ?>:</td><td><?php print $row['localpart']."@".$_SESSION['domain']; ?></td>
         <tr><td><?php echo _("Password"); ?>:</td><td><input name="clear" type="password" class="textfield"></td></tr>
         <tr><td><?php echo _("Verify Password"); ?>:</td><td><input name="vclear" type="password" class="textfield"></td></tr>
            <tr><td colspan="3"><b><?php echo _("Note:"); ?></b> <?php echo _("Attempting to set blank passwords does not work!"); ?><td></tr>
         <tr><td></td><td class="button"><input name="submit" type="submit" value="<?php echo _("Submit Password"); ?>"></td></tr>
-   </form><tr><td>
+        </table>
+      </form>
       <form name="userchange" method="post" action="userchangesubmit.php">
-      </table>
-      <table align="center">
+       <table align="center">
         <tr><td colspan="2"><?php
           if ($row['quota'] != "0") {
             printf (_("Your mailbox quota limit is %s MB"), $row['quota']);

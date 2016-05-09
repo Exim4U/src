@@ -63,6 +63,8 @@
     print   _("-- You can not specify a blank relay server name.");
   } else if (isset($_GET['failadded'])) {
     printf (_("-- %s could not be added."), $_GET['failadded']);
+  } else if (isset($_GET['failaddeddomerr'])) {
+    printf (_("-- Domain %s could not be added."), $_GET['failaddeddomerr']);
   } else if (isset($_GET['failaddedpassmismatch'])) {
     printf (_("-- Domain %s could not be added. The passwords were blank, or did not match."), $_GET['failaddedpassmismatch']);
   } else if (isset($_GET['failaddedusrerr'])) {
