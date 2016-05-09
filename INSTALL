@@ -286,13 +286,15 @@ Exim4U's web interface is comprised of a set of php scripts located in:
 
 	home/exim4u/public_html/exim4u
 
-First, edit home/exim4u/public_html/exim4u/config/variables.php. You need to
-change the following settings. Change the '$sqlpass' on line 10 to the
-exim4u database user's password which you chose which editing 'mysql.sql'
-in the last step. Change the '$cryptscheme' line to either "SHA512", "MD5",
-or "DES" depending on your encryption scheme or "CLEAR" for clear-text
-passwords (not recommended). Another change to make in that file is the
-'$uid' and '$gid'. Make these the same default UID and GID you chose in
+First, copy home/exim4u/public_html/exim4u/config/variables.php.sample to
+home/exim4u/public_html/exim4u/config/variables.php.  This file, variables.php,
+is your main configuration file for the Exim4U web interface. Now, edit
+home/exim4u/public_html/exim4u/config/variables.php and change the following
+settings. Change the '$sqlpass' on line 10 to the exim4u database user's password
+which you chose which editing 'mysql.sql' in the last step. Change the '$cryptscheme'
+line to either "SHA512", "MD5", or "DES" depending on your encryption scheme or
+"CLEAR" for clear-text passwords (not recommended). Another change to make in that
+file is the '$uid' and '$gid'. Make these the same default UID and GID you chose in
 mysql.sql. Then, specify $mailroot.  The default value is:
 
 	$mailroot = "/home/exim4u/mail/";
