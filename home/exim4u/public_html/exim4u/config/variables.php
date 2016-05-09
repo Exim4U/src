@@ -6,7 +6,7 @@
   $sqltype = "mysql";
   $sqldb = "exim4u";
   $sqluser = "exim4u";
-  $sqlpass = "!G0Falc0n5!";
+  $sqlpass = "CHANGE";
 
   $dsn = "$sqltype:host=$sqlserver;dbname=$sqldb";
   $dboptions = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES UTF8');
