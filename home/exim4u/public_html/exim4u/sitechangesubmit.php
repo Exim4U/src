@@ -4,10 +4,28 @@
   include_once dirname(__FILE__) . "/config/functions.php";
   include_once dirname(__FILE__) . "/config/httpheaders.php";
 
-  if (isset($_POST['spamassassin'])) {$_POST['spamassassin'] = 1;} else {$_POST['spamassassin'] = 0;}
-  if (isset($_POST['enabled'])) {$_POST['enabled'] = 1;} else {$_POST['enabled'] = 0;}
-  if (isset($_POST['pipe'])) {$_POST['pipe'] = 1;} else {$_POST['pipe'] = 0;}
-  if ($_POST['max_accounts'] == '') {$_POST['max_accounts'] = '0';}
+  if (isset($_POST['spamassassin'])) {
+    $_POST['spamassassin'] = 1;
+  } else {
+    $_POST['spamassassin'] = 0;
+  }
+
+  if (isset($_POST['enabled'])) {
+    $_POST['enabled'] = 1;
+  } else {
+    $_POST['enabled'] = 0;
+  }
+
+  if (isset($_POST['pipe'])) {
+    $_POST['pipe'] = 1;
+  } else {
+    $_POST['pipe'] = 0;
+  }
+
+  if (!isset($_POST['max_accounts']) || $_POST['max_accounts'] == '') {
+    $_POST['max_accounts'] = '0';
+  }
+
   if (isset($_POST['clear'])) {
     if (validate_password($_POST['clear'], $_POST['vclear'])) {
       $query = "UPDATE users SET crypt=:crypt 
@@ -98,7 +116,7 @@ if ($multi_ip == "yes") {
     die;
   }
 
-# Just-in-case catchall
+// Just-in-case catchall
 header ("Location: sitechange.php?domain_id={$_POST['domain_id']}&domain={$_POST['domain']}&failupdated={$_POST['domain']}");
 ?>
 <!-- Layout and CSS tricks obtained from http://www.bluerobot.com/web/layouts/ -->
