@@ -10,8 +10,8 @@ DROP TABLE IF EXISTS `exim4u`.`domains`;
 CREATE TABLE IF NOT EXISTS `exim4u`.`domains`
 (
     domain_id      mediumint(8)  unsigned  NOT NULL  auto_increment,
-	domain           varchar(64)             NOT NULL  default '',
-	maildir          varchar(128)            NOT NULL  default '',
+	domain           varchar(255)             NOT NULL  default '',
+	maildir          varchar(4096)            NOT NULL  default '',
 	uid              smallint(5)   unsigned  NOT NULL  default 'CHANGE',
 	gid              smallint(5)   unsigned  NOT NULL  default 'CHANGE',
 	max_accounts     int(10)       unsigned  NOT NULL  default '0', 
@@ -41,15 +41,15 @@ CREATE TABLE IF NOT EXISTS `exim4u`.`users`
 (
     user_id          int(10)       unsigned  NOT NULL  auto_increment,
 	domain_id        mediumint(8)  unsigned  NOT NULL,
-	localpart        varchar(192)            NOT NULL  default '',
+	localpart        varchar(64)            NOT NULL  default '',
 	username         varchar(255)            NOT NULL  default '',
 -- Optionally, uncomment the clear field,
 --	clear            varchar(255)                      default NULL,
 	crypt            varchar(255)                      default NULL,
 	uid              smallint(5)   unsigned  NOT NULL  default '65534',
 	gid              smallint(5)   unsigned  NOT NULL  default '65534',
-	smtp             varchar(255)                      default NULL,
-	pop              varchar(255)                      default NULL,
+	smtp             varchar(4096)                      default NULL,
+	pop              varchar(4096)                      default NULL,
 	type             enum('local', 'alias', 
                           'catch', 'fail', 
                           'piped', 'admin', 
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `exim4u`.`blocklists`
   	domain_id        mediumint(8)  unsigned  NOT NULL,
 	user_id          int(10)       unsigned            default NULL,
 	blockhdr         varchar(192)            NOT NULL  default '',
-	blockval         varchar(192)            NOT NULL  default '',
+	blockval         varchar(255)            NOT NULL  default '',
 	color            varchar(8)              NOT NULL  default '',
 	PRIMARY KEY (block_id)
 );
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `exim4u`.`blocklists`
 CREATE TABLE IF NOT EXISTS `exim4u`.`domainalias` 
 (
     domain_id        mediumint(8)  unsigned  NOT NULL,
-	alias varchar(64)
+	alias varchar(255)
 );
 
 --
