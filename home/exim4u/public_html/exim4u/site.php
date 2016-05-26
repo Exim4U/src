@@ -112,13 +112,14 @@
         <th><?php echo _('Relay Domains'); ?></th>
       </tr>
       <?php
-        $query = "SELECT domain,domain_id FROM domains
+        $query = "SELECT domain, domain_id, enabled
+        FROM domains
         WHERE domain !='admin'
         AND type='relay' ORDER BY domain";
 	$sth = $dbh->query($query);
 	while ($row = $sth->fetch()) {
+          if($row['enabled']==="0") print '<tr class="disabled">'; else print '<tr>';
       ?>
-            <tr>
               <td>
                 <a href="sitedelete.php?domain_id=<?php
                   echo $row['domain_id']; ?>&amp;domain=<?php
