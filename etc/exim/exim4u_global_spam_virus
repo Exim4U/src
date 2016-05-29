@@ -3,7 +3,7 @@
 # ClamAV Global Setting
 # When enabled, Exim4U uses ClamAV to scan incoming mail for viruses during
 # the SMTP connection. ClamAV is enabled (on) or disabled (off):
-#ClamAV: off
+# ClamAV: off
 ClamAV: on
 # Note about disabling ClamAV: You must also comment out the av_scanner socket
 # definition in exim4u_local.conf.inc: # av_scanner = clamd:/var/run/clamav/clamd
@@ -18,7 +18,7 @@ ClamAV: on
 # 10 or higher is generally considered conservative where no "ham" is rejected.
 # To globally disable spamassassin altogether, specify a value of 100.
 # Spamassassin is enabled (SpamRejectScore < 100) or disabled (SpamRejectScore = 100):
-#SpamRejectScore: 100
+# SpamRejectScore: 100
 SpamRejectScore: 10
 #
 # When Exim4U processes mail with a spam score greater than the tag value then Exim4U
@@ -28,12 +28,12 @@ SpamRejectScore: 10
 # Subject tagging may be disabled by setting the tag value to be equal to or greater 
 # the discard value (or rejection value). Enter the text that should be included between
 # the brackets in the Subject header for mail tagged as spam:
-#SpamTagText: SPAM
+# SpamTagText: SPAM
 SpamTagText: BULK
 #
 # Exim4u only calls Spamassassin if the message is less than or equal to the MaxScanSize.
 # Specify the maximum size message that Spamassassin will scan:
-#MaxScanSize: 50K
+# MaxScanSize: 50K
 MaxScanSize: 75K
 #
 # Put the IMAP file name of your spambox folder here:

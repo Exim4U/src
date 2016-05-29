@@ -342,11 +342,21 @@ with the following syntax:
 Once connected, you should log in as:
 
 	Username: siteadmin
-	Domain: <none>
 	Password: PASSWD
 
 Once logged in, please click on the 'Site Password' link on the left,
-and immediately change the siteadmin password.
+and immediately change the siteadmin password. Then, start setting up your
+mail domains.  Thereafter, you will log in as "siteadmin" with your 
+designated password for site administration.
+
+After you have setup a minimum of one (1) mail domain then you may log in to each
+domain's admin account using the email address and password that were specified
+when you setup the domain. Mail users may then be added to each mail domain. All
+mail users may also log in to their user account using their email address and
+password.  Admins and users should login with their email address as follows:
+
+        Username: Email address (such as user@domain.tld)
+        Password: Assigned password
 
 7. Install Dovecot (or Courier) from your Linux distributions repository or from source.
 
