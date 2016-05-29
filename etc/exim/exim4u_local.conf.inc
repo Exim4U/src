@@ -153,6 +153,11 @@ URIBLOCK = YES
 GREYLIST = YES
 # GreyLIST = NO
 #
+# Sender Blacklist
+# Blacklist sender addresses by putting their email addresses in /etc/exim/exim4u_blacklisted_senders.
+# Specify the rejection message to be echoed to the sending server. The first line is also the log message.
+BLKLSTSENDMSG = Sender is blacklisted.\n\Please contact postmaster@$primary_hostname.
+#
 # exim4u: MailMan Configuration
 #
 # exim4u: If mailman is installed then several mailman specific parameters must be specified in the web 

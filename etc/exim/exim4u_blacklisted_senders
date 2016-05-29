@@ -1,0 +1,4 @@
+# Sender Blacklist
+# Blacklist sender addresses by putting their email addresses here.
+# You may specify a custom server message in exim4u_local.conf.inc.
+blacklisted@domain.tld
