@@ -91,7 +91,6 @@ auth_advertise_hosts = ${if eq{$tls_cipher}{}{}{*}}
 #
 hide mysql_servers = localhost::(/var/lib/mysql/mysql.sock)/exim4u/exim4u/CHANGE
 #
-#
 # exim4u: Added extra_local_interfaces to prevent loopback problems with relay domains. This is
 # needed only when a network router is used such that the exim computer is located within a subnet.
 # That is, this should be used whenever exim's transport interface address is 192.168.x.y instead
@@ -100,10 +99,12 @@ hide mysql_servers = localhost::(/var/lib/mysql/mysql.sock)/exim4u/exim4u/CHANGE
 #
 # extra_local_interfaces = 111.222.333.444
 #
+# exim4u: If you need to disable ipv6 then uncomment this line.
+# disable_ipv6 = true
+#
 # exim4u: Add SMTP ports to listen for here. Port 25 is required. RFC 2476, requires port 587 
 # for email user clients and 2525 is simply an extra port.
 daemon_smtp_ports = 25 : 2525 : 587
-#
 #
 # The following setting is only needed if you use the 'spam' ACL condition
 # of the exiscan-acl patch. It specifies on which host and port the SpamAssassin
@@ -151,7 +152,7 @@ URIBLOCK = YES
 # retry whereas all legitimate mail servers should retry within 5 to 30 minutes of the first
 # attempted delivery and will continue to retry for up to 3 days.
 GREYLIST = YES
-# GreyLIST = NO
+# GREYLIST = NO
 #
 # Sender Blacklist
 # Blacklist sender addresses by putting their email addresses in /etc/exim/exim4u_blacklisted_senders.
@@ -166,7 +167,7 @@ BLKLSTSENDMSG = Sender is blacklisted.\n\Please contact postmaster@$primary_host
 # within Exim4U's web interface for each domain. Refer to the documentation in
 # home/exim4u/public_html/exim4u/config/variables.php for further guidance for setting up mailman in
 # the Exim4U web interface.
-
+#
 # exim4u: Put your mailman domains here (separated by ":")
 # If you don't have any mailman domains then set the domainlist to null as follows.
 # domainlist mm_domains = :
@@ -182,11 +183,9 @@ MAILMAN_WRAP = /usr/lib/mailman/mail/mailman
 MAILMAN_USER = mailman
 MAILMAN_GROUP = mail
 #
-#
 # exim4u: Specify user and group for local domain deliveries.
 LOCAL_USER = mail
 LOCAL_GROUP = mail
-#
 #
 # exim4u: Specify vacation autoreply message parameters. This feature limits autoreplys for
 # each sender to one autoreply per time period in order to avoid email ping pong infinite
@@ -203,7 +202,6 @@ AR_ONCE_FILE = /var/spool/exim/db/autoreply_${local_part}_${domain}.db
 AR_SUBJECT_TXT = Autoreply from ${local_part}@${domain}
 AR_ONCE_REPEAT = 1d
 #
-#
 # exim4u: The smtp_accept_queue_per_connection option limits the number of delivery processes
 # that exim starts automatically when receiving messages via SMTP. If the value of the option is
 # greater than zero, and the number of messages received in a single SMTP session exceeds this
@@ -217,13 +215,11 @@ AR_ONCE_REPEAT = 1d
 #
 # smtp_accept_queue_per_connection = 0
 #
-#
 # exim4u: If running Exim version 4.86.2 or newer then a value should be assigned to keep_environment and/or add_environment.
 keep_environment = PATH
 add_environment =
 #
 # END Of Host Specific Configuration Settings
-#
 #
 # 
 #
@@ -258,6 +254,11 @@ add_environment =
 #    TXT record above, <public key> is the public key saved as one line without line
 #    feeds as described above in step 1. Also, note that "exim4u" is the dkim_selector in the
 #    transports sections of /etc/exim/exim.conf.
+#
+#    Using "t=y" indicates you are in "test mode", advising verifiers that they should not
+#    take any real action based on success or failure of the use of this key after verifing a
+#    message.  Remove the "t=y" once you have tested the DKIM signing of your messages to your
+#    satisfaction.
 #
 # 3) Modify /etc/named.conf (or var/named/chroot/etc/named.conf if running chrooted Bind/named).
 #
