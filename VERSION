@@ -1,9 +1,98 @@
                            Exim4U Version History
 
-                      Current Exim4U Version Is 3.0.0
-                       (3.1.0-Beta Under Development)
+                      Current Exim4U Version Is 3.1.0
 
-3.1.0-Beta Under Development - 3.1.0 Release Date: TBA
+3.1.0 Release Date: June 13, 2016
+
+  Implemented enhanced attachment filtering in exim.conf to block windows executables that
+  are packed inside .zip and .rar files.
+
+  Configuration options added to exim4u_local.conf.inc to include/exclude DNSBL checks,
+  URI block list checks, greylisting, sender address blacklisting and to optionally
+  disable ipv6 in Exim.
+
+  Implemented improved error checking and data verification for all web interface functions.
+  Data Verification now returns to the original form (instead of the parent) when data
+  verification fails.
+
+  Implemented a permanent solution for the headers_remove problems in exim.conf introduced
+  as a result of Exim bug 1533 which is a regression that was introduced in Exim 4.83,
+  4.84 and 4.85 that caused the headers_remove clause to malfunction.  The single/double
+  colon issue in headers_remove statements is now addressed with a single exim.conf file that
+  is forwards and backwards compatible with the various Exim versions instead of the three
+  exim.conf files that were included in Exim4U version 3.0.0 to address this issue.
+
+  Added "enabled" field for relay domains to enable/disable relay domains.
+
+  Provided alias users with the functionality to login as a non-admin user, edit their
+  password and their forwarding address.
+
+  Added keep_environment and add_environment variables to exim4u_local.conf.inc to address
+  the security fix for CVE-2016-1531 which is included in Exim versions 4.86.2 and later.
+
+  Modified the spamdel and spamreport scripts to avoid recently implemented MySQL warning
+  messages.
+
+  A template file for variables.php is now provided entitled variables.php.sample, from
+  which the variables.php file is to be created upon the installation of Exim4U's web
+  interface. variables.php is no longer included per se since it is now to be created by
+  editing and copying variables.php.sample.
+
+  The mysql.sql script was updated to amend some of the database's variable field lengths
+  based on pratical limits, kernel limits and RFC3696, Errata #1690.
+
+  The mysql_exim4u-3.1.sql script was created for migrating the database from Exim4U
+  3.0.0 to Exim4U 3.1.0.
+
+  Sender address blacklisting was implemented in exim.conf and exim4u_local.conf.inc.
+
+  Modified the main login form (index.php) to only use a Username form field (specifically
+  email address or "siteadmin") and a Password form field. Previously, there was a seperate
+  form field for the domain name which is no longer used. The Username field width was
+  enlarged to accomodate the entire email address instead of the shorter local part only
+  field as previously was used with the separate local part and domain fields.
+
+  An option was added to automatically use the hostname for the domain name to allow users
+  on single domain servers to login with the local part only.
+
+  Added a password generator for siteadmin creation of admins and domain administration
+  of admins and users.
+
+  Implemented improved handling of disabled accounts.  Disabled accounts are now marked
+  gray and and their logins disabled.
+
+  Implemented improved encryption schemes.
+
+  Implemented support for multiple alias email forwarding addresses.
+
+  Documentation updated
+
+  Bug Fixes
+
+    Fixed the non-admin user web interface form and data base functions (userchange.php
+    and userchangesubmit.php) to be fully functional. (Previously broken.)
+
+    Fixed the query that searches for users/emails in domain admin's "POP/IMAP Accounts"
+    form (adminuser.php). (Previously broken.)
+
+    Various other bug fixes.
+
+  Credits
+
+    Thanks to the Vexim team for numerous enhancements and bug fixes.
+
+    Thanks to Yuriy/xoyteam for the bug fix to the query in domain admin's
+    "POP/IMAP Accounts" form (adminuser.php).
+
+    Thanks to Odhiambo Washington for the sender address blacklisting suggestion and
+    code snippet.
+
+  Other
+
+    Volunteers are needed to help with Exim4U's locale language translation files.
+    Specifically, additional work needs to be done to address the syntax differences
+    between Exim4U and Vexim and the language translation files need to be reviewed
+    and tested in their native languages.
 
 
 3.0.0 Release Date: May 17, 2015

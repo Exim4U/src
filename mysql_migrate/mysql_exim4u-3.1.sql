@@ -1,6 +1,6 @@
 #
-# MySQL Update Script for Exim4U 3.1 Migration
-# --------------------------------------------
+# MySQL Update Script for Exim4U 3.1 Migration From Exim4U 3.0
+# ------------------------------------------------------------
 # Updates the mysql database for migrating from Exim4U 3.0 to 3.1.
 # - Updates several field lengths.
 # - Sets the enabled flag to enabled (1) for relay domains since relay
@@ -18,7 +18,7 @@
 # ------------
 # mysql -u <username> -p exim4u < mysql_migrate/mysql_exim4u-3.1.sql
 #     where: <username> = Your MYSQL root username
-#     The script will then prompt you for your MYSQL username password.
+#     The script will then prompt you for your MYSQL username's password.
 #	     For example, for username=MYNAME then the command would be:
 #	     mysql -u MYNAME -p exim4u < mysql_migrate/mysql_exim4u-3.1.sql
 #

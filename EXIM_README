@@ -2,39 +2,6 @@
        Notes About Compatibility with Varions Exim Versions
 
 
-2015-03-02: Instructions for Exim4U Users regarding workarounds for
-            Exim bug 1533 which impacts Exim versions 4.83 and later.
-
-A regression was introduced in exim 4.83, 4.84 and 4.85 that caused
-the headers_remove clauses in the exim configuration files to
-malfunction. This regressions is documented as Exim Bug 1533 here:
-
-	https://bugs.exim.org/show_bug.cgi?id=1533
-
-Exim versions earlier than Exim 4.83 are not impacted by this regression.
-Additionally, changes that were made to Exim versions 4.83 and later
-introduced an additional requirement that all colons be replaced by
-double colons in the headers_remove statements. Therefore, three
-versions of exim.conf are now included with Exim4U as follows:
-
-- exim versions prior to 4.83 should use:
-  etc/exim/exim.conf-SINGLE_COLONS_IN_HEADERS_REMOVE
-- exim 4.83, 4.84 and 4.85 should use:
-  etc/exim/exim.conf-HEADERS_REMOVE_WITH_COLONS_COMMENTED_OUT
-- exim versions after exim 4.85 should use:
-  etc/exim/exim.conf-DOUBLE_COLONS_IN_HEADERS_REMOVE
-
-exim.conf is identical to etc/exim/exim.conf-DOUBLE_COLONS_IN_HEADERS_REMOVE
-and which should be used for exim versions after exim 4.85.
-
-Note that some OS distros patch older version of Exim with bug fixes
-and which may include the fixes for the headers_remove statements
-thereby requiring etc/exim/exim.conf-DOUBLE_COLONS_IN_HEADERS_REMOVE
-even on Exim version 4.85 and older. This is the case with Debian 8
-Jessie where the Debian team has patched Exim bug 1533 in their Exim 4.84
-release thereby requiring etc/exim/exim.conf-DOUBLE_COLONS_IN_HEADERS_REMOVE.
-
-
 2015-05-17: Instructions for configuring exim.conf for clear-text passwords
             instead of encrypted passwords.
 

@@ -1,6 +1,252 @@
             Exim4U Changelog Summary And Upgrade Instructions
 
-                      Current Exim4U Version Is 3.0.0
+                      Current Exim4U Version Is 3.1.0
+
+
+3.1.0 Release Date: June 13, 2016
+
+A	.gitignore
+M	EXIM_README
+M	INSTALL
+M	NOTES
+M	SPAMASSASSIN
+M	VERSION
+M	etc/exim/exim.conf
+D	etc/exim/exim.conf-DOUBLE_COLONS_IN_HEADERS_REMOVE
+D	etc/exim/exim.conf-HEADERS_REMOVE_WITH_COLONS_COMMENTED_OUT
+D	etc/exim/exim.conf-SINGLE_COLONS_IN_HEADERS_REMOVE
+A	etc/exim/exim4u_blacklisted_senders
+M	etc/exim/exim4u_global_spam_virus
+M	etc/exim/exim4u_hostnames+hostIPs
+M	etc/exim/exim4u_local.conf.inc
+M	home/exim4u/public_html/exim4u/adminalias.php
+M	home/exim4u/public_html/exim4u/adminaliasadd.php
+M	home/exim4u/public_html/exim4u/adminaliasaddsubmit.php
+M	home/exim4u/public_html/exim4u/adminaliaschange.php
+M	home/exim4u/public_html/exim4u/adminaliaschangesubmit.php
+M	home/exim4u/public_html/exim4u/adminaliasdelete.php
+M	home/exim4u/public_html/exim4u/admincatchall.php
+M	home/exim4u/public_html/exim4u/admincatchalladd.php
+M	home/exim4u/public_html/exim4u/admincatchallsubmit.php
+M	home/exim4u/public_html/exim4u/adminfail.php
+M	home/exim4u/public_html/exim4u/adminfailadd.php
+M	home/exim4u/public_html/exim4u/adminfailaddsubmit.php
+M	home/exim4u/public_html/exim4u/adminfailchange.php
+M	home/exim4u/public_html/exim4u/admingroupadd.php
+M	home/exim4u/public_html/exim4u/admingroupaddsubmit.php
+M	home/exim4u/public_html/exim4u/admingroupchange.php
+M	home/exim4u/public_html/exim4u/admingroupdelete.php
+M	home/exim4u/public_html/exim4u/adminlists.php
+M	home/exim4u/public_html/exim4u/adminuser.php
+M	home/exim4u/public_html/exim4u/adminuseradd.php
+M	home/exim4u/public_html/exim4u/adminuseraddsubmit.php
+M	home/exim4u/public_html/exim4u/adminuserblocksubmit.php
+M	home/exim4u/public_html/exim4u/adminuserchange.php
+M	home/exim4u/public_html/exim4u/adminuserchangesubmit.php
+M	home/exim4u/public_html/exim4u/adminuserdelete.php
+A	home/exim4u/public_html/exim4u/config/Tests/functionsValidatePasswordTest.php
+M	home/exim4u/public_html/exim4u/config/authsite.php
+M	home/exim4u/public_html/exim4u/config/authuser.php
+M	home/exim4u/public_html/exim4u/config/functions.php
+M	home/exim4u/public_html/exim4u/config/header.php
+M	home/exim4u/public_html/exim4u/config/header.php-BOLD
+M	home/exim4u/public_html/exim4u/config/header.php-LINK_EXIM4U
+M	home/exim4u/public_html/exim4u/config/header.php-LINK_SELF
+D	home/exim4u/public_html/exim4u/config/header_domain.php
+D	home/exim4u/public_html/exim4u/config/header_domain.php-BOLD
+D	home/exim4u/public_html/exim4u/config/header_domain.php-LINK_EXIM4U
+D	home/exim4u/public_html/exim4u/config/header_domain.php-LINK_SELF
+D	home/exim4u/public_html/exim4u/config/variables.php
+A	home/exim4u/public_html/exim4u/config/variables.php.sample
+M	home/exim4u/public_html/exim4u/index.php
+M	home/exim4u/public_html/exim4u/locale/de/LC_MESSAGES/de.po
+M	home/exim4u/public_html/exim4u/locale/de/LC_MESSAGES/messages.mo
+M	home/exim4u/public_html/exim4u/locale/es/LC_MESSAGES/messages.mo
+M	home/exim4u/public_html/exim4u/locale/hu/LC_MESSAGES/hu.po
+A	home/exim4u/public_html/exim4u/locale/it/LC_MESSAGES/it.po
+A	home/exim4u/public_html/exim4u/locale/it/LC_MESSAGES/messages.mo
+A	home/exim4u/public_html/exim4u/locale/ru/LC_MESSAGES/messages.mo
+A	home/exim4u/public_html/exim4u/locale/ru/LC_MESSAGES/ru.po
+M	home/exim4u/public_html/exim4u/locale/template.pot
+M	home/exim4u/public_html/exim4u/login.php
+M	home/exim4u/public_html/exim4u/logout.php
+M	home/exim4u/public_html/exim4u/site.php
+M	home/exim4u/public_html/exim4u/siteadd.php
+M	home/exim4u/public_html/exim4u/siteaddsubmit.php
+M	home/exim4u/public_html/exim4u/sitechange.php
+M	home/exim4u/public_html/exim4u/sitechangerelay.php
+M	home/exim4u/public_html/exim4u/sitechangerelaysubmit.php
+M	home/exim4u/public_html/exim4u/sitechangesubmit.php
+M	home/exim4u/public_html/exim4u/sitepassword.php
+M	home/exim4u/public_html/exim4u/style.css
+A	home/exim4u/public_html/exim4u/useraliaschange.php
+A	home/exim4u/public_html/exim4u/useraliaschangesubmit.php
+M	home/exim4u/public_html/exim4u/userchange.php
+M	home/exim4u/public_html/exim4u/userchangesubmit.php
+D	home/exim4u/public_html/exim4u_bs/README
+D	home/exim4u/public_html/exim4u_bs/README.md
+D	home/exim4u/public_html/exim4u_bs/admin.php
+D	home/exim4u/public_html/exim4u_bs/adminalias.php
+D	home/exim4u/public_html/exim4u_bs/adminaliasadd.php
+D	home/exim4u/public_html/exim4u_bs/adminaliasaddsubmit.php
+D	home/exim4u/public_html/exim4u_bs/adminaliaschange.php
+D	home/exim4u/public_html/exim4u_bs/adminaliaschangesubmit.php
+D	home/exim4u/public_html/exim4u_bs/adminaliasdelete.php
+D	home/exim4u/public_html/exim4u_bs/admincatchall.php
+D	home/exim4u/public_html/exim4u_bs/admincatchalladd.php
+D	home/exim4u/public_html/exim4u_bs/admincatchallsubmit.php
+D	home/exim4u/public_html/exim4u_bs/adminfail.php
+D	home/exim4u/public_html/exim4u_bs/adminfailadd.php
+D	home/exim4u/public_html/exim4u_bs/adminfailaddsubmit.php
+D	home/exim4u/public_html/exim4u_bs/adminfailchange.php
+D	home/exim4u/public_html/exim4u_bs/adminfailchangesubmit.php
+D	home/exim4u/public_html/exim4u_bs/adminfaildelete.php
+D	home/exim4u/public_html/exim4u_bs/admingroup.php
+D	home/exim4u/public_html/exim4u_bs/admingroup.tpl.php
+D	home/exim4u/public_html/exim4u_bs/admingroupadd.php
+D	home/exim4u/public_html/exim4u_bs/admingroupaddsubmit.php
+D	home/exim4u/public_html/exim4u_bs/admingroupchange.php
+D	home/exim4u/public_html/exim4u_bs/admingroupchangesubmit.php
+D	home/exim4u/public_html/exim4u_bs/admingroupcontentaddsubmit.php
+D	home/exim4u/public_html/exim4u_bs/admingroupcontentdeletesubmit.php
+D	home/exim4u/public_html/exim4u_bs/admingroupdelete.php
+D	home/exim4u/public_html/exim4u_bs/admingroupnew.php
+D	home/exim4u/public_html/exim4u_bs/adminlists.php
+D	home/exim4u/public_html/exim4u_bs/adminuser.php
+D	home/exim4u/public_html/exim4u_bs/adminuseradd.php
+D	home/exim4u/public_html/exim4u_bs/adminuseraddsubmit.php
+D	home/exim4u/public_html/exim4u_bs/adminuserblocksubmit.php
+D	home/exim4u/public_html/exim4u_bs/adminuserchange.php
+D	home/exim4u/public_html/exim4u_bs/adminuserchangesubmit.php
+D	home/exim4u/public_html/exim4u_bs/adminuserdelete.php
+D	home/exim4u/public_html/exim4u_bs/ajaxLayer/PHPLiveX.php
+D	home/exim4u/public_html/exim4u_bs/ajaxLayer/group.php
+D	home/exim4u/public_html/exim4u_bs/ajaxLayer/phplivex.js
+D	home/exim4u/public_html/exim4u_bs/appContext.php
+D	home/exim4u/public_html/exim4u_bs/archiGuiExim4u.dot
+D	home/exim4u/public_html/exim4u_bs/config/authpostmaster.php
+D	home/exim4u/public_html/exim4u_bs/config/authsite.php
+D	home/exim4u/public_html/exim4u_bs/config/authuser.php
+D	home/exim4u/public_html/exim4u_bs/config/en.po
+D	home/exim4u/public_html/exim4u_bs/config/functions.php
+D	home/exim4u/public_html/exim4u_bs/config/header.php
+D	home/exim4u/public_html/exim4u_bs/config/header.php-BOLD
+D	home/exim4u/public_html/exim4u_bs/config/header.php-LINK_EXIM4U
+D	home/exim4u/public_html/exim4u_bs/config/header.php-LINK_SELF
+D	home/exim4u/public_html/exim4u_bs/config/header_domain.php
+D	home/exim4u/public_html/exim4u_bs/config/header_domain.php-BOLD
+D	home/exim4u/public_html/exim4u_bs/config/header_domain.php-LINK_EXIM4U
+D	home/exim4u/public_html/exim4u_bs/config/header_domain.php-LINK_SELF
+D	home/exim4u/public_html/exim4u_bs/config/httpheaders.php
+D	home/exim4u/public_html/exim4u_bs/config/hu.po
+D	home/exim4u/public_html/exim4u_bs/config/i18n.php
+D	home/exim4u/public_html/exim4u_bs/config/service_group.php
+D	home/exim4u/public_html/exim4u_bs/config/service_group_sql.php
+D	home/exim4u/public_html/exim4u_bs/config/service_user.php
+D	home/exim4u/public_html/exim4u_bs/config/template.pot
+D	home/exim4u/public_html/exim4u_bs/config/variables.php
+D	home/exim4u/public_html/exim4u_bs/css/bootstrap.css
+D	home/exim4u/public_html/exim4u_bs/css/bootstrap.min.css
+D	home/exim4u/public_html/exim4u_bs/favicon.ico
+D	home/exim4u/public_html/exim4u_bs/group.js
+D	home/exim4u/public_html/exim4u_bs/images/archiGuiExim4u.svg
+D	home/exim4u/public_html/exim4u_bs/images/check-exim4u.gif
+D	home/exim4u/public_html/exim4u_bs/images/check-vexim.gif
+D	home/exim4u/public_html/exim4u_bs/images/check.gif
+D	home/exim4u/public_html/exim4u_bs/images/clearpixel.gif
+D	home/exim4u/public_html/exim4u_bs/images/clearpixel.png
+D	home/exim4u/public_html/exim4u_bs/images/disabled.png
+D	home/exim4u/public_html/exim4u_bs/images/enabled.png
+D	home/exim4u/public_html/exim4u_bs/images/exim4u.gif
+D	home/exim4u/public_html/exim4u_bs/images/human-exim4u.gif
+D	home/exim4u/public_html/exim4u_bs/images/logo.gif
+D	home/exim4u/public_html/exim4u_bs/images/trashcan.gif
+D	home/exim4u/public_html/exim4u_bs/images/user-group-new.png
+D	home/exim4u/public_html/exim4u_bs/index.php
+D	home/exim4u/public_html/exim4u_bs/js/bootstrap.js
+D	home/exim4u/public_html/exim4u_bs/js/bootstrap.min.js
+D	home/exim4u/public_html/exim4u_bs/js/jquery.min.js
+D	home/exim4u/public_html/exim4u_bs/js/scripts.js
+D	home/exim4u/public_html/exim4u_bs/locale/de_DE/LC_MESSAGES/de.po
+D	home/exim4u/public_html/exim4u_bs/locale/de_DE/LC_MESSAGES/messages.mo
+D	home/exim4u/public_html/exim4u_bs/locale/en_EN/LC_MESSAGES/en.po
+D	home/exim4u/public_html/exim4u_bs/locale/en_EN/LC_MESSAGES/messages.mo
+D	home/exim4u/public_html/exim4u_bs/locale/es_ES/LC_MESSAGES/es.po
+D	home/exim4u/public_html/exim4u_bs/locale/es_ES/LC_MESSAGES/messages.mo
+D	home/exim4u/public_html/exim4u_bs/locale/hu_HU/LC_MESSAGES/hu.po
+D	home/exim4u/public_html/exim4u_bs/locale/hu_HU/LC_MESSAGES/messages.mo
+D	home/exim4u/public_html/exim4u_bs/locale/ro_RO/LC_MESSAGES/messages.mo
+D	home/exim4u/public_html/exim4u_bs/locale/ro_RO/LC_MESSAGES/ro.po
+D	home/exim4u/public_html/exim4u_bs/logger.php
+D	home/exim4u/public_html/exim4u_bs/login.php
+D	home/exim4u/public_html/exim4u_bs/logout.php
+D	home/exim4u/public_html/exim4u_bs/saveMailingListChanges.php
+D	home/exim4u/public_html/exim4u_bs/site.php
+D	home/exim4u/public_html/exim4u_bs/siteadd.php
+D	home/exim4u/public_html/exim4u_bs/siteaddsubmit.php
+D	home/exim4u/public_html/exim4u_bs/sitechange.php
+D	home/exim4u/public_html/exim4u_bs/sitechangerelay.php
+D	home/exim4u/public_html/exim4u_bs/sitechangerelaysubmit.php
+D	home/exim4u/public_html/exim4u_bs/sitechangesubmit.php
+D	home/exim4u/public_html/exim4u_bs/sitedelete.php
+D	home/exim4u/public_html/exim4u_bs/sitepassword.php
+D	home/exim4u/public_html/exim4u_bs/sitepasswordsubmit.php
+D	home/exim4u/public_html/exim4u_bs/style.css
+D	home/exim4u/public_html/exim4u_bs/translateJs.php
+D	home/exim4u/public_html/exim4u_bs/userblocksubmit.php
+D	home/exim4u/public_html/exim4u_bs/userchange.php
+D	home/exim4u/public_html/exim4u_bs/userchangesubmit.php
+A	mysql_migrate/mysql_exim4u-3.1.sql
+M	mysql_setup/mysql.sql
+M	xtrasw/eximstats/eximstats.sh
+M	xtrasw/spam_box_delete/spamdel
+M	xtrasw/spam_box_report/spamreport
+
+3.1.0 Instructions For Upgrading From Version 3.0.0
+
+  1) Documentation - Refer to the documentation in the Exim4U 3.1.0
+     distribution's root directory. The following documentation files have
+     been modified in Exim4U 3.1.0:
+       CHANGELOG
+       EXIM_README
+       INSTALL
+       NOTES
+       SPAMASSASSIN
+       VERSION
+  2) Exim4U Email Admin (php web interface) - Copy the contents of the following
+     directory (including sub-directories and files) to your live installation
+     from the Exim4U 3.1.0 distribution's root directory:
+        home/exim4u/public_html/exim4u
+     Be sure to make a backup copy of your earlier 3.0.0 version directories and
+     files prior to overwriting them.
+     Copy home/exim4u/public_html/exim4u/config/variables.php.sample to
+     home/exim4u/public_html/exim4u/config/variables.php and edit variables.php
+     as per the INSTALL instructions.
+  3) Exim Configuration Files - Copy the following files to your live
+     installation from the Exim4U 3.1.0 distribution's root directory:
+        etc/exim/exim.conf
+	etc/exim/exim4u_local.conf.inc  (Modify as per your requirements)
+        etc/exim/exim4u_blacklisted_senders (Modify as per your requirements)
+     Be sure to make a backup copy of your earlier 3.0.0 version directories and
+     files prior to overwriting them.
+  5) The database modification script, mysql_migrate/mysql_exim4u-3.1.sql,
+     updates the mysql database for migrating from Exim4U 3.0 to 3.1. Specifically, 
+     this script does the following:
+        - Updates several field lengths.
+        - Sets the enabled flag to enabled (1) for relay domains since relay
+          domains did not previously utilize the enabled field.
+     You should backup your mysql database prior to running this script.
+     This script is optional and not required for your Exim4U installation to
+     function properly. However, if you do not run the script then you must
+     manually enable all relay domains using the Exim4U web interface after
+     upgrading your server from Exim4U 3.0 to Exim4U 3.1.
+     The script should be run as follows:
+        mysql -u <username> -p exim4u < mysql_migrate/mysql_exim4u-3.1.sql
+     where: <username> = Your MYSQL root username
+     The script will then prompt you for your MYSQL username's password.
+        For example, for username=MYNAME then the command would be:
+        mysql -u MYNAME -p exim4u < mysql_migrate/mysql_exim4u-3.1.sql
+
 
 3.0.0 Release Date: May 17, 2015
 
@@ -150,7 +396,7 @@ M	xtrasw/webmail_admin/webmail_exim4u_logos
        WEBMAIL
   2) Exim4U Email Admin (php web interface) - Copy the contents of the following
      directory (including sub-directories and files) to your live installation
-     from the Exim4U 2.1.1 distribution's root directory:
+     from the Exim4U 3.0.0 distribution's root directory:
         home/exim4u/public_html/exim4u
      Be sure to make a backup copy of your earlier 2.1.1 version directories and
      files prior to overwriting them. Modify the following file as per the INSTALL
