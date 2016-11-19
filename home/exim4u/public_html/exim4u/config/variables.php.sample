@@ -41,7 +41,8 @@
   /* Use the hostname for the domain name and allow users to login
      based on the local part only. It is off by default ($domainguess = 0).
      Set $domainguess = 1 in order to enable this function and set a string
-     which will be removed from the left side of the hostname */
+     (subdomain) which will be removed from the left side of the hostname */
+
      $domainguess = 0;
      $domainguess_lefttrim = "mail|exim4u";
 
