@@ -102,7 +102,8 @@ CREATE TABLE IF NOT EXISTS `exim4u`.`blocklists`
 CREATE TABLE IF NOT EXISTS `exim4u`.`domainalias` 
 (
 	domain_id        mediumint(8)  unsigned  NOT NULL,
-	alias varchar(255)
+	alias            varchar(255)            NOT NULL,
+	PRIMARY KEY (alias)
 );
 
 --
