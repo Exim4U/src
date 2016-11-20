@@ -73,9 +73,6 @@
   if (!isset($_POST['quota'])) {
     $_POST['quota'] = $row['quotas'];
   }
-  if (!isset($_POST['sa_refuse'])) {
-    $_POST['sa_refuse'] = "0";
-  }
   if ($row['quotas'] !== "0") {
     if (($_POST['quota'] > $row['quotas']) || ($_POST['quota'] === "0")) {
       header ("Location: adminuserchange.php?user_id={$_POST['user_id']}&localpart={$_POST['localpart']}&quotahigh={$row['quotas']}");
@@ -227,8 +224,8 @@
      ':on_vacation'=>$_POST['on_vacation'], ':enabled'=>$_POST['enabled'],
      ':forward'=>$forwardaddr, ':maxmsgsize'=>$_POST['maxmsgsize'],
      ':quota'=>$_POST['quota'],
-     ':sa_tag'=>(isset($_POST['sa_tag']) ? $_POST['sa_tag'] : 0),
-     ':sa_refuse'=>(isset($_POST['sa_refuse']) ? $_POST['sa_refuse'] : 0),
+     ':sa_tag'=>(isset($_POST['sa_tag']) ? $_POST['sa_tag'] : $sa_tag),
+     ':sa_refuse'=>(isset($_POST['sa_refuse']) ? $_POST['sa_refuse'] : $sa_refuse),
      ':type'=>$_POST['type'],
      ':vacation'=>$vacation,
      ':unseen'=>$_POST['unseen'], ':user_id'=>$_POST['user_id'],
