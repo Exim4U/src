@@ -60,8 +60,7 @@
           <tr>
             <td colspan="2" style="padding-bottom:1em">
               <?php
-                echo _('Multiple addresses should be comma separated,
-                with no spaces.');
+                echo _('Enter full e-mail addresses, use commas to separate them.');
               ?>
             </td>
           </tr>

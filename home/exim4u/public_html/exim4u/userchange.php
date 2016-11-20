@@ -22,8 +22,13 @@
   <head>
     <title><?php echo _("Exim4U") . ": " . _("Manage Users"); ?></title>
     <link rel="stylesheet" href="style.css" type="text/css">
+    <script type='text/javascript'>
+      function fwac() {
+      document.getElementById('forward').disabled = !document.getElementById('on_forward').checked;
+      }
+    </script>
   </head>
-  <body onLoad="document.forms[0].elements[0].focus()">
+  <body onLoad="document.forms[0].elements[0].focus(); fwac()">
     <?php include dirname(__FILE__) . "/config/header.php"; ?>
     <div id="Menu">
       <a href="logout.php"><?php echo _("Logout"); ?></a><br>
@@ -48,6 +53,7 @@
           }
           printf(_("<br />Your maximum message size limit is %s KB (0=unlimited)"),$domrow['maxmsgsize']);?></td></tr>
 <tr><td><?php echo _("Name"); ?>:</td><td><input name="realname" type="text" value="<?php print $row['realname']; ?>" class="textfield"></td></tr>
+
 <?php 
       if ($domrow['spamassassin'] == "1") {
       print "<tr><td>" . _("Spamassassin") . ":</td><td><input name=\"on_spamassassin\" type=\"checkbox\"";
@@ -77,15 +83,23 @@
       print "></td></tr>\n";
       print "<tr><td>" . _("Vacation Message") . ":</td>";
       print "<td><textarea name=\"vacation\" cols=\"40\" rows=\"5\" class=\"textfield\">".(function_exists('imap_qprint') ? imap_qprint($row['vacation']) : $row['vacation'])."</textarea>";
-      print "<tr><td>" . _("Forwarding Enabled") . ":</td><td><input name=\"on_forward\" type=\"checkbox\"";
-      if ($row['on_forward'] == "1") { print " checked "; } 
-      print "></td></tr>\n";
+      print "<tr><td>" . _("Forwarding Enabled") . ":</td>";
+      ?>
+      <td><input name="on_forward" type="checkbox" id="on_forward"
+      <?php if($row['on_forward'] == "1") { print " checked "; } ?> onchange="fwac()" onclick="fwac()">
+      </td>
+      <?php 
+      print "</tr>\n";
       print "<tr><td>" . _("Forward Mail To") . ":</td>";
-      print "<td><br><input type=\"text\" name=\"forward\" value=\"{$row['forward']}\" class=\"textfield\"><br>\n";
-      print _("Must be a full e-mail address") . "!</td></tr>\n";
+      ?>
+      <td><input type="text" name="forward" id="forward" value="<?php print $row['forward']; ?>" class="textfield"><br>
+      <?php echo _("Enter full e-mail addresses, use commas to separate them."); ?>
+      </td><tr>
+      <?php
       print "<tr><td>" . _("Store Forwarded Mail Locally") . ":</td><td><input name=\"unseen\" type=\"checkbox\"";
       if ($row['unseen'] == "1") { print " checked "; } print "></td></tr>\n";
     ?>
+
     <tr><td></td><td class="button"><input name="submit" type="submit" value="<?php echo _("Submit Profile"); ?>"></td></tr>
   </table>
   </form>

@@ -13,7 +13,7 @@
          header ("Location: adminuser.php?failupdated={$_POST['localpart']}");
          die();  
   }
- 
+  $account = $sth->fetch();
   # Fix the boolean values
   $query = "SELECT spamassassin,pipe,uid,gid,quotas,maxmsgsize
     FROM domains
@@ -28,15 +28,20 @@
   } else {
     $_POST['admin'] = 0;
   }
-  if (isset($_POST['on_forward'])) {
+  if (isset($_POST['on_forward']) && isset($_POST['forward']) && $_POST['forward']!=='') {
     $_POST['on_forward'] = 1;
-    if(!filter_var($_POST['forward'], FILTER_VALIDATE_EMAIL) && (!preg_match("/@/",$_POST['forwardmenu']))) {
-      header ("Location: adminuserchange.php?user_id={$_POST['user_id']}&localpart={$_POST['localpart']}&invalidforward=".htmlentities($_POST['forward']));
-      die;
+    $forwardto=explode(",",$_POST['forward']);
+    for($i=0; $i<count($forwardto); $i++){
+      $forwardto[$i]=trim($forwardto[$i]);
+      if(!filter_var($forwardto[$i], FILTER_VALIDATE_EMAIL)) {
+        header ("Location: adminalias.php?invalidforward=".htmlentities($forwardto[$i]));
+        die;
+      }
     }
+    $forwardaddr = implode(",",$forwardto);
   } else {
     $_POST['on_forward'] = 0;
-    $_POST['forward']='';
+    $forwardaddr=$account['forward'];
   }
   if (isset($_POST['unseen'])) {
     $_POST['unseen'] = 1;
@@ -118,12 +123,6 @@
     $_POST['on_spamassassin'] = 1;
   } else {
     $_POST['on_spamassassin'] = 0;
-  }
-
-  if (preg_match("/@/",$_POST['forwardmenu'])) {
-    $forwardaddr = $_POST['forwardmenu'];
-  } else {
-    $forwardaddr = $_POST['forward'];
   }
 
   if (isset($_POST['maxmsgsize']) && $row['maxmsgsize']!=='0') {
