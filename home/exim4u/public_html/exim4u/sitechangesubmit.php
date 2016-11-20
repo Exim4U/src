@@ -28,6 +28,10 @@
 
   if (isset($_POST['clear'])) {
     if (validate_password($_POST['clear'], $_POST['vclear'])) {
+      if (!password_strengthcheck($_POST['clear'])) {  
+        header ("Location: sitechange.php?domain_id={$_POST['domain_id']}&domain={$_POST['domain']}&weakpass={$_POST['domain']}");
+        die;
+      }
       $query = "UPDATE users SET crypt=:crypt 
                WHERE localpart=:localpart AND domain_id=:domain_id";
       $sth = $dbh->prepare($query);

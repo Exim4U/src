@@ -72,6 +72,10 @@
   }
   $aliasto = implode(",",$forwardto);
   if (validate_password($_POST['clear'], $_POST['vclear'])) {
+    if (!password_strengthcheck($_POST['clear'])) {
+      header ("Location: adminaliasadd.php?weakpass={$_POST['localpart']}");
+      die;
+    }
     $query = "INSERT INTO users
       (localpart, username, domain_id, crypt, smtp, pop, uid,
       gid, realname, type, admin, on_spamassassin, enabled)

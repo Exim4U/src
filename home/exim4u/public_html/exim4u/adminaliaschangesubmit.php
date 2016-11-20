@@ -47,25 +47,28 @@
   }
 
   # Update the password, if the password was given
-          if(isset($_POST['password']) && $_POST['password']!==''){
-	  if (validate_password($_POST['password'], $_POST['vpassword'])) {
-		$cryptedpassword = crypt_password($_POST['password']);
-		$query = "UPDATE users SET crypt=:crypt WHERE user_id=:user_id AND domain_id=:domain_id AND type='alias'";
-		$sth = $dbh->prepare($query);
-		 $success = $sth->execute(array(':crypt'=>$cryptedpassword, ':user_id'=>$_POST['user_id'], ':domain_id'=>$_SESSION['domain_id']));
-
-			if ($success) {
-		  if ($_POST['localpart'] == $_SESSION['localpart']) {
-			$_SESSION['crypt'] = $cryptedpassword;
-		  }
-		} else {
-		  header ('Location: adminalias.php?failedupdated=' . $_POST['localpart']);
-		  die();
-		}
-	  } else {
-		header ('Location: adminaliaschange.php?user_id=' . $_POST['user_id'] . '&badaliaspass');
-		die();
-	  }
+  if(isset($_POST['password']) && $_POST['password']!==''){
+    if (validate_password($_POST['password'], $_POST['vpassword'])) {
+      if (!password_strengthcheck($_POST['password'])) {  
+        header ("Location: adminaliaschange.php?user_id={$_POST['user_id']}&weakpass={$_POST['localpart']}");
+        die;
+      }
+      $cryptedpassword = crypt_password($_POST['password']);
+      $query = "UPDATE users SET crypt=:crypt WHERE user_id=:user_id AND domain_id=:domain_id AND type='alias'";
+      $sth = $dbh->prepare($query);
+      $success = $sth->execute(array(':crypt'=>$cryptedpassword, ':user_id'=>$_POST['user_id'], ':domain_id'=>$_SESSION['domain_id']));
+      if ($success) {
+        if ($_POST['localpart'] == $_SESSION['localpart']) {
+          $_SESSION['crypt'] = $cryptedpassword;
+        }
+      } else {
+        header ('Location: adminalias.php?failedupdated=' . $_POST['localpart']);
+        die();
+      }
+    } else {
+      header ('Location: adminaliaschange.php?user_id=' . $_POST['user_id'] . '&badaliaspass');
+      die();
+    }
   }
 
   # update the actual alias in the users table

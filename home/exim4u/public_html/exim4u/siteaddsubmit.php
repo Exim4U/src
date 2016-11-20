@@ -91,10 +91,13 @@
      $pophomepath = $domainpath . "/" . $_POST['localpart'];
     }
 //Gah. Transactions!! -- GCBirzan
-if ((validate_password($_POST['clear'], $_POST['vclear'])) &&
+  if ((validate_password($_POST['clear'], $_POST['vclear'])) &&
     ($_POST['type'] != "alias")) {
-
-  if ($multi_ip == "yes") {
+    if (!password_strengthcheck($_POST['clear'])) {  
+      header ("Location: siteadd.php?type={$_POST['type']}&weakpass={$_POST['domain']}");
+      die;
+    }
+    if ($multi_ip == "yes") {
     $query = "INSERT INTO domains 
               (domain, spamassassin, sa_tag, sa_refuse,
               max_accounts, quotas, maildir, pipe, enabled,

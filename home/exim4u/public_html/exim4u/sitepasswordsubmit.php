@@ -5,6 +5,10 @@
   include_once dirname(__FILE__) . "/config/httpheaders.php";
 
   if (validate_password($_POST['clear'], $_POST['vclear'])) {
+    if (!password_strengthcheck($_POST['clear'])) {       
+      header ("Location: sitepassword.php?weakpass=siteadmin");
+      die;
+    }
     $cryptedpassword = crypt_password($_POST['clear']);
     $query = "UPDATE users SET crypt=:crypt WHERE localpart='siteadmin' AND domain_id='1'";
     $sth = $dbh->prepare($query);
@@ -18,7 +22,7 @@
       die;
     }
   } else {
-    header ("Location: site.php?badpass=siteadmin");
+    header ("Location: sitepassword.php?badpass=siteadmin");
   }
 ?>
 <!-- Layout and CSS tricks obtained from http://www.bluerobot.com/web/layouts/ -->

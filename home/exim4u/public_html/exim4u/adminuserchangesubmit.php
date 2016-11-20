@@ -111,10 +111,10 @@
       die;
     } 
   } else {
-      $_POST['on_spamboxreport'] = 0;
+      $_POST['on_spambox'] = 0;
   }
 
-  if ((isset($_POST['on_spamassassin'])) && ($row['spamassassin'] = 1)) {
+  if ((isset($_POST['on_spamassassin'])) && ($row['spamassassin'] == 1)) {
     $_POST['on_spamassassin'] = 1;
   } else {
     $_POST['on_spamassassin'] = 0;
@@ -164,6 +164,10 @@
   # Update the password, if the password was given
   if (isset($_POST['clear']) && $_POST['clear']!=='') {
     if (validate_password($_POST['clear'], $_POST['vclear'])) {
+      if (!password_strengthcheck($_POST['clear'])) {    
+        header ("Location: adminuserchange.php?user_id={$_POST['user_id']}&weakpass={$_POST['localpart']}");
+        die;
+      }
       $cryptedpassword = crypt_password($_POST['clear']);
       $query = "UPDATE users
         SET crypt=:crypt WHERE localpart=:localpart

@@ -74,16 +74,28 @@
     $_POST['on_piped'] = 0;
   }
 
-   if ((isset($_POST['on_spambox'])) && (isset($_POST['on_spamassassin']))) {
-    $_POST['on_spambox'] = 1;
+  if (isset($_POST['on_spamboxreport'])) {
+    if ((isset($_POST['on_spamassassin'])) && (isset($_POST['on_spambox']))) {
+      $_POST['on_spamboxreport'] = 1;
+    } else {
+      $_POST['on_spamboxreport'] = 0;
+      header ("Location: adminuseradd.php?user_id={$_POST['user_id']}&localpart={$_POST['localpart']}&spamreporterr=yes']}");
+      die;
+    }
   } else {
-    $_POST['on_spambox'] = 0;
+      $_POST['on_spamboxreport'] = 0;
   }
 
-  if (isset($_POST['on_spamboxreport'])) {
-    $_POST['on_spamboxreport'] = 1;
+  if (isset($_POST['on_spambox'])) {
+    if ((isset($_POST['on_spamassassin']))){
+      $_POST['on_spambox'] = 1;
+    } else {
+      $_POST['on_spambox'] = 0;
+      header ("Location: adminuseradd.php?user_id={$_POST['user_id']}&localpart={$_POST['localpart']}&spamboxerr=yes']}");
+      die;
+    }
   } else {
-    $_POST['on_spamboxreport'] = 0;
+      $_POST['on_spambox'] = 0;
   }
 
   if ((isset($_POST['on_spamassassin'])) && ($row['spamassassin'] == 1)) {
@@ -132,6 +144,10 @@
   }
 
   if (validate_password($_POST['clear'], $_POST['vclear'])) {
+    if (!password_strengthcheck($_POST['clear'])) {
+      header ("Location: adminuseradd.php?weakpass={$_POST['localpart']}");
+      die;
+    }
     $query = "INSERT INTO users (localpart, username, domain_id, crypt,
       smtp, pop, uid, gid, realname, type, admin, on_piped,
       on_spamassassin, on_spambox, on_spamboxreport, sa_tag, sa_refuse, maxmsgsize, enabled, quota)

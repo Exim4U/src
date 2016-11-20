@@ -55,6 +55,8 @@
     printf (_("-- %s contains invalid characters."), $_GET['badname']);
   } else if (isset($_GET['badpass'])) {
     printf (_("-- Account %s not added/updated. Passwords were blank, did not match, or contained illegal characters: ' \" ` or ;"), $_GET['badpass']);
+  } else if (isset($_GET['weakpass'])) {
+    printf (_("-- Password too weak. Must have upper/lower case, numbers, special characters and be at least 8 characters long!"), $_GET['weakpass']);
   } else if (isset($_GET['blankdomname'])) {
     print   _("-- You can not specify a blank domain name.");
   } else if (isset($_GET['blankrelayadd'])) {

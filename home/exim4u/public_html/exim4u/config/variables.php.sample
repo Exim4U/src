@@ -36,15 +36,20 @@
      Alternatively, you can specify custom salt prefix here, e.g.
      SHA-512 with 10000 rounds -> $cryptscheme='$6$rounds=10000$'
      or bcrypt with complexity 2^12 -> $cryptscheme='$2a$12$' */
-     $cryptscheme = 'sha512';
+  $cryptscheme = 'sha512';
 
   /* Use the hostname for the domain name and allow users to login
      based on the local part only. It is off by default ($domainguess = 0).
      Set $domainguess = 1 in order to enable this function and set a string
      (subdomain) which will be removed from the left side of the hostname */
+  $domainguess = 0;
+  $domainguess_lefttrim = "mail|exim4u";
 
-     $domainguess = 0;
-     $domainguess_lefttrim = "mail|exim4u";
+  /* Enable password strength check
+     To enable this check set $passwordstrengthcheck = 1
+     To disable this check set $passwordstrengthcheck = 0 */
+  $passwordstrengthcheck = 0;
+
 
   /* Multi IP config:
      If $multi_ip = "yes" then this is a multi IP installation.  MULTI_IP must
@@ -79,13 +84,13 @@
         $mailroot = "/home/USER/mail/";
      For most Linux, $mailroot = "/home/exim4u/mail/";
      For most FreeBSD, $mailroot = "/usr/home/exim4u/mail/"; */
-        $mailroot = "/home/exim4u/mail/";
+  $mailroot = "/home/exim4u/mail/";
 
   /* Check if mail store specified above exists when creating a new domain.
      Generally, this shouldn't be disabled, but there may be special cases
      when our check doesn't work and should be disabled (e.g. the parent
      directory of mail store is inaccessible to your web server). */
-        $testmailroot = true;
+  $testmailroot = true;
 
   /* Mailman
      exim4u: mod to allow multiple mailman domains.
@@ -131,14 +136,12 @@
   /* Welcome message, sent to new POP/IMAP accounts */
   @$welcome_message = "Welcome, {$_POST['realname']} !\n\nYour new E-mail account is all ready for you.\n\n"
                    . "Here are some settings you might find useful:\n\n"
-               . "Username: {$_POST['localpart']}@{$_SESSION['domain']}\n"
-/* exim4u Change   . "POP3 server: mail.{$_SESSION['domain']}\n"
-                   . "SMTP server: mail.{$_SESSION['domain']}\n"; */
+                   . "Username: {$_POST['localpart']}@{$_SESSION['domain']}\n"
                    . "Incoming POP3 or IMAP server: mail.{$_SESSION['domain']}\n"
                    . "Outgoing SMTP server: mail.{$_SESSION['domain']}\n";
 
   /* Welcome message, sent to new domains */
   @$welcome_newdomain = "Welcome, and thank you for registering your e-mail domain\n"
                    . "{$_POST['domain']} with us.\n\nIf you have any questions, please\n"
-                 . "don't hesitate to ask your account representitive.\n";
+                   . "don't hesitate to ask your account representitive.\n";
 ?>
