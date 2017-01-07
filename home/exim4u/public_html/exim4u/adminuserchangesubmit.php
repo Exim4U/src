@@ -187,9 +187,6 @@
 
   if (isset($_POST['vacation']) && is_string($_POST['vacation'])) {
     $vacation = trim($_POST['vacation']);
-    if (function_exists('imap_8bit')) {
-      $vacation = imap_8bit($vacation);
-    }
   } else {
     $vacation = '';
   }
