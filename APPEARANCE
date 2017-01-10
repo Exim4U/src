@@ -6,10 +6,8 @@ The following web pages may be customized:
 
 1) Admin Interface (admin menu) - Customize Host Name And Logo
 2) User Interface (user menu) - Customize Host Name And Logo
-3) Email Admin (php web interface login) - Customize Header Text
-4) Email Admin (php web interface login) - Customize Logo
-5) Email Admin (php web interface internal pages) - Customize Check Mark Image
-6) Webmail (Horde) - Customize Theme, Images And Logos
+3) Email Admin (php web interface login) - Customize Logo
+4) Email Admin (php web interface internal pages) - Customize Check Mark Image
 
 Each item is described as follows:
 
@@ -83,66 +81,7 @@ clearpixel.gif file to logo.gif as follows:
         cp autogen/clearpixel.gif logo.gif
 
 
-3) Email Admin (php web interface login) - Customize Header Text
-
-The Exim4U Email Admin web pages are located here:
-
-	home/exim4u/public_html/exim4u
-
-The header text, "Exim4U Email Admin", in the upper left hand portion of the web page may be displayed
-in three ways:
-
-	a) As a link (bold blue) to the Exim4U home page, http://exim4u.org,
-	   which is the default setting.
-	b) As a link (bold blue) to the current page (_self).
-	c) As plain bold dark grey text without any link.
-
-The files that determine the way that the "Exim4U Email Admin" header text is displayed are contained
-in this directory:
-
-	home/exim4u/public_html/exim4u/config
-
-The files that contain the php code for displaying the header text are:
- 
-	header_domain.php
-	header.php
-
-The following files may be copied to header_domain.php and header.php to produce the desired header text
-appearance:
-
-	header_domain.php-BOLD
-	header_domain.php-LINK_EXIM4U
-	header_domain.php-LINK_SELF
-	header.php-BOLD
-	header.php-LINK_EXIM4U
-	header.php-LINK_SELF
-
-Therefore;
-
-	a) To have the header text appear as a link to the current page (_self) then perform the
-	   following from this distribution's root directory:
-
-		cd home/exim4u/public_html/exim4u/config
-		cp header_domain.php-LINK_SELF header_domain.php
-		cp header.php-LINK_SELF header.php
-
-	b) To have the header text appear as plain bold dark grey text (_self) then perform the 
-	   following from this distribution's root directory:
-
-	        cd home/exim4u/public_html/exim4u/config
-        	cp header_domain.php-BOLD header_domain.php
-        	cp header.php-BOLD header.php
-
-	c) To have the header text appear as a link to the Exim4U home page, http://exim4u.org,
-	   (default configuration) then perform the following from this distribution's root
-	   directory:
-
-        	cd home/exim4u/public_html/exim4u/config
-        	cp header_domain.php-LINK_EXIM4U header_domain.php
-        	cp header.php-LINK_EXIM4U header.php
-
-
-4) Email Admin (php web interface login) - Customize Logo
+3) Email Admin (php web interface login) - Customize Logo
 
 All of the logos and images used by the Exim4u Email Admin web pages are stored in the 
 following directory:
@@ -170,7 +109,7 @@ clearpixel.gif file to logo.gif as follows:
         cp clearpixel.gif logo.gif
 
 
-5) Email Admin (php web interface internal pages) - Customize Check Mark Image
+4) Email Admin (php web interface internal pages) - Customize Check Mark Image
 
 The Exim4U Email Admin web interface utilizes a check mark image on several pages.  The most prominent
 use of this image is in the "Add, delete and manage POP/IMAP accounts" page. The image that is used
@@ -204,29 +143,3 @@ To use check-exim4u.gif as the check mark:
 
 	cd home/exim4u/public_html/exim4u/images
         cp check-exim4u.gif check.gif
-
-
-6) Webmail (Horde) - Customize Theme, Images And Logos
-
-Exim4U's webmail and Horde now both use the Horde Silver Surfer theme. 
-You may change your preferred Horde theme in the file:
-
-	webmail/config/prefs.local.php
-
-Change/add the following line in webmail/config/prefs.local.php
-substituting your preferred theme for CHANGE_THEME_NAME:
-
-	$_prefs['theme'] ['value'] = 'CHANGE_THEME_NAME';
-
-The preferred method for customizing the icons and logos is to change the
-logo/icon files used by the shell script:
-
-	xtrasw/webmail_admin/webmail_exim4u_logos
-
-These files are located in xtrasw/webmail_admin/logos.  There are three image files
-that may be customized:
-
-	favion.ico - Favicon .ico file.
-	favicon.png - Favicon .png file.
-	horde-power1_52px_WebmailGroupware3.png - Login page image.
-
