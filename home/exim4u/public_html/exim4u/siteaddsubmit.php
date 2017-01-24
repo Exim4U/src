@@ -19,12 +19,6 @@
   } else {
     $_POST['pipe'] = 0;
   }
-  if ($_POST['type'] == "relay") {
-    $_POST['clear'] = $_POST['vclear'] = "BLANK";
-  }
-  if ($_POST['type'] == "alias") {
-    $_POST['clear'] = $_POST['vclear'] = "BLANK";
-  }
   if (!isset($_POST['max_accounts']) || $_POST['max_accounts'] == '') {
     $_POST['max_accounts'] = '0';
   }
@@ -91,11 +85,16 @@
      $pophomepath = $domainpath . "/" . $_POST['localpart'];
     }
 //Gah. Transactions!! -- GCBirzan
-  if ((validate_password($_POST['clear'], $_POST['vclear'])) &&
-    ($_POST['type'] != "alias")) {
-    if (!password_strengthcheck($_POST['clear'])) {  
-      header ("Location: siteadd.php?type={$_POST['type']}&weakpass={$_POST['domain']}");
-      die;
+  if ($_POST['type'] !== "alias") {
+    if ($_POST['type'] === "local") {
+        if (!validate_password($_POST['clear'], $_POST['vclear'])) {
+          header ("Location: siteadd.php?type={$_POST['type']}&badpass={$_POST['domain']}");
+          die;
+        }
+        if (!password_strengthcheck($_POST['clear'])) {
+          header ("Location: siteadd.php?type={$_POST['type']}&weakpass={$_POST['domain']}");
+          die;
+	}
     }
     if ($multi_ip == "yes") {
     $query = "INSERT INTO domains 
