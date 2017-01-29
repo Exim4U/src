@@ -95,7 +95,7 @@
       die;
     } else {
       header ("Location: site.php?added={$_POST['domain']}" .
-              "&amp;type={$_POST['type']}");
+              "&type={$_POST['type']}");
       die;
     }
   } else { // local or relay
@@ -200,13 +200,9 @@
                 "&type={$_POST['type']}");
         die;
       }
-    } else {
+      }
       header ("Location: siteadd.php?type={$_POST['type']}&failaddeddomerr={$_POST['domain']}");
-      die;
-    }
 }
-header ("Location: siteadd.php?type={$_POST['type']}&failaddedpassmismatch={$_POST['domain']}");
-
 ?>
 <!-- Layout and CSS tricks obtained from http://www.bluerobot.com/web/layouts/ -->
 <!-- This module was modified extensively by GLD to accomodate relay server address and relay spamassassin parameters  -->
