@@ -114,6 +114,7 @@
     } 
   } else {
       $_POST['on_spambox'] = 0;
+      $_POST['on_spamboxreport'] = 0;
   }
 
   if ((isset($_POST['on_spamassassin'])) && ($row['spamassassin'] == 1)) {
@@ -122,8 +123,11 @@
     $_POST['on_spamassassin'] = 0;
   }
 
-  if (isset($_POST['maxmsgsize']) && $row['maxmsgsize']!=='0') {
-    if ($_POST['maxmsgsize']<=0 || $_POST['maxmsgsize']>$row['maxmsgsize']) {
+if (!isset($_POST['maxmsgsize'])) {
+    $_POST['maxmsgsize'] = $row['maxmsgsize'];
+  }
+  if ($row['maxmsgsize'] != "0") {
+    if (($_POST['maxmsgsize'] > $row['maxmsgsize']) || ($_POST['maxmsgsize'] == "0")) {
       header ("Location: adminuserchange.php?user_id={$_POST['user_id']}&localpart={$_POST['localpart']}&maxmsgsizehigh={$row['maxmsgsize']}");
       die;
     }
