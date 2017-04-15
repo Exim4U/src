@@ -1,46 +1,115 @@
---
--- SCRIPT FOR CREATING THE EXIM4U DATABASE AND USER
---
--- INSTRUCTIONS FOR USER DEFINED VALUES BEGINS HERE
---
--- Specify values for '@UID', '@GID', @DB_PASSWD and @PW_CRYPT as follows: 
---
--- Substitute all occurrances of @UID with the numeric uid for the exim4u user.
--- Substitute all occurrances of @GID with the numeric gid for the exim4u user.
--- Substitute the value of @DB_PASSWD with the exim4u database password.
---
--- Specify the default Exim4U siteadmin Site Password, "PASSWD", as encrypted in SHA512, MD5 or DES
--- or as a clear-text password. Select and uncomment one of the following
--- crypt values. The default encryption method is SHA512.
---
--- SHA512 encryption of 'PASSWD' for crypt field:
+#!/bin/bash
+#
+#  IMMEDIATELY FOLLOWING THE EXECUTION OF THIS SCRIPT, LOGIN TO THE EXIM4U USER INTERFACE WITH THE FOLLOWING CREDENTIALS:
+# 
+#  Username = 'siteadmin', Password = 'PASSWD'
+# 
+#  THEN, IMMEDIATELY CHANGE THE SITE PASSWORD FROM 'PASSWD' TO SOMETHING VERY SECURE.
+#
+clear;
+printf "\nEXIM4U MYSQL SETUP\n\n";
+printf "This script creates the exim4u database.\n\n";
+# Specify values for '@UID', '@GID', @DB_PASSWD and @CRYPT.
+while ! [[ "$uid" =~ ^[0-9]+$ ]]
+do
+	read -e -p "Please enter the numeric UID for the exim4u user: " uid;
+	if ! [[ "$uid" =~ ^[0-9]+$ ]]
+	then
+		echo -en "\033[1A\033[2K"
+	fi
+done;
+while ! [[ "$gid" =~ ^[0-9]+$ ]]
+do
+	read -e -p "Please enter the numeric GID for the exim4u user: " gid;
+	if ! [[ "$gid" =~ ^[0-9]+$ ]]
+	then
+		echo -en "\033[1A\033[2K"
+	fi
+done;
+printf "Please enter the mysql password to be used with the exim4u database and exim4u user: ";
+	read db_passwd;
+#
+# Create a working copy of mysql_setup.sql named mysql-final.sql
+cp ./mysql.sh ./mysql_final.sql;
+sed -i 1,100d ././mysql_final.sql;
+# Substitute all occurrences of @UID with the numeric uid for the exim4u user.
+sed -i s/@UID/$uid/ ./mysql_final.sql;
+# Substitute all occurrences of @GID with the numeric gid for the exim4u user.
+sed -i s/@GID/$gid/ ./mysql_final.sql;
+# Substitute the value of @DB_PASSWD with the exim4u database password.
+sed -i s/@DB_PASSWD/$db_passwd/ ./mysql_final.sql;
+# 
+printf "\nPlease specify the password encryption method for Exim4U as follows:
+1 - SHA512 (Recommended)
+2 - MD5
+3 - DES
+4 - Bcrypt (BSD only)
+5 - Clear-text (Not Recommended) \n\n";
+#
+while [[ $crypt -lt 1 || $crypt -gt 5 ]]
+do
+#   	read -e -p "Enter encryption method (1 - 5): " -i "1" crypt;
+	read -e -p "Enter encryption method (1 - 5): " crypt;
+	if ! [[ "$crypt" =~ ^[0-5]+$ ]]
+	then
+		echo -en "\033[1A\033[2K"
+		crypt=0
+	fi
+done;
+if [ $crypt == 1 ]
+then
+	sed -i 3,10d ./mysql_final.sql
+fi
+if [ $crypt == 2 ]
+then
+	sed -i 5,10d ./mysql_final.sql
+	sed -i 1,2d ./mysql_final.sql
+fi
+if [ $crypt == 3 ]
+then
+	sed -i 7,10d ./mysql_final.sql
+	sed -i 1,4d ./mysql_final.sql
+fi
+if [ $crypt == 4 ]
+then
+	sed -i 9,10d ./mysql_final.sql
+	sed -i 1,6d ./mysql_final.sql
+fi
+if [ $crypt == 5 ]
+then
+	sed -i 1,8d ./mysql_final.sql
+fi
+# printf "\nThe MySQL script for Exim4U is complete.  Execute the script, which will install the Exim4u database, with the following command: \n\nmysql -u root -p < ./mysql_final.sql\n\n";
+printf "\n\n\nExecuting MySQL to install the Exim4u database and user with the following command:\n\n";
+printf "     \'mysql -u root -p < ./mysql_final.sql\'\n\n";
+printf "Enter the MySQL root user's password....\n\n";
+mysql -u root -p < ./mysql_final.sql;
+rm ./mysql_final.sql;
+printf "\n\nScript complete.....\n\n";
+printf "Immediately following the successful execution of this script,\n";
+printf "login to the Exim4U user interface with the following credentials:\n\n";
+printf "     Username = 'siteadmin', Password = 'PASSWD'\n\n";
+printf "and immediately change the site password from 'PASSWD' to something very secure.\n\n";
+exit
+#
+# End Of Bash Script
+#
+# ---------------------------------
+#
+# Start Of Mysql Script
+#
+# SHA512 encryption of 'PASSWD' for crypt field:
 set @PW_CRYPT='$6$4HTy8Ts3TvC1$FFAVbY1N3nKiuYi7eV3DQ0clbGS9MYrVEOjerUUQgc0sdYWfqceYbfLyPnBUK92soHAS15j.w7H05eDQn3erL/';
+# MD5 encryption of 'PASSWD' for crypt field:
+set @PW_CRYPT='$1$12345678$JCW6RgxAyYiRf00lURaOE.';
+# DES encryption of 'PASSWD' for crypt field:
+set @PW_CRYPT='0A/4rVI7XZP6Y';
+# Bcrypt encryption of 'PASSWD' for crypt field:
+set @PW_CRYPT='$2y$10$kUX1xxuCbSCQ5v8VE5uZ1ez7BoRJsmJACyYWPh0OJqOBwlym1IKsy';
+# Clear-text password:
+set @PW_CRYPT='PASSWD';
 --
--- Bcrypt encryption of 'PASSWD' for crypt field (BSD Only):
--- set @PW_CRYPT='$2y$10$kUX1xxuCbSCQ5v8VE5uZ1ez7BoRJsmJACyYWPh0OJqOBwlym1IKsy';
-
--- MD5 encryption of 'PASSWD' for crypt field:
--- set @PW_CRYPT='$1$12345678$JCW6RgxAyYiRf00lURaOE.';
---
--- DES encryption of 'PASSWD' for crypt field:
--- set @PW_CRYPT='0A/4rVI7XZP6Y';
---
--- Clear-text password:
--- set @PW_CRYPT='PASSWD';
---
--- Once the values for '@UID', '@GID', @DB_PASSWD and @PW_CRYPT are specified then run this script 
--- with the following command:
---
---      mysql -u root -p < ./mysql.sql
---
--- IMMEDIATELY FOLLOWING THE EXECUTION OF THIS SCRIPT, LOGIN TO THE EXIM4U USER INTERFACE WITH THE FOLLOWING CREDENTIALS:
---
--- Username = 'siteadmin', Password = 'PASSWD'
---
--- THEN, IMMEDIATELY CHANGE THE SITE PASSWORD FROM 'PASSWD' TO SOMETHING VERY SECURE.
---
--- NO MORE INSTRUCTIONS BELOW HERE
---
+-- Database: `exim4u`
 --
 CREATE DATABASE IF NOT EXISTS `exim4u` DEFAULT CHARACTER SET utf8;
 --
