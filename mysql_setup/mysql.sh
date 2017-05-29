@@ -208,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `exim4u`.`blocklists`
 --
 CREATE TABLE IF NOT EXISTS `exim4u`.`domainalias` 
 (
-	domain_id        int(10)  unsigned  NOT NULL,
+	domain_id        mediumint(10)  unsigned  NOT NULL,
 	alias            varchar(255)       NOT NULL,
 	PRIMARY KEY (alias)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -220,7 +220,7 @@ DROP TABLE IF EXISTS `exim4u`.`groups`;
 CREATE TABLE IF NOT EXISTS `exim4u`.`groups`
 (
 	id               int(10)        NOT NULL  auto_increment,
-	domain_id        int(10)        unsigned  NOT NULL,
+	domain_id        mediumint(10)        unsigned  NOT NULL,
 	name             varchar(64)              NOT NULL,
 	is_public        char(1)                  NOT NULL  default 'Y',
 	enabled          tinyint(1)               NOT NULL  default '1',
@@ -244,7 +244,7 @@ CREATE TABLE IF NOT EXISTS `exim4u`.`group_contents`
 DROP TABLE IF EXISTS `exim4u`.`ml`;
 CREATE TABLE IF NOT EXISTS `exim4u`.`ml`
 (
-        domain_id           mediumint(8) unsigned   NOT NULL,
+        domain_id           mediumint(10) unsigned   NOT NULL,
         name                varchar(64)             NOT NULL,
         email               varchar(128)            NOT NULL,
         enabled             bool                    NOT NULL default '1',
