@@ -200,7 +200,7 @@ CREATE TABLE IF NOT EXISTS `exim4u`.`blocklists`
 	blockval         varchar(255)            NOT NULL  default '',
 	color            varchar(8)              NOT NULL  default '',
 	PRIMARY KEY (block_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
 
 
 --
