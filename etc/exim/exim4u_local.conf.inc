@@ -102,9 +102,10 @@ hide mysql_servers = localhost::(/var/lib/mysql/mysql.sock)/exim4u/exim4u/CHANGE
 # exim4u: If you need to disable ipv6 then uncomment this line.
 # disable_ipv6 = true
 #
-# exim4u: Add SMTP ports to listen for here. Port 25 is required. RFC 2476, requires port 587 
-# for email user clients and 2525 is simply an extra port.
-daemon_smtp_ports = 25 : 2525 : 587
+# exim4u: Add SMTP ports to listen for here. Port 25 is required for server to server submissions.
+# RFC 2476 requires port 587 and RFC 8314 requires port 465 each of which are used for email
+# client submissions.
+daemon_smtp_ports = 25 : 465 : 587
 #
 # The following setting is only needed if you use the 'spam' ACL condition
 # of the exiscan-acl patch. It specifies on which host and port the SpamAssassin
