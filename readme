@@ -1,0 +1,16 @@
+                                       Getting Started With Exim4U
+                                       ---------------------------
+
+Initial Installation
+--------------------
+
+Please refer to the docs directory and specifically the following files to begin installing Exim4U:
+
+docs/README
+docs/INSTALL
+
+
+Upgrading
+---------
+
+The docs/CHANGELOG file includes instructions for upgrading Exim4U.
