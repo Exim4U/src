@@ -110,7 +110,7 @@ host would be placed within /etc/httpd/conf.d/ssl.conf for SSL access:
   </VirtualHost>
 
 Several recommended security precautions related to apache website files are included
-in the SECURITY file in this distributions root directory.  These precautions will
+in the SECURITY file in this distributions docs directory.  These precautions will
 help protect your Exim4U installation from hostile intruders and other potential
 security issues.
 
@@ -168,7 +168,7 @@ from greylisting for 7 days.
 You must create a new MySQL database for Exim4U. The procedure for doing
 this is different according to whether you are doing a fresh install or
 if you are migrating from Virtual Exim.  Follow the instructions in the
-INSTALL file in this distribution's root directory if you are doing a
+INSTALL file in this distribution's docs directory if you are doing a
 fresh install.  Whereas, follow the instructions in the MIGRATE file if 
 are migrating from Virtual Exim.
 
@@ -176,7 +176,7 @@ are migrating from Virtual Exim.
 
 You must create a new SQLite database which Exim4U uses for greylisting.
 Instructions for creating this database are included in the INSTALL file
-in this distributions root directory.
+in this distributions docs directory.
 
 5) Exim4U Web Interface's Site Administrator:
 
@@ -227,7 +227,7 @@ used with Exim4u during its development.
 9) Webmail
 
 Detailed documentation for Exim4U's Webmail is located in the WEBMAIL help file
-in this distribution's root directory.
+in this distribution's docs directory.
 
 Exim4U's Webmail is a modified version of Horde Groupware Webmail Edition.
 Generic Horde documentation may be found at:

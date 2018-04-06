@@ -1,6 +1,56 @@
                            Exim4U Version History
 
-                      Current Exim4U Version Is 3.1.0
+                      Current Exim4U Version Is 3.1.1
+
+3.1.1 Release Date: April 6, 2018
+
+  Implemented an interactive bash shell script, mysql.sh, to create and initialize
+  the Exim5U MySQL database. The user may optionally continue to edit and use the
+  mysql.sql script for database creation.
+
+  Modified the MySQL installation scripts and created an update script to define
+  the blocklists table as utf8mb4. This fixes the "max key length is 767 bytes"
+  problem for headers (such as subjects) with embeded encoding for things like
+  emojis.
+
+  Added a primary key (alias) to the domainalias table.
+
+  Set empty realname to localpart in the web interface.
+
+  Implemented a password strength test to the web interface.
+
+  Removed max_vacation_length in the web interface.
+
+  Added the ability to select subdomain names to be removed from the left side of the
+  domain name when using the domainguess feature in the web interface.
+
+  Replaced `imap_qprint()` and `imap_8bit()` with `quoted_printable_decode` in the web
+  interface.
+
+  Added a robots exclusion meta tag to index.php.
+
+  Added port 465 for client submissions in the exim configuration 
+  (exim4u_local.conf.inc) as required by RFC8314.
+
+  Removed the demime acl condition from the exim configuration since it is removed
+  from Exim 4.88.
+
+  Various other enhancements, bug fixes and security related modifications. 
+
+  Credits
+
+    Thanks to the Vexim team for numerous enhancements and bug fixes.
+
+    Thanks to Neza Nice for contributing the correct spfd socket to put into /etc/rc.local
+    in Debian since the "-path" option has been deprecated.
+
+  Other
+
+    Volunteers are needed to help with Exim4U's locale language translation files.
+    Specifically, additional work needs to be done to address the syntax differences
+    between Exim4U and Vexim and the language translation files need to be reviewed
+    and tested in their native languages.
+
 
 3.1.0 Release Date: June 13, 2016
 

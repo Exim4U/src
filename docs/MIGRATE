@@ -4,7 +4,7 @@
 These instructions cover the necessary steps to migrate from Vexim version 2.2 to Exim4U.
 
 
-1) Perform steps 1 through 4 in the INSTALL help file in this distributions root directory.
+1) Perform steps 1 through 4 in the INSTALL help file in this distributions docs directory.
 
 2) Migrate the MySQL database from Virtual Exim to Exim4U as follows.
 

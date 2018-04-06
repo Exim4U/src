@@ -327,7 +327,7 @@ Example:
 7) Customizing Preferences And Appearance
 
 You may customize the Preferences and Appearance as desired. Refer to the APPEARANCE file
-in this distribution's root directory for customizing Webmail Groupware's appearance. You
+in this distribution's docs directory for customizing Webmail Groupware's appearance. You
 may also modify the *.local.php files in the various Horde module directories to change
 your preferences. Refer to the preference modifications in the *.local.php files in 
 the xtrasw/webmail_admin/webmail_exim4u_prefs script for further guidance.

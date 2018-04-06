@@ -4,6 +4,111 @@
 
 3.1.0 Release Date: April 6, 2018
 
+A	DOCUMENTS
+R	APPEARANCE    -> docs/APPEARANCE
+M	CHANGELOG     -> docs/CHANGELOG
+M	DEBIAN        -> docs/DEBIAN
+R	EXIM_README   -> docs/EXIM_README
+R	FREEBSD       -> docs/FREEBSD
+M	INSTALL       -> docs/INSTALL
+R	LICENSE	      -> docs/LICENSE
+R	MIGRATE       -> docs/MIGRATE
+R	NOTES         -> docs/NOTES
+R	README        -> docs/README
+R	REDHAT-CENTOS -> docs/REDHAT-CENTOS
+R	SECURITY      -> docs/SECURITY
+R	SPAMASSASSIN  -> docs/SPAMASSASSIN
+M	VERSION	      -> docs/VERSION
+R	WEBMAIL       -> docs/WEBMAIL
+M	etc/exim/exim.conf
+M	etc/exim/exim4u_local.conf.inc
+M	home/exim4u/public_html/exim4u/adminaliasaddsubmit.php
+M	home/exim4u/public_html/exim4u/adminaliaschange.php
+M	home/exim4u/public_html/exim4u/adminaliaschangesubmit.php
+M	home/exim4u/public_html/exim4u/adminuseraddsubmit.php
+M	home/exim4u/public_html/exim4u/adminuserchange.php
+M	home/exim4u/public_html/exim4u/adminuserchangesubmit.php
+M	home/exim4u/public_html/exim4u/config/functions.php
+M	home/exim4u/public_html/exim4u/config/header.php
+D	home/exim4u/public_html/exim4u/config/header.php-BOLD
+D	home/exim4u/public_html/exim4u/config/header.php-LINK_EXIM4U
+D	home/exim4u/public_html/exim4u/config/header.php-LINK_SELF
+M	home/exim4u/public_html/exim4u/config/variables.php.sample
+M	home/exim4u/public_html/exim4u/index.php
+M	home/exim4u/public_html/exim4u/locale/de/LC_MESSAGES/de.po
+M	home/exim4u/public_html/exim4u/locale/de/LC_MESSAGES/messages.mo
+M	home/exim4u/public_html/exim4u/locale/es/LC_MESSAGES/es.po
+M	home/exim4u/public_html/exim4u/locale/es/LC_MESSAGES/messages.mo
+M	home/exim4u/public_html/exim4u/locale/hu/LC_MESSAGES/hu.po
+M	home/exim4u/public_html/exim4u/locale/hu/LC_MESSAGES/messages.mo
+M	home/exim4u/public_html/exim4u/locale/it/LC_MESSAGES/it.po
+M	home/exim4u/public_html/exim4u/locale/it/LC_MESSAGES/messages.mo
+M	home/exim4u/public_html/exim4u/locale/ro/LC_MESSAGES/messages.mo
+M	home/exim4u/public_html/exim4u/locale/ro/LC_MESSAGES/ro.po
+M	home/exim4u/public_html/exim4u/locale/ru/LC_MESSAGES/messages.mo
+M	home/exim4u/public_html/exim4u/locale/ru/LC_MESSAGES/ru.po
+M	home/exim4u/public_html/exim4u/locale/template.pot
+M	home/exim4u/public_html/exim4u/login.php
+M	home/exim4u/public_html/exim4u/scripts.js
+M	home/exim4u/public_html/exim4u/site.php
+M	home/exim4u/public_html/exim4u/siteaddsubmit.php
+M	home/exim4u/public_html/exim4u/sitechangesubmit.php
+M	home/exim4u/public_html/exim4u/sitepasswordsubmit.php
+M	home/exim4u/public_html/exim4u/userchange.php
+M	home/exim4u/public_html/exim4u/userchangesubmit.php
+A	mysql_migrate/mysql_blocklists_utf8mb4.sql
+A	mysql_migrate/mysql_exim4u-3.2.sql
+A	mysql_setup/mysql.sh
+M	mysql_setup/mysql.sql
+A	readme
+M	xtrasw/exim-greylist/greylist-tidy.sh
+D	xtrasw/exim_rpms-for-redhat/README
+D	xtrasw/exim_rpms-for-redhat/RPM-GPG-KEY.atrpms
+M	xtrasw/pyzor/get_pyzor
+D	xtrasw/rpmforge_apt-get/get_rpmforge
+
+3.1.1 Instructions For Upgrading From Version 3.1.0
+
+1) Documentation - Refer to the documentation files in the Exim4U 3.1.1
+   docs (DOCUMENTS) directory:
+       docs/APPEARANCE
+       docs/CHANGELOG
+       docs/DEBIAN
+       docs/EXIM_README
+       docs/FREEBSD
+       docs/INSTALL
+       docs/LICENSE
+       docs/MIGRATE
+       docs/NOTES
+       docs/README
+       docs/REDHAT-CENTOS
+       DOCS/SECURITY
+       docs/SPAMASSASSIN
+       docs/VERSION
+       docs/WEBMAIL
+   Also, the following documentation file has been added to the Exim4U 3.1.1 root directory:
+       readme
+
+  2) Exim4U Email Admin (php web interface) - Copy the contents of the following
+     directory (including sub-directories and files) to your live installation
+     from the Exim4U 3.1.1 distribution's root directory:
+        home/exim4u/public_html/exim4u
+     Be sure to make a backup copy of your earlier 3.1.0 version directories and
+     files prior to overwriting them.
+     Copy home/exim4u/public_html/exim4u/config/variables.php.sample to
+     home/exim4u/public_html/exim4u/config/variables.php and edit variables.php
+     as per the INSTALL instructions.
+
+  3) Execute the script mysql_migrate/mysql_blocklists_utf8mb4.sql to update the database as follows:
+       mysql -u <username> -p exim4u < mysql_blocklists_utf8mb4.sql
+         where: <username> = Your MYSQL root username
+     The script will then prompt you for your MYSQL username's password.
+     For example, for username=MYNAME, then the command would be:
+       mysql -u MYNAME -p exim4u < mysql_migrate/mysql_blocklists_utf8mb4.sql
+     This script updates the MySQL database to define the blocklists table as utf8mb4 and which
+     fixes the "max key length is 767 bytes" problem for headers (such as subjects) with embeded
+     encoding for things like emojis.
+
 
 3.1.0 Release Date: June 13, 2016
 

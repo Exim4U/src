@@ -14,3 +14,12 @@ Upgrading
 ---------
 
 The docs/CHANGELOG file includes instructions for upgrading Exim4U.
+
+
+Version
+-------
+
+The docs/VERSION file header lists the current Exim4U version followed by a list
+of modifications, enhancements, credits and discussions for the current and all
+prior versions of Exim4U.
+

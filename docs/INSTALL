@@ -61,7 +61,7 @@ Add to /etc/rc.local:
 
 3. Install: SpamAssassin - Tested With Version 3.3.2 - 3.4.1.
 
-Refer to the SPAMASSASSIN help file in the root directory of this Exim4U
+Refer to the SPAMASSASSIN help file in the docs directory of this Exim4U
 distribution.
 
 4. Install: Exim - Tested With Version 4.69 thru 4.85.
@@ -183,21 +183,29 @@ crontab.
 
 5. Configure mysql
 
-You must create a new MySQL database for Exim4U. Edit the mysql_setup/mysql.sql file and change
-the first two instances of the word 'CHANGE', to the default system UID and GID you want new
-domains to have if one is not specified. (Most installations opt to create a user and a group
-both named exim4u and then use the UID and GID for exim4u.) Change the third instance
-of the word 'CHANGE' to the password you want the exim4u database user to have.
-This is the same mysql password you chose when editing /etc/exim/exim4u_local.conf.inc
+You must create a new MySQL database for Exim4U. You may do this either interactively (which is easiest)
+or manually. To set the database up interactively simply run the mysql_setup/mysql.sh bash shell script,
+which will prompt with a few questions, and then set the database up for you automatically. Afterward,
+make sure to immediately proceed to Step 6, login to the Exim4U web interface and change the siteadmin
+password from 'PASSWD' to some other secure password.
+
+If you created the MySQL database interactively then skip the remainder of this section and proceed to
+Step 6. Alternatively, if you prefer to set the MySQL database up manually, then proceed as follows.
+First, edit the mysql_setup/mysql.sql file to match your configuration and then run it manually within
+MySQL. You must edit the mysql_setup/mysql.sql file and change the first two instances of the word
+'CHANGE' to the default system UID and GID to be used for new domains if one is not specified. Most
+installations opt to create a user and a group both named exim4u and then use the UID and GID for
+exim4u. Change the third instance of the word 'CHANGE' to the password you want for the exim4u database
+user. This is the same mysql password you chose when editing /etc/exim/exim4u_local.conf.inc
 above. Then, you must decide which type of encryption that you will use. Exim4u supports SHA512,
 MD5 and DES password encryption along with clear-text passwords (although not recommended).
 Most recent Linux and BSD versions generally support SHA512 which is considered most secure.
 Some older distributions may use the older MD5 or DES encryption.
 
-The default password that is installed by the mysql.sql script is "PASSWD" and lines 160 - 170
-of mysql_setup/mysql.sql are used to specify the password, "PASSWD", as encrypted in SHA512,
-MD5 or DES or as a clear-text password. If you are using SHA512 then lines 160 - 170 should
-be set to:
+The default password that is installed by both the interactive mysql.sh script and the manual mysql.sql
+script is "PASSWD" and lines 160 - 170 of mysql_setup/mysql.sql are used to specify the password,
+"PASSWD", as encrypted in SHA512, MD5 or DES or as a clear-text password. If you are using SHA512 then
+lines 160 - 170 should be set to:
 
 	-- SHA512 encryption of 'PASSWD' for crypt field:
 	'$6$4HTy8Ts3TvC1$FFAVbY1N3nKiuYi7eV3DQ0clbGS9MYrVEOjerUUQgc0sdYWfqceYbfLyPnBUK92soHAS15j.w7H05eDQn3erL/',
@@ -291,11 +299,11 @@ home/exim4u/public_html/exim4u/config/variables.php.  This file, variables.php,
 is your main configuration file for the Exim4U web interface. Now, edit
 home/exim4u/public_html/exim4u/config/variables.php and change the following
 settings. Change the '$sqlpass' on line 10 to the exim4u database user's password
-which you chose which editing 'mysql.sql' in the last step. Change the '$cryptscheme'
-line to either "SHA512", "MD5", or "DES" depending on your encryption scheme or
-"CLEAR" for clear-text passwords (not recommended). Another change to make in that
-file is the '$uid' and '$gid'. Make these the same default UID and GID you chose in
-mysql.sql. Then, specify $mailroot.  The default value is:
+which you chose which setting up the MySQL database in the last step. Change the
+'$cryptscheme' line to either "SHA512", "MD5", or "DES" depending on your encryption
+scheme or "CLEAR" for clear-text passwords (not recommended). Another change to make
+in that file is the '$uid' and '$gid'. Make these the same default UID and GID you
+chose in mysql.sql. Then, specify $mailroot.  The default value is:
 
 	$mailroot = "/home/exim4u/mail/";
 
@@ -378,7 +386,7 @@ and modify /etc/dovecot-sql.conf as described therein on lines 4 thru 8.
 
 8. Install Webmail
 
-Refer to the WEBMAIL documentation file in this distribution's root directory for
+Refer to the WEBMAIL documentation file in this distribution's docs directory for
 installing Exim4U's Webmail Groupware which is a customized version of Horde Groupware
 Webmail Edition. Alternatively, install your favorite webmail product, such as Squirrel
 Mail or Round Cube, in <DocumentRoot>/webmail (eg.: /home/exim4u/public_html/webmail). 

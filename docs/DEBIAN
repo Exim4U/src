@@ -128,11 +128,11 @@ Install spfd with:
 
 apt-get install spf-tools-perl
 
-In Debian/Ubuntu, the SPF perl module is located at /usr/local/bin/spfd instead of /usr/bin/spfd.perl-msq.
+In Debian/Ubuntu, the SPF perl module is located at /usr/sbin/spfd instead of /usr/bin/spfd.perl-msq.
 Therefore, the command to put into /etc/rc.local as described in the INSTALL file should be amended to reflect this
 location as follows:
 
-	/usr/sbin/spfd -path=/tmp/spfd --socket-user Debian-exim --socket-group Debian-exim --set-user Debian-exim &
+	/usr/sbin/spfd -socket=/tmp/spfd --socket-user Debian-exim --socket-group Debian-exim --set-user Debian-exim &
 
 ### Exim Versions Prior To 4.71 - Disabling DKIM ###
 
