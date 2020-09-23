@@ -92,38 +92,54 @@
      directory of mail store is inaccessible to your web server). */
   $testmailroot = true;
 
-  /* Mailman
-     exim4u: mod to allow multiple mailman domains.
-     If mailman is  installed, this mod now gets the domain based on the domain
-     currently chosen and properly inserts that domain name into 
-     the <a href> link to call mailman correctly. This mod assumes that, for all
-     resident domains, mailman is installed in <domain.tld>/mailmandir so
+  /* Mailman - Mailman2 or Mailman3
+     exim4u: This mod supports mailman2 or mailman3 with multiple domains.
+     
+     If mailman2 is installed, then use the domain currently selected in the
+     Exim4U user interface and properly insert that domain name into 
+     the <a href> link to call mailman2 correctly. This mod assumes that, for all
+     resident domains, mailman2 is installed in <domain.tld>/mailmandir so
      that new lists will be added at <domain.tld>/mailmandir/create and existing
      domains will be viewed and modified at <domain.tld>/mailmandir/admin/<listname>.
 
-     Set to "yes" if mailman is installed or "no" if mailman is not installed.
+     Set to "yes" if mailman2 or mailman3 is installed or "no" if neither version of mailman is installed.
      */
   $mailmaninstalled = "no";
 
-  /* exim4u: Specify secure or insecure protocol for mailman acccess as follows:
+  /* Set the version of mailman in use.
+     $mailmanversion = "mailman3";
+        or;
+     $mailmanversion = "mailman2";
+  */
+  $mailmanversion = "mailman3";
+
+  /* exim4u: Specify secure or insecure protocol for mailman2 or mailman3 access as follows:
      "https" or "http" for mailman.   */
   $mailmanprotocol = "https";
 
-  /* If web hosting for mail domains are not on the same server as Exim4U then
-     you need to specify a domain for mailman to use on the Exim4u server.
-     Specify mailman domain name to be used as "domain.tld" or use "default"
-     to use the local mail domains.   
+  /* For mailman2, if web hosting for mail domains are not on the same server
+     as Exim4U then you need to specify a domain for mailman2 to use on the Exim4u
+     server. Specify mailman domain name to be used as "domain.tld" or use "default"
+     to use domain selected in the Exim4U user interface.
+
+     For mailman3, specify the domain on which the mailman3 installation is hosted.
+
   $mailmandomain = "default";
      or
   $mailmandomain = "domain.tld";
   */
-  $mailmandomain = "default";
+  $mailmandomain = "domain.tld";
   
-  /* exim4u: Specify the path to mailman from the domain document roots. That is, if on your installation
-     for each domain, mailman is located at https://<domain.tld>/mailmandir then specify "mailmandir".
-     */
-  $mailmanpath = "mailman";
+  /* exim4u: Specify the path to mailman from the domain document root. That is, assuming
+     that mailman is located at https://<domain.tld>/mailmandir then specify "mailmandir".
+     $mailmanpath value is normally "mailman" for mailman2 and "postorius" for mailman3.
 
+     For mailman2,
+          $mailmanpath = "mailman";
+     For mailman3,
+          $mailmanpath = "postorius";
+  */
+      $mailmanpath = "postorius";
 
   /* sa_tag is the default value to offer when we create new domains for SpamAssassin tagging
      sa_refuse is the default value to offer when we create new domains for SpamAssassin dropping */

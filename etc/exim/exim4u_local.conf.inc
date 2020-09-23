@@ -162,14 +162,14 @@ BLKLSTSENDMSG = Sender is blacklisted.\n\Please contact postmaster@$primary_host
 #
 # exim4u: MailMan Configuration
 #
-# exim4u: If mailman is installed then several mailman specific parameters must be specified in the web 
-# interface's config file: home/exim4u/public_html/exim4u/config/variables.php. Setting $mailmaninstalled
-# to "yes" in the web interface's config file will cause mailman's web interface to be accessable from
-# within Exim4U's web interface for each domain. Refer to the documentation in
-# home/exim4u/public_html/exim4u/config/variables.php for further guidance for setting up mailman in
-# the Exim4U web interface.
+# exim4u: If mailman2 or mailman3 is installed then several mailman specific parameters must be specified
+# in the web interface's config file: home/exim4u/public_html/exim4u/config/variables.php. Setting
+# $mailmaninstalled to "yes" in the web interface's config file will cause mailman's web interface to be
+# accessable from within Exim4U's web interface for each domain. Refer to the documentation in
+# home/exim4u/public_html/exim4u/config/variables.php for further guidance for setting up mailman2 or
+# mailman3 in the Exim4U web interface.
 #
-# exim4u: Put your mailman domains here (separated by ":")
+# exim4u: Put your mailman2 and mailman3 domains here separated by ":".
 # If you don't have any mailman domains then set the domainlist to null as follows.
 # domainlist mm_domains = :
 # This is how the domainlist should look for multiple domains.
@@ -179,6 +179,16 @@ domainlist mm_domains = :
 # exim4u: Mailman Configuration Information
 # Modify as per your installation.
 #
+# exim4u: mailman3 specific settings
+MM3_LMTP_PORT=8024
+# MM3_HOME must be set to mailman's var directory, wherever it is
+# according to your installation.
+# MM3_HOME=/opt/mailman/var
+MM3_HOME=/var/lib/mailman3
+MM3_UID=list
+MM3_GID=list
+#
+# mailman2 specific settings
 MAILMAN_HOME = /var/lib/mailman
 MAILMAN_WRAP = /usr/lib/mailman/mail/mailman
 MAILMAN_USER = mailman

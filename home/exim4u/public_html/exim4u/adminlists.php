@@ -26,9 +26,14 @@
       print "<a href=\"$mailmanprotocol://{$_SESSION['domain']}/$mailmanpath/listinfo\">" . _('View Lists') . '</a><br>';
       print "<a href=\"$mailmanprotocol://{$_SESSION['domain']}/$mailmanpath/create\">" . _('Add A List') . '</a><br>';
     } else {
-      print "<a href=\"$mailmanprotocol://$mailmandomain/$mailmanpath/listinfo\">" . _('View Lists') . '</a><br>';
-      print "<a href=\"$mailmanprotocol://$mailmandomain/$mailmanpath/create\">" . _('Add A List') . '</a><br>';
-    } ?>
+      if ($mailmanversion == "mailman3") {
+        print "<a href=\"$mailmanprotocol://$mailmandomain/mailman3/$mailmanpath\">" . _('View Lists') . '</a><br>';
+        print "<a href=\"$mailmanprotocol://$mailmandomain/mailman3/$mailmanpath/lists/new\">" . _('Add A List') . '</a><br>';
+      } else {
+                    print "<a href=\"$mailmanprotocol://$mailmandomain/$mailmanpath/listinfo\">" . _('View Lists') . '</a><br>';
+                    print "<a href=\"$mailmanprotocol://$mailmandomain/$mailmanpath/create\">" . _('Add A List') . '</a><br>';
+        }
+      } ?>
       <a href="admin.php"><?php echo _('Main Menu'); ?></a><br>
       <br><a href="logout.php"><?php echo _('Logout'); ?></a><br>
     </div>
