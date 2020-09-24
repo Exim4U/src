@@ -7,9 +7,13 @@
     if ($mailmandomain == "default") {
         header ("Location: $mailmanprotocol://{$_SESSION['domain']}/$mailmanpath/admin/{$_POST['listname']}");
     } else {
+      if ($mailmanversion == "mailman3") {
+        header ("Location: $mailmanprotocol://$mailmandomain/mailman3/$mailmanpath/lists/{$_POST['listname']}.{$_SESSION['domain']}");
+      } else {
         header ("Location: $mailmanprotocol://$mailmandomain/$mailmanpath/admin/{$_POST['listname']}");
     }
 
+    }
   }
 ?>
 <html>
@@ -43,12 +47,12 @@
         <tr>
             <td>
                   <?php echo _('Mailman List Administration') .'<br><br>'; ?>
-              <?php echo _('Please Enter A List Name'); ?>:
+              <?php echo _('Enter A List Name To Edit'); ?>:
             </td>
           </tr>
         <tr>
             <td>
-              <input name="listname" type="text" class="textfield">
+	      <input name="listname" type="text" class="textfield"><?php echo _("@"); ?><?php echo $_SESSION['domain']; ?>
             </td>
           </tr>
         <tr>
