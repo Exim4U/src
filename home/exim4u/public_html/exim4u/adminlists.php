@@ -52,7 +52,7 @@
           </tr>
         <tr>
             <td>
-	      <input name="listname" type="text" class="textfield"><?php echo _("@"); ?><?php echo $_SESSION['domain']; ?>
+	      <input name="listname" type="text" class="textfield"><?php  print "@".$_SESSION['domain']; ?>
             </td>
           </tr>
         <tr>
