@@ -5,14 +5,23 @@
   include_once dirname(__FILE__) . '/config/authpostmaster.php';
   if (isset($_POST['listname'])) {
     if ($mailmandomain == "default") {
+      if ($mailmanversion == "mailman2") {
         header ("Location: $mailmanprotocol://{$_SESSION['domain']}/$mailmanpath/admin/{$_POST['listname']}");
-    } else {
-      if ($mailmanversion == "mailman3") {
-        header ("Location: $mailmanprotocol://$mailmandomain/mailman3/$mailmanpath/lists/{$_POST['listname']}.{$_SESSION['domain']}");
-      } else {
-        header ("Location: $mailmanprotocol://$mailmandomain/$mailmanpath/admin/{$_POST['listname']}");
-    }
+      }
+      else {
+        if ($mailmanversion == "mailman3") {
+	  header ("Location: $mailmanprotocol://{$_SESSION['domain']}/$mailmanpath/{$_POST['listname']}.{$_SESSION['domain']}");
 
+        }
+      }
+    }
+    else {
+      if ($mailmanversion == "mailman2") {
+        header ("Location: $mailmanprotocol://$mailmandomain/$mailmanpath/admin/{$_POST['listname']}");
+      }
+      else {
+        header ("Location: $mailmanprotocol://$mailmandomain/$mailmanpath/{$_POST['listname']}.{$_SESSION['domain']}");
+      }
     }
   }
 ?>
@@ -26,18 +35,29 @@
     <div id="Menu">
       <?php print  _('Mailman Lists') . '<br><br>'; ?>
     <?php
-    if ($mailmandomain == "default") {
-      print "<a href=\"$mailmanprotocol://{$_SESSION['domain']}/$mailmanpath/listinfo\">" . _('View Lists') . '</a><br>';
-      print "<a href=\"$mailmanprotocol://{$_SESSION['domain']}/$mailmanpath/create\">" . _('Add A List') . '</a><br>';
-    } else {
-      if ($mailmanversion == "mailman3") {
-        print "<a href=\"$mailmanprotocol://$mailmandomain/mailman3/$mailmanpath\">" . _('View Lists') . '</a><br>';
-        print "<a href=\"$mailmanprotocol://$mailmandomain/mailman3/$mailmanpath/lists/new\">" . _('Add A List') . '</a><br>';
-      } else {
-                    print "<a href=\"$mailmanprotocol://$mailmandomain/$mailmanpath/listinfo\">" . _('View Lists') . '</a><br>';
-                    print "<a href=\"$mailmanprotocol://$mailmandomain/$mailmanpath/create\">" . _('Add A List') . '</a><br>';
+      if ($mailmandomain == "default") {
+        if ($mailmanversion == "mailman2") {
+          print "<a href=\"$mailmanprotocol://{$_SESSION['domain']}/$mailmanpath/listinfo\">" . _('View Lists') . '</a><br>';
+          print "<a href=\"$mailmanprotocol://{$_SESSION['domain']}/$mailmanpath/create\">" . _('Add A List') . '</a><br>';
         }
-      } ?>
+       	else {
+	  if ($mailmanversion == "mailman3") {
+	    print "<a href=\"$mailmanprotocol://{$_SESSION['domain']}/$mailmanpath\">" . _('View Lists') . '</a><br>';
+            print "<a href=\"$mailmanprotocol://{$_SESSION['domain']}/$mailmanpath/new\">" . _('Add A List') . '</a><br>';
+          }
+	}
+      }
+      else {
+	if ($mailmanversion == "mailman2") {
+          print "<a href=\"$mailmanprotocol://$mailmandomain/$mailmanpath/listinfo\">" . _('View Lists') . '</a><br>';
+          print "<a href=\"$mailmanprotocol://$mailmandomain/$mailmanpath/create\">" . _('Add A List') . '</a><br>';
+        }
+      else {
+            print "<a href=\"$mailmanprotocol://$mailmandomain/$mailmanpath\">" . _('View Lists') . '</a><br>';
+            print "<a href=\"$mailmanprotocol://$mailmandomain/$mailmanpath/new\">" . _('Add A List') . '</a><br>';
+      }
+    }
+?>
       <a href="admin.php"><?php echo _('Main Menu'); ?></a><br>
       <br><a href="logout.php"><?php echo _('Logout'); ?></a><br>
     </div>
