@@ -117,29 +117,31 @@
      "https" or "http" for mailman.   */
   $mailmanprotocol = "https";
 
-  /* For mailman2, if web hosting for mail domains are not on the same server
-     as Exim4U then you need to specify a domain for mailman2 to use on the Exim4u
-     server. Specify mailman domain name to be used as "domain.tld" or use "default"
-     to use domain selected in the Exim4U user interface.
+  /* If all mailman domains are hosted under a single web domain or are not hosted on
+     the same server as Exim4U then you need to specify a domain for Exim4U to use for 
+     connecting to mailman. Specify the domain that is hosting mailman as "domain.tld"
+     or use "default" to use the domain selected in the Exim4U user interface.
 
-     For mailman3, specify the domain on which the mailman3 installation is hosted.
+     For mailman 2 or mailman3, specify "default" or otherwise use the domain on
+     which the mailman3 installation is hosted.
 
   $mailmandomain = "default";
      or
   $mailmandomain = "domain.tld";
   */
-  $mailmandomain = "domain.tld";
+  $mailmandomain = "default";
   
   /* exim4u: Specify the path to mailman from the domain document root. That is, assuming
      that mailman is located at https://<domain.tld>/mailmandir then specify "mailmandir".
-     $mailmanpath value is normally "mailman" for mailman2 and "postorius" for mailman3.
+     $mailmanpath value is normally "mailman" for mailman2 and "mailman3/postorius/lists"
+     for mailman3.
 
      For mailman2,
           $mailmanpath = "mailman";
      For mailman3,
-          $mailmanpath = "postorius";
+          $mailmanpath = "mailman3/postorius/lists";
   */
-      $mailmanpath = "postorius";
+      $mailmanpath = "mailman3/postorius/lists";
 
   /* sa_tag is the default value to offer when we create new domains for SpamAssassin tagging
      sa_refuse is the default value to offer when we create new domains for SpamAssassin dropping */
