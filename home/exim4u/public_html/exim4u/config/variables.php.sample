@@ -122,7 +122,7 @@
      connecting to mailman. Specify the domain that is hosting mailman as "domain.tld"
      or use "default" to use the domain selected in the Exim4U user interface.
 
-     For mailman 2 or mailman3, specify "default" or otherwise use the domain on
+     For mailman2 or mailman3, specify "default" or otherwise use the domain on
      which the mailman3 installation is hosted.
 
   $mailmandomain = "default";
