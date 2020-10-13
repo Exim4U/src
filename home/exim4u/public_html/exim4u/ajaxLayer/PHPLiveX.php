@@ -233,7 +233,7 @@ class PHPLiveX {
 				$response = call_user_func_array(array($parts[0], $parts[1]), $args);
 			}else if(strpos($function, "->") !== false){
 				$parts = explode("->", $function);
-				global $$parts[0];
+				global $$parts;
 				$object = @$$parts[0];
 				if(!isset($$parts[0])) return;
 				$response = call_user_func_array(array($object, $parts[1]), $args);
