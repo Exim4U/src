@@ -155,6 +155,10 @@ URIBLOCK = YES
 GREYLIST = YES
 # GREYLIST = NO
 #
+# For exim 4.94 and later, sqlite_dbfile must be defined. Otherwise, for earlier versions
+# of exim than 4.94, the following line should be commented out.
+sqlite_dbfile = /var/local/exim4/db/greylist.db
+#
 # Sender Blacklist
 # Blacklist sender addresses by putting their email addresses in /etc/exim/exim4u_blacklisted_senders.
 # Specify the rejection message to be echoed to the sending server. The first line is also the log message.
