@@ -155,10 +155,12 @@ URIBLOCK = YES
 GREYLIST = YES
 # GREYLIST = NO
 #
-# For exim 4.94 and later, sqlite_dbfile must be defined. Otherwise, for earlier versions
-# of exim than 4.94, the following line should be commented out.
-# sqlite_dbfile = /var/spool/exim/db/greylist.db # Use this for FreeBSD
-sqlite_dbfile = /var/local/exim4/db/greylist.db # Use this for Debian Linux
+# For exim 4.94 and later, sqlite_dbfile must be defined for greylisting. Otherwise, for earlier
+# versions of exim than 4.94, the following qlite_dbfile statements should be completely commented out.
+# For exim 4.94 and later on FreeBSD:
+# sqlite_dbfile = /var/spool/exim/db/greylist.db
+# For exim 4.94 and later on Debian Linux:
+sqlite_dbfile = /var/local/exim4/db/greylist.db
 #
 # Sender Blacklist
 # Blacklist sender addresses by putting their email addresses in /etc/exim/exim4u_blacklisted_senders.
