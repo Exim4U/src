@@ -1,6 +1,18 @@
                            Exim4U Version History
 
-                      Current Exim4U Version Is 3.1.1
+                      Current Exim4U Version Is 3.1.2
+
+3.1.2 Release Date: December 30, 2021
+
+  Implemented fixes to address the "Tainted filename for search" error that was
+  introduced in a security patch for Exim 4.94 and later.
+
+  Updated files to accommodate Mailman3 integration.
+
+  Fixed Bug that caused PHP parse error in adminlists.php.
+
+  Fixed Bug in Simple Mailing List script PHPLiveX.php.
+
 
 3.1.1 Release Date: April 6, 2018
 

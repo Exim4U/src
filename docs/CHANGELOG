@@ -1,8 +1,57 @@
             Exim4U Changelog Summary And Upgrade Instructions
 
-                      Current Exim4U Version Is 3.1.1
+                      Current Exim4U Version Is 3.1.2
 
-3.1.0 Release Date: April 6, 2018
+3.1.2 Release Date: December 30, 2021
+
+M       etc/exim/exim-greylist.conf.inc
+A       etc/exim/exim-greylist.conf.inc-USE_WITH_EXIM_4.94_AND_LATER
+A       etc/exim/exim-greylist.conf.inc-USE_WITH_EXIM_PRIOR_TO_VER_4.94
+M       etc/exim/exim.conf
+M       etc/exim/exim4u_local.conf.inc
+M       home/exim4u/public_html/exim4u/adminlists.php
+M       home/exim4u/public_html/exim4u/ajaxLayer/PHPLiveX.php
+M       home/exim4u/public_html/exim4u/config/variables.php.sample
+
+3.1.2 Instructions For Upgrading From Version 3.1.1
+
+Exim4U 3.1.2 is a minor upgrade that has been released primarily to address the
+"Tainted filename for search" error that was introduced in a security patch for
+Exim 4.94 and later. The upgrade is simple as follows:
+
+1) Make a backup copy of your earlier 3.1.1 version directories and
+   files prior to overwriting them.
+
+2) Copy the following files to your live installation's root directory:
+
+	etc/exim/exim-greylist.conf.inc
+	etc/exim/exim-greylist.conf.inc-USE_WITH_EXIM_4.94_AND_LATER
+	etc/exim/exim-greylist.conf.inc-USE_WITH_EXIM_PRIOR_TO_VER_4.94
+	etc/exim/exim.conf
+	etc/exim/exim4u_local.conf.inc
+	home/exim4u/public_html/exim4u/adminlists.php
+	home/exim4u/public_html/exim4u/ajaxLayer/PHPLiveX.php
+	home/exim4u/public_html/exim4u/config/variables.php.sample
+
+3) Exim Configuration Files - Copy and/or modify the following files in your live installation.
+
+	cp home/exim4u/public_html/exim4u/config/variables.php.sample home/exim4u/public_html/exim4u/config/variables.php
+  
+   Then edit variables.php as per your requirements.
+
+   Also, edit etc/exim/exim4u_local.conf.inc and modify as per your requirements.
+
+5) For Exim versions 4.94 and later, execute the following command to upgrade exim-greylist.conf.inc:
+
+	cp etc/exim/exim-greylist.conf.inc-USE_WITH_EXIM_4.94_AND_LATER etc/exim/exim-greylist.conf.inc
+
+   For Exim versions prior to 4.94, the prior version of exim-greylist.conf.inc should continue to work just fine. However,
+   if uncertain as to which version of exim-greylist.conf.inc is installed then execute the following command:
+ 
+	cp etc/exim/exim-greylist.conf.inc-USE_WITH_EXIM_PRIOR_TO_VER_4.94 etc/exim/exim-greylist.conf.inc
+
+
+3.1.1 Release Date: April 6, 2018
 
 A	DOCUMENTS
 R	APPEARANCE    -> docs/APPEARANCE
@@ -34,7 +83,7 @@ D	home/exim4u/public_html/exim4u/config/header.php-BOLD
 D	home/exim4u/public_html/exim4u/config/header.php-LINK_EXIM4U
 D	home/exim4u/public_html/exim4u/config/header.php-LINK_SELF
 M	home/exim4u/public_html/exim4u/config/variables.php.sample
-M	home/exim4u/public_html/exim4u/index.php
+	home/exim4u/public_html/exim4u/index.php
 M	home/exim4u/public_html/exim4u/locale/de/LC_MESSAGES/de.po
 M	home/exim4u/public_html/exim4u/locale/de/LC_MESSAGES/messages.mo
 M	home/exim4u/public_html/exim4u/locale/es/LC_MESSAGES/es.po
@@ -69,7 +118,7 @@ D	xtrasw/rpmforge_apt-get/get_rpmforge
 
 3.1.1 Instructions For Upgrading From Version 3.1.0
 
-1) Documentation - Refer to the documentation files in the Exim4U 3.1.1
+1) Documentation - Refer to the documentation files in Exim4U 3.1.1
    docs (DOCUMENTS) directory:
        docs/APPEARANCE
        docs/CHANGELOG
