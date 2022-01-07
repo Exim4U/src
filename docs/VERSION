@@ -2,7 +2,7 @@
 
                       Current Exim4U Version Is 3.1.2
 
-3.1.2 Release Date: December 30, 2021
+3.1.2 Release Date: January 7, 2022
 
   Implemented fixes to address the "Tainted filename for search" error that was
   introduced in a security patch for Exim 4.94 and later.

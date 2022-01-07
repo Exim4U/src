@@ -2,7 +2,7 @@
 
                       Current Exim4U Version Is 3.1.2
 
-3.1.2 Release Date: December 30, 2021
+3.1.2 Release Date: January 7, 2022
 
 M       etc/exim/exim-greylist.conf.inc
 A       etc/exim/exim-greylist.conf.inc-USE_WITH_EXIM_4.94_AND_LATER
