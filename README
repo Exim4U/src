@@ -1,5 +1,33 @@
-                                       Getting Started With Exim4U
-                                       ---------------------------
+WARNING
+-------
+
+This code is probably unsafe.
+
+Much of the user interface for Exim4U originated from the Virtual Exim
+(VExim) project and they have posted a similar warning on their github home page.
+
+There may be security issues in this code. It was written as a helpful utility in 2004 and has had
+minimal changes since then. Very little effort went in at the time to protect it against various
+security attacks. While we do eventually fix security issues we become aware of, we aren't bound
+by any SLAs, so fixes don't always happen quickly.
+
+Patches to fix security issues will be accepted as time permits, but the code (especially the web
+based user interface) certainly needs an overhaul, and that will only happen if someone with enough
+time and motivation steps up.
+
+In short:
+
+    If you are considering Exim4U or VExim, we advise you to at least have a look at
+    other similar solutions as well.
+    If you are already using Exim4U or VExim, please consider taking extra steps to secure it.
+    If you're interested in contributing a rewrite, or participating in one, let us know.
+    Pull requests with bugfixes are always welcome!
+
+
+
+Getting Started With Exim4U
+---------------------------
+
 
 Initial Installation
 --------------------
