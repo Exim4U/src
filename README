@@ -1,6 +1,5 @@
 WARNING
 -------
-
 This code is probably unsafe.
 
 Much of the user interface for Exim4U originated from the Virtual Exim
@@ -27,7 +26,6 @@ In short:
 
 Getting Started With Exim4U
 ---------------------------
-
 
 Initial Installation
 --------------------
