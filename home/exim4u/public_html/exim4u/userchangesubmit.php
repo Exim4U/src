@@ -60,7 +60,7 @@
   if ((isset($_POST['on_spambox'])) && (isset($_POST['on_spamassassin']))) {$_POST['on_spambox'] = 1;} else {$_POST['on_spambox'] = 0;}
   if ((isset($_POST['on_spamassassin'])) && ($row['spamassassin'] === '1')) {$_POST['on_spamassassin'] = 1;} else {$_POST['on_spamassassin'] = 0;}
 
-  if (isset($_POST['maxmsgsize']) && $row['maxmsgsize']!=='0') {
+  if (isset($_POST['maxmsgsize']) && $row['maxmsgsize']!='0') {
     if ($_POST['maxmsgsize']<=0 || $_POST['maxmsgsize']>$row['maxmsgsize']) {
       header ("Location: userchange.php?maxmsgsizehigh={$row['maxmsgsize']}");
       die;

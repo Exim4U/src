@@ -73,7 +73,7 @@
   if (!isset($_POST['quota'])) {
     $_POST['quota'] = $row['quotas'];
   }
-  if ($row['quotas'] !== "0") {
+  if ($row['quotas'] != "0") {
     if (($_POST['quota'] > $row['quotas']) || ($_POST['quota'] === "0")) {
       header ("Location: adminuserchange.php?user_id={$_POST['user_id']}&localpart={$_POST['localpart']}&quotahigh={$row['quotas']}");
       die;
