@@ -7,7 +7,7 @@
 # The remainder of the entries are default entries and were
 # automatically generated from:
 # http://svn.apache.org/repos/asf/spamassassin/tags/spamassassin_current_release_3.2.x/rules/25_uribl.cf
-# Tue Mar  6 20:36:02 MST 2012
+# Sun Aug 21 19:57:41 MDT 2022
 example.com
 example.net
 example.org

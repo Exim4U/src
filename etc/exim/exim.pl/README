@@ -1,5 +1,5 @@
 BLOCKING SPAM IN EXIM WITH URI BLOCK LISTS
-Version 2.3 - 06 Mar 12
+Version 2.4 - 21 Aug 22
 
 See the changelog (below) for details on changes.
 
@@ -201,6 +201,17 @@ This script is under a BSD style license. See the script for details.
 
 Changes
 =======
+Version 2.4 - 21 Aug 22
+
+    * Change the parsing of the "http://" to also check for "https://".
+    * Made updates to support SURBL's not so new classification system.
+    * Updated the Spamhause URL referenced in rejection messages.
+    * Other debug changes.
+    * Thanks to CJ Fearnley (www.LinuxForce.net) for all of these changes
+      and for providing a patch.
+    * Regenerated surble_whitelist.txt, two-level-tlds, and three-level-tlds
+      files.
+
 Version 2.3 - 06 Mar 12
 
     * Added functionality to better parse "http://" strings that are being 

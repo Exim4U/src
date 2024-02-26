@@ -1,4 +1,4 @@
-# Copyright (c) 2006-2012 Erik Mugele.  All rights reserved.
+# Copyright (c) 2006-2022 Erik Mugele.  All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -23,8 +23,8 @@
 sub surblspamcheck
 {
 
-# Designed and written by Erik Mugele, 2004-2010,1http://www.teuton.org/~ejm
-# Version 2.3-beta
+# Designed and written by Erik Mugele, 2004-2022, http://www.teuton.org/~ejm
+# Version 2.4
 #
 # Please see the following website for details on usage of
 # this script:  http://www.teuton.org/~ejm/exim_surbl
@@ -58,10 +58,10 @@ sub surblspamcheck
     # keep the load down on the server.  Size is in bytes.
     my $max_file_size = 50000;
     
-    # The following ariables enable or disable the SURBL, URIBL and DBL
+    # The following variables enable or disable the SURBL, URIBL and DBL
     # lookups.  Set to 1 to enable and 0 to disable.
     my $surbl_enable = 1;
-    my $uribl_enable = 1;
+    my $uribl_enable = 0;
     my $dbl_enable = 1;
     
     # Check to see if a decode MIME attachment is being checked or 
@@ -70,7 +70,7 @@ sub surblspamcheck
     my $mime_filename = Exim::expand_string('$mime_decoded_filename');
     if ($mime_filename) {
         # DEBUG Statement
-        #warn ("MIME FILENAME: $mime_filename\n");
+        #warn ("surblspamcheck MIME FILENAME: $mime_filename\n");
         # If the MIME file is too large, skip it.
         if (-s $mime_filename <= $max_file_size) {
             open(fh,"<$mime_filename");
@@ -97,23 +97,17 @@ sub surblspamcheck
         if (scalar(@dnsbladdr) != 0) {
             $return_string = "Blacklisted URL in message. (".$params[0].") in";
             @surblipaddr = unpack('C4',($dnsbladdr[4])[0]);
-            if ($surblipaddr[3] & 64) {
-                $return_string .= " [jp]";
+            if ($surblipaddr[3] & 128) {
+                $return_string .= " [CR]";
             }
-            if ($surblipaddr[3] & 32) {
-                $return_string .= " [ab]";
+            if ($surblipaddr[3] & 64) {
+                $return_string .= " [ABUSE]";
             }
             if ($surblipaddr[3] & 16) {
-                $return_string .= " [ob]";
+                $return_string .= " [MW]";
             }
             if ($surblipaddr[3] & 8) {
-                $return_string .= " [ph]";
-            }
-            if ($surblipaddr[3] & 4) {
-                $return_string .= " [ws]";
-            }
-            if ($surblipaddr[3] & 2) {
-                $return_string .= " [sc]";
+                $return_string .= " [PH]";
             }
             $return_string .= ". See http://www.surbl.org/lists.html.";
         }
@@ -155,7 +149,7 @@ sub surblspamcheck
         $return_string = "";
         if (scalar(@dnsbladdr) != 0) {
             $return_string = "Blacklisted URL in message: ".$params[0];
-            $return_string .= ". See http://www.spamhaus.org/lookup.lasso?dnsbl=domain.";
+            $return_string .= ". See https://www.spamhaus.org/query/domain/".$params[0];
         }
         return $return_string;
     }
@@ -196,7 +190,7 @@ sub surblspamcheck
 
     if ($exim_body) {
         # Find all the URLs in the message by finding the HTTP string
-        @parts = split(/[hH][tT][tT][pP](:|=3[aA])(\/|=2[Ff])(\/|=2[Ff])/,$exim_body);
+        @parts = split(/[hH][tT][tT][pP]([sS]:|:|[sS]=3[aA]|=3[aA])(\/|=2[Ff])(\/|=2[Ff])/,$exim_body);
         if (scalar(@parts) > 1) {
             # Read the entries from the two-level TLD file.
             open (twotld_handle,$twotld_file) or die "Can't open $twotld_file.\n";
@@ -260,7 +254,7 @@ sub surblspamcheck
                     $spamcheckdomain = "";
 
                     # DEBUG statement.
-                    #warn ("FOUND DOMAIN: ".mkaddress(@domain,scalar(@domain))."\n");
+                    #warn ("surblspamcheck FOUND DOMAIN: ".mkaddress(@domain,scalar(@domain))."\n");
 
                     # Domain has two or more than four elements.
                     if ((scalar(@domain) == 2) || (scalar(@domain) >=5)) {
