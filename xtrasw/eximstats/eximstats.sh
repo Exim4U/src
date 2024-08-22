@@ -47,6 +47,7 @@ pattern17="'SA Add Ons' '/rejected as SPAM/'"
 pattern18="Greylisted '/rejected after DATA: Greylisted/'"
 pattern19="Blackhole '/ditch_spam/'"
 pattern20="'Sender Ratelimit' '/ratelimit \(/'"
+pattern21="'Too many rcpts' '/Too many recipients/'"
 $eximstats_cmd -pattern $pattern1 \
 -pattern $pattern2 \
 -pattern $pattern3 \
@@ -67,6 +68,7 @@ $eximstats_cmd -pattern $pattern1 \
 -pattern $pattern18 \
 -pattern $pattern19 \
 -pattern $pattern20 \
+-pattern $pattern21 \
 -nr -ne -charts -chartdir $destdir -html=$htmlfile -txt=$txtfile $logfile
 #
 # Optionally, email report links to recipients.

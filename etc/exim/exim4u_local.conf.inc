@@ -107,6 +107,10 @@ hide mysql_servers = localhost::(/var/lib/mysql/mysql.sock)/exim4u/exim4u/CHANGE
 # client submissions.
 daemon_smtp_ports = 25 : 465 : 587
 #
+# exim4u: Specify the maximum number of recipients for incoming mail. Mail with recipients => MAXRECEIPTS
+# will be rejected with "Too many recipients" as the rejection notice and log message.
+MAXRECEIPTS = 100
+#
 # The following setting is only needed if you use the 'spam' ACL condition
 # of the exiscan-acl patch. It specifies on which host and port the SpamAssassin
 # "spamd" daemon is listening. If you do not use this condition, or you use
