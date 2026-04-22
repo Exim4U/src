@@ -8,6 +8,9 @@
 #
 primary_hostname = hostname.tld
 #
+disable ipv6
+disable_ipv6 = true
+#
 # Specify the user (UID) and group (GID) that exim will run as.
 exim_user = exim
 exim_group = exim
